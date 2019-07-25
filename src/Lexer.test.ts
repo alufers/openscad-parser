@@ -3,6 +3,8 @@ import CodeFile from "./CodeFile";
 import TokenType from "./TokenType";
 import LiteralToken from "./LiteralToken";
 import LexingError from "./LexingError";
+import { resolve } from "path";
+import Token from "./Token";
 
 function lexToTTStream(code: string) {
   const lexer = new Lexer(new CodeFile("<test>", code));
@@ -12,6 +14,24 @@ function lexToTTStream(code: string) {
 function lexTokens(code: string) {
   const lexer = new Lexer(new CodeFile("<test>", code));
   return lexer.scan();
+}
+
+function simplifyTokens(tokens: Token[]) {
+  return tokens.map(token => {
+    if (token instanceof LiteralToken) {
+      return {
+        val: token.value,
+        posChar: token.pos.char,
+        type: TokenType[token.type],
+        l: token.lexeme
+      };
+    }
+    return {
+      posChar: token.pos.char,
+      type: TokenType[token.type], // reverse lookup the token type so that it is easier to read the snaps
+      l: token.lexeme
+    };
+  });
 }
 
 describe("Lexer", () => {
@@ -82,7 +102,7 @@ describe("Lexer", () => {
     ]);
   });
 
-  describe("number parsing", () => {
+  describe("number lexing", () => {
     function testNumberLexing(source: string) {
       const tokens = lexTokens(source);
       if (!(tokens[0] instanceof LiteralToken)) {
@@ -111,6 +131,18 @@ describe("Lexer", () => {
     });
     it("lexes numbers starting with a dot", () => {
       expect(testNumberLexing(".9")).toEqual(0.9);
+    });
+  });
+
+  describe("lexing of random fiiles found on the internet", () => {
+    async function lexFile(path: string) {
+      const file = await CodeFile.load(resolve(__dirname, path));
+      const lexer = new Lexer(file);
+      return lexer.scan();
+    }
+    it("lexes hull.scad and matches snapshot", async () => {
+      const tokens = await lexFile("testdata/hull.scad");
+      expect(simplifyTokens(tokens)).toMatchSnapshot();
     });
   });
 });
