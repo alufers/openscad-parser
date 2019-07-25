@@ -37,4 +37,11 @@ export default class CodeLocation {
     return `file '${this.file.filename}' line ${this.line + 1} column ${this
       .col + 1}'`;
   }
+
+  /**
+   * Copies this object.
+   */
+  copy() {
+    return new CodeLocation(this.file, this.char, this.line, this.col);
+  }
 }
