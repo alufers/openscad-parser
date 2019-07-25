@@ -102,6 +102,39 @@ describe("Lexer", () => {
     ]);
   });
 
+  it("scans && and ||", () => {
+    const tts = lexToTTStream(`abc && ddd || afs;`);
+    expect(tts).toEqual([
+      TokenType.Identifier,
+      TokenType.AND,
+      TokenType.Identifier,
+      TokenType.OR,
+      TokenType.Identifier,
+      TokenType.Semicolon,
+      TokenType.Eot
+    ]);
+  });
+
+  it("scans dots", () => {
+    const tts = lexToTTStream(`abc.ddd;`);
+    expect(tts).toEqual([
+      TokenType.Identifier,
+      TokenType.Dot,
+      TokenType.Identifier,
+      TokenType.Semicolon,
+      TokenType.Eot
+    ]);
+  });
+
+  it("throws LexingError on single & and single |", () => {
+    expect(() => lexToTTStream(`&`)).toThrowError(LexingError);
+    expect(() => lexToTTStream(`|`)).toThrowError(LexingError);
+  });
+
+  it("throws LexingError on unexpected characters", () => {
+    expect(() => lexToTTStream(`~~~~~~`)).toThrowError(LexingError);
+  });
+
   describe("number lexing", () => {
     function testNumberLexing(source: string) {
       const tokens = lexTokens(source);
@@ -152,6 +185,17 @@ describe("Lexer", () => {
     });
     it("lexes empty strings", () => {
       expect(testStringLexing(`""`)).toEqual("");
+    });
+    it("lexes strings with escape sequences", () => {
+      expect(testStringLexing(`"a\\nb\\t\\rc\\\\gg\\"g"`)).toEqual(
+        'a\nb\t\rc\\gg"g'
+      );
+    });
+    it("throws LexingError on invalid escape sequences", () => {
+      expect(() => testStringLexing(`"\\XD"`)).toThrowError(LexingError);
+    });
+    it("throws LexingError on unterminated strings", () => {
+      expect(() => testStringLexing(`"aaaa`)).toThrowError(LexingError);
     });
   });
   describe("lexing of random fiiles found on the internet", () => {
