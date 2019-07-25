@@ -230,9 +230,9 @@ export default class Lexer {
   /**
    * Adds a token to the token list. If a value is provieded a LiteralToken is pushed.
    */
-  protected addToken<TValue = any>(tokenType: TokenType, value?: TValue) {
+  protected addToken<TValue = any>(tokenType: TokenType, value: TValue = null) {
     const lexeme = this.codeFile.code.substring(this.start.char, this.loc.char);
-    if (value) {
+    if (value != null) {
       this.tokens.push(
         new LiteralToken(tokenType, this.loc.copy(), lexeme, value)
       );

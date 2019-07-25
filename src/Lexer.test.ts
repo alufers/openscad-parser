@@ -114,6 +114,10 @@ describe("Lexer", () => {
     it("lexes one digit numbers", () => {
       expect(testNumberLexing("9")).toEqual(9);
     });
+    it("lexes zero", () => {
+      expect(testNumberLexing("0")).toEqual(0);
+      expect(testNumberLexing("0.0")).toEqual(0);
+    });
     it("lexes numbers with multiple digits", () => {
       expect(testNumberLexing("786")).toEqual(786);
     });
@@ -134,6 +138,22 @@ describe("Lexer", () => {
     });
   });
 
+  describe("string lexing", () => {
+    function testStringLexing(source: string) {
+      const tokens = lexTokens(source);
+      if (!(tokens[0] instanceof LiteralToken)) {
+        throw new Error("First token is not a literal. Fix that test!");
+      }
+
+      return (tokens[0] as LiteralToken<string>).value;
+    }
+    it("lexes simple strings", () => {
+      expect(testStringLexing(`"hello"`)).toEqual("hello");
+    });
+    it("lexes empty strings", () => {
+      expect(testStringLexing(`""`)).toEqual("");
+    });
+  });
   describe("lexing of random fiiles found on the internet", () => {
     async function lexFile(path: string) {
       const file = await CodeFile.load(resolve(__dirname, path));
