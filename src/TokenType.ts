@@ -146,7 +146,17 @@ enum TokenType {
   /**
    * .
    */
-  Dot
+  Dot,
+
+  /**
+   * The ? symbol
+   */
+  QuestionMark,
+
+  /**
+   * The : symbol
+   */
+  Colon
 }
 
 export default TokenType;

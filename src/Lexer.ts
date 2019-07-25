@@ -80,6 +80,12 @@ export default class Lexer {
       case ",":
         this.addToken(TokenType.Comma);
         break;
+      case ":":
+        this.addToken(TokenType.Colon);
+        break;
+      case "?":
+        this.addToken(TokenType.QuestionMark);
+        break;
       case ";":
         this.addToken(TokenType.Semicolon);
         break;
