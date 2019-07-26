@@ -142,7 +142,7 @@ export default class Lexer {
       default:
         if (/[0-9]/.test(c)) {
           this.consumeNumberLiteral();
-        } else if (/[A-Za-z\$]/.test(c)) {
+        } else if (/[A-Za-z\$_]/.test(c)) {
           this.consumeIdentifierOrKeyword();
         } else {
           throw new LexingError(
