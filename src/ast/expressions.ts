@@ -1,6 +1,6 @@
 import ASTNode from "./ASTNode";
-import TokenType from "./TokenType";
-import CodeLocation from "./CodeLocation";
+import TokenType from "../TokenType";
+import CodeLocation from "../CodeLocation";
 import AssignmentNode from "./AssignmentNode";
 
 export abstract class Expression extends ASTNode {}

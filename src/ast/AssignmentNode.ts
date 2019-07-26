@@ -1,6 +1,6 @@
 import ASTNode from "./ASTNode";
 import { Expression } from "./expressions";
-import CodeLocation from "./CodeLocation";
+import CodeLocation from "../CodeLocation";
 
 export default class AssignmentNode extends ASTNode {
   /**
