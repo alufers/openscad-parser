@@ -1,7 +1,12 @@
 import Lexer from "./Lexer";
 import CodeFile from "./CodeFile";
 import Parser from "./Parser";
-import { UseStmt } from "./ast/statements";
+import {
+  UseStmt,
+  BlockStmt,
+  NoopStmt,
+  ModuleDeclarationStmt
+} from "./ast/statements";
 import ParsingError from "./ParsingError";
 
 describe("Parser", () => {
@@ -30,6 +35,116 @@ describe("Parser", () => {
     expect(() =>
       doParse(`
     use <ty
+    `)
+    ).toThrow(ParsingError);
+  });
+  it("parses block statements", () => {
+    const scadFile = doParse(`
+    {}
+    `);
+    expect(scadFile.statements[0]).toBeInstanceOf(BlockStmt);
+    expect(scadFile.statements).toHaveLength(1);
+  });
+  it("parses nested block statements and noop statements", () => {
+    const scadFile = doParse(`
+    {{;}}
+    `);
+    expect(scadFile.statements[0]).toBeInstanceOf(BlockStmt);
+    expect((scadFile.statements[0] as BlockStmt).children[0]).toBeInstanceOf(
+      BlockStmt
+    );
+    expect(
+      ((scadFile.statements[0] as BlockStmt).children[0] as BlockStmt)
+        .children[0]
+    ).toBeInstanceOf(NoopStmt);
+  });
+  it("throws on unterminated block statements", () => {
+    expect(() =>
+      doParse(`
+        {
+    `)
+    ).toThrow(ParsingError);
+  });
+  it("parses module declarations", () => {
+    const scadFile = doParse(`
+    module testmod() {
+      
+    }
+    `);
+    expect(scadFile.statements[0]).toBeInstanceOf(ModuleDeclarationStmt);
+    const decl = scadFile.statements[0] as ModuleDeclarationStmt;
+    expect(decl.name).toEqual("testmod");
+  });
+  it("parses module declarations with parameters", () => {
+    const scadFile = doParse(`
+    module testmod(abc) {
+      
+    }
+    `);
+    expect(scadFile.statements[0]).toBeInstanceOf(ModuleDeclarationStmt);
+    const decl = scadFile.statements[0] as ModuleDeclarationStmt;
+    expect(decl.definitionArgs.length).toEqual(1);
+    expect(decl.definitionArgs[0].name).toEqual("abc");
+  });
+  it("parses module declarations with multiple parameters", () => {
+    const scadFile = doParse(`
+    module testmod(abc, gfg) {
+      
+    }
+    `);
+    expect(scadFile.statements[0]).toBeInstanceOf(ModuleDeclarationStmt);
+    const decl = scadFile.statements[0] as ModuleDeclarationStmt;
+    expect(decl.definitionArgs.length).toEqual(2);
+    expect(decl.definitionArgs[0].name).toEqual("abc");
+    expect(decl.definitionArgs[1].name).toEqual("gfg");
+  });
+
+  it("parses module declarations with multiple parameters and weird commas", () => {
+    const scadFile = doParse(`
+    module testmod(,,,,abc,, gfg,,,) {
+      
+    }
+    `);
+    expect(scadFile.statements[0]).toBeInstanceOf(ModuleDeclarationStmt);
+    const decl = scadFile.statements[0] as ModuleDeclarationStmt;
+    expect(decl.definitionArgs.length).toEqual(2);
+    expect(decl.definitionArgs[0].name).toEqual("abc");
+    expect(decl.definitionArgs[1].name).toEqual("gfg");
+  });
+  it("parses module declarations only commas in the parameters params", () => {
+    const scadFile = doParse(`
+    module testmod(,,,,,) {
+      
+    }
+    `);
+    expect(scadFile.statements[0]).toBeInstanceOf(ModuleDeclarationStmt);
+    const decl = scadFile.statements[0] as ModuleDeclarationStmt;
+    expect(decl.definitionArgs.length).toEqual(0);
+  });
+  it("throws on unterminated parameters lists in module declarations", () => {
+    expect(() =>
+      doParse(`
+        module unterminated (
+    `)
+    ).toThrow(ParsingError);
+  });
+  it("throws on unexpected tokens in module declaration parameters", () => {
+    expect(() =>
+      doParse(`
+        module unterminated (abc-) {}
+    `)
+    ).toThrow(ParsingError);
+  });
+  it("throws on garbage in module declaration parameters", () => {
+    expect(() =>
+      doParse(`
+        module unterminated (-) {}
+    `)
+    ).toThrow(ParsingError);
+
+    expect(() =>
+      doParse(`
+        module unterminated (==!>XDD) {}
     `)
     ).toThrow(ParsingError);
   });
