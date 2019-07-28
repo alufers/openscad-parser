@@ -148,4 +148,10 @@ describe("Parser", () => {
     `)
     ).toThrow(ParsingError);
   });
+
+  it("parses function declarations", () => {
+    doParse(`
+     function noop (x = false) = x;
+  `);
+  });
 });

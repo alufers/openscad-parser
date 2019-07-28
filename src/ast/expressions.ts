@@ -306,3 +306,14 @@ export class LcLetExpr extends Expression {
     this.expr = expr;
   }
 }
+
+/**
+ * An expression enclosed in parenthesis.
+ */
+export class GroupingExpr extends Expression {
+  inner: Expression;
+  constructor(pos: CodeLocation, inner: Expression) {
+    super(pos);
+    this.inner = inner;
+  }
+}

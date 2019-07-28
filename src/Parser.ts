@@ -7,13 +7,19 @@ import {
   UseStmt,
   NoopStmt,
   BlockStmt,
-  ModuleDeclarationStmt
+  ModuleDeclarationStmt,
+  FunctionDeclarationStmt
 } from "./ast/statements";
 import ScadFile from "./ast/ScadFile";
 import CodeLocation from "./CodeLocation";
 import AssignmentNode from "./ast/AssignmentNode";
 import LiteralToken from "./LiteralToken";
-import { Expression } from "./ast/expressions";
+import {
+  Expression,
+  LiteralExpr,
+  Lookup,
+  GroupingExpr
+} from "./ast/expressions";
 
 export default class Parser {
   protected currentToken = 0;
@@ -58,6 +64,9 @@ export default class Parser {
     if (this.matchToken(TokenType.Module)) {
       return this.moduleDeclarationStatement();
     }
+    if (this.matchToken(TokenType.Function)) {
+      return this.functionDeclarationStatement();
+    }
     this.advance();
   }
   protected blockStatement() {
@@ -78,6 +87,26 @@ export default class Parser {
     const args: AssignmentNode[] = this.namedArguments();
     const body = this.statement();
     return new ModuleDeclarationStmt(
+      this.getLocation(),
+      (nameToken as LiteralToken<string>).value,
+      args,
+      body
+    );
+  }
+  protected functionDeclarationStatement(): FunctionDeclarationStmt {
+    const nameToken = this.consume(
+      TokenType.Identifier,
+      "Expected function name after 'function' keyword"
+    );
+    this.consume(TokenType.LeftParen, "Expected '(' after function name");
+    const args: AssignmentNode[] = this.namedArguments();
+    this.consume(TokenType.Equal, "Expected '=' after function parameters");
+    const body = this.expression();
+    this.consume(
+      TokenType.Semicolon,
+      "Expected ';' after function declaration"
+    );
+    return new FunctionDeclarationStmt(
       this.getLocation(),
       (nameToken as LiteralToken<string>).value,
       args,
@@ -131,7 +160,49 @@ export default class Parser {
     while (this.matchToken(TokenType.Comma) && !this.isAtEnd()) {}
   }
   expression(): Expression {
-    throw new Error("Method not implemented.");
+    return this.primary();
+  }
+
+  primary() {
+    if (this.matchToken(TokenType.True)) {
+      return new LiteralExpr(this.getLocation(), true);
+    }
+    if (this.matchToken(TokenType.False)) {
+      return new LiteralExpr(this.getLocation(), false);
+    }
+    if (this.matchToken(TokenType.Undef)) {
+      return new LiteralExpr(this.getLocation(), null);
+    }
+    if (this.matchToken(TokenType.NumberLiteral)) {
+      return new LiteralExpr(
+        this.getLocation(),
+        (this.previous() as LiteralToken<number>).value
+      );
+    }
+    if (this.matchToken(TokenType.StringLiteral)) {
+      return new LiteralExpr(
+        this.getLocation(),
+        (this.previous() as LiteralToken<string>).value
+      );
+    }
+    if (this.matchToken(TokenType.Identifier)) {
+      return new Lookup(
+        this.getLocation(),
+        (this.previous() as LiteralToken<string>).value
+      );
+    }
+    if (this.matchToken(TokenType.LeftParen)) {
+      const expr = this.expression();
+      this.consume(
+        TokenType.RightParen,
+        "Expected ')' after grouping expression."
+      );
+      return new GroupingExpr(this.getLocation(), expr);
+    }
+    throw new ParsingError(
+      this.getLocation(),
+      "Failed to match primary expression."
+    );
   }
 
   protected consume(tt: TokenType, errorMessage: string) {
