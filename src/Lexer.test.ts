@@ -125,7 +125,15 @@ describe("Lexer", () => {
       TokenType.Eot
     ]);
   });
-
+  it("scans hashes", () => {
+    const tts = lexToTTStream(`#{}`);
+    expect(tts).toEqual([
+      TokenType.Hash,
+      TokenType.LeftBrace,
+      TokenType.RightBrace,
+      TokenType.Eot
+    ]);
+  });
   it("throws LexingError on single & and single |", () => {
     expect(() => lexToTTStream(`&`)).toThrowError(LexingError);
     expect(() => lexToTTStream(`|`)).toThrowError(LexingError);

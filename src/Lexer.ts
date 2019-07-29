@@ -89,6 +89,9 @@ export default class Lexer {
       case ";":
         this.addToken(TokenType.Semicolon);
         break;
+      case "#":
+        this.addToken(TokenType.Hash);
+        break;
       case "!":
         if (this.match("=")) {
           this.addToken(TokenType.BangEqual);

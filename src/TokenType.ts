@@ -102,7 +102,13 @@ enum TokenType {
    * !=
    */
   BangEqual,
+  /**
+   * &&
+   */
   AND,
+  /**
+   * ||
+   */
   OR,
 
   Plus,
@@ -156,7 +162,12 @@ enum TokenType {
   /**
    * The : symbol
    */
-  Colon
+  Colon,
+
+  /**
+   * The '#' symbol
+   */
+  Hash
 }
 
 export default TokenType;
