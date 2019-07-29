@@ -18,7 +18,8 @@ import {
   ArrayLookupExpr,
   FunctionCallExpr,
   BinaryOpExpr,
-  UnaryOpExpr
+  UnaryOpExpr,
+  TernaryExpr
 } from "./ast/expressions";
 import ASTNode from "./ast/ASTNode";
 import CodeLocation from "./CodeLocation";
@@ -585,5 +586,31 @@ describe("Parser", () => {
       [1, "cond", "operation"],
       TokenType.OR
     );
+  });
+  it("parses the ternary operator", () => {
+    const file = doParse(`
+      x = a ? b : c;
+    `);
+    expect(file.statements[0]).toHaveProperty("value.cond");
+    expect(file.statements[0]).toHaveProperty("value.ifExpr");
+    expect(file.statements[0]).toHaveProperty("value.ifExpr.name", "b");
+    expect(file.statements[0]).toHaveProperty("value.elseExpr.name", "c");
+  });
+  it("parses nested ternary operators", () => {
+    const file = doParse(`
+      x = a ? x ? d : u : c;
+    `);
+    expect(file.statements[0]).toHaveProperty("value.cond");
+    expect(file.statements[0]).toHaveProperty("value.ifExpr");
+    expect(file.statements[0]).toHaveProperty("value.ifExpr.cond.name", "x");
+    expect(file.statements[0]).toHaveProperty("value.ifExpr.ifExpr.name", "d");
+    expect(file.statements[0]).toHaveProperty("value.elseExpr.name", "c");
+  });
+  it("throws on unterminated ternary operator", () => {
+    expect(() =>
+      doParse(`
+       val = cond ? dup
+    `)
+    ).toThrow(ParsingError);
   });
 });

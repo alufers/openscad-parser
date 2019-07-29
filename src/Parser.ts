@@ -25,7 +25,8 @@ import {
   ArrayLookupExpr,
   FunctionCallExpr,
   BinaryOpExpr,
-  UnaryOpExpr
+  UnaryOpExpr,
+  TernaryExpr
 } from "./ast/expressions";
 import keywords from "./keywords";
 
@@ -305,7 +306,25 @@ export default class Parser {
     while (this.matchToken(TokenType.Comma) && !this.isAtEnd()) {}
   }
   protected expression(): Expression {
-    return this.logicalOr();
+    return this.ternary();
+  }
+
+  /**
+   * Parses the ternary '? :' expression
+   */
+  protected ternary() {
+    let expr = this.logicalOr();
+    while (this.matchToken(TokenType.QuestionMark)) {
+      const operator = this.previous();
+      const thenBranch = this.ternary();
+      this.consume(
+        TokenType.Colon,
+        "Expected ':' between ternary expression branches."
+      );
+      const elseBranch = this.ternary();
+      expr = new TernaryExpr(operator.pos, expr, thenBranch, elseBranch);
+    }
+    return expr;
   }
 
   /**
