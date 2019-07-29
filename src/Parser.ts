@@ -65,6 +65,7 @@ export default class Parser {
           this.previous().pos.char
         );
         statements.push(new UseStmt(this.getLocation(), filename));
+        this.advance(); // advance the '>' token
       } else {
         statements.push(this.statement());
       }
@@ -92,7 +93,10 @@ export default class Parser {
     if (assignmentOrInst) {
       return assignmentOrInst;
     }
-    this.advance();
+    throw new ParsingError(
+      this.getLocation(),
+      `Unexpected token ${this.peek()}. Expected statement.`
+    );
   }
   protected matchAssignmentOrModuleInstantation() {
     // identifiers can mean either an instantiation is incoming or an assignment

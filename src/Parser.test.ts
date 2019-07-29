@@ -174,7 +174,6 @@ describe("Parser", () => {
     `)
     ).toThrow(ParsingError);
   });
-
   it("parses function declarations", () => {
     doParse(`
      function noop (x = false) = x;
@@ -227,7 +226,7 @@ describe("Parser", () => {
       }
     });
   });
-  it("throws on identifiers that are neiither assignments nor module instantations where statements are expected", () => {
+  it("throws on identifiers that are neiither assignments nor module instantiations where statements are expected", () => {
     expect(() =>
       doParse(`
         dupa - 10;  
@@ -336,5 +335,20 @@ describe("Parser", () => {
     expect((file.statements[0] as IfElseStatement).elseBranch).toBeInstanceOf(
       IfElseStatement
     );
+  });
+  it("throws on if statements without a thgen branch", () => {
+    expect(() =>
+      doParse(`
+        if(true)
+      `)
+    ).toThrow(ParsingError);
+  });
+  it("throws when a module instantiation has an unterminated argument list which may cause problems with lookahead", () => {
+   
+    expect(() =>
+      doParse(`
+       doSomething(abc
+    `)
+    ).toThrow(ParsingError);
   });
 });
