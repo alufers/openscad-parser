@@ -1,5 +1,154 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Parser parses module instantiations which are also keywords 1`] = `
+Object {
+  "__c": "ScadFile",
+  "pos": null,
+  "statements": Array [
+    Object {
+      "__c": "ModuleInstantiationStmt",
+      "args": Array [],
+      "child": Object {
+        "__c": "BlockStmt",
+        "children": Array [],
+        "pos": null,
+      },
+      "name": "for",
+      "pos": null,
+      "tagBackground": false,
+      "tagDisabled": false,
+      "tagHighlight": false,
+      "tagRoot": false,
+    },
+    Object {
+      "__c": "ModuleInstantiationStmt",
+      "args": Array [
+        Object {
+          "__c": "AssignmentNode",
+          "name": "x",
+          "pos": null,
+          "value": Object {
+            "__c": "LiteralExpr",
+            "pos": null,
+            "value": 20,
+          },
+        },
+      ],
+      "child": Object {
+        "__c": "BlockStmt",
+        "children": Array [],
+        "pos": null,
+      },
+      "name": "let",
+      "pos": null,
+      "tagBackground": false,
+      "tagDisabled": false,
+      "tagHighlight": false,
+      "tagRoot": false,
+    },
+    Object {
+      "__c": "ModuleInstantiationStmt",
+      "args": Array [],
+      "child": Object {
+        "__c": "BlockStmt",
+        "children": Array [],
+        "pos": null,
+      },
+      "name": "assert",
+      "pos": null,
+      "tagBackground": false,
+      "tagDisabled": false,
+      "tagHighlight": false,
+      "tagRoot": false,
+    },
+    Object {
+      "__c": "ModuleInstantiationStmt",
+      "args": Array [
+        Object {
+          "__c": "AssignmentNode",
+          "name": "",
+          "pos": null,
+          "value": Object {
+            "__c": "LiteralExpr",
+            "pos": null,
+            "value": "hello",
+          },
+        },
+      ],
+      "child": Object {
+        "__c": "NoopStmt",
+        "pos": null,
+      },
+      "name": "echo",
+      "pos": null,
+      "tagBackground": false,
+      "tagDisabled": false,
+      "tagHighlight": false,
+      "tagRoot": false,
+    },
+    Object {
+      "__c": "ModuleInstantiationStmt",
+      "args": Array [],
+      "child": Object {
+        "__c": "BlockStmt",
+        "children": Array [],
+        "pos": null,
+      },
+      "name": "each",
+      "pos": null,
+      "tagBackground": false,
+      "tagDisabled": false,
+      "tagHighlight": false,
+      "tagRoot": false,
+    },
+  ],
+}
+`;
+
+exports[`Parser parses module instantiations with mixed arguments 1`] = `
+Object {
+  "__c": "ScadFile",
+  "pos": null,
+  "statements": Array [
+    Object {
+      "__c": "ModuleInstantiationStmt",
+      "args": Array [
+        Object {
+          "__c": "AssignmentNode",
+          "name": "",
+          "pos": null,
+          "value": Object {
+            "__c": "LiteralExpr",
+            "pos": null,
+            "value": true,
+          },
+        },
+        Object {
+          "__c": "AssignmentNode",
+          "name": "r",
+          "pos": null,
+          "value": Object {
+            "__c": "LiteralExpr",
+            "pos": null,
+            "value": 10,
+          },
+        },
+      ],
+      "child": Object {
+        "__c": "NoopStmt",
+        "pos": null,
+      },
+      "name": "cube",
+      "pos": null,
+      "tagBackground": false,
+      "tagDisabled": false,
+      "tagHighlight": false,
+      "tagRoot": false,
+    },
+  ],
+}
+`;
+
 exports[`Parser parses module instantiations with positional arguments 1`] = `
 Object {
   "__c": "ScadFile",

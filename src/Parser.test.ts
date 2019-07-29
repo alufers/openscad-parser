@@ -272,4 +272,31 @@ describe("Parser", () => {
       )
     ).toMatchSnapshot();
   });
+  it("parses module instantiations with mixed arguments", () => {
+    expect(
+      simplifyAst(
+        doParse(`
+          cube(true, r = 10);
+        `)
+      )
+    ).toMatchSnapshot();
+  });
+  it("parses module instantiations which are also keywords", () => {
+    const f = doParse(`
+    for() {
+
+    }
+    let(x = 20) {
+
+    }
+    assert() {
+
+    }
+    echo("hello");
+    each() {
+
+    }
+   `);
+    expect(simplifyAst(f)).toMatchSnapshot();
+  });
 });

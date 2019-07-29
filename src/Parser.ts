@@ -21,12 +21,21 @@ import {
   Lookup,
   GroupingExpr
 } from "./ast/expressions";
+import keywords from "./keywords";
 
 const moduleInstantiationTagTokens = [
   TokenType.Bang,
   TokenType.Hash,
   TokenType.Percent,
   TokenType.Star
+];
+
+const keywordModuleNames = [
+  TokenType.For,
+  TokenType.Let,
+  TokenType.Assert,
+  TokenType.Echo,
+  TokenType.Each
 ];
 
 export default class Parser {
@@ -95,7 +104,9 @@ export default class Parser {
         `Unexpected token ${this.peek()} after identifier in statement.`
       );
     }
-    if (this.matchToken(...moduleInstantiationTagTokens)) {
+    if (
+      this.matchToken(...moduleInstantiationTagTokens, ...keywordModuleNames)
+    ) {
       return this.moduleInstantiationStatement();
     }
     return null;
@@ -186,13 +197,24 @@ export default class Parser {
     return mod;
   }
   protected singleModuleInstantiation() {
-    const name = this.previous() as LiteralToken<string>;
+    const prev = this.previous();
     this.consume(
       TokenType.LeftParen,
       "Expected '(' after module instantation."
     );
+    let name: string;
+    if (prev instanceof LiteralToken) {
+      name = prev.value as string;
+    } else {
+      for (const keywordName of Object.keys(keywords)) {
+        if (keywords[keywordName] === prev.type) {
+          name = keywordName;
+          break;
+        }
+      }
+    }
     const args = this.args(true);
-    return new ModuleInstantiationStmt(name.pos, name.value, args, null);
+    return new ModuleInstantiationStmt(prev.pos, name, args, null);
   }
 
   protected args(allowPositional = false): AssignmentNode[] {
