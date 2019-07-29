@@ -567,4 +567,23 @@ describe("Parser", () => {
       TokenType.OR
     );
   });
+  it("parses logical operators with the correct precedence", () => {
+    const file = doParse(`
+      if(true && false || undef) {
+
+      }
+      if(true || false && undef) {
+
+      }
+
+    `);
+    expect(file.statements).toHaveProperty(
+      [0, "cond", "operation"],
+      TokenType.OR
+    );
+    expect(file.statements).toHaveProperty(
+      [1, "cond", "operation"],
+      TokenType.OR
+    );
+  });
 });

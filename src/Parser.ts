@@ -305,15 +305,28 @@ export default class Parser {
     while (this.matchToken(TokenType.Comma) && !this.isAtEnd()) {}
   }
   protected expression(): Expression {
-    return this.logical();
+    return this.logicalOr();
   }
 
   /**
-   * Parses the '&&' and '||' operators
+   * Parses the '||' operators
    */
-  protected logical() {
+  protected logicalOr() {
+    let expr = this.logicalAnd();
+    while (this.matchToken(TokenType.OR)) {
+      const operator = this.previous();
+      const right = this.logicalAnd();
+      expr = new BinaryOpExpr(this.getLocation(), expr, operator.type, right);
+    }
+    return expr;
+  }
+
+  /**
+   * Parses the '&&' operators
+   */
+  protected logicalAnd() {
     let expr = this.equality();
-    while (this.matchToken(TokenType.AND, TokenType.OR)) {
+    while (this.matchToken(TokenType.AND)) {
       const operator = this.previous();
       const right = this.equality();
       expr = new BinaryOpExpr(this.getLocation(), expr, operator.type, right);
