@@ -173,9 +173,17 @@ describe("Lexer", () => {
     });
     it("throws LexingError when an invalid number is given", () => {
       expect(() => testNumberLexing("2.2.2")).toThrowError(LexingError);
+      expect(() => testNumberLexing("999e99999")).toThrowError(LexingError);
     });
     it("lexes numbers starting with a dot", () => {
       expect(testNumberLexing(".9")).toEqual(0.9);
+    });
+    it("parses an unfinished decimal even when it may cause problems with lookahead", () => {
+      expect(lexToTTStream(`1.`)).toEqual([
+        TokenType.NumberLiteral,
+        TokenType.Dot,
+        TokenType.Eot
+      ])
     });
   });
 

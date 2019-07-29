@@ -210,7 +210,7 @@ export default class Lexer {
       );
     }
     const value = parseFloat(lexeme);
-    if (isNaN(value)) {
+    if (isNaN(value) || !isFinite(value)) {
       throw new LexingError(
         this.loc.copy(),
         `Invalid number literal ${lexeme}.`

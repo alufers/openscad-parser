@@ -9,4 +9,7 @@ describe("CodeFile", () => {
     expect(file.code).toEqual("cube([2, 3, 8]);");
     expect(file.filename).toEqual("file1.scad");
   });
+  it("rejects on error when loading", () => {
+    return expect(CodeFile.load("/i/dont/exist")).rejects.toBeTruthy();
+  });
 });
