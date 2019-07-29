@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Lexer lexing of random fiiles found on the internet lexes hull.scad and matches snapshot 1`] = `
+exports[`Lexer lexing of random files found on the internet lexes hull.scad and matches snapshot 1`] = `
 Array [
   Object {
     "l": "function",

@@ -206,7 +206,7 @@ describe("Lexer", () => {
       expect(() => testStringLexing(`"aaaa`)).toThrowError(LexingError);
     });
   });
-  describe("lexing of random fiiles found on the internet", () => {
+  describe("lexing of random files found on the internet", () => {
     async function lexFile(path: string) {
       const file = await CodeFile.load(resolve(__dirname, path));
       const lexer = new Lexer(file);
