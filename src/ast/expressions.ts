@@ -188,27 +188,6 @@ export class FunctionCallExpr extends Expression {
   }
 }
 
-/**
- * The let expression.
- * @see https://en.wikibooks.org/wiki/OpenSCAD_User_Manual/The_OpenSCAD_Language#let
- */
-export class LetExpr extends Expression {
-  /**
-   * The variable names in the let expression
-   */
-  args: AssignmentNode[];
-
-  /**
-   * The expression where the declared variables will be accessible.
-   */
-  expr: Expression;
-
-  constructor(pos: CodeLocation, args: AssignmentNode[], expr: Expression) {
-    super(pos);
-    this.args = args;
-    this.expr = expr;
-  }
-}
 
 export abstract class ListComprehension extends Expression {}
 
