@@ -191,27 +191,39 @@ export default class Parser {
       TokenType.LeftParen,
       "Expected '(' after module instantation."
     );
-    const args = this.namedArguments();
+    const args = this.namedArguments(true);
     return new ModuleInstantiationStmt(name.pos, name.value, args, null);
   }
 
-  protected namedArguments(): AssignmentNode[] {
+  protected namedArguments(allowPositional = false): AssignmentNode[] {
     this.consumeUselessCommas();
     const args: AssignmentNode[] = [];
     if (this.matchToken(TokenType.RightParen)) {
       return args;
     }
-    while (this.matchToken(TokenType.Identifier) && !this.isAtEnd()) {
-      let value: Expression = null;
-      // a value is provided for this param
-      if (this.matchToken(TokenType.Equal)) {
-        value = this.expression();
+    while (true) {
+      if (this.isAtEnd()) {
+        break;
       }
-      const arg = new AssignmentNode(
-        this.getLocation(),
-        (this.previous() as LiteralToken<string>).value,
-        value
-      );
+      if (this.peek().type !== TokenType.Identifier) {
+        break;
+      }
+      let value: Expression = null;
+      let name: string;
+      if (!allowPositional || this.peekNext().type === TokenType.Equal) {
+        // this is a named parameter
+        name = (this.advance() as LiteralToken<string>).value;
+        // a value is provided for this param
+        if (this.matchToken(TokenType.Equal)) {
+          value = this.expression();
+        }
+      } else {
+        name = "";
+        value = this.expression();
+        // this is a positional paramater
+      }
+
+      const arg = new AssignmentNode(this.getLocation(), name, value);
       args.push(arg);
 
       if (this.matchToken(TokenType.Comma)) {

@@ -11,12 +11,34 @@ import {
 import ParsingError from "./ParsingError";
 import AssignmentNode from "./ast/AssignmentNode";
 import { LiteralExpr } from "./ast/expressions";
+import ASTNode from "./ast/ASTNode";
+import CodeLocation from "./CodeLocation";
 
 describe("Parser", () => {
   function doParse(source: string) {
     const l = new Lexer(new CodeFile("<test>", source));
     const parser = new Parser(l.codeFile, l.scan());
     return parser.parse();
+  }
+  /**
+   * Recursively removes codeLocations from the ast tree.
+   * @param ast an ast node to simplify
+   */
+  function simplifyAst(ast: ASTNode) {
+    return JSON.parse(
+      JSON.stringify(ast, (key, value) => {
+        if (value instanceof CodeLocation || value instanceof CodeFile) {
+          return null;
+        }
+        if (value && typeof value === "object") {
+          const proto = Object.getPrototypeOf(value);
+          if (proto && proto.constructor && proto.constructor.name) {
+            value.__c = proto.constructor.name;
+          }
+        }
+        return value;
+      })
+    );
   }
   it("parses basic use statements", () => {
     const scadFile = doParse(`
@@ -214,7 +236,7 @@ describe("Parser", () => {
   it("parses module instantiations with simple children ", () => {
     const file = doParse(`
         union() cube();
-      `);
+    `);
 
     expect(file.statements[0]).toBeInstanceOf(ModuleInstantiationStmt);
     const inst = file.statements[0] as ModuleInstantiationStmt;
@@ -236,8 +258,18 @@ describe("Parser", () => {
     const inst = file.statements[0] as ModuleInstantiationStmt;
     expect(inst.name).toEqual("union");
     expect(inst.child).toHaveProperty("children.length", 2);
+    simplifyAst;
     expect(inst.child).toBeInstanceOf(BlockStmt);
     expect(inst.child).toHaveProperty(["children", 0, "name"], "cube");
     expect(inst.child).toHaveProperty(["children", 1, "name"], "sphere");
+  });
+  it("parses module instantiations with positional arguments", () => {
+    expect(
+      simplifyAst(
+        doParse(`
+      cube(true);
+    `)
+      )
+    ).toMatchSnapshot();
   });
 });

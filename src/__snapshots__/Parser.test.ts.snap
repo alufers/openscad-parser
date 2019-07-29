@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Parser parses module instantiations with positional arguments 1`] = `
+Object {
+  "__c": "ScadFile",
+  "pos": null,
+  "statements": Array [
+    Object {
+      "__c": "ModuleInstantiationStmt",
+      "args": Array [
+        Object {
+          "__c": "AssignmentNode",
+          "name": "",
+          "pos": null,
+          "value": Object {
+            "__c": "Lookup",
+            "name": "true",
+            "pos": null,
+          },
+        },
+      ],
+      "child": Object {
+        "__c": "NoopStmt",
+        "pos": null,
+      },
+      "name": "cube",
+      "pos": null,
+      "tagBackground": false,
+      "tagDisabled": false,
+      "tagHighlight": false,
+      "tagRoot": false,
+    },
+  ],
+}
+`;
