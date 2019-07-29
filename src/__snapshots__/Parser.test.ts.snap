@@ -1,5 +1,93 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Parser parses addition and multiplication with grouping expression 1`] = `
+Object {
+  "__c": "BinaryOpExpr",
+  "left": Object {
+    "__c": "GroupingExpr",
+    "inner": Object {
+      "__c": "BinaryOpExpr",
+      "left": Object {
+        "__c": "LiteralExpr",
+        "pos": null,
+        "value": 88,
+      },
+      "operation": 28,
+      "pos": null,
+      "right": Object {
+        "__c": "LiteralExpr",
+        "pos": null,
+        "value": 3,
+      },
+    },
+    "pos": null,
+  },
+  "operation": 31,
+  "pos": null,
+  "right": Object {
+    "__c": "LiteralExpr",
+    "pos": null,
+    "value": 10,
+  },
+}
+`;
+
+exports[`Parser parses addition and multiplication without grouping expression 1`] = `
+Object {
+  "__c": "BinaryOpExpr",
+  "left": Object {
+    "__c": "LiteralExpr",
+    "pos": null,
+    "value": 88,
+  },
+  "operation": 28,
+  "pos": null,
+  "right": Object {
+    "__c": "BinaryOpExpr",
+    "left": Object {
+      "__c": "LiteralExpr",
+      "pos": null,
+      "value": 3,
+    },
+    "operation": 31,
+    "pos": null,
+    "right": Object {
+      "__c": "LiteralExpr",
+      "pos": null,
+      "value": 10,
+    },
+  },
+}
+`;
+
+exports[`Parser parses addition and subtraction 1`] = `
+Object {
+  "__c": "BinaryOpExpr",
+  "left": Object {
+    "__c": "BinaryOpExpr",
+    "left": Object {
+      "__c": "LiteralExpr",
+      "pos": null,
+      "value": 10,
+    },
+    "operation": 28,
+    "pos": null,
+    "right": Object {
+      "__c": "LiteralExpr",
+      "pos": null,
+      "value": 18,
+    },
+  },
+  "operation": 29,
+  "pos": null,
+  "right": Object {
+    "__c": "LiteralExpr",
+    "pos": null,
+    "value": 33,
+  },
+}
+`;
+
 exports[`Parser parses module instantiations which are also keywords 1`] = `
 Object {
   "__c": "ScadFile",

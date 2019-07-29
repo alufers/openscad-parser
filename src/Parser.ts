@@ -23,7 +23,8 @@ import {
   GroupingExpr,
   MemberLookup,
   ArrayLookupExpr,
-  FunctionCallExpr
+  FunctionCallExpr,
+  BinaryOpExpr
 } from "./ast/expressions";
 import keywords from "./keywords";
 
@@ -303,7 +304,29 @@ export default class Parser {
     while (this.matchToken(TokenType.Comma) && !this.isAtEnd()) {}
   }
   protected expression(): Expression {
-    return this.memberLookupOrArrayLookup();
+    return this.addition();
+  }
+
+  protected addition(): Expression {
+    let expr = this.multiplication();
+    while (this.matchToken(TokenType.Plus, TokenType.Minus)) {
+      const operator = this.previous();
+      const right = this.multiplication();
+      expr = new BinaryOpExpr(this.getLocation(), expr, operator.type, right);
+    }
+    return expr;
+  }
+
+  protected multiplication(): Expression {
+    let expr = this.memberLookupOrArrayLookup();
+    while (
+      this.matchToken(TokenType.Star, TokenType.Slash, TokenType.Percent)
+    ) {
+      const operator = this.previous();
+      const right = this.memberLookupOrArrayLookup();
+      expr = new BinaryOpExpr(this.getLocation(), expr, operator.type, right);
+    }
+    return expr;
   }
 
   protected memberLookupOrArrayLookup() {
@@ -328,6 +351,7 @@ export default class Parser {
     }
     return expr;
   }
+
   protected finishCall(name: LiteralToken<string>): Expression {
     const args = this.args(true);
     return new FunctionCallExpr(name.pos, name.value, args);

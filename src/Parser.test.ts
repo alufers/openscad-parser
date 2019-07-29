@@ -16,10 +16,12 @@ import {
   Expression,
   MemberLookup,
   ArrayLookupExpr,
-  FunctionCallExpr
+  FunctionCallExpr,
+  BinaryOpExpr
 } from "./ast/expressions";
 import ASTNode from "./ast/ASTNode";
 import CodeLocation from "./CodeLocation";
+import TokenType from "./TokenType";
 
 describe("Parser", () => {
   function doParse(source: string) {
@@ -414,5 +416,53 @@ describe("Parser", () => {
     expect(a.value).toHaveProperty("args.1.value.value", 8);
     expect(a.value).toHaveProperty("args.2.name", "arg3");
     expect(a.value).toHaveProperty("args.2.value.value", null);
+  });
+  it("parses multiplication", () => {
+    const file = doParse(`
+      x = 10 * 6;
+    `);
+    expect(file.statements[0]).toBeInstanceOf(AssignmentNode);
+    const a = file.statements[0] as AssignmentNode;
+    expect(a.value).toBeInstanceOf(BinaryOpExpr);
+    expect(a.value).toHaveProperty("left.value", 10);
+    expect(a.value).toHaveProperty("right.value", 6);
+    expect(a.value).toHaveProperty("operation", TokenType.Star);
+  });
+  it("parses multiplication and division in one expression", () => {
+    const file = doParse(`
+      x = 10 * 6 / 5;
+    `);
+    expect(file.statements[0]).toBeInstanceOf(AssignmentNode);
+    const a = file.statements[0] as AssignmentNode;
+    expect(a.value).toBeInstanceOf(BinaryOpExpr);
+    expect(a.value).toHaveProperty("left.left.value", 10);
+    expect(a.value).toHaveProperty("left.operation", TokenType.Star);
+    expect(a.value).toHaveProperty("left.right.value", 6);
+    expect(a.value).toHaveProperty("right.value", 5);
+    expect(a.value).toHaveProperty("operation", TokenType.Slash);
+  });
+  it("parses addition and subtraction", () => {
+    const file = doParse(`
+      x = 10 + 18 - 33;
+    `);
+    expect(file.statements[0]).toBeInstanceOf(AssignmentNode);
+    const a = file.statements[0] as AssignmentNode;
+    expect(simplifyAst(a.value)).toMatchSnapshot();
+  });
+  it("parses addition and multiplication with grouping expression", () => {
+    const file = doParse(`
+      x = (88 + 3) / 10;
+    `);
+    expect(file.statements[0]).toBeInstanceOf(AssignmentNode);
+    const a = file.statements[0] as AssignmentNode;
+    expect(simplifyAst(a.value)).toMatchSnapshot();
+  });
+  it("parses addition and multiplication without grouping expression", () => {
+    const file = doParse(`
+      x = 88 + 3 / 10;
+    `);
+    expect(file.statements[0]).toBeInstanceOf(AssignmentNode);
+    const a = file.statements[0] as AssignmentNode;
+    expect(simplifyAst(a.value)).toMatchSnapshot();
   });
 });
