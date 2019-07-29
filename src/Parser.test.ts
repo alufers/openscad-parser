@@ -11,7 +11,13 @@ import {
 } from "./ast/statements";
 import ParsingError from "./ParsingError";
 import AssignmentNode from "./ast/AssignmentNode";
-import { LiteralExpr, Expression } from "./ast/expressions";
+import {
+  LiteralExpr,
+  Expression,
+  MemberLookup,
+  ArrayLookupExpr,
+  FunctionCallExpr
+} from "./ast/expressions";
 import ASTNode from "./ast/ASTNode";
 import CodeLocation from "./CodeLocation";
 
@@ -344,11 +350,69 @@ describe("Parser", () => {
     ).toThrow(ParsingError);
   });
   it("throws when a module instantiation has an unterminated argument list which may cause problems with lookahead", () => {
-   
     expect(() =>
       doParse(`
        doSomething(abc
     `)
     ).toThrow(ParsingError);
+  });
+  it("parses member lookup expressions", () => {
+    const file = doParse(`
+      x = abc.y;
+    `);
+    expect(file.statements[0]).toBeInstanceOf(AssignmentNode);
+    const a = file.statements[0] as AssignmentNode;
+    expect(a.value).toBeInstanceOf(MemberLookup);
+    expect(a.value).toHaveProperty("expr.name", "abc");
+    expect(a.value).toHaveProperty("member", "y");
+  });
+  it("throws on unterminated member expressions", () => {
+    expect(() =>
+      doParse(`
+       mem = x.
+    `)
+    ).toThrow(ParsingError);
+  });
+  it("parses array lookup expressions", () => {
+    const file = doParse(`
+      x = arr[10];
+    `);
+    expect(file.statements[0]).toBeInstanceOf(AssignmentNode);
+    const a = file.statements[0] as AssignmentNode;
+    expect(a.value).toBeInstanceOf(ArrayLookupExpr);
+    expect(a.value).toHaveProperty("array.name", "arr");
+    expect(a.value).toHaveProperty("index.value", 10);
+  });
+  it("throws on unterminated array lookup expressions", () => {
+    expect(() =>
+      doParse(`
+       val = arr[10
+    `)
+    ).toThrow(ParsingError);
+  });
+  it("parses function call expressions", () => {
+    const file = doParse(`
+      x = fun();
+    `);
+    expect(file.statements[0]).toBeInstanceOf(AssignmentNode);
+    const a = file.statements[0] as AssignmentNode;
+    expect(a.value).toBeInstanceOf(FunctionCallExpr);
+    expect(a.value).toHaveProperty("name", "fun");
+    expect(a.value).toHaveProperty("args.length", 0);
+  });
+  it("parses function call expressions with positional and named arguments", () => {
+    const file = doParse(`
+      x = fun(arg1, arg2 = 8, arg3 = undef);
+    `);
+    expect(file.statements[0]).toBeInstanceOf(AssignmentNode);
+    const a = file.statements[0] as AssignmentNode;
+    expect(a.value).toBeInstanceOf(FunctionCallExpr);
+    expect(a.value).toHaveProperty("args.length", 3);
+    expect(a.value).toHaveProperty("args.0.name", "");
+    expect(a.value).toHaveProperty("args.0.value.name", "arg1");
+    expect(a.value).toHaveProperty("args.1.name", "arg2");
+    expect(a.value).toHaveProperty("args.1.value.value", 8);
+    expect(a.value).toHaveProperty("args.2.name", "arg3");
+    expect(a.value).toHaveProperty("args.2.value.value", null);
   });
 });

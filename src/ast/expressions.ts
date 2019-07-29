@@ -157,7 +157,7 @@ export class Lookup extends Expression {
 /**
  * A member lookup expression, (abc.ddd)
  */
-export class MemebrLookup extends Expression {
+export class MemberLookup extends Expression {
   expr: Expression;
   member: string;
 

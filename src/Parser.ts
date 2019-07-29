@@ -20,7 +20,10 @@ import {
   Expression,
   LiteralExpr,
   Lookup,
-  GroupingExpr
+  GroupingExpr,
+  MemberLookup,
+  ArrayLookupExpr,
+  FunctionCallExpr
 } from "./ast/expressions";
 import keywords from "./keywords";
 
@@ -237,6 +240,10 @@ export default class Parser {
     return new ModuleInstantiationStmt(prev.pos, name, args, null);
   }
 
+  /**
+   * Parses an arguments list including the finishing paren. Can handle trailing and extra commas as well as an empty arguments list.
+   * @param allowPositional Set to true when in call mode, positional arguments will be allowed.
+   */
   protected args(allowPositional = false): AssignmentNode[] {
     this.consumeUselessCommas();
     const args: AssignmentNode[] = [];
@@ -296,10 +303,37 @@ export default class Parser {
     while (this.matchToken(TokenType.Comma) && !this.isAtEnd()) {}
   }
   protected expression(): Expression {
-    return this.primary();
+    return this.memberLookupOrArrayLookup();
   }
 
-  protected primary() {
+  protected memberLookupOrArrayLookup() {
+    let expr = this.primary();
+    while (true) {
+      if (this.matchToken(TokenType.Dot)) {
+        const name = this.consume(
+          TokenType.Identifier,
+          "Expected member name after '.';"
+        ) as LiteralToken<string>;
+        expr = new MemberLookup(this.getLocation(), expr, name.value);
+      } else if (this.matchToken(TokenType.LeftBracket)) {
+        const index = this.expression();
+        this.consume(
+          TokenType.RightBracket,
+          "Expected ']' after array index expression."
+        );
+        expr = new ArrayLookupExpr(this.getLocation(), expr, index);
+      } else {
+        break;
+      }
+    }
+    return expr;
+  }
+  protected finishCall(name: LiteralToken<string>): Expression {
+    const args = this.args(true);
+    return new FunctionCallExpr(name.pos, name.value, args);
+  }
+
+  protected primary(): Expression {
     if (this.matchToken(TokenType.True)) {
       return new LiteralExpr(this.getLocation(), true);
     }
@@ -307,7 +341,7 @@ export default class Parser {
       return new LiteralExpr(this.getLocation(), false);
     }
     if (this.matchToken(TokenType.Undef)) {
-      return new LiteralExpr(this.getLocation(), null);
+      return new LiteralExpr<null>(this.getLocation(), null);
     }
     if (this.matchToken(TokenType.NumberLiteral)) {
       return new LiteralExpr(
@@ -322,10 +356,11 @@ export default class Parser {
       );
     }
     if (this.matchToken(TokenType.Identifier)) {
-      return new Lookup(
-        this.getLocation(),
-        (this.previous() as LiteralToken<string>).value
-      );
+      const tok = this.previous() as LiteralToken<string>;
+      if (this.matchToken(TokenType.LeftParen)) {
+        return this.finishCall(tok);
+      }
+      return new Lookup(this.getLocation(), tok.value);
     }
     if (this.matchToken(TokenType.LeftParen)) {
       const expr = this.expression();
