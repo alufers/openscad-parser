@@ -22,6 +22,13 @@ import {
   GroupingExpr
 } from "./ast/expressions";
 
+const moduleInstantiationTagTokens = [
+  TokenType.Bang,
+  TokenType.Hash,
+  TokenType.Percent,
+  TokenType.Star
+];
+
 export default class Parser {
   protected currentToken = 0;
   constructor(public code: CodeFile, public tokens: Token[]) {}
@@ -68,16 +75,32 @@ export default class Parser {
     if (this.matchToken(TokenType.Function)) {
       return this.functionDeclarationStatement();
     }
+    const assignmentOrInst = this.matchAssignmentOrModuleInstantation();
+    if (assignmentOrInst) {
+      return assignmentOrInst;
+    }
+    this.advance();
+  }
+  protected matchAssignmentOrModuleInstantation() {
+    // identifiers can mean either an instantiation is incoming or an assignment
     if (this.matchToken(TokenType.Identifier)) {
       if (this.peek().type === TokenType.Equal) {
         return this.assignmentStatement();
       }
       if (this.peek().type === TokenType.LeftParen) {
-        return this.moduleInstantiation();
+        return this.moduleInstantiationStatement();
       }
+      throw new ParsingError(
+        this.getLocation(),
+        `Unexpected token ${this.peek()} after identifier in statement.`
+      );
     }
-    this.advance();
+    if (this.matchToken(...moduleInstantiationTagTokens)) {
+      return this.moduleInstantiationStatement();
+    }
+    return null;
   }
+
   protected blockStatement() {
     const startLocation = this.getLocation();
     const innerStatements: Statement[] = [];
@@ -108,7 +131,7 @@ export default class Parser {
       "Expected function name after 'function' keyword"
     );
     this.consume(TokenType.LeftParen, "Expected '(' after function name");
-    const args: AssignmentNode[] = this.namedArguments();
+    const args = this.namedArguments();
     this.consume(TokenType.Equal, "Expected '=' after function parameters");
     const body = this.expression();
     this.consume(
@@ -133,9 +156,45 @@ export default class Parser {
     );
     return new AssignmentNode(pos, name.value, expr);
   }
-  protected moduleInstantiation(): ModuleInstantiationStmt {
-    throw new Error("not implemented");
+  protected moduleInstantiationStatement(): ModuleInstantiationStmt {
+    if (this.previous().type === TokenType.Bang) {
+      this.advance();
+      const mod = this.moduleInstantiationStatement();
+      mod.tagRoot = true;
+      return mod;
+    }
+    if (this.previous().type === TokenType.Hash) {
+      this.advance();
+      const mod = this.moduleInstantiationStatement();
+      mod.tagHighlight = true;
+      return mod;
+    }
+    if (this.previous().type === TokenType.Percent) {
+      this.advance();
+      const mod = this.moduleInstantiationStatement();
+      mod.tagBackground = true;
+      return mod;
+    }
+    if (this.previous().type === TokenType.Star) {
+      this.advance();
+      const mod = this.moduleInstantiationStatement();
+      mod.tagDisabled = true;
+      return mod;
+    }
+    const mod = this.singleModuleInstantiation();
+    mod.child = this.statement();
+    return mod;
   }
+  protected singleModuleInstantiation() {
+    const name = this.previous() as LiteralToken<string>;
+    this.consume(
+      TokenType.LeftParen,
+      "Expected '(' after module instantation."
+    );
+    const args = this.namedArguments();
+    return new ModuleInstantiationStmt(name.pos, name.value, args, null);
+  }
+
   protected namedArguments(): AssignmentNode[] {
     this.consumeUselessCommas();
     const args: AssignmentNode[] = [];

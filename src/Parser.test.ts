@@ -5,7 +5,8 @@ import {
   UseStmt,
   BlockStmt,
   NoopStmt,
-  ModuleDeclarationStmt
+  ModuleDeclarationStmt,
+  ModuleInstantiationStmt
 } from "./ast/statements";
 import ParsingError from "./ParsingError";
 import AssignmentNode from "./ast/AssignmentNode";
@@ -165,5 +166,78 @@ describe("Parser", () => {
     expect(a.name).toEqual("x");
     expect(a.value).toBeInstanceOf(LiteralExpr);
     expect(a.value).toHaveProperty("value", 10);
+  });
+  it("parses module instantiations", () => {
+    const file = doParse(`
+      cube();
+    `);
+    expect(file.statements[0]).toBeInstanceOf(ModuleInstantiationStmt);
+    const inst = file.statements[0] as ModuleInstantiationStmt;
+    expect(inst.name).toEqual("cube");
+    expect(inst.args).toHaveLength(0);
+    expect(inst.child).toBeInstanceOf(NoopStmt);
+  });
+  describe("tag parsing", () => {
+    const tags: { [x: string]: keyof ModuleInstantiationStmt } = {
+      "!": "tagRoot",
+      "#": "tagHighlight",
+      "%": "tagBackground",
+      "*": "tagDisabled"
+    };
+    for (const tagToken of Object.keys(tags)) {
+      it(`parses the '${tagToken}' tag`, () => {
+        const file = doParse(`
+          ${tagToken}cube();
+       `);
+        const inst = file.statements[0] as ModuleInstantiationStmt;
+        expect(inst[tags[tagToken]]).toBeTruthy();
+      });
+    }
+    it("parses all the tags", () => {
+      const file = doParse(`
+        !#%*cube();
+      `);
+      const inst = file.statements[0] as ModuleInstantiationStmt;
+      expect(inst).toBeInstanceOf(ModuleInstantiationStmt);
+      for (const tagToken of Object.keys(tags)) {
+        expect(inst[tags[tagToken]]).toBeTruthy();
+      }
+    });
+  });
+  it("throws on identifiers that are neiither assignments nor module instantations where statements are expected", () => {
+    expect(() =>
+      doParse(`
+        dupa - 10;  
+      `)
+    ).toThrow(ParsingError);
+  });
+  it("parses module instantiations with simple children ", () => {
+    const file = doParse(`
+        union() cube();
+      `);
+
+    expect(file.statements[0]).toBeInstanceOf(ModuleInstantiationStmt);
+    const inst = file.statements[0] as ModuleInstantiationStmt;
+    expect(inst.name).toEqual("union");
+    expect(inst.args).toHaveLength(0);
+    expect(inst.child).toBeInstanceOf(ModuleInstantiationStmt);
+    expect(inst.child).toHaveProperty("name", "cube");
+    expect(inst.child).toHaveProperty("args", []);
+  });
+  it("parses module instantiations with block children ", () => {
+    const file = doParse(`
+        union() {
+          cube();
+          sphere();
+        }
+      `);
+
+    expect(file.statements[0]).toBeInstanceOf(ModuleInstantiationStmt);
+    const inst = file.statements[0] as ModuleInstantiationStmt;
+    expect(inst.name).toEqual("union");
+    expect(inst.child).toHaveProperty("children.length", 2);
+    expect(inst.child).toBeInstanceOf(BlockStmt);
+    expect(inst.child).toHaveProperty(["children", 0, "name"], "cube");
+    expect(inst.child).toHaveProperty(["children", 1, "name"], "sphere");
   });
 });

@@ -17,10 +17,31 @@ export class UseStmt extends Statement {
 }
 
 export class ModuleInstantiationStmt extends Statement {
+  /**
+   * Set to true if this module instantation has been tagged with a '!' symbol.
+   */
+  public tagRoot: boolean = false;
+
+  /**
+   * Set to true if this module instantation has been tagged with a '#' symbol.
+   */
+  public tagHighlight: boolean = false;
+
+  /**
+   * Set to true if this module instantation has been tagged with a '%' symbol.
+   */
+  public tagBackground: boolean = false;
+
+  /**
+   * Set to true if this module instantation has been tagged with a '*' symbol.
+   */
+  public tagDisabled: boolean = false;
+
   constructor(
     pos: CodeLocation,
     public name: string,
-    public args: AssignmentNode[]
+    public args: AssignmentNode[],
+    public child: Statement
   ) {
     super(pos);
   }
