@@ -31,6 +31,7 @@ import {
 import ASTNode from "./ast/ASTNode";
 import CodeLocation from "./CodeLocation";
 import TokenType from "./TokenType";
+import { resolve } from "path";
 
 describe("Parser", () => {
   function doParse(source: string) {
@@ -642,11 +643,11 @@ describe("Parser", () => {
   });
   it("throws on unterminated vector literals", () => {
     expect(() =>
-    doParse(`
+      doParse(`
       asdf = [10, 
     `)
-  ).toThrow(ParsingError);
-  })
+    ).toThrow(ParsingError);
+  });
   it("parses a vector literal with one value", () => {
     const file = doParse(`
       x = [10];
@@ -821,15 +822,15 @@ describe("Parser", () => {
     ).toMatchSnapshot();
   });
   it("throws a ParsingError on unterminated for comprehenstions", () => {
-    expect(    
-        () => doParse(`
+    expect(() =>
+      doParse(`
           x = [for(
         `)
     ).toThrowError(ParsingError);
   });
   it("throws a ParsingError on garbage in the parameters list", () => {
-    expect(
-        () => doParse(`
+    expect(() =>
+      doParse(`
           x = [-];
         `)
     ).toThrowError(ParsingError);
@@ -842,5 +843,16 @@ describe("Parser", () => {
         `)
       )
     ).toMatchSnapshot();
+  });
+  it("parses hull.scad", async () => {
+    const file = await CodeFile.load(resolve(__dirname, "testdata/hull.scad"));
+    const lexer = new Lexer(file);
+    const parser = new Parser(file, lexer.scan());
+    try {
+      parser.parse();
+    } catch (e) {
+      console.log(e.message, "\n", e.codeLocation.toString());
+      throw e;
+    }
   });
 });
