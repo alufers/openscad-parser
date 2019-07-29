@@ -8,7 +8,8 @@ import {
   NoopStmt,
   BlockStmt,
   ModuleDeclarationStmt,
-  FunctionDeclarationStmt
+  FunctionDeclarationStmt,
+  ModuleInstantiationStmt
 } from "./ast/statements";
 import ScadFile from "./ast/ScadFile";
 import CodeLocation from "./CodeLocation";
@@ -132,7 +133,7 @@ export default class Parser {
     );
     return new AssignmentNode(pos, name.value, expr);
   }
-  protected moduleInstantiation() {
+  protected moduleInstantiation(): ModuleInstantiationStmt {
     throw new Error("not implemented");
   }
   protected namedArguments(): AssignmentNode[] {
