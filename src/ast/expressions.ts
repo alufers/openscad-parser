@@ -189,9 +189,9 @@ export class FunctionCallExpr extends Expression {
 }
 
 
-export abstract class ListComprehension extends Expression {}
+export abstract class ListComprehensionExpression extends Expression {}
 
-export class LcIfExpr extends ListComprehension {
+export class LcIfExpr extends ListComprehensionExpression {
   cond: Expression;
   ifExpr: Expression;
   elseExpr: Expression;
@@ -208,7 +208,7 @@ export class LcIfExpr extends ListComprehension {
   }
 }
 
-export class LcEachExpr extends Expression {
+export class LcEachExpr extends ListComprehensionExpression {
   /**
    * The expression where the declared variables will be accessible.
    */
@@ -221,7 +221,7 @@ export class LcEachExpr extends Expression {
   }
 }
 
-export class LcForExpr extends Expression {
+export class LcForExpr extends ListComprehensionExpression {
   /**
    * The variable names in the for expression
    */
@@ -239,7 +239,7 @@ export class LcForExpr extends Expression {
   }
 }
 
-export class LcForCExpr extends Expression {
+export class LcForCExpr extends ListComprehensionExpression {
   /**
    * The variable names in the for expression
    */
@@ -268,7 +268,7 @@ export class LcForCExpr extends Expression {
   }
 }
 
-export class LcLetExpr extends Expression {
+export class LcLetExpr extends ListComprehensionExpression {
   /**
    * The variable names in the let expression
    */

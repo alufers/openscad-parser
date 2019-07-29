@@ -26,7 +26,15 @@ import {
   FunctionCallExpr,
   BinaryOpExpr,
   UnaryOpExpr,
-  TernaryExpr
+  TernaryExpr,
+  LcLetExpr,
+  LcEachExpr,
+  LcIfExpr,
+  ListComprehensionExpression,
+  VectorExpr,
+  RangeExpr,
+  LcForExpr,
+  LcForCExpr
 } from "./ast/expressions";
 import keywords from "./keywords";
 
@@ -43,6 +51,13 @@ const keywordModuleNames = [
   TokenType.Assert,
   TokenType.Echo,
   TokenType.Each
+];
+
+const listComprehensionElementKeywords = [
+  TokenType.For,
+  TokenType.Let,
+  TokenType.Each,
+  TokenType.If
 ];
 
 export default class Parser {
@@ -250,7 +265,8 @@ export default class Parser {
   }
 
   /**
-   * Parses an arguments list including the finishing paren. Can handle trailing and extra commas as well as an empty arguments list.
+   * Parses an argument list including the finishing paren. Can handle trailing and extra commas as well as an empty arguments list.
+   * The initial paren must be consumed.
    * @param allowPositional Set to true when in call mode, positional arguments will be allowed.
    */
   protected args(allowPositional = false): AssignmentNode[] {
@@ -308,8 +324,75 @@ export default class Parser {
       `Unexpected token ${this.advance()} in named arguments list.`
     );
   }
+
+  /**
+   * Parses arguments from the 'for' loop comprehension.
+   * The initial paren must be consumed. Stops on semicolon or right paren, but does not consume them.
+   */
+  protected forComprehensionArgs(): AssignmentNode[] {
+    this.consumeUselessCommas();
+    const args: AssignmentNode[] = [];
+    if (
+      this.checkToken(TokenType.RightParen) ||
+      this.checkToken(TokenType.Semicolon)
+    ) {
+      return args;
+    }
+    while (true) {
+      if (this.isAtEnd()) {
+        break;
+      }
+      if (this.peek().type !== TokenType.Identifier) {
+        break;
+      }
+
+      // this is a named parameter
+      const name = (this.advance() as LiteralToken<string>).value;
+      // a value is provided for this param
+      this.consume(TokenType.Equal, "Expected '=' after for variable name.");
+      const value = this.expression();
+
+      const arg = new AssignmentNode(this.getLocation(), name, value);
+      args.push(arg);
+
+      if (this.matchToken(TokenType.Comma)) {
+        this.consumeUselessCommas();
+        if (
+          this.checkToken(TokenType.RightParen) ||
+          this.checkToken(TokenType.Semicolon)
+        ) {
+          return args;
+        }
+        continue;
+      }
+      this.consumeUselessCommas();
+      if (
+        this.checkToken(TokenType.RightParen) ||
+        this.checkToken(TokenType.Semicolon)
+      ) {
+        return args;
+      }
+    }
+    if (this.isAtEnd()) {
+      throw new ParsingError(
+        this.getLocation(),
+        `Unterminated for loop params.`
+      );
+    }
+    throw new ParsingError(
+      this.getLocation(),
+      `Unexpected token ${this.advance()} in for loop params list.`
+    );
+  }
+  /**
+   * Consumes redundant commas and returns true if it consumed any.
+   */
   protected consumeUselessCommas() {
-    while (this.matchToken(TokenType.Comma) && !this.isAtEnd()) {}
+    let ret = false;
+    while (this.matchToken(TokenType.Comma) && !this.isAtEnd()) {
+      ret = true;
+    }
+    return ret;
   }
   protected expression(): Expression {
     return this.ternary();
@@ -488,11 +571,190 @@ export default class Parser {
       );
       return new GroupingExpr(this.getLocation(), expr);
     }
+    if (this.matchToken(TokenType.LeftBracket)) {
+      return this.bracketInsides();
+    }
     throw new ParsingError(
       this.getLocation(),
       "Failed to match primary expression."
     );
   }
+
+  /**
+   * Handles the parsing of vector literals and range literals.
+   */
+  protected bracketInsides(): Expression {
+    const startBracket = this.previous();
+    // the openscad bison parser has a weird thing where it allows optional commas only if the brackets represent an empty vector
+    // Good: [,,,,,,]
+    // Bad: [,,,,10]
+    // Bad [,,,,,10: 20 : 20]
+    if (this.consumeUselessCommas()) {
+      this.consume(
+        TokenType.RightBracket,
+        "Expected ']' after leading commas in a vector literal."
+      );
+      return new VectorExpr(startBracket.pos, []);
+    }
+
+    if (this.matchToken(TokenType.RightBracket)) {
+      return new VectorExpr(startBracket.pos, []);
+    }
+
+    const first = this.listComprehensionElementsOrExpr();
+    // check if we are parsing a range
+    if (
+      !(first instanceof ListComprehensionExpression) &&
+      this.matchToken(TokenType.Colon)
+    ) {
+      let secondRangeExpr = this.expression();
+      let thirdRangeExpr = null;
+      if (this.matchToken(TokenType.Colon)) {
+        thirdRangeExpr = this.expression();
+      }
+      this.consume(
+        TokenType.RightBracket,
+        "Expected ']' after expression in a range literal."
+      );
+      if (thirdRangeExpr) {
+        return new RangeExpr(first.pos, first, secondRangeExpr, thirdRangeExpr);
+      } else {
+        return new RangeExpr(first.pos, first, null, secondRangeExpr);
+      }
+    }
+
+    // we are parsing a vector expression
+    const vectorLiteral = new VectorExpr(startBracket.pos, [first]);
+    if (this.matchToken(TokenType.Comma)) {
+      this.consumeUselessCommas();
+      if (this.matchToken(TokenType.RightBracket)) {
+        return vectorLiteral;
+      }
+      while (true) {
+        if (this.isAtEnd()) {
+          throw new ParsingError(
+            this.getLocation(),
+            "Unterminated vector literal."
+          );
+        }
+
+        vectorLiteral.children.push(this.listComprehensionElementsOrExpr());
+        if (this.matchToken(TokenType.RightBracket)) {
+          break;
+        }
+        this.consume(
+          TokenType.Comma,
+          "Expected comma after vector literal element."
+        );
+      }
+    } else {
+      this.consume(TokenType.RightBracket, "Unterminated vector literal.");
+    }
+
+    return vectorLiteral;
+  }
+
+  protected listComprehensionElements(): Expression {
+    if (this.matchToken(TokenType.Let)) {
+      const letKwrd = this.previous();
+      this.consume(TokenType.LeftParen, "Expected '(' after the let keyword.");
+      const args = this.args();
+      const next = this.listComprehensionElementsOrExpr();
+      return new LcLetExpr(letKwrd.pos, args, next);
+    }
+    if (this.matchToken(TokenType.Each)) {
+      const eachKwrd = this.previous();
+      const next = this.listComprehensionElementsOrExpr();
+      return new LcEachExpr(eachKwrd.pos, next);
+    }
+    if (this.matchToken(TokenType.For)) {
+      return this.listComprehensionFor();
+    }
+    if (this.matchToken(TokenType.If)) {
+      const ifKwrd = this.previous();
+      this.consume(TokenType.LeftParen, "Expected '(' after the if keyword.");
+      const cond = this.expression();
+      this.consume(
+        TokenType.RightParen,
+        "Expected ')' after the if comprehension condition."
+      );
+      const thenBranch = this.listComprehensionElementsOrExpr();
+      let elseBranch = null;
+      if (this.matchToken(TokenType.Else)) {
+        elseBranch = this.listComprehensionElementsOrExpr();
+      }
+      return new LcIfExpr(ifKwrd.pos, cond, thenBranch, elseBranch);
+    }
+    return null;
+  }
+  protected listComprehensionFor(): Expression {
+    const forKwrd = this.previous();
+    this.consume(
+      TokenType.LeftParen,
+      "Expected '(' after for keyword in list comprehension."
+    );
+    const firstArgs = this.forComprehensionArgs();
+    if (this.matchToken(TokenType.RightParen)) {
+      return new LcForExpr(
+        forKwrd.pos,
+        firstArgs,
+        this.listComprehensionElementsOrExpr()
+      );
+    }
+    this.consume(
+      TokenType.Semicolon,
+      "Expected ';' or ')' after first 'for' comprehension parameters."
+    );
+    const condition = this.expression();
+    this.consume(
+      TokenType.Semicolon,
+      "Expected ';' after 'for' comprehension condition."
+    );
+    const secondArgs = this.forComprehensionArgs();
+    this.consume(
+      TokenType.RightParen,
+      "Expected ')' after second 'for' comprehension parameters."
+    );
+    const next = this.listComprehensionElementsOrExpr();
+    return new LcForCExpr(forKwrd.pos, firstArgs, secondArgs, condition, next);
+  }
+
+  protected listComprehensionElementsOrExpr(): Expression {
+    // checks if we have a list comprehension element.
+    if (
+      listComprehensionElementKeywords.includes(this.peek().type) ||
+      (this.peek().type === TokenType.LeftParen &&
+        listComprehensionElementKeywords.includes(this.peekNext().type))
+    ) {
+      let withParens = false;
+
+      if (this.matchToken(TokenType.LeftParen)) {
+        withParens = true;
+      }
+      const comprElemsResult = this.listComprehensionElements();
+      if (withParens) {
+        this.consume(
+          TokenType.RightParen,
+          "Expected ')' after parenthesized list comprehension expression."
+        );
+      }
+      return comprElemsResult;
+    }
+
+    return this.expression();
+  }
+
+  // protected listComprehensionElementsWithParens() {
+  //   if (this.matchToken(TokenType.LeftParen)) {
+  //     const elems = this.listComprehensionElements();
+  //     this.consume(
+  //       TokenType.RightParen,
+  //       "Expected ')' after parenthesized list comprehension expression."
+  //     );
+  //     return elems;
+  //   }
+  //   return this.listComprehensionElements();
+  // }
 
   protected consume(tt: TokenType, errorMessage: string) {
     if (this.checkToken(tt)) {

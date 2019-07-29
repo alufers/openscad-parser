@@ -19,7 +19,14 @@ import {
   FunctionCallExpr,
   BinaryOpExpr,
   UnaryOpExpr,
-  TernaryExpr
+  TernaryExpr,
+  GroupingExpr,
+  RangeExpr,
+  VectorExpr,
+  LcIfExpr,
+  Lookup,
+  LcEachExpr,
+  LcLetExpr
 } from "./ast/expressions";
 import ASTNode from "./ast/ASTNode";
 import CodeLocation from "./CodeLocation";
@@ -626,5 +633,214 @@ describe("Parser", () => {
         !
       `)
     ).toThrow(ParsingError);
+  });
+  it("parses empty vector literals", () => {
+    const file = doParse(`
+      x = [];
+    `);
+    expect(file.statements[0]).toHaveProperty("value.children", []);
+  });
+  it("throws on unterminated vector literals", () => {
+    expect(() =>
+    doParse(`
+      asdf = [10, 
+    `)
+  ).toThrow(ParsingError);
+  })
+  it("parses a vector literal with one value", () => {
+    const file = doParse(`
+      x = [10];
+    `);
+    expect(file.statements[0]).toHaveProperty("value.children.length", 1);
+    expect(file.statements[0]).toHaveProperty("value.children.0.value", 10);
+  });
+  it("parses a vector literal with one value and trailing commas", () => {
+    const file = doParse(`
+      x = [10,,,,,];
+    `);
+    expect(file.statements[0]).toHaveProperty("value.children.length", 1);
+    expect(file.statements[0]).toHaveProperty("value.children.0.value", 10);
+  });
+  it("parses a vector literal with multiple values", () => {
+    const file = doParse(`
+      x = [10, "string", true];
+    `);
+    expect(file.statements[0]).toHaveProperty("value.children.length", 3);
+    expect(file.statements[0]).toHaveProperty("value.children.0.value", 10);
+    expect(file.statements[0]).toHaveProperty(
+      "value.children.1.value",
+      "string"
+    );
+    expect(file.statements[0]).toHaveProperty("value.children.2.value", true);
+  });
+  it("parses a vector literal with multiple values in parenthesis", () => {
+    const file = doParse(`
+      x = [(10 + 5), "string", true];
+    `);
+    expect(file.statements[0]).toHaveProperty("value.children.length", 3);
+    expect((file.statements[0] as any).value.children[0]).toBeInstanceOf(
+      GroupingExpr
+    );
+    expect(file.statements[0]).toHaveProperty(
+      "value.children.1.value",
+      "string"
+    );
+    expect(file.statements[0]).toHaveProperty("value.children.2.value", true);
+  });
+  it("parses a vector literal with a value that starts with a parenthesis but doesn't end with it", () => {
+    const file = doParse(`
+      x = [(10 + 5) * 20, "string", ((18))];
+    `);
+    expect(file.statements[0]).toHaveProperty("value.children.length", 3);
+    expect((file.statements[0] as any).value.children[0]).toBeInstanceOf(
+      BinaryOpExpr
+    );
+  });
+  it("parses empty vector literals with useless commas", () => {
+    const file = doParse(`
+      x = [,,,,,,];
+    `);
+    expect(file.statements[0]).toHaveProperty("value.children", []);
+  });
+  it("throws when the vector literal contains useless leading commas, but is not empty", () => {
+    expect(() =>
+      doParse(`
+      x = [,,,,,,20]
+    `)
+    ).toThrowError(ParsingError);
+  });
+  it("parses two element ranges", () => {
+    const file = doParse(`
+      x = [10:18];
+    `);
+    expect((file.statements[0] as any).value).toBeInstanceOf(RangeExpr);
+    const range = (file.statements[0] as any).value as RangeExpr;
+    expect(range.begin).toHaveProperty("value", 10);
+    expect(range.end).toHaveProperty("value", 18);
+    expect(range.step).toBeNull();
+  });
+  it("parses three element ranges", () => {
+    const file = doParse(`
+      x = [10:99:18];
+    `);
+    expect((file.statements[0] as any).value).toBeInstanceOf(RangeExpr);
+    const range = (file.statements[0] as any).value as RangeExpr;
+    expect(range.begin).toHaveProperty("value", 10);
+    expect(range.end).toHaveProperty("value", 18);
+    expect(range.step).toHaveProperty("value", 99);
+  });
+  it("parses the 'if' list comprehension element", () => {
+    const file = doParse(`
+      x = [if(a == 18) a, 22];
+    `);
+    const vectorExpr = (file.statements[0] as any).value as VectorExpr;
+    expect(vectorExpr).toBeInstanceOf(VectorExpr);
+    const ifCompr = vectorExpr.children[0] as LcIfExpr;
+    expect(ifCompr).toBeInstanceOf(LcIfExpr);
+    expect(ifCompr.cond).toBeInstanceOf(BinaryOpExpr);
+    expect(ifCompr.ifExpr).toBeInstanceOf(Lookup);
+  });
+  it("parses the 'if' list comprehension element when wrapped in parens", () => {
+    const file = doParse(`
+      x = [(if(a == 18) a), 22];
+    `);
+    const vectorExpr = (file.statements[0] as any).value as VectorExpr;
+    expect(vectorExpr).toBeInstanceOf(VectorExpr);
+    const ifCompr = vectorExpr.children[0] as LcIfExpr;
+    expect(ifCompr).toBeInstanceOf(LcIfExpr);
+    expect(ifCompr.cond).toBeInstanceOf(BinaryOpExpr);
+    expect(ifCompr.ifExpr).toBeInstanceOf(Lookup);
+  });
+  it("parses the 'if' list comprehension element with an else branch", () => {
+    const file = doParse(`
+      x = [undef, if(a == 18) a else 999, 22];
+    `);
+    const vectorExpr = (file.statements[0] as any).value as VectorExpr;
+    expect(vectorExpr).toBeInstanceOf(VectorExpr);
+    const ifCompr = vectorExpr.children[1] as LcIfExpr;
+    expect(ifCompr).toBeInstanceOf(LcIfExpr);
+    expect(ifCompr.cond).toBeInstanceOf(BinaryOpExpr);
+    expect(ifCompr.ifExpr).toBeInstanceOf(Lookup);
+    expect(ifCompr.elseExpr).toBeInstanceOf(LiteralExpr);
+  });
+  it("parses nested 'if' list comprehensions", () => {
+    const file = doParse(`
+      x = [if(a == 18) if(ddd == 999) abc, 22];
+    `);
+    const vectorExpr = (file.statements[0] as any).value as VectorExpr;
+    expect(vectorExpr).toBeInstanceOf(VectorExpr);
+    const ifCompr = vectorExpr.children[0] as LcIfExpr;
+    expect(ifCompr).toBeInstanceOf(LcIfExpr);
+    expect(ifCompr.cond).toBeInstanceOf(BinaryOpExpr);
+    expect(ifCompr.ifExpr).toBeInstanceOf(LcIfExpr);
+  });
+  it("parses simple 'each' list comprehensions", () => {
+    const file = doParse(`
+      x = [true, false, each [1, 2, 3]];
+    `);
+    const vectorExpr = (file.statements[0] as any).value as VectorExpr;
+    expect(vectorExpr).toBeInstanceOf(VectorExpr);
+    const eachCompr = vectorExpr.children[2] as LcEachExpr;
+    expect(eachCompr).toBeInstanceOf(LcEachExpr);
+    expect(eachCompr.expr).toBeInstanceOf(VectorExpr);
+  });
+  it("parses simple 'let' list comprehensions", () => {
+    const file = doParse(`
+      x = [let(var = 10) var + 10];
+    `);
+    const vectorExpr = (file.statements[0] as any).value as VectorExpr;
+    expect(vectorExpr).toBeInstanceOf(VectorExpr);
+    const letCompr = vectorExpr.children[0] as LcEachExpr;
+    expect(letCompr).toBeInstanceOf(LcLetExpr);
+  });
+  it("parses simple 'for' list comprehensions", () => {
+    expect(
+      simplifyAst(
+        doParse(`
+      x = [for(iter = [10, 15, 20]) if(iter % 2 == 0) iter];
+    `)
+      )
+    ).toMatchSnapshot();
+  });
+  it("parses simple 'for' list comprehensions with three parts", () => {
+    expect(
+      simplifyAst(
+        doParse(`
+          x = [for(iter = [10, 15, 20]; iter2 == 10; iter3 = xd) if(iter % 2 == 0) iter];
+        `)
+      )
+    ).toMatchSnapshot();
+  });
+  it("parses simple 'for' list comprehensions with three parts and useless commas", () => {
+    expect(
+      simplifyAst(
+        doParse(`
+          x = [for(iter = [10, 15, 20],,,,abc=10,,,; iter2 == 10; iter3 = xd) if(iter % 2 == 0) iter];
+        `)
+      )
+    ).toMatchSnapshot();
+  });
+  it("throws a ParsingError on unterminated for comprehenstions", () => {
+    expect(    
+        () => doParse(`
+          x = [for(
+        `)
+    ).toThrowError(ParsingError);
+  });
+  it("throws a ParsingError on garbage in the parameters list", () => {
+    expect(
+        () => doParse(`
+          x = [-];
+        `)
+    ).toThrowError(ParsingError);
+  });
+  it("parses empty for comprehensions ", () => {
+    expect(
+      simplifyAst(
+        doParse(`
+          x = [for(;false;) true];
+        `)
+      )
+    ).toMatchSnapshot();
   });
 });

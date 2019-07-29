@@ -88,6 +88,42 @@ Object {
 }
 `;
 
+exports[`Parser parses empty for comprehensions  1`] = `
+Object {
+  "__c": "ScadFile",
+  "pos": null,
+  "statements": Array [
+    Object {
+      "__c": "AssignmentNode",
+      "name": "x",
+      "pos": null,
+      "value": Object {
+        "__c": "VectorExpr",
+        "children": Array [
+          Object {
+            "__c": "LcForCExpr",
+            "args": Array [],
+            "cond": Object {
+              "__c": "LiteralExpr",
+              "pos": null,
+              "value": false,
+            },
+            "expr": Object {
+              "__c": "LiteralExpr",
+              "pos": null,
+              "value": true,
+            },
+            "incrArgs": Array [],
+            "pos": null,
+          },
+        ],
+        "pos": null,
+      },
+    },
+  ],
+}
+`;
+
 exports[`Parser parses module instantiations which are also keywords 1`] = `
 Object {
   "__c": "ScadFile",
@@ -266,6 +302,331 @@ Object {
       "tagDisabled": false,
       "tagHighlight": false,
       "tagRoot": false,
+    },
+  ],
+}
+`;
+
+exports[`Parser parses simple 'for' list comprehensions 1`] = `
+Object {
+  "__c": "ScadFile",
+  "pos": null,
+  "statements": Array [
+    Object {
+      "__c": "AssignmentNode",
+      "name": "x",
+      "pos": null,
+      "value": Object {
+        "__c": "VectorExpr",
+        "children": Array [
+          Object {
+            "__c": "LcForExpr",
+            "args": Array [
+              Object {
+                "__c": "AssignmentNode",
+                "name": "iter",
+                "pos": null,
+                "value": Object {
+                  "__c": "VectorExpr",
+                  "children": Array [
+                    Object {
+                      "__c": "LiteralExpr",
+                      "pos": null,
+                      "value": 10,
+                    },
+                    Object {
+                      "__c": "LiteralExpr",
+                      "pos": null,
+                      "value": 15,
+                    },
+                    Object {
+                      "__c": "LiteralExpr",
+                      "pos": null,
+                      "value": 20,
+                    },
+                  ],
+                  "pos": null,
+                },
+              },
+            ],
+            "expr": Object {
+              "__c": "LcIfExpr",
+              "cond": Object {
+                "__c": "BinaryOpExpr",
+                "left": Object {
+                  "__c": "BinaryOpExpr",
+                  "left": Object {
+                    "__c": "Lookup",
+                    "name": "iter",
+                    "pos": null,
+                  },
+                  "operation": 32,
+                  "pos": null,
+                  "right": Object {
+                    "__c": "LiteralExpr",
+                    "pos": null,
+                    "value": 2,
+                  },
+                },
+                "operation": 23,
+                "pos": null,
+                "right": Object {
+                  "__c": "LiteralExpr",
+                  "pos": null,
+                  "value": 0,
+                },
+              },
+              "elseExpr": null,
+              "ifExpr": Object {
+                "__c": "Lookup",
+                "name": "iter",
+                "pos": null,
+              },
+              "pos": null,
+            },
+            "pos": null,
+          },
+        ],
+        "pos": null,
+      },
+    },
+  ],
+}
+`;
+
+exports[`Parser parses simple 'for' list comprehensions with three parts 1`] = `
+Object {
+  "__c": "ScadFile",
+  "pos": null,
+  "statements": Array [
+    Object {
+      "__c": "AssignmentNode",
+      "name": "x",
+      "pos": null,
+      "value": Object {
+        "__c": "VectorExpr",
+        "children": Array [
+          Object {
+            "__c": "LcForCExpr",
+            "args": Array [
+              Object {
+                "__c": "AssignmentNode",
+                "name": "iter",
+                "pos": null,
+                "value": Object {
+                  "__c": "VectorExpr",
+                  "children": Array [
+                    Object {
+                      "__c": "LiteralExpr",
+                      "pos": null,
+                      "value": 10,
+                    },
+                    Object {
+                      "__c": "LiteralExpr",
+                      "pos": null,
+                      "value": 15,
+                    },
+                    Object {
+                      "__c": "LiteralExpr",
+                      "pos": null,
+                      "value": 20,
+                    },
+                  ],
+                  "pos": null,
+                },
+              },
+            ],
+            "cond": Object {
+              "__c": "BinaryOpExpr",
+              "left": Object {
+                "__c": "Lookup",
+                "name": "iter2",
+                "pos": null,
+              },
+              "operation": 23,
+              "pos": null,
+              "right": Object {
+                "__c": "LiteralExpr",
+                "pos": null,
+                "value": 10,
+              },
+            },
+            "expr": Object {
+              "__c": "LcIfExpr",
+              "cond": Object {
+                "__c": "BinaryOpExpr",
+                "left": Object {
+                  "__c": "BinaryOpExpr",
+                  "left": Object {
+                    "__c": "Lookup",
+                    "name": "iter",
+                    "pos": null,
+                  },
+                  "operation": 32,
+                  "pos": null,
+                  "right": Object {
+                    "__c": "LiteralExpr",
+                    "pos": null,
+                    "value": 2,
+                  },
+                },
+                "operation": 23,
+                "pos": null,
+                "right": Object {
+                  "__c": "LiteralExpr",
+                  "pos": null,
+                  "value": 0,
+                },
+              },
+              "elseExpr": null,
+              "ifExpr": Object {
+                "__c": "Lookup",
+                "name": "iter",
+                "pos": null,
+              },
+              "pos": null,
+            },
+            "incrArgs": Array [
+              Object {
+                "__c": "AssignmentNode",
+                "name": "iter3",
+                "pos": null,
+                "value": Object {
+                  "__c": "Lookup",
+                  "name": "xd",
+                  "pos": null,
+                },
+              },
+            ],
+            "pos": null,
+          },
+        ],
+        "pos": null,
+      },
+    },
+  ],
+}
+`;
+
+exports[`Parser parses simple 'for' list comprehensions with three parts and useless commas 1`] = `
+Object {
+  "__c": "ScadFile",
+  "pos": null,
+  "statements": Array [
+    Object {
+      "__c": "AssignmentNode",
+      "name": "x",
+      "pos": null,
+      "value": Object {
+        "__c": "VectorExpr",
+        "children": Array [
+          Object {
+            "__c": "LcForCExpr",
+            "args": Array [
+              Object {
+                "__c": "AssignmentNode",
+                "name": "iter",
+                "pos": null,
+                "value": Object {
+                  "__c": "VectorExpr",
+                  "children": Array [
+                    Object {
+                      "__c": "LiteralExpr",
+                      "pos": null,
+                      "value": 10,
+                    },
+                    Object {
+                      "__c": "LiteralExpr",
+                      "pos": null,
+                      "value": 15,
+                    },
+                    Object {
+                      "__c": "LiteralExpr",
+                      "pos": null,
+                      "value": 20,
+                    },
+                  ],
+                  "pos": null,
+                },
+              },
+              Object {
+                "__c": "AssignmentNode",
+                "name": "abc",
+                "pos": null,
+                "value": Object {
+                  "__c": "LiteralExpr",
+                  "pos": null,
+                  "value": 10,
+                },
+              },
+            ],
+            "cond": Object {
+              "__c": "BinaryOpExpr",
+              "left": Object {
+                "__c": "Lookup",
+                "name": "iter2",
+                "pos": null,
+              },
+              "operation": 23,
+              "pos": null,
+              "right": Object {
+                "__c": "LiteralExpr",
+                "pos": null,
+                "value": 10,
+              },
+            },
+            "expr": Object {
+              "__c": "LcIfExpr",
+              "cond": Object {
+                "__c": "BinaryOpExpr",
+                "left": Object {
+                  "__c": "BinaryOpExpr",
+                  "left": Object {
+                    "__c": "Lookup",
+                    "name": "iter",
+                    "pos": null,
+                  },
+                  "operation": 32,
+                  "pos": null,
+                  "right": Object {
+                    "__c": "LiteralExpr",
+                    "pos": null,
+                    "value": 2,
+                  },
+                },
+                "operation": 23,
+                "pos": null,
+                "right": Object {
+                  "__c": "LiteralExpr",
+                  "pos": null,
+                  "value": 0,
+                },
+              },
+              "elseExpr": null,
+              "ifExpr": Object {
+                "__c": "Lookup",
+                "name": "iter",
+                "pos": null,
+              },
+              "pos": null,
+            },
+            "incrArgs": Array [
+              Object {
+                "__c": "AssignmentNode",
+                "name": "iter3",
+                "pos": null,
+                "value": Object {
+                  "__c": "Lookup",
+                  "name": "xd",
+                  "pos": null,
+                },
+              },
+            ],
+            "pos": null,
+          },
+        ],
+        "pos": null,
+      },
     },
   ],
 }
