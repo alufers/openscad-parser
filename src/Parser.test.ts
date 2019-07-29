@@ -499,4 +499,72 @@ describe("Parser", () => {
     expect(unary.operation).toEqual(TokenType.Plus);
     expect(unary).toHaveProperty("right.value", 32);
   });
+  it("parses comparsion operators", () => {
+    const file = doParse(`
+      if(x > 2) {
+
+      }
+      if(x >= 5) {
+
+      }
+      if(x <= 5) {
+
+      }
+      if(x < 8) {
+
+      }
+    `);
+    expect(file.statements[0]).toBeInstanceOf(IfElseStatement);
+    const i = file.statements[0] as IfElseStatement;
+    expect(i.cond).toBeInstanceOf(BinaryOpExpr);
+    expect(i.cond).toHaveProperty("operation", TokenType.Greater);
+    expect(file.statements).toHaveProperty(
+      [1, "cond", "operation"],
+      TokenType.GreaterEqual
+    );
+    expect(file.statements).toHaveProperty(
+      [2, "cond", "operation"],
+      TokenType.LessEqual
+    );
+    expect(file.statements).toHaveProperty(
+      [3, "cond", "operation"],
+      TokenType.Less
+    );
+  });
+  it("parses equality operators", () => {
+    const file = doParse(`
+      if(x > 2 == false) {
+
+      }
+      if(x > 2 != false) {
+
+      }
+    `);
+    expect(file.statements).toHaveProperty(
+      [0, "cond", "operation"],
+      TokenType.EqualEqual
+    );
+    expect(file.statements).toHaveProperty(
+      [1, "cond", "operation"],
+      TokenType.BangEqual
+    );
+  });
+  it("parses logical operators", () => {
+    const file = doParse(`
+      if(x > 2 == false && x < 25) {
+
+      }
+      if(x > 2 != false || y != 3) {
+
+      }
+    `);
+    expect(file.statements).toHaveProperty(
+      [0, "cond", "operation"],
+      TokenType.AND
+    );
+    expect(file.statements).toHaveProperty(
+      [1, "cond", "operation"],
+      TokenType.OR
+    );
+  });
 });

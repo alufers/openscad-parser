@@ -305,7 +305,50 @@ export default class Parser {
     while (this.matchToken(TokenType.Comma) && !this.isAtEnd()) {}
   }
   protected expression(): Expression {
-    return this.addition();
+    return this.logical();
+  }
+
+  /**
+   * Parses the '&&' and '||' operators
+   */
+  protected logical() {
+    let expr = this.equality();
+    while (this.matchToken(TokenType.AND, TokenType.OR)) {
+      const operator = this.previous();
+      const right = this.equality();
+      expr = new BinaryOpExpr(this.getLocation(), expr, operator.type, right);
+    }
+    return expr;
+  }
+
+  /**
+   * Parses the '==' and '!=' operators.
+   */
+  protected equality(): Expression {
+    let expr = this.comparsion();
+    while (this.matchToken(TokenType.EqualEqual, TokenType.BangEqual)) {
+      const operator = this.previous();
+      const right = this.comparsion();
+      expr = new BinaryOpExpr(this.getLocation(), expr, operator.type, right);
+    }
+    return expr;
+  }
+
+  protected comparsion(): Expression {
+    let expr = this.addition();
+    while (
+      this.matchToken(
+        TokenType.Less,
+        TokenType.LessEqual,
+        TokenType.Greater,
+        TokenType.GreaterEqual
+      )
+    ) {
+      const operator = this.previous();
+      const right = this.addition();
+      expr = new BinaryOpExpr(this.getLocation(), expr, operator.type, right);
+    }
+    return expr;
   }
 
   protected addition(): Expression {
