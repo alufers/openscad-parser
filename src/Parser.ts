@@ -182,6 +182,12 @@ export default class Parser {
     return new AssignmentNode(pos, name.value, expr);
   }
   protected moduleInstantiationStatement(): ModuleInstantiationStmt {
+    if (this.isAtEnd()) {
+      throw new ParsingError(
+        this.getLocation(),
+        "Unexpected end of file before module instantiation."
+      );
+    }
     if (this.previous().type === TokenType.Bang) {
       this.advance();
       const mod = this.moduleInstantiationStatement();

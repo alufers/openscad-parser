@@ -613,4 +613,18 @@ describe("Parser", () => {
     `)
     ).toThrow(ParsingError);
   });
+  it("throws on empty assignment", () => {
+    expect(() =>
+      doParse(`
+       val = 
+    `)
+    ).toThrow(ParsingError);
+  });
+  it("throws ParsingError on unfinished module tag", () => {
+    expect(() =>
+      doParse(`
+        !
+      `)
+    ).toThrow(ParsingError);
+  });
 });
