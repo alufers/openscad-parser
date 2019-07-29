@@ -67,6 +67,14 @@ export default class Parser {
     if (this.matchToken(TokenType.Function)) {
       return this.functionDeclarationStatement();
     }
+    if (this.matchToken(TokenType.Identifier)) {
+      if (this.peek().type === TokenType.Equal) {
+        return this.assignmentStatement();
+      }
+      if (this.peek().type === TokenType.LeftParen) {
+        return this.moduleInstantiation();
+      }
+    }
     this.advance();
   }
   protected blockStatement() {
@@ -113,7 +121,21 @@ export default class Parser {
       body
     );
   }
-  namedArguments(): AssignmentNode[] {
+  protected assignmentStatement() {
+    const pos = this.getLocation();
+    const name = this.previous() as LiteralToken<string>;
+    this.consume(TokenType.Equal, "Expected '=' after assignment name.");
+    const expr = this.expression();
+    this.consume(
+      TokenType.Semicolon,
+      "Expected ';' after assignment statement."
+    );
+    return new AssignmentNode(pos, name.value, expr);
+  }
+  protected moduleInstantiation() {
+    throw new Error("not implemented");
+  }
+  protected namedArguments(): AssignmentNode[] {
     this.consumeUselessCommas();
     const args: AssignmentNode[] = [];
     if (this.matchToken(TokenType.RightParen)) {
@@ -156,14 +178,14 @@ export default class Parser {
       `Unexpected token ${this.advance()} in named arguments list.`
     );
   }
-  consumeUselessCommas() {
+  protected consumeUselessCommas() {
     while (this.matchToken(TokenType.Comma) && !this.isAtEnd()) {}
   }
-  expression(): Expression {
+  protected expression(): Expression {
     return this.primary();
   }
 
-  primary() {
+  protected primary() {
     if (this.matchToken(TokenType.True)) {
       return new LiteralExpr(this.getLocation(), true);
     }
@@ -237,6 +259,12 @@ export default class Parser {
   }
   protected peek(): Token {
     return this.tokens[this.currentToken];
+  }
+  protected peekNext(): Token {
+    if (this.tokens[this.currentToken].type === TokenType.Eot) {
+      return this.tokens[this.currentToken];
+    }
+    return this.tokens[this.currentToken + 1];
   }
   protected getLocation() {
     return this.peek().pos;

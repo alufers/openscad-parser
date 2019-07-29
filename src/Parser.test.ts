@@ -8,6 +8,8 @@ import {
   ModuleDeclarationStmt
 } from "./ast/statements";
 import ParsingError from "./ParsingError";
+import AssignmentNode from "./ast/AssignmentNode";
+import { LiteralExpr } from "./ast/expressions";
 
 describe("Parser", () => {
   function doParse(source: string) {
@@ -131,20 +133,20 @@ describe("Parser", () => {
   it("throws on unexpected tokens in module declaration parameters", () => {
     expect(() =>
       doParse(`
-        module unterminated (abc-) {}
+        module unexpected (abc-) {}
     `)
     ).toThrow(ParsingError);
   });
   it("throws on garbage in module declaration parameters", () => {
     expect(() =>
       doParse(`
-        module unterminated (-) {}
+        module garbage (-) {}
     `)
     ).toThrow(ParsingError);
 
     expect(() =>
       doParse(`
-        module unterminated (==!>XDD) {}
+        module garbage (==!>XDD) {}
     `)
     ).toThrow(ParsingError);
   });
@@ -153,5 +155,15 @@ describe("Parser", () => {
     doParse(`
      function noop (x = false) = x;
   `);
+  });
+  it("parses assignments", () => {
+    const file = doParse(`
+      x = 10;
+    `);
+    expect(file.statements[0]).toBeInstanceOf(AssignmentNode);
+    const a = file.statements[0] as AssignmentNode;
+    expect(a.name).toEqual("x");
+    expect(a.value).toBeInstanceOf(LiteralExpr);
+    expect(a.value).toHaveProperty("value", 10);
   });
 });
