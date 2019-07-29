@@ -116,7 +116,7 @@ export default class Parser {
       "Expected module name after 'module' keyword"
     );
     this.consume(TokenType.LeftParen, "Expected '(' after module name");
-    const args: AssignmentNode[] = this.namedArguments();
+    const args: AssignmentNode[] = this.args();
     const body = this.statement();
     return new ModuleDeclarationStmt(
       this.getLocation(),
@@ -131,7 +131,7 @@ export default class Parser {
       "Expected function name after 'function' keyword"
     );
     this.consume(TokenType.LeftParen, "Expected '(' after function name");
-    const args = this.namedArguments();
+    const args = this.args();
     this.consume(TokenType.Equal, "Expected '=' after function parameters");
     const body = this.expression();
     this.consume(
@@ -191,11 +191,11 @@ export default class Parser {
       TokenType.LeftParen,
       "Expected '(' after module instantation."
     );
-    const args = this.namedArguments(true);
+    const args = this.args(true);
     return new ModuleInstantiationStmt(name.pos, name.value, args, null);
   }
 
-  protected namedArguments(allowPositional = false): AssignmentNode[] {
+  protected args(allowPositional = false): AssignmentNode[] {
     this.consumeUselessCommas();
     const args: AssignmentNode[] = [];
     if (this.matchToken(TokenType.RightParen)) {
@@ -205,7 +205,7 @@ export default class Parser {
       if (this.isAtEnd()) {
         break;
       }
-      if (this.peek().type !== TokenType.Identifier) {
+      if (!allowPositional && this.peek().type !== TokenType.Identifier) {
         break;
       }
       let value: Expression = null;

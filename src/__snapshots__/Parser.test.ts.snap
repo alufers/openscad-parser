@@ -13,9 +13,9 @@ Object {
           "name": "",
           "pos": null,
           "value": Object {
-            "__c": "Lookup",
-            "name": "true",
+            "__c": "LiteralExpr",
             "pos": null,
+            "value": true,
           },
         },
       ],

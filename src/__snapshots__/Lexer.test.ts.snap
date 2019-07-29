@@ -5944,8 +5944,7 @@ Array [
   Object {
     "l": "undef",
     "posChar": 5149,
-    "type": "Identifier",
-    "val": "undef",
+    "type": "Undef",
   },
   Object {
     "l": "?",
@@ -6352,8 +6351,7 @@ Array [
   Object {
     "l": "undef",
     "posChar": 5394,
-    "type": "Identifier",
-    "val": "undef",
+    "type": "Undef",
   },
   Object {
     "l": "?",
@@ -7990,8 +7988,7 @@ Array [
   Object {
     "l": "true",
     "posChar": 6243,
-    "type": "Identifier",
-    "val": "true",
+    "type": "True",
   },
   Object {
     "l": ":",
@@ -8001,8 +7998,7 @@ Array [
   Object {
     "l": "false",
     "posChar": 6251,
-    "type": "Identifier",
-    "val": "false",
+    "type": "False",
   },
   Object {
     "l": ";",

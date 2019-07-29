@@ -4,6 +4,9 @@ import TokenType from "./TokenType";
  * A dictionary which maps keyword string values to their TokenType.
  */
 const keywords: { [x: string]: TokenType } = {
+  true: TokenType.True,
+  false: TokenType.False,
+  undef: TokenType.Undef,
   module: TokenType.Module,
   function: TokenType.Function,
   if: TokenType.If,

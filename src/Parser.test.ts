@@ -267,8 +267,8 @@ describe("Parser", () => {
     expect(
       simplifyAst(
         doParse(`
-      cube(true);
-    `)
+          cube(true);
+        `)
       )
     ).toMatchSnapshot();
   });
