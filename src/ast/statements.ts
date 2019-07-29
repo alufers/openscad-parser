@@ -76,3 +76,14 @@ export class BlockStmt extends Statement {
 }
 
 export class NoopStmt extends Statement {}
+
+export class IfElseStatement extends Statement {
+  constructor(
+    pos: CodeLocation,
+    public cond: Expression,
+    public thenBranch: Statement,
+    public elseBranch: Statement
+  ) {
+    super(pos);
+  }
+}

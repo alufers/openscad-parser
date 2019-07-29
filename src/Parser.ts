@@ -9,7 +9,8 @@ import {
   BlockStmt,
   ModuleDeclarationStmt,
   FunctionDeclarationStmt,
-  ModuleInstantiationStmt
+  ModuleInstantiationStmt,
+  IfElseStatement
 } from "./ast/statements";
 import ScadFile from "./ast/ScadFile";
 import CodeLocation from "./CodeLocation";
@@ -83,6 +84,9 @@ export default class Parser {
     }
     if (this.matchToken(TokenType.Function)) {
       return this.functionDeclarationStatement();
+    }
+    if (this.matchToken(TokenType.If)) {
+      return this.ifElseStatement();
     }
     const assignmentOrInst = this.matchAssignmentOrModuleInstantation();
     if (assignmentOrInst) {
@@ -195,6 +199,18 @@ export default class Parser {
     const mod = this.singleModuleInstantiation();
     mod.child = this.statement();
     return mod;
+  }
+  protected ifElseStatement(): IfElseStatement {
+    const prev = this.previous();
+    this.consume(TokenType.LeftParen, "Expected '(' after the if keyword.");
+    const cond = this.expression();
+    this.consume(TokenType.RightParen, "Expected ')' after the if condition.");
+    const thenBranch = this.statement();
+    let elseBranch: Statement = null;
+    if (this.matchToken(TokenType.Else)) {
+      elseBranch = this.statement();
+    }
+    return new IfElseStatement(prev.pos, cond, thenBranch, elseBranch);
   }
   protected singleModuleInstantiation() {
     const prev = this.previous();

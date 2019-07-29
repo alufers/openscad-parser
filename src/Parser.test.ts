@@ -6,11 +6,12 @@ import {
   BlockStmt,
   NoopStmt,
   ModuleDeclarationStmt,
-  ModuleInstantiationStmt
+  ModuleInstantiationStmt,
+  IfElseStatement
 } from "./ast/statements";
 import ParsingError from "./ParsingError";
 import AssignmentNode from "./ast/AssignmentNode";
-import { LiteralExpr } from "./ast/expressions";
+import { LiteralExpr, Expression } from "./ast/expressions";
 import ASTNode from "./ast/ASTNode";
 import CodeLocation from "./CodeLocation";
 
@@ -298,5 +299,42 @@ describe("Parser", () => {
     }
    `);
     expect(simplifyAst(f)).toMatchSnapshot();
+  });
+  it("parses simple if statements", () => {
+    const file = doParse(`
+      if("anything") {
+        cube();
+      }
+    `);
+    expect(file.statements[0]).toBeInstanceOf(IfElseStatement);
+    expect(file.statements[0]).toHaveProperty("cond");
+    expect((file.statements[0] as IfElseStatement).cond).toBeInstanceOf(
+      Expression
+    );
+    expect((file.statements[0] as IfElseStatement).thenBranch).toBeInstanceOf(
+      BlockStmt
+    );
+    expect((file.statements[0] as IfElseStatement).elseBranch).toBeNull();
+  });
+  it("parses if else statements", () => {
+    const file = doParse(`
+      if("anything") {
+        cube();
+      } else if("everything") sphere();
+      else {
+        echo("error");
+      }
+    `);
+    expect(file.statements[0]).toBeInstanceOf(IfElseStatement);
+    expect(file.statements[0]).toHaveProperty("cond");
+    expect((file.statements[0] as IfElseStatement).cond).toBeInstanceOf(
+      Expression
+    );
+    expect((file.statements[0] as IfElseStatement).thenBranch).toBeInstanceOf(
+      BlockStmt
+    );
+    expect((file.statements[0] as IfElseStatement).elseBranch).toBeInstanceOf(
+      IfElseStatement
+    );
   });
 });
