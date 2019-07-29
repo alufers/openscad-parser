@@ -17,7 +17,8 @@ import {
   MemberLookup,
   ArrayLookupExpr,
   FunctionCallExpr,
-  BinaryOpExpr
+  BinaryOpExpr,
+  UnaryOpExpr
 } from "./ast/expressions";
 import ASTNode from "./ast/ASTNode";
 import CodeLocation from "./CodeLocation";
@@ -464,5 +465,38 @@ describe("Parser", () => {
     expect(file.statements[0]).toBeInstanceOf(AssignmentNode);
     const a = file.statements[0] as AssignmentNode;
     expect(simplifyAst(a.value)).toMatchSnapshot();
+  });
+  it("parses the '-' unary operator", () => {
+    const file = doParse(`
+      x = -10;
+    `);
+    expect(file.statements[0]).toBeInstanceOf(AssignmentNode);
+    const a = file.statements[0] as AssignmentNode;
+    expect(a.value).toBeInstanceOf(UnaryOpExpr);
+    const unary = a.value as UnaryOpExpr;
+    expect(unary.operation).toEqual(TokenType.Minus);
+    expect(unary).toHaveProperty("right.value", 10);
+  });
+  it("parses the '!' unary operator", () => {
+    const file = doParse(`
+      x = !22;
+    `);
+    expect(file.statements[0]).toBeInstanceOf(AssignmentNode);
+    const a = file.statements[0] as AssignmentNode;
+    expect(a.value).toBeInstanceOf(UnaryOpExpr);
+    const unary = a.value as UnaryOpExpr;
+    expect(unary.operation).toEqual(TokenType.Bang);
+    expect(unary).toHaveProperty("right.value", 22);
+  });
+  it("parses the '+' unary operator", () => {
+    const file = doParse(`
+      x = +32;
+    `);
+    expect(file.statements[0]).toBeInstanceOf(AssignmentNode);
+    const a = file.statements[0] as AssignmentNode;
+    expect(a.value).toBeInstanceOf(UnaryOpExpr);
+    const unary = a.value as UnaryOpExpr;
+    expect(unary.operation).toEqual(TokenType.Plus);
+    expect(unary).toHaveProperty("right.value", 32);
   });
 });

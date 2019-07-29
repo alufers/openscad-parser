@@ -24,7 +24,8 @@ import {
   MemberLookup,
   ArrayLookupExpr,
   FunctionCallExpr,
-  BinaryOpExpr
+  BinaryOpExpr,
+  UnaryOpExpr
 } from "./ast/expressions";
 import keywords from "./keywords";
 
@@ -318,15 +319,27 @@ export default class Parser {
   }
 
   protected multiplication(): Expression {
-    let expr = this.memberLookupOrArrayLookup();
+    let expr = this.unary();
     while (
       this.matchToken(TokenType.Star, TokenType.Slash, TokenType.Percent)
     ) {
       const operator = this.previous();
-      const right = this.memberLookupOrArrayLookup();
+      const right = this.unary();
       expr = new BinaryOpExpr(this.getLocation(), expr, operator.type, right);
     }
     return expr;
+  }
+
+  /**
+   * Parses +expr, -expr and !expr.
+   */
+  protected unary(): Expression {
+    if (this.matchToken(TokenType.Plus, TokenType.Minus, TokenType.Bang)) {
+      const operator = this.previous();
+      const right = this.unary();
+      return new UnaryOpExpr(this.getLocation(), operator.type, right);
+    }
+    return this.memberLookupOrArrayLookup();
   }
 
   protected memberLookupOrArrayLookup() {
