@@ -134,6 +134,15 @@ describe("Lexer", () => {
       TokenType.Eot
     ]);
   });
+  it("scans multiline comments", () => {
+    const tts = lexToTTStream(`/* ddd \n asdf */`);
+    expect(tts).toEqual([
+      TokenType.Eot
+    ]);
+  });
+  it("throws LexingError on unterminated multiline comments", () => {
+    expect(() => lexToTTStream(`/* ahdsh`)).toThrowError(LexingError);
+  });
   it("throws LexingError on single & and single |", () => {
     expect(() => lexToTTStream(`&`)).toThrowError(LexingError);
     expect(() => lexToTTStream(`|`)).toThrowError(LexingError);

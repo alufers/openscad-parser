@@ -65,6 +65,22 @@ export default class Lexer {
           while (this.peek() != "\n" && !this.isAtEnd()) {
             this.advance();
           }
+        } else if (this.match("*")) {
+          // multiline comment
+          while (
+            !(this.peek() == "*" && this.peekNext() == "/") &&
+            !this.isAtEnd()
+          ) {
+            this.advance();
+          }
+          if (this.isAtEnd()) {
+            throw new LexingError(
+              this.loc.copy(),
+              "Unterminated multiline comment!"
+            );
+          }
+          this.advance(); // advance the star
+          this.advance(); // advance the slash
         } else {
           this.addToken(TokenType.Slash);
         }
