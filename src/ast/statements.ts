@@ -16,25 +16,33 @@ export class UseStmt extends Statement {
   }
 }
 
-export class ModuleInstantiationStmt extends Statement {
+interface TaggableStatement {
   /**
    * Set to true if this module instantation has been tagged with a '!' symbol.
    */
-  public tagRoot: boolean = false;
+  tagRoot: boolean;
 
   /**
    * Set to true if this module instantation has been tagged with a '#' symbol.
    */
-  public tagHighlight: boolean = false;
+  tagHighlight: boolean;
 
   /**
    * Set to true if this module instantation has been tagged with a '%' symbol.
    */
-  public tagBackground: boolean = false;
+  tagBackground: boolean;
 
   /**
    * Set to true if this module instantation has been tagged with a '*' symbol.
    */
+  tagDisabled: boolean;
+}
+
+export class ModuleInstantiationStmt extends Statement
+  implements TaggableStatement {
+  public tagRoot: boolean = false;
+  public tagHighlight: boolean = false;
+  public tagBackground: boolean = false;
   public tagDisabled: boolean = false;
 
   constructor(
@@ -77,7 +85,11 @@ export class BlockStmt extends Statement {
 
 export class NoopStmt extends Statement {}
 
-export class IfElseStatement extends Statement {
+export class IfElseStatement extends Statement implements TaggableStatement {
+  public tagRoot: boolean = false;
+  public tagHighlight: boolean = false;
+  public tagBackground: boolean = false;
+  public tagDisabled: boolean = false;
   constructor(
     pos: CodeLocation,
     public cond: Expression,

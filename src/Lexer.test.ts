@@ -134,11 +134,19 @@ describe("Lexer", () => {
       TokenType.Eot
     ]);
   });
-  it("scans multiline comments", () => {
-    const tts = lexToTTStream(`/* ddd \n asdf */`);
+  it("scans single line comments", () => {
+    const tts = lexToTTStream(`x = 20; // some note +-//asdf`);
     expect(tts).toEqual([
+      TokenType.Identifier,
+      TokenType.Equal,
+      TokenType.NumberLiteral,
+      TokenType.Semicolon,
       TokenType.Eot
     ]);
+  });
+  it("scans multiline comments", () => {
+    const tts = lexToTTStream(`/* ddd \n asdf */`);
+    expect(tts).toEqual([TokenType.Eot]);
   });
   it("throws LexingError on unterminated multiline comments", () => {
     expect(() => lexToTTStream(`/* ahdsh`)).toThrowError(LexingError);
@@ -195,7 +203,7 @@ describe("Lexer", () => {
         TokenType.NumberLiteral,
         TokenType.Dot,
         TokenType.Eot
-      ])
+      ]);
     });
   });
 
@@ -226,7 +234,7 @@ describe("Lexer", () => {
       expect(() => testStringLexing(`"aaaa`)).toThrowError(LexingError);
     });
   });
-  describe("lexing of random files found on the internet", () => {
+  describe.skip("lexing of random files found on the internet", () => {
     async function lexFile(path: string) {
       const file = await CodeFile.load(resolve(__dirname, path));
       const lexer = new Lexer(file);

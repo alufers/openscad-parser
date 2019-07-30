@@ -35,7 +35,9 @@ import {
   RangeExpr,
   LcForExpr,
   LcForCExpr,
-  LetExpr
+  LetExpr,
+  AssertExpr,
+  EchoExpr
 } from "./ast/expressions";
 import keywords from "./keywords";
 
@@ -51,7 +53,8 @@ const keywordModuleNames = [
   TokenType.Let,
   TokenType.Assert,
   TokenType.Echo,
-  TokenType.Each
+  TokenType.Each,
+  TokenType.If
 ];
 
 const listComprehensionElementKeywords = [
@@ -105,9 +108,6 @@ export default class Parser {
     }
     if (this.matchToken(TokenType.Function)) {
       return this.functionDeclarationStatement();
-    }
-    if (this.matchToken(TokenType.If)) {
-      return this.ifElseStatement();
     }
     const assignmentOrInst = this.matchAssignmentOrModuleInstantation();
     if (assignmentOrInst) {
@@ -194,7 +194,9 @@ export default class Parser {
     );
     return new AssignmentNode(pos, name.value, expr);
   }
-  protected moduleInstantiationStatement(): ModuleInstantiationStmt {
+  protected moduleInstantiationStatement():
+    | ModuleInstantiationStmt
+    | IfElseStatement {
     if (this.isAtEnd()) {
       throw new ParsingError(
         this.getLocation(),
@@ -226,7 +228,9 @@ export default class Parser {
       return mod;
     }
     const mod = this.singleModuleInstantiation();
-    mod.child = this.statement();
+    if (!(mod instanceof IfElseStatement)) {
+      mod.child = this.statement();
+    }
     return mod;
   }
   protected ifElseStatement(): IfElseStatement {
@@ -243,6 +247,9 @@ export default class Parser {
   }
   protected singleModuleInstantiation() {
     const prev = this.previous();
+    if (prev.type === TokenType.If) {
+      return this.ifElseStatement();
+    }
     this.consume(
       TokenType.LeftParen,
       "Expected '(' after module instantation."
@@ -515,13 +522,9 @@ export default class Parser {
     }
     return expr;
   }
-  protected finishCall(nameToken: LiteralToken<string> | Token): Expression {
-    let name;
-    if (nameToken instanceof LiteralToken) {
-      name = nameToken.value;
-    } else {
-      name = nameToken.lexeme;
-    }
+  protected finishCall(nameToken: LiteralToken<string>): Expression {
+    let name = nameToken.value;
+
     const args = this.args(true);
     return new FunctionCallExpr(nameToken.pos, name, args);
   }
@@ -554,10 +557,12 @@ export default class Parser {
       }
       return new Lookup(this.getLocation(), tok.value);
     }
-    if (this.matchToken(TokenType.Assert, TokenType.Echo)) {
+    if (this.matchToken(TokenType.Assert)) {
       const keyword = this.previous();
       this.consume(TokenType.LeftParen, `Expected '(' after call expression.`);
-      return this.finishCall(keyword);
+      const vars = this.args(true);
+      const innerExpr = this.expression();
+      return new AssertExpr(keyword.pos, vars, innerExpr);
     }
     if (this.matchToken(TokenType.Let)) {
       const keyword = this.previous();
@@ -565,6 +570,13 @@ export default class Parser {
       const vars = this.args(true);
       const innerExpr = this.expression();
       return new LetExpr(keyword.pos, vars, innerExpr);
+    }
+    if (this.matchToken(TokenType.Echo)) {
+      const keyword = this.previous();
+      this.consume(TokenType.LeftParen, `Expected '(' after call expression.`);
+      const vars = this.args(true);
+      const innerExpr = this.expression();
+      return new EchoExpr(keyword.pos, vars, innerExpr);
     }
     if (this.matchToken(TokenType.LeftParen)) {
       const expr = this.expression();
@@ -690,7 +702,6 @@ export default class Parser {
       }
       return new LcIfExpr(ifKwrd.pos, cond, thenBranch, elseBranch);
     }
-    return null;
   }
   protected listComprehensionFor(): Expression {
     const forKwrd = this.previous();

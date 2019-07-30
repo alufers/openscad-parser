@@ -188,30 +188,32 @@ export class FunctionCallExpr extends Expression {
   }
 }
 
-/**
- * Reperesents a let expression. Please note that this is syntactically diffrent from the let module instantation and the let list comprehension.
- */
-export class LetExpr extends Expression {
+export class FunctionCallLikeExpr extends Expression {
   /**
-   * The names of rhew assigned variables in this let expression.
+   * The names of the assigned variables in this let expression.
    */
-  variables: AssignmentNode[];
+  args: AssignmentNode[];
 
   /**
-   * The inner expression which will use the declared variables.
+   * The inner expression which will use the expression.
    */
   expr: Expression;
 
-  constructor(
-    pos: CodeLocation,
-    variables: AssignmentNode[],
-    expr: Expression
-  ) {
+  constructor(pos: CodeLocation, args: AssignmentNode[], expr: Expression) {
     super(pos);
-    this.variables = variables;
+    this.args = args;
     this.expr = expr;
   }
 }
+
+/**
+ * Represents a let expression. Please note that this is syntactically diffrent from the let module instantation and the let list comprehension.
+ */
+export class LetExpr extends FunctionCallLikeExpr {}
+
+export class AssertExpr extends FunctionCallLikeExpr {}
+
+export class EchoExpr extends FunctionCallLikeExpr {}
 
 export abstract class ListComprehensionExpression extends Expression {}
 

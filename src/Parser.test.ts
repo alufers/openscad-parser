@@ -26,7 +26,10 @@ import {
   LcIfExpr,
   Lookup,
   LcEachExpr,
-  LcLetExpr
+  LcLetExpr,
+  LetExpr,
+  EchoExpr,
+  AssertExpr
 } from "./ast/expressions";
 import ASTNode from "./ast/ASTNode";
 import CodeLocation from "./CodeLocation";
@@ -662,6 +665,14 @@ describe("Parser", () => {
     expect(file.statements[0]).toHaveProperty("value.children.length", 1);
     expect(file.statements[0]).toHaveProperty("value.children.0.value", 10);
   });
+  it("parses a vector literal with multiple values and trailing commas", () => {
+    const file = doParse(`
+      x = [10,,20,,,];
+    `);
+    expect(file.statements[0]).toHaveProperty("value.children.length", 2);
+    expect(file.statements[0]).toHaveProperty("value.children.0.value", 10);
+    expect(file.statements[0]).toHaveProperty("value.children.1.value", 20);
+  });
   it("parses a vector literal with multiple values", () => {
     const file = doParse(`
       x = [10, "string", true];
@@ -844,7 +855,49 @@ describe("Parser", () => {
       )
     ).toMatchSnapshot();
   });
-  it("parses hull.scad", async () => {
+  it("throws a ParsingError on garbage in the for comprehension params", () => {
+    expect(() =>
+      doParse(`
+          x = [for(%%%;false;)];
+        `)
+    ).toThrowError(ParsingError);
+    expect(() =>
+      doParse(`
+        x = [for(abc = 10, %%%;false;)];
+      `)
+    ).toThrowError(ParsingError);
+  });
+  it("parses the 'let' epxression", () => {
+    const file = doParse(`
+      x = let(varz = 28) varz + 10;
+    `);
+    const letExpr = (file.statements[0] as any).value as LetExpr;
+    expect(letExpr).toBeInstanceOf(LetExpr);
+    expect(letExpr.args[0].name).toEqual("varz");
+    expect(letExpr.args[0].value).toBeInstanceOf(LiteralExpr);
+    expect(letExpr.expr).toBeInstanceOf(BinaryOpExpr);
+  });
+  it("parses the 'echo' epxression", () => {
+    const file = doParse(`
+      x = echo("dddd") varz + 10;
+    `);
+    const e = (file.statements[0] as any).value as EchoExpr;
+    expect(e).toBeInstanceOf(EchoExpr);
+    expect(e.args[0].name).toEqual("");
+    expect(e.args[0].value).toBeInstanceOf(LiteralExpr);
+    expect(e.expr).toBeInstanceOf(BinaryOpExpr);
+  });
+  it("parses the 'assert' epxression", () => {
+    const file = doParse(`
+      x = assert(x == 22) varz + 10;
+    `);
+    const e = (file.statements[0] as any).value as AssertExpr;
+    expect(e).toBeInstanceOf(AssertExpr);
+    expect(e.args[0].name).toEqual("");
+    expect(e.args[0].value).toBeInstanceOf(BinaryOpExpr);
+    expect(e.expr).toBeInstanceOf(BinaryOpExpr);
+  });
+  it.skip("parses hull.scad", async () => {
     const file = await CodeFile.load(resolve(__dirname, "testdata/hull.scad"));
     const lexer = new Lexer(file);
     const parser = new Parser(file, lexer.scan());
