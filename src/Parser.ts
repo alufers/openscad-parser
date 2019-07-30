@@ -648,6 +648,10 @@ export default class Parser {
           TokenType.Comma,
           "Expected comma after vector literal element."
         );
+        this.consumeUselessCommas();
+        if (this.matchToken(TokenType.RightBracket)) {
+          break;
+        }
       }
     } else {
       this.consume(TokenType.RightBracket, "Unterminated vector literal.");
