@@ -3190,38 +3190,6 @@ Array [
     "type": "QuestionMark",
   },
   Object {
-    "l": "/",
-    "posChar": 2948,
-    "type": "Slash",
-  },
-  Object {
-    "l": "*",
-    "posChar": 2949,
-    "type": "Star",
-  },
-  Object {
-    "l": "all",
-    "posChar": 2953,
-    "type": "Identifier",
-    "val": "all",
-  },
-  Object {
-    "l": "coplanar",
-    "posChar": 2962,
-    "type": "Identifier",
-    "val": "coplanar",
-  },
-  Object {
-    "l": "*",
-    "posChar": 2963,
-    "type": "Star",
-  },
-  Object {
-    "l": "/",
-    "posChar": 2964,
-    "type": "Slash",
-  },
-  Object {
     "l": "let",
     "posChar": 2968,
     "type": "Let",

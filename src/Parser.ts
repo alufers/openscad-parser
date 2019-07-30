@@ -34,7 +34,8 @@ import {
   VectorExpr,
   RangeExpr,
   LcForExpr,
-  LcForCExpr
+  LcForCExpr,
+  LetExpr
 } from "./ast/expressions";
 import keywords from "./keywords";
 
@@ -63,7 +64,6 @@ const listComprehensionElementKeywords = [
 export default class Parser {
   protected currentToken = 0;
   constructor(public code: CodeFile, public tokens: Token[]) {}
-
   parse() {
     const statements: Statement[] = [];
     while (!this.isAtEnd()) {
@@ -93,7 +93,6 @@ export default class Parser {
     }
     return new ScadFile(new CodeLocation(this.code), statements);
   }
-
   protected statement() {
     if (this.matchToken(TokenType.Semicolon)) {
       return new NoopStmt(this.getLocation());
@@ -140,7 +139,6 @@ export default class Parser {
     }
     return null;
   }
-
   protected blockStatement() {
     const startLocation = this.getLocation();
     const innerStatements: Statement[] = [];
@@ -263,7 +261,6 @@ export default class Parser {
     const args = this.args(true);
     return new ModuleInstantiationStmt(prev.pos, name, args, null);
   }
-
   /**
    * Parses an argument list including the finishing paren. Can handle trailing and extra commas as well as an empty arguments list.
    * The initial paren must be consumed.
@@ -324,7 +321,6 @@ export default class Parser {
       `Unexpected token ${this.advance()} in named arguments list.`
     );
   }
-
   /**
    * Parses arguments from the 'for' loop comprehension.
    * The initial paren must be consumed. Stops on semicolon or right paren, but does not consume them.
@@ -397,7 +393,6 @@ export default class Parser {
   protected expression(): Expression {
     return this.ternary();
   }
-
   /**
    * Parses the ternary '? :' expression
    */
@@ -415,7 +410,6 @@ export default class Parser {
     }
     return expr;
   }
-
   /**
    * Parses the '||' operators
    */
@@ -428,7 +422,6 @@ export default class Parser {
     }
     return expr;
   }
-
   /**
    * Parses the '&&' operators
    */
@@ -441,7 +434,6 @@ export default class Parser {
     }
     return expr;
   }
-
   /**
    * Parses the '==' and '!=' operators.
    */
@@ -454,7 +446,6 @@ export default class Parser {
     }
     return expr;
   }
-
   protected comparsion(): Expression {
     let expr = this.addition();
     while (
@@ -471,7 +462,6 @@ export default class Parser {
     }
     return expr;
   }
-
   protected addition(): Expression {
     let expr = this.multiplication();
     while (this.matchToken(TokenType.Plus, TokenType.Minus)) {
@@ -481,7 +471,6 @@ export default class Parser {
     }
     return expr;
   }
-
   protected multiplication(): Expression {
     let expr = this.unary();
     while (
@@ -493,7 +482,6 @@ export default class Parser {
     }
     return expr;
   }
-
   /**
    * Parses +expr, -expr and !expr.
    */
@@ -505,7 +493,6 @@ export default class Parser {
     }
     return this.memberLookupOrArrayLookup();
   }
-
   protected memberLookupOrArrayLookup() {
     let expr = this.primary();
     while (true) {
@@ -528,12 +515,16 @@ export default class Parser {
     }
     return expr;
   }
-
-  protected finishCall(name: LiteralToken<string>): Expression {
+  protected finishCall(nameToken: LiteralToken<string> | Token): Expression {
+    let name;
+    if (nameToken instanceof LiteralToken) {
+      name = nameToken.value;
+    } else {
+      name = nameToken.lexeme;
+    }
     const args = this.args(true);
-    return new FunctionCallExpr(name.pos, name.value, args);
+    return new FunctionCallExpr(nameToken.pos, name, args);
   }
-
   protected primary(): Expression {
     if (this.matchToken(TokenType.True)) {
       return new LiteralExpr(this.getLocation(), true);
@@ -563,6 +554,18 @@ export default class Parser {
       }
       return new Lookup(this.getLocation(), tok.value);
     }
+    if (this.matchToken(TokenType.Assert, TokenType.Echo)) {
+      const keyword = this.previous();
+      this.consume(TokenType.LeftParen, `Expected '(' after call expression.`);
+      return this.finishCall(keyword);
+    }
+    if (this.matchToken(TokenType.Let)) {
+      const keyword = this.previous();
+      this.consume(TokenType.LeftParen, `Expected '(' after call expression.`);
+      const vars = this.args(true);
+      const innerExpr = this.expression();
+      return new LetExpr(keyword.pos, vars, innerExpr);
+    }
     if (this.matchToken(TokenType.LeftParen)) {
       const expr = this.expression();
       this.consume(
@@ -579,7 +582,6 @@ export default class Parser {
       "Failed to match primary expression."
     );
   }
-
   /**
    * Handles the parsing of vector literals and range literals.
    */
@@ -653,7 +655,6 @@ export default class Parser {
 
     return vectorLiteral;
   }
-
   protected listComprehensionElements(): Expression {
     if (this.matchToken(TokenType.Let)) {
       const letKwrd = this.previous();
@@ -718,7 +719,6 @@ export default class Parser {
     const next = this.listComprehensionElementsOrExpr();
     return new LcForCExpr(forKwrd.pos, firstArgs, secondArgs, condition, next);
   }
-
   protected listComprehensionElementsOrExpr(): Expression {
     // checks if we have a list comprehension element.
     if (
@@ -743,19 +743,6 @@ export default class Parser {
 
     return this.expression();
   }
-
-  // protected listComprehensionElementsWithParens() {
-  //   if (this.matchToken(TokenType.LeftParen)) {
-  //     const elems = this.listComprehensionElements();
-  //     this.consume(
-  //       TokenType.RightParen,
-  //       "Expected ')' after parenthesized list comprehension expression."
-  //     );
-  //     return elems;
-  //   }
-  //   return this.listComprehensionElements();
-  // }
-
   protected consume(tt: TokenType, errorMessage: string) {
     if (this.checkToken(tt)) {
       return this.advance();

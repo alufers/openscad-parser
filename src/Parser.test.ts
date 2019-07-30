@@ -851,8 +851,8 @@ describe("Parser", () => {
     try {
       parser.parse();
     } catch (e) {
-      console.log(e.message, "\n", e.codeLocation.toString());
-      throw e;
+      console.log();
+      throw new Error([e.message, "\n", e.codeLocation.toString()].join(" "));
     }
   });
 });
