@@ -168,6 +168,9 @@ describe("Lexer", () => {
     it("lexes exponential numbers", () => {
       expect(testNumberLexing("20e10")).toEqual(20e10);
     });
+    it("lexes exponential numbers with negative exponents", () => {
+      expect(testNumberLexing("1e-9")).toEqual(1e-9);
+    });
     it("lexes exponential numbers with commas", () => {
       expect(testNumberLexing("2.787272e10")).toEqual(2.787272e10);
     });

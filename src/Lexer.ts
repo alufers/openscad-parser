@@ -192,7 +192,8 @@ export default class Lexer {
     while (
       /[0-9]/.test(this.peek()) ||
       (this.peek() == "." && /[0-9]/.test(this.peekNext())) ||
-      (this.peek() == "e" && /[0-9]/.test(this.peekNext()))
+      (this.peek() == "e" && /[0-9\-]/.test(this.peekNext())) ||
+      (this.peek() == "-" && /[0-9]/.test(this.peekNext()))
     ) {
       this.advance();
     }

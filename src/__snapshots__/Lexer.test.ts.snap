@@ -291,27 +291,10 @@ Array [
     "type": "Equal",
   },
   Object {
-    "l": "1",
-    "posChar": 652,
-    "type": "NumberLiteral",
-    "val": 1,
-  },
-  Object {
-    "l": "e",
-    "posChar": 653,
-    "type": "Identifier",
-    "val": "e",
-  },
-  Object {
-    "l": "-",
-    "posChar": 654,
-    "type": "Minus",
-  },
-  Object {
-    "l": "9",
+    "l": "1e-9",
     "posChar": 655,
     "type": "NumberLiteral",
-    "val": 9,
+    "val": 1e-9,
   },
   Object {
     "l": ";",
