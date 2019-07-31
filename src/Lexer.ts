@@ -18,6 +18,7 @@ export default class Lexer {
    * @throws LexingError
    */
   scan(): Token[] {
+    this.start = this.loc.copy();
     while (!this.isAtEnd()) {
       this.start = this.loc.copy();
       this.scanToken();

@@ -42,6 +42,10 @@ describe("Lexer", () => {
     const tts = lexToTTStream(`%`);
     expect(tts).toEqual([TokenType.Percent, TokenType.Eot]);
   });
+  it("scans an empty code file", () => {
+    const tts = lexToTTStream(``);
+    expect(tts).toEqual([TokenType.Eot]);
+  });
   it("ignores whitespace", () => {
     const tts = lexToTTStream(`% {
         
@@ -194,6 +198,7 @@ describe("Lexer", () => {
     it("throws LexingError when an invalid number is given", () => {
       expect(() => testNumberLexing("2.2.2")).toThrowError(LexingError);
       expect(() => testNumberLexing("999e99999")).toThrowError(LexingError);
+      expect(() => testNumberLexing("999e9e9999")).toThrowError(LexingError);
     });
     it("lexes numbers starting with a dot", () => {
       expect(testNumberLexing(".9")).toEqual(0.9);

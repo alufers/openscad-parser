@@ -897,6 +897,16 @@ describe("Parser", () => {
     expect(e.args[0].value).toBeInstanceOf(BinaryOpExpr);
     expect(e.expr).toBeInstanceOf(BinaryOpExpr);
   });
+  it("peekNext does not crash when at end", () => {
+    class ExtendedParser extends Parser {
+      __test() {
+        this.peekNext();
+      }
+    }
+    const l = new Lexer(new CodeFile("<test>", ``));
+    const p = new ExtendedParser(l.codeFile, l.scan());
+    p.__test();
+  });
   it.skip("parses hull.scad", async () => {
     const file = await CodeFile.load(resolve(__dirname, "testdata/hull.scad"));
     const lexer = new Lexer(file);
