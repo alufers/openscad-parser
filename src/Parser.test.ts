@@ -907,14 +907,10 @@ describe("Parser", () => {
     const p = new ExtendedParser(l.codeFile, l.scan());
     p.__test();
   });
-  it.skip("parses hull.scad", async () => {
+  it("parses hull.scad", async () => {
     const file = await CodeFile.load(resolve(__dirname, "testdata/hull.scad"));
     const lexer = new Lexer(file);
     const parser = new Parser(file, lexer.scan());
-    try {
-      parser.parse();
-    } catch (e) {
-      throw new Error([e.message, "\n", e.codeLocation.toString()].join(" "));
-    }
+    expect(simplifyAst(parser.parse())).toMatchSnapshot();
   });
 });
