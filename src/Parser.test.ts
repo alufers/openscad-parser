@@ -867,7 +867,7 @@ describe("Parser", () => {
       `)
     ).toThrowError(ParsingError);
   });
-  it("parses the 'let' epxression", () => {
+  it("parses the 'let' expression", () => {
     const file = doParse(`
       x = let(varz = 28) varz + 10;
     `);
@@ -877,7 +877,7 @@ describe("Parser", () => {
     expect(letExpr.args[0].value).toBeInstanceOf(LiteralExpr);
     expect(letExpr.expr).toBeInstanceOf(BinaryOpExpr);
   });
-  it("parses the 'echo' epxression", () => {
+  it("parses the 'echo' expression", () => {
     const file = doParse(`
       x = echo("dddd") varz + 10;
     `);
@@ -887,7 +887,7 @@ describe("Parser", () => {
     expect(e.args[0].value).toBeInstanceOf(LiteralExpr);
     expect(e.expr).toBeInstanceOf(BinaryOpExpr);
   });
-  it("parses the 'assert' epxression", () => {
+  it("parses the 'assert' expression", () => {
     const file = doParse(`
       x = assert(x == 22) varz + 10;
     `);
