@@ -5,11 +5,18 @@ import TokenType from "./TokenType";
 import LiteralToken from "./LiteralToken";
 import LexingError from "./LexingError";
 import keywords from "./keywords";
+import {
+  ExtraToken,
+  SingleLineComment,
+  MultiLineComment,
+  NewLineExtraToken
+} from "./extraTokens";
 
 export default class Lexer {
   protected loc: CodeLocation;
   protected start: CodeLocation;
   public tokens: Token[] = [];
+  protected currentExtraTokens: ExtraToken[] = [];
   constructor(public codeFile: CodeFile) {
     this.loc = new CodeLocation(codeFile, 0, 0, 0);
   }
@@ -62,17 +69,21 @@ export default class Lexer {
         break;
       case "/":
         if (this.match("/")) {
+          const comment = new SingleLineComment(this.loc.copy(), "");
           // consume a comment
           while (this.peek() != "\n" && !this.isAtEnd()) {
-            this.advance();
+            comment.contents += this.advance();
           }
+          this.currentExtraTokens.push(comment);
         } else if (this.match("*")) {
+          const comment = new MultiLineComment(this.loc.copy(), "");
+
           // multiline comment
           while (
             !(this.peek() == "*" && this.peekNext() == "/") &&
             !this.isAtEnd()
           ) {
-            this.advance();
+            comment.contents += this.advance();
           }
           if (this.isAtEnd()) {
             throw new LexingError(
@@ -80,6 +91,7 @@ export default class Lexer {
               "Unterminated multiline comment!"
             );
           }
+          this.currentExtraTokens.push(comment);
           this.advance(); // advance the star
           this.advance(); // advance the slash
         } else {
@@ -152,6 +164,8 @@ export default class Lexer {
         }
         break;
       case "\n":
+        this.currentExtraTokens.push(new NewLineExtraToken(this.loc.copy()));
+        break;
       case "\r":
       case " ":
       case "\t":
@@ -253,13 +267,15 @@ export default class Lexer {
    */
   protected addToken<TValue = any>(tokenType: TokenType, value: TValue = null) {
     const lexeme = this.codeFile.code.substring(this.start.char, this.loc.char);
+    let token;
     if (value != null) {
-      this.tokens.push(
-        new LiteralToken(tokenType, this.loc.copy(), lexeme, value)
-      );
+      token = new LiteralToken(tokenType, this.loc.copy(), lexeme, value);
     } else {
-      this.tokens.push(new Token(tokenType, this.loc.copy(), lexeme));
+      token = new Token(tokenType, this.loc.copy(), lexeme);
     }
+    token.extraTokens = this.currentExtraTokens;
+    this.currentExtraTokens = [];
+    this.tokens.push(token);
   }
   protected isAtEnd() {
     return this.loc.char >= this.codeFile.code.length;
