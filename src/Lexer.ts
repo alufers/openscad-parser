@@ -264,6 +264,8 @@ export default class Lexer {
 
   /**
    * Adds a token to the token list. If a value is provieded a LiteralToken is pushed.
+   * 
+   * Additionally it handles clearing and attaching the extra tokens.
    */
   protected addToken<TValue = any>(tokenType: TokenType, value: TValue = null) {
     const lexeme = this.codeFile.code.substring(this.start.char, this.loc.char);

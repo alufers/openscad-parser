@@ -2,6 +2,7 @@ import ASTNode from "./ASTNode";
 import TokenType from "../TokenType";
 import CodeLocation from "../CodeLocation";
 import AssignmentNode from "./AssignmentNode";
+import ASTVisitor from "./ASTVisitor";
 
 export abstract class Expression extends ASTNode {}
 
@@ -23,6 +24,9 @@ export class UnaryOpExpr extends Expression {
     super(pos);
     this.operation = op;
     this.right = right;
+  }
+  accept<R>(visitor: ASTVisitor<R>): R {
+    return visitor.visitUnaryOpExpr(this);
   }
 }
 
@@ -56,6 +60,9 @@ export class BinaryOpExpr extends Expression {
     this.operation = operation;
     this.right = right;
   }
+  accept<R>(visitor: ASTVisitor<R>): R {
+    return visitor.visitBinaryOpExpr(this);
+  }
 }
 
 /**
@@ -75,6 +82,9 @@ export class TernaryExpr extends Expression {
     this.cond = cond;
     this.ifExpr = ifExpr;
     this.elseExpr = elseExpr;
+  }
+  accept<R>(visitor: ASTVisitor<R>): R {
+    return visitor.visitTernaryExpr(this);
   }
 }
 
@@ -97,6 +107,9 @@ export class ArrayLookupExpr extends Expression {
     this.array = array;
     this.index = index;
   }
+  accept<R>(visitor: ASTVisitor<R>): R {
+    return visitor.visitArrayLookupExpr(this);
+  }
 }
 
 /**
@@ -108,6 +121,9 @@ export class LiteralExpr<TValue> extends Expression {
   constructor(pos: CodeLocation, value: TValue) {
     super(pos);
     this.value = value;
+  }
+  accept<R>(visitor: ASTVisitor<R>): R {
+    return visitor.visitLiteralExpr(this);
   }
 }
 
@@ -129,6 +145,9 @@ export class RangeExpr extends Expression {
     this.step = step;
     this.end = end;
   }
+  accept<R>(visitor: ASTVisitor<R>): R {
+    return visitor.visitRangeExpr(this);
+  }
 }
 
 /**
@@ -140,24 +159,30 @@ export class VectorExpr extends Expression {
     super(pos);
     this.children = children;
   }
+  accept<R>(visitor: ASTVisitor<R>): R {
+    return visitor.visitVectorExpr(this);
+  }
 }
 
 /**
  * A lookup expression, it references a variable, module or function by name.
  */
-export class Lookup extends Expression {
+export class LookupExpr extends Expression {
   name: string;
 
   constructor(pos: CodeLocation, name: string) {
     super(pos);
     this.name = name;
   }
+  accept<R>(visitor: ASTVisitor<R>): R {
+    return visitor.visitLookupExpr(this);
+  }
 }
 
 /**
  * A member lookup expression, (abc.ddd)
  */
-export class MemberLookup extends Expression {
+export class MemberLookupExpr extends Expression {
   expr: Expression;
   member: string;
 
@@ -165,6 +190,9 @@ export class MemberLookup extends Expression {
     super(pos);
     this.expr = expr;
     this.member = member;
+  }
+  accept<R>(visitor: ASTVisitor<R>): R {
+    return visitor.visitMemberLookupExpr(this);
   }
 }
 
@@ -186,6 +214,9 @@ export class FunctionCallExpr extends Expression {
     this.name = name;
     this.args = args;
   }
+  accept<R>(visitor: ASTVisitor<R>): R {
+    return visitor.visitFunctionCallExpr(this);
+  }
 }
 
 export class FunctionCallLikeExpr extends Expression {
@@ -204,16 +235,31 @@ export class FunctionCallLikeExpr extends Expression {
     this.args = args;
     this.expr = expr;
   }
+  accept<R>(visitor: ASTVisitor<R>): R {
+    return visitor.visitFunctionCallLikeExpr(this);
+  }
 }
 
 /**
  * Represents a let expression. Please note that this is syntactically diffrent from the let module instantation and the let list comprehension.
  */
-export class LetExpr extends FunctionCallLikeExpr {}
+export class LetExpr extends FunctionCallLikeExpr {
+  accept<R>(visitor: ASTVisitor<R>): R {
+    return visitor.visitLetExpr(this);
+  }
+}
 
-export class AssertExpr extends FunctionCallLikeExpr {}
+export class AssertExpr extends FunctionCallLikeExpr {
+  accept<R>(visitor: ASTVisitor<R>): R {
+    return visitor.visitAssertExpr(this);
+  }
+}
 
-export class EchoExpr extends FunctionCallLikeExpr {}
+export class EchoExpr extends FunctionCallLikeExpr {
+  accept<R>(visitor: ASTVisitor<R>): R {
+    return visitor.visitEchoExpr(this);
+  }
+}
 
 export abstract class ListComprehensionExpression extends Expression {}
 
@@ -232,6 +278,9 @@ export class LcIfExpr extends ListComprehensionExpression {
     this.ifExpr = ifExpr;
     this.elseExpr = elseExpr;
   }
+  accept<R>(visitor: ASTVisitor<R>): R {
+    return visitor.visitLcIfExpr(this);
+  }
 }
 
 export class LcEachExpr extends ListComprehensionExpression {
@@ -244,6 +293,9 @@ export class LcEachExpr extends ListComprehensionExpression {
     super(pos);
 
     this.expr = expr;
+  }
+  accept<R>(visitor: ASTVisitor<R>): R {
+    return visitor.visitLcEachExpr(this);
   }
 }
 
@@ -262,6 +314,10 @@ export class LcForExpr extends ListComprehensionExpression {
     super(pos);
     this.args = args;
     this.expr = expr;
+  }
+
+  accept<R>(visitor: ASTVisitor<R>): R {
+    return visitor.visitLcForExpr(this);
   }
 }
 
@@ -292,6 +348,9 @@ export class LcForCExpr extends ListComprehensionExpression {
     this.cond = cond;
     this.expr = expr;
   }
+  accept<R>(visitor: ASTVisitor<R>): R {
+    return visitor.visitLcForCExpr(this);
+  }
 }
 
 export class LcLetExpr extends ListComprehensionExpression {
@@ -310,6 +369,9 @@ export class LcLetExpr extends ListComprehensionExpression {
     this.args = args;
     this.expr = expr;
   }
+  accept<R>(visitor: ASTVisitor<R>): R {
+    return visitor.visitLcLetExpr(this);
+  }
 }
 
 /**
@@ -320,5 +382,8 @@ export class GroupingExpr extends Expression {
   constructor(pos: CodeLocation, inner: Expression) {
     super(pos);
     this.inner = inner;
+  }
+  accept<R>(visitor: ASTVisitor<R>): R {
+    return visitor.visitGroupingExpr(this);
   }
 }

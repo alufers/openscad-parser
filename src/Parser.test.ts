@@ -14,7 +14,7 @@ import AssignmentNode from "./ast/AssignmentNode";
 import {
   LiteralExpr,
   Expression,
-  MemberLookup,
+  MemberLookupExpr,
   ArrayLookupExpr,
   FunctionCallExpr,
   BinaryOpExpr,
@@ -24,7 +24,7 @@ import {
   RangeExpr,
   VectorExpr,
   LcIfExpr,
-  Lookup,
+  LookupExpr,
   LcEachExpr,
   LcLetExpr,
   LetExpr,
@@ -377,7 +377,7 @@ describe("Parser", () => {
     `);
     expect(file.statements[0]).toBeInstanceOf(AssignmentNode);
     const a = file.statements[0] as AssignmentNode;
-    expect(a.value).toBeInstanceOf(MemberLookup);
+    expect(a.value).toBeInstanceOf(MemberLookupExpr);
     expect(a.value).toHaveProperty("expr.name", "abc");
     expect(a.value).toHaveProperty("member", "y");
   });
@@ -750,7 +750,7 @@ describe("Parser", () => {
     const ifCompr = vectorExpr.children[0] as LcIfExpr;
     expect(ifCompr).toBeInstanceOf(LcIfExpr);
     expect(ifCompr.cond).toBeInstanceOf(BinaryOpExpr);
-    expect(ifCompr.ifExpr).toBeInstanceOf(Lookup);
+    expect(ifCompr.ifExpr).toBeInstanceOf(LookupExpr);
   });
   it("parses the 'if' list comprehension element when wrapped in parens", () => {
     const file = doParse(`
@@ -761,7 +761,7 @@ describe("Parser", () => {
     const ifCompr = vectorExpr.children[0] as LcIfExpr;
     expect(ifCompr).toBeInstanceOf(LcIfExpr);
     expect(ifCompr.cond).toBeInstanceOf(BinaryOpExpr);
-    expect(ifCompr.ifExpr).toBeInstanceOf(Lookup);
+    expect(ifCompr.ifExpr).toBeInstanceOf(LookupExpr);
   });
   it("parses the 'if' list comprehension element with an else branch", () => {
     const file = doParse(`
@@ -772,7 +772,7 @@ describe("Parser", () => {
     const ifCompr = vectorExpr.children[1] as LcIfExpr;
     expect(ifCompr).toBeInstanceOf(LcIfExpr);
     expect(ifCompr.cond).toBeInstanceOf(BinaryOpExpr);
-    expect(ifCompr.ifExpr).toBeInstanceOf(Lookup);
+    expect(ifCompr.ifExpr).toBeInstanceOf(LookupExpr);
     expect(ifCompr.elseExpr).toBeInstanceOf(LiteralExpr);
   });
   it("parses nested 'if' list comprehensions", () => {

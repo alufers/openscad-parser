@@ -19,9 +19,9 @@ import LiteralToken from "./LiteralToken";
 import {
   Expression,
   LiteralExpr,
-  Lookup,
+  LookupExpr,
   GroupingExpr,
-  MemberLookup,
+  MemberLookupExpr,
   ArrayLookupExpr,
   FunctionCallExpr,
   BinaryOpExpr,
@@ -508,7 +508,7 @@ export default class Parser {
           TokenType.Identifier,
           "Expected member name after '.';"
         ) as LiteralToken<string>;
-        expr = new MemberLookup(this.getLocation(), expr, name.value);
+        expr = new MemberLookupExpr(this.getLocation(), expr, name.value);
       } else if (this.matchToken(TokenType.LeftBracket)) {
         const index = this.expression();
         this.consume(
@@ -555,7 +555,7 @@ export default class Parser {
       if (this.matchToken(TokenType.LeftParen)) {
         return this.finishCall(tok);
       }
-      return new Lookup(this.getLocation(), tok.value);
+      return new LookupExpr(this.getLocation(), tok.value);
     }
     if (this.matchToken(TokenType.Assert)) {
       const keyword = this.previous();

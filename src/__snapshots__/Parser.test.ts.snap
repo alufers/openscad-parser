@@ -157,7 +157,7 @@ Object {
                     "name": "",
                     "pos": null,
                     "value": Object {
-                      "__c": "Lookup",
+                      "__c": "LookupExpr",
                       "name": "points",
                       "pos": null,
                     },
@@ -191,7 +191,7 @@ Object {
                   "value": Object {
                     "__c": "ArrayLookupExpr",
                     "array": Object {
-                      "__c": "Lookup",
+                      "__c": "LookupExpr",
                       "name": "points",
                       "pos": null,
                     },
@@ -229,7 +229,7 @@ Object {
                     "value": Object {
                       "__c": "ArrayLookupExpr",
                       "array": Object {
-                        "__c": "Lookup",
+                        "__c": "LookupExpr",
                         "name": "points",
                         "pos": null,
                       },
@@ -266,7 +266,7 @@ Object {
                   "name": "",
                   "pos": null,
                   "value": Object {
-                    "__c": "Lookup",
+                    "__c": "LookupExpr",
                     "name": "points",
                     "pos": null,
                   },
@@ -285,7 +285,7 @@ Object {
                 "name": "",
                 "pos": null,
                 "value": Object {
-                  "__c": "Lookup",
+                  "__c": "LookupExpr",
                   "name": "points",
                   "pos": null,
                 },
@@ -338,7 +338,7 @@ Object {
                 "name": "",
                 "pos": null,
                 "value": Object {
-                  "__c": "Lookup",
+                  "__c": "LookupExpr",
                   "name": "points",
                   "pos": null,
                 },
@@ -393,12 +393,12 @@ Object {
                       "__c": "VectorExpr",
                       "children": Array [
                         Object {
-                          "__c": "Lookup",
+                          "__c": "LookupExpr",
                           "name": "a",
                           "pos": null,
                         },
                         Object {
-                          "__c": "Lookup",
+                          "__c": "LookupExpr",
                           "name": "b",
                           "pos": null,
                         },
@@ -411,7 +411,7 @@ Object {
                     "name": "",
                     "pos": null,
                     "value": Object {
-                      "__c": "Lookup",
+                      "__c": "LookupExpr",
                       "name": "points",
                       "pos": null,
                     },
@@ -437,7 +437,7 @@ Object {
             "cond": Object {
               "__c": "BinaryOpExpr",
               "left": Object {
-                "__c": "Lookup",
+                "__c": "LookupExpr",
                 "name": "c",
                 "pos": null,
               },
@@ -451,7 +451,7 @@ Object {
                     "name": "",
                     "pos": null,
                     "value": Object {
-                      "__c": "Lookup",
+                      "__c": "LookupExpr",
                       "name": "points",
                       "pos": null,
                     },
@@ -495,7 +495,7 @@ Object {
                                       "name": "",
                                       "pos": null,
                                       "value": Object {
-                                        "__c": "Lookup",
+                                        "__c": "LookupExpr",
                                         "name": "points",
                                         "pos": null,
                                       },
@@ -522,21 +522,21 @@ Object {
                           "cond": Object {
                             "__c": "BinaryOpExpr",
                             "left": Object {
-                              "__c": "Lookup",
+                              "__c": "LookupExpr",
                               "name": "i",
                               "pos": null,
                             },
                             "operation": 25,
                             "pos": null,
                             "right": Object {
-                              "__c": "Lookup",
+                              "__c": "LookupExpr",
                               "name": "c",
                               "pos": null,
                             },
                           },
                           "elseExpr": null,
                           "ifExpr": Object {
-                            "__c": "Lookup",
+                            "__c": "LookupExpr",
                             "name": "i",
                             "pos": null,
                           },
@@ -566,12 +566,12 @@ Object {
                             "value": Object {
                               "__c": "ArrayLookupExpr",
                               "array": Object {
-                                "__c": "Lookup",
+                                "__c": "LookupExpr",
                                 "name": "points",
                                 "pos": null,
                               },
                               "index": Object {
-                                "__c": "Lookup",
+                                "__c": "LookupExpr",
                                 "name": "a",
                                 "pos": null,
                               },
@@ -585,12 +585,12 @@ Object {
                             "value": Object {
                               "__c": "ArrayLookupExpr",
                               "array": Object {
-                                "__c": "Lookup",
+                                "__c": "LookupExpr",
                                 "name": "points",
                                 "pos": null,
                               },
                               "index": Object {
-                                "__c": "Lookup",
+                                "__c": "LookupExpr",
                                 "name": "b",
                                 "pos": null,
                               },
@@ -604,12 +604,12 @@ Object {
                             "value": Object {
                               "__c": "ArrayLookupExpr",
                               "array": Object {
-                                "__c": "Lookup",
+                                "__c": "LookupExpr",
                                 "name": "points",
                                 "pos": null,
                               },
                               "index": Object {
-                                "__c": "Lookup",
+                                "__c": "LookupExpr",
                                 "name": "c",
                                 "pos": null,
                               },
@@ -632,17 +632,17 @@ Object {
                       "__c": "VectorExpr",
                       "children": Array [
                         Object {
-                          "__c": "Lookup",
+                          "__c": "LookupExpr",
                           "name": "b",
                           "pos": null,
                         },
                         Object {
-                          "__c": "Lookup",
+                          "__c": "LookupExpr",
                           "name": "a",
                           "pos": null,
                         },
                         Object {
-                          "__c": "Lookup",
+                          "__c": "LookupExpr",
                           "name": "c",
                           "pos": null,
                         },
@@ -653,17 +653,17 @@ Object {
                       "__c": "VectorExpr",
                       "children": Array [
                         Object {
-                          "__c": "Lookup",
+                          "__c": "LookupExpr",
                           "name": "a",
                           "pos": null,
                         },
                         Object {
-                          "__c": "Lookup",
+                          "__c": "LookupExpr",
                           "name": "b",
                           "pos": null,
                         },
                         Object {
-                          "__c": "Lookup",
+                          "__c": "LookupExpr",
                           "name": "c",
                           "pos": null,
                         },
@@ -682,7 +682,7 @@ Object {
                     "name": "",
                     "pos": null,
                     "value": Object {
-                      "__c": "Lookup",
+                      "__c": "LookupExpr",
                       "name": "points",
                       "pos": null,
                     },
@@ -692,7 +692,7 @@ Object {
                     "name": "",
                     "pos": null,
                     "value": Object {
-                      "__c": "Lookup",
+                      "__c": "LookupExpr",
                       "name": "polygon",
                       "pos": null,
                     },
@@ -702,7 +702,7 @@ Object {
                     "name": "",
                     "pos": null,
                     "value": Object {
-                      "__c": "Lookup",
+                      "__c": "LookupExpr",
                       "name": "remaining",
                       "pos": null,
                     },
@@ -721,7 +721,7 @@ Object {
                   "name": "",
                   "pos": null,
                   "value": Object {
-                    "__c": "Lookup",
+                    "__c": "LookupExpr",
                     "name": "points",
                     "pos": null,
                   },
@@ -781,7 +781,7 @@ Object {
         "cond": Object {
           "__c": "BinaryOpExpr",
           "left": Object {
-            "__c": "Lookup",
+            "__c": "LookupExpr",
             "name": "i_",
             "pos": null,
           },
@@ -795,7 +795,7 @@ Object {
                 "name": "",
                 "pos": null,
                 "value": Object {
-                  "__c": "Lookup",
+                  "__c": "LookupExpr",
                   "name": "remaining",
                   "pos": null,
                 },
@@ -815,12 +815,12 @@ Object {
               "value": Object {
                 "__c": "ArrayLookupExpr",
                 "array": Object {
-                  "__c": "Lookup",
+                  "__c": "LookupExpr",
                   "name": "remaining",
                   "pos": null,
                 },
                 "index": Object {
-                  "__c": "Lookup",
+                  "__c": "LookupExpr",
                   "name": "i_",
                   "pos": null,
                 },
@@ -839,7 +839,7 @@ Object {
                     "name": "",
                     "pos": null,
                     "value": Object {
-                      "__c": "Lookup",
+                      "__c": "LookupExpr",
                       "name": "points",
                       "pos": null,
                     },
@@ -849,7 +849,7 @@ Object {
                     "name": "",
                     "pos": null,
                     "value": Object {
-                      "__c": "Lookup",
+                      "__c": "LookupExpr",
                       "name": "polygon",
                       "pos": null,
                     },
@@ -861,12 +861,12 @@ Object {
                     "value": Object {
                       "__c": "ArrayLookupExpr",
                       "array": Object {
-                        "__c": "Lookup",
+                        "__c": "LookupExpr",
                         "name": "points",
                         "pos": null,
                       },
                       "index": Object {
-                        "__c": "Lookup",
+                        "__c": "LookupExpr",
                         "name": "i",
                         "pos": null,
                       },
@@ -891,7 +891,7 @@ Object {
                     "name": "",
                     "pos": null,
                     "value": Object {
-                      "__c": "Lookup",
+                      "__c": "LookupExpr",
                       "name": "conflicts",
                       "pos": null,
                     },
@@ -923,7 +923,7 @@ Object {
                         "name": "",
                         "pos": null,
                         "value": Object {
-                          "__c": "Lookup",
+                          "__c": "LookupExpr",
                           "name": "polygon",
                           "pos": null,
                         },
@@ -933,7 +933,7 @@ Object {
                         "name": "",
                         "pos": null,
                         "value": Object {
-                          "__c": "Lookup",
+                          "__c": "LookupExpr",
                           "name": "conflicts",
                           "pos": null,
                         },
@@ -943,7 +943,7 @@ Object {
                         "name": "",
                         "pos": null,
                         "value": Object {
-                          "__c": "Lookup",
+                          "__c": "LookupExpr",
                           "name": "i",
                           "pos": null,
                         },
@@ -962,7 +962,7 @@ Object {
                     "name": "",
                     "pos": null,
                     "value": Object {
-                      "__c": "Lookup",
+                      "__c": "LookupExpr",
                       "name": "points",
                       "pos": null,
                     },
@@ -972,7 +972,7 @@ Object {
                     "name": "",
                     "pos": null,
                     "value": Object {
-                      "__c": "Lookup",
+                      "__c": "LookupExpr",
                       "name": "polygon",
                       "pos": null,
                     },
@@ -982,7 +982,7 @@ Object {
                     "name": "",
                     "pos": null,
                     "value": Object {
-                      "__c": "Lookup",
+                      "__c": "LookupExpr",
                       "name": "remaining",
                       "pos": null,
                     },
@@ -994,7 +994,7 @@ Object {
                     "value": Object {
                       "__c": "BinaryOpExpr",
                       "left": Object {
-                        "__c": "Lookup",
+                        "__c": "LookupExpr",
                         "name": "i_",
                         "pos": null,
                       },
@@ -1021,7 +1021,7 @@ Object {
                   "name": "",
                   "pos": null,
                   "value": Object {
-                    "__c": "Lookup",
+                    "__c": "LookupExpr",
                     "name": "points",
                     "pos": null,
                   },
@@ -1031,7 +1031,7 @@ Object {
                   "name": "",
                   "pos": null,
                   "value": Object {
-                    "__c": "Lookup",
+                    "__c": "LookupExpr",
                     "name": "polygon",
                     "pos": null,
                   },
@@ -1041,7 +1041,7 @@ Object {
                   "name": "",
                   "pos": null,
                   "value": Object {
-                    "__c": "Lookup",
+                    "__c": "LookupExpr",
                     "name": "remaining",
                     "pos": null,
                   },
@@ -1053,7 +1053,7 @@ Object {
                   "value": Object {
                     "__c": "BinaryOpExpr",
                     "left": Object {
-                      "__c": "Lookup",
+                      "__c": "LookupExpr",
                       "name": "i_",
                       "pos": null,
                     },
@@ -1075,7 +1075,7 @@ Object {
           "pos": null,
         },
         "ifExpr": Object {
-          "__c": "Lookup",
+          "__c": "LookupExpr",
           "name": "polygon",
           "pos": null,
         },
@@ -1133,7 +1133,7 @@ Object {
                           "name": "",
                           "pos": null,
                           "value": Object {
-                            "__c": "Lookup",
+                            "__c": "LookupExpr",
                             "name": "polygon",
                             "pos": null,
                           },
@@ -1169,7 +1169,7 @@ Object {
                       "inner": Object {
                         "__c": "BinaryOpExpr",
                         "left": Object {
-                          "__c": "Lookup",
+                          "__c": "LookupExpr",
                           "name": "i",
                           "pos": null,
                         },
@@ -1193,7 +1193,7 @@ Object {
                           "name": "",
                           "pos": null,
                           "value": Object {
-                            "__c": "Lookup",
+                            "__c": "LookupExpr",
                             "name": "polygon",
                             "pos": null,
                           },
@@ -1219,19 +1219,19 @@ Object {
                         "value": Object {
                           "__c": "ArrayLookupExpr",
                           "array": Object {
-                            "__c": "Lookup",
+                            "__c": "LookupExpr",
                             "name": "points",
                             "pos": null,
                           },
                           "index": Object {
                             "__c": "ArrayLookupExpr",
                             "array": Object {
-                              "__c": "Lookup",
+                              "__c": "LookupExpr",
                               "name": "polygon",
                               "pos": null,
                             },
                             "index": Object {
-                              "__c": "Lookup",
+                              "__c": "LookupExpr",
                               "name": "i",
                               "pos": null,
                             },
@@ -1247,19 +1247,19 @@ Object {
                         "value": Object {
                           "__c": "ArrayLookupExpr",
                           "array": Object {
-                            "__c": "Lookup",
+                            "__c": "LookupExpr",
                             "name": "points",
                             "pos": null,
                           },
                           "index": Object {
                             "__c": "ArrayLookupExpr",
                             "array": Object {
-                              "__c": "Lookup",
+                              "__c": "LookupExpr",
                               "name": "polygon",
                               "pos": null,
                             },
                             "index": Object {
-                              "__c": "Lookup",
+                              "__c": "LookupExpr",
                               "name": "j",
                               "pos": null,
                             },
@@ -1273,7 +1273,7 @@ Object {
                         "name": "",
                         "pos": null,
                         "value": Object {
-                          "__c": "Lookup",
+                          "__c": "LookupExpr",
                           "name": "point",
                           "pos": null,
                         },
@@ -1292,7 +1292,7 @@ Object {
                 },
                 "elseExpr": null,
                 "ifExpr": Object {
-                  "__c": "Lookup",
+                  "__c": "LookupExpr",
                   "name": "i",
                   "pos": null,
                 },
@@ -1337,7 +1337,7 @@ Object {
           "left": Object {
             "__c": "ArrayLookupExpr",
             "array": Object {
-              "__c": "Lookup",
+              "__c": "LookupExpr",
               "name": "conflicts",
               "pos": null,
             },
@@ -1388,7 +1388,7 @@ Object {
                                 "name": "",
                                 "pos": null,
                                 "value": Object {
-                                  "__c": "Lookup",
+                                  "__c": "LookupExpr",
                                   "name": "conflicts",
                                   "pos": null,
                                 },
@@ -1409,12 +1409,12 @@ Object {
                     "expr": Object {
                       "__c": "ArrayLookupExpr",
                       "array": Object {
-                        "__c": "Lookup",
+                        "__c": "LookupExpr",
                         "name": "polygon",
                         "pos": null,
                       },
                       "index": Object {
-                        "__c": "Lookup",
+                        "__c": "LookupExpr",
                         "name": "i",
                         "pos": null,
                       },
@@ -1452,7 +1452,7 @@ Object {
                                   "name": "",
                                   "pos": null,
                                   "value": Object {
-                                    "__c": "Lookup",
+                                    "__c": "LookupExpr",
                                     "name": "conflicts",
                                     "pos": null,
                                   },
@@ -1479,7 +1479,7 @@ Object {
                                   "name": "",
                                   "pos": null,
                                   "value": Object {
-                                    "__c": "Lookup",
+                                    "__c": "LookupExpr",
                                     "name": "polygon",
                                     "pos": null,
                                   },
@@ -1508,12 +1508,12 @@ Object {
                     "expr": Object {
                       "__c": "ArrayLookupExpr",
                       "array": Object {
-                        "__c": "Lookup",
+                        "__c": "LookupExpr",
                         "name": "polygon",
                         "pos": null,
                       },
                       "index": Object {
-                        "__c": "Lookup",
+                        "__c": "LookupExpr",
                         "name": "i",
                         "pos": null,
                       },
@@ -1537,7 +1537,7 @@ Object {
                     "name": "",
                     "pos": null,
                     "value": Object {
-                      "__c": "Lookup",
+                      "__c": "LookupExpr",
                       "name": "prior_to_first_conflict",
                       "pos": null,
                     },
@@ -1547,7 +1547,7 @@ Object {
                     "name": "",
                     "pos": null,
                     "value": Object {
-                      "__c": "Lookup",
+                      "__c": "LookupExpr",
                       "name": "point",
                       "pos": null,
                     },
@@ -1557,7 +1557,7 @@ Object {
                     "name": "",
                     "pos": null,
                     "value": Object {
-                      "__c": "Lookup",
+                      "__c": "LookupExpr",
                       "name": "after_last_conflict",
                       "pos": null,
                     },
@@ -1569,7 +1569,7 @@ Object {
             },
           ],
           "expr": Object {
-            "__c": "Lookup",
+            "__c": "LookupExpr",
             "name": "polygon",
             "pos": null,
           },
@@ -1609,7 +1609,7 @@ Object {
                                   "name": "",
                                   "pos": null,
                                   "value": Object {
-                                    "__c": "Lookup",
+                                    "__c": "LookupExpr",
                                     "name": "polygon",
                                     "pos": null,
                                   },
@@ -1645,7 +1645,7 @@ Object {
                               "name": "",
                               "pos": null,
                               "value": Object {
-                                "__c": "Lookup",
+                                "__c": "LookupExpr",
                                 "name": "conflicts",
                                 "pos": null,
                               },
@@ -1655,7 +1655,7 @@ Object {
                               "name": "",
                               "pos": null,
                               "value": Object {
-                                "__c": "Lookup",
+                                "__c": "LookupExpr",
                                 "name": "i",
                                 "pos": null,
                               },
@@ -1667,7 +1667,7 @@ Object {
                       },
                       "elseExpr": null,
                       "ifExpr": Object {
-                        "__c": "Lookup",
+                        "__c": "LookupExpr",
                         "name": "i",
                         "pos": null,
                       },
@@ -1691,7 +1691,7 @@ Object {
                     "name": "",
                     "pos": null,
                     "value": Object {
-                      "__c": "Lookup",
+                      "__c": "LookupExpr",
                       "name": "nonconflicting",
                       "pos": null,
                     },
@@ -1709,7 +1709,7 @@ Object {
                           "left": Object {
                             "__c": "ArrayLookupExpr",
                             "array": Object {
-                              "__c": "Lookup",
+                              "__c": "LookupExpr",
                               "name": "nonconflicting",
                               "pos": null,
                             },
@@ -1723,7 +1723,7 @@ Object {
                                     "name": "",
                                     "pos": null,
                                     "value": Object {
-                                      "__c": "Lookup",
+                                      "__c": "LookupExpr",
                                       "name": "nonconflicting",
                                       "pos": null,
                                     },
@@ -1762,7 +1762,7 @@ Object {
                             "name": "",
                             "pos": null,
                             "value": Object {
-                              "__c": "Lookup",
+                              "__c": "LookupExpr",
                               "name": "polygon",
                               "pos": null,
                             },
@@ -1800,7 +1800,7 @@ Object {
                               "name": "i",
                               "pos": null,
                               "value": Object {
-                                "__c": "Lookup",
+                                "__c": "LookupExpr",
                                 "name": "new_indices",
                                 "pos": null,
                               },
@@ -1809,12 +1809,12 @@ Object {
                           "expr": Object {
                             "__c": "ArrayLookupExpr",
                             "array": Object {
-                              "__c": "Lookup",
+                              "__c": "LookupExpr",
                               "name": "polygon",
                               "pos": null,
                             },
                             "index": Object {
-                              "__c": "Lookup",
+                              "__c": "LookupExpr",
                               "name": "i",
                               "pos": null,
                             },
@@ -1831,7 +1831,7 @@ Object {
                     "name": "",
                     "pos": null,
                     "value": Object {
-                      "__c": "Lookup",
+                      "__c": "LookupExpr",
                       "name": "point",
                       "pos": null,
                     },
@@ -1843,7 +1843,7 @@ Object {
             },
           ],
           "expr": Object {
-            "__c": "Lookup",
+            "__c": "LookupExpr",
             "name": "polygon",
             "pos": null,
           },
@@ -1876,7 +1876,7 @@ Object {
                 "name": "",
                 "pos": null,
                 "value": Object {
-                  "__c": "Lookup",
+                  "__c": "LookupExpr",
                   "name": "points",
                   "pos": null,
                 },
@@ -1938,7 +1938,7 @@ Object {
                     "name": "",
                     "pos": null,
                     "value": Object {
-                      "__c": "Lookup",
+                      "__c": "LookupExpr",
                       "name": "points",
                       "pos": null,
                     },
@@ -1948,7 +1948,7 @@ Object {
                     "name": "",
                     "pos": null,
                     "value": Object {
-                      "__c": "Lookup",
+                      "__c": "LookupExpr",
                       "name": "a",
                       "pos": null,
                     },
@@ -1958,7 +1958,7 @@ Object {
                     "name": "",
                     "pos": null,
                     "value": Object {
-                      "__c": "Lookup",
+                      "__c": "LookupExpr",
                       "name": "b",
                       "pos": null,
                     },
@@ -1968,7 +1968,7 @@ Object {
                     "name": "",
                     "pos": null,
                     "value": Object {
-                      "__c": "Lookup",
+                      "__c": "LookupExpr",
                       "name": "c",
                       "pos": null,
                     },
@@ -1990,7 +1990,7 @@ Object {
                     "name": "",
                     "pos": null,
                     "value": Object {
-                      "__c": "Lookup",
+                      "__c": "LookupExpr",
                       "name": "plane",
                       "pos": null,
                     },
@@ -2000,7 +2000,7 @@ Object {
                     "name": "",
                     "pos": null,
                     "value": Object {
-                      "__c": "Lookup",
+                      "__c": "LookupExpr",
                       "name": "points",
                       "pos": null,
                     },
@@ -2026,7 +2026,7 @@ Object {
             "cond": Object {
               "__c": "BinaryOpExpr",
               "left": Object {
-                "__c": "Lookup",
+                "__c": "LookupExpr",
                 "name": "d",
                 "pos": null,
               },
@@ -2040,7 +2040,7 @@ Object {
                     "name": "",
                     "pos": null,
                     "value": Object {
-                      "__c": "Lookup",
+                      "__c": "LookupExpr",
                       "name": "points",
                       "pos": null,
                     },
@@ -2084,7 +2084,7 @@ Object {
                                       "name": "",
                                       "pos": null,
                                       "value": Object {
-                                        "__c": "Lookup",
+                                        "__c": "LookupExpr",
                                         "name": "points",
                                         "pos": null,
                                       },
@@ -2111,21 +2111,21 @@ Object {
                           "cond": Object {
                             "__c": "BinaryOpExpr",
                             "left": Object {
-                              "__c": "Lookup",
+                              "__c": "LookupExpr",
                               "name": "i",
                               "pos": null,
                             },
                             "operation": 25,
                             "pos": null,
                             "right": Object {
-                              "__c": "Lookup",
+                              "__c": "LookupExpr",
                               "name": "d",
                               "pos": null,
                             },
                           },
                           "elseExpr": null,
                           "ifExpr": Object {
-                            "__c": "Lookup",
+                            "__c": "LookupExpr",
                             "name": "i",
                             "pos": null,
                           },
@@ -2151,7 +2151,7 @@ Object {
                           "name": "",
                           "pos": null,
                           "value": Object {
-                            "__c": "Lookup",
+                            "__c": "LookupExpr",
                             "name": "plane",
                             "pos": null,
                           },
@@ -2163,12 +2163,12 @@ Object {
                           "value": Object {
                             "__c": "ArrayLookupExpr",
                             "array": Object {
-                              "__c": "Lookup",
+                              "__c": "LookupExpr",
                               "name": "points",
                               "pos": null,
                             },
                             "index": Object {
-                              "__c": "Lookup",
+                              "__c": "LookupExpr",
                               "name": "d",
                               "pos": null,
                             },
@@ -2183,12 +2183,12 @@ Object {
                       "__c": "VectorExpr",
                       "children": Array [
                         Object {
-                          "__c": "Lookup",
+                          "__c": "LookupExpr",
                           "name": "b",
                           "pos": null,
                         },
                         Object {
-                          "__c": "Lookup",
+                          "__c": "LookupExpr",
                           "name": "c",
                           "pos": null,
                         },
@@ -2199,12 +2199,12 @@ Object {
                       "__c": "VectorExpr",
                       "children": Array [
                         Object {
-                          "__c": "Lookup",
+                          "__c": "LookupExpr",
                           "name": "c",
                           "pos": null,
                         },
                         Object {
-                          "__c": "Lookup",
+                          "__c": "LookupExpr",
                           "name": "b",
                           "pos": null,
                         },
@@ -2221,7 +2221,7 @@ Object {
                   "value": Object {
                     "__c": "ArrayLookupExpr",
                     "array": Object {
-                      "__c": "Lookup",
+                      "__c": "LookupExpr",
                       "name": "bc",
                       "pos": null,
                     },
@@ -2240,7 +2240,7 @@ Object {
                   "value": Object {
                     "__c": "ArrayLookupExpr",
                     "array": Object {
-                      "__c": "Lookup",
+                      "__c": "LookupExpr",
                       "name": "bc",
                       "pos": null,
                     },
@@ -2263,17 +2263,17 @@ Object {
                         "__c": "VectorExpr",
                         "children": Array [
                           Object {
-                            "__c": "Lookup",
+                            "__c": "LookupExpr",
                             "name": "a",
                             "pos": null,
                           },
                           Object {
-                            "__c": "Lookup",
+                            "__c": "LookupExpr",
                             "name": "b",
                             "pos": null,
                           },
                           Object {
-                            "__c": "Lookup",
+                            "__c": "LookupExpr",
                             "name": "c",
                             "pos": null,
                           },
@@ -2284,17 +2284,17 @@ Object {
                         "__c": "VectorExpr",
                         "children": Array [
                           Object {
-                            "__c": "Lookup",
+                            "__c": "LookupExpr",
                             "name": "d",
                             "pos": null,
                           },
                           Object {
-                            "__c": "Lookup",
+                            "__c": "LookupExpr",
                             "name": "b",
                             "pos": null,
                           },
                           Object {
-                            "__c": "Lookup",
+                            "__c": "LookupExpr",
                             "name": "a",
                             "pos": null,
                           },
@@ -2305,17 +2305,17 @@ Object {
                         "__c": "VectorExpr",
                         "children": Array [
                           Object {
-                            "__c": "Lookup",
+                            "__c": "LookupExpr",
                             "name": "c",
                             "pos": null,
                           },
                           Object {
-                            "__c": "Lookup",
+                            "__c": "LookupExpr",
                             "name": "d",
                             "pos": null,
                           },
                           Object {
-                            "__c": "Lookup",
+                            "__c": "LookupExpr",
                             "name": "a",
                             "pos": null,
                           },
@@ -2326,17 +2326,17 @@ Object {
                         "__c": "VectorExpr",
                         "children": Array [
                           Object {
-                            "__c": "Lookup",
+                            "__c": "LookupExpr",
                             "name": "b",
                             "pos": null,
                           },
                           Object {
-                            "__c": "Lookup",
+                            "__c": "LookupExpr",
                             "name": "d",
                             "pos": null,
                           },
                           Object {
-                            "__c": "Lookup",
+                            "__c": "LookupExpr",
                             "name": "c",
                             "pos": null,
                           },
@@ -2362,7 +2362,7 @@ Object {
                             "name": "t",
                             "pos": null,
                             "value": Object {
-                              "__c": "Lookup",
+                              "__c": "LookupExpr",
                               "name": "triangles",
                               "pos": null,
                             },
@@ -2376,7 +2376,7 @@ Object {
                               "name": "",
                               "pos": null,
                               "value": Object {
-                                "__c": "Lookup",
+                                "__c": "LookupExpr",
                                 "name": "points",
                                 "pos": null,
                               },
@@ -2388,7 +2388,7 @@ Object {
                               "value": Object {
                                 "__c": "ArrayLookupExpr",
                                 "array": Object {
-                                  "__c": "Lookup",
+                                  "__c": "LookupExpr",
                                   "name": "t",
                                   "pos": null,
                                 },
@@ -2407,7 +2407,7 @@ Object {
                               "value": Object {
                                 "__c": "ArrayLookupExpr",
                                 "array": Object {
-                                  "__c": "Lookup",
+                                  "__c": "LookupExpr",
                                   "name": "t",
                                   "pos": null,
                                 },
@@ -2426,7 +2426,7 @@ Object {
                               "value": Object {
                                 "__c": "ArrayLookupExpr",
                                 "array": Object {
-                                  "__c": "Lookup",
+                                  "__c": "LookupExpr",
                                   "name": "t",
                                   "pos": null,
                                 },
@@ -2457,7 +2457,7 @@ Object {
                     "name": "",
                     "pos": null,
                     "value": Object {
-                      "__c": "Lookup",
+                      "__c": "LookupExpr",
                       "name": "points",
                       "pos": null,
                     },
@@ -2467,7 +2467,7 @@ Object {
                     "name": "",
                     "pos": null,
                     "value": Object {
-                      "__c": "Lookup",
+                      "__c": "LookupExpr",
                       "name": "triangles",
                       "pos": null,
                     },
@@ -2477,7 +2477,7 @@ Object {
                     "name": "",
                     "pos": null,
                     "value": Object {
-                      "__c": "Lookup",
+                      "__c": "LookupExpr",
                       "name": "planes",
                       "pos": null,
                     },
@@ -2487,7 +2487,7 @@ Object {
                     "name": "",
                     "pos": null,
                     "value": Object {
-                      "__c": "Lookup",
+                      "__c": "LookupExpr",
                       "name": "remaining",
                       "pos": null,
                     },
@@ -2516,7 +2516,7 @@ Object {
                             "name": "p",
                             "pos": null,
                             "value": Object {
-                              "__c": "Lookup",
+                              "__c": "LookupExpr",
                               "name": "points",
                               "pos": null,
                             },
@@ -2530,7 +2530,7 @@ Object {
                               "name": "",
                               "pos": null,
                               "value": Object {
-                                "__c": "Lookup",
+                                "__c": "LookupExpr",
                                 "name": "p",
                                 "pos": null,
                               },
@@ -2542,12 +2542,12 @@ Object {
                               "value": Object {
                                 "__c": "ArrayLookupExpr",
                                 "array": Object {
-                                  "__c": "Lookup",
+                                  "__c": "LookupExpr",
                                   "name": "points",
                                   "pos": null,
                                 },
                                 "index": Object {
-                                  "__c": "Lookup",
+                                  "__c": "LookupExpr",
                                   "name": "a",
                                   "pos": null,
                                 },
@@ -2561,12 +2561,12 @@ Object {
                               "value": Object {
                                 "__c": "ArrayLookupExpr",
                                 "array": Object {
-                                  "__c": "Lookup",
+                                  "__c": "LookupExpr",
                                   "name": "points",
                                   "pos": null,
                                 },
                                 "index": Object {
-                                  "__c": "Lookup",
+                                  "__c": "LookupExpr",
                                   "name": "b",
                                   "pos": null,
                                 },
@@ -2580,12 +2580,12 @@ Object {
                               "value": Object {
                                 "__c": "ArrayLookupExpr",
                                 "array": Object {
-                                  "__c": "Lookup",
+                                  "__c": "LookupExpr",
                                   "name": "points",
                                   "pos": null,
                                 },
                                 "index": Object {
-                                  "__c": "Lookup",
+                                  "__c": "LookupExpr",
                                   "name": "c",
                                   "pos": null,
                                 },
@@ -2614,7 +2614,7 @@ Object {
                         "name": "",
                         "pos": null,
                         "value": Object {
-                          "__c": "Lookup",
+                          "__c": "LookupExpr",
                           "name": "pts2d",
                           "pos": null,
                         },
@@ -2626,7 +2626,7 @@ Object {
                 },
               ],
               "expr": Object {
-                "__c": "Lookup",
+                "__c": "LookupExpr",
                 "name": "hull2d",
                 "pos": null,
               },
@@ -2663,7 +2663,7 @@ Object {
                             "name": "",
                             "pos": null,
                             "value": Object {
-                              "__c": "Lookup",
+                              "__c": "LookupExpr",
                               "name": "points",
                               "pos": null,
                             },
@@ -2690,7 +2690,7 @@ Object {
                 },
               ],
               "expr": Object {
-                "__c": "Lookup",
+                "__c": "LookupExpr",
                 "name": "i",
                 "pos": null,
               },
@@ -2758,12 +2758,12 @@ Object {
                           "left": Object {
                             "__c": "ArrayLookupExpr",
                             "array": Object {
-                              "__c": "Lookup",
+                              "__c": "LookupExpr",
                               "name": "points",
                               "pos": null,
                             },
                             "index": Object {
-                              "__c": "Lookup",
+                              "__c": "LookupExpr",
                               "name": "c",
                               "pos": null,
                             },
@@ -2774,12 +2774,12 @@ Object {
                           "right": Object {
                             "__c": "ArrayLookupExpr",
                             "array": Object {
-                              "__c": "Lookup",
+                              "__c": "LookupExpr",
                               "name": "points",
                               "pos": null,
                             },
                             "index": Object {
-                              "__c": "Lookup",
+                              "__c": "LookupExpr",
                               "name": "a",
                               "pos": null,
                             },
@@ -2796,12 +2796,12 @@ Object {
                           "left": Object {
                             "__c": "ArrayLookupExpr",
                             "array": Object {
-                              "__c": "Lookup",
+                              "__c": "LookupExpr",
                               "name": "points",
                               "pos": null,
                             },
                             "index": Object {
-                              "__c": "Lookup",
+                              "__c": "LookupExpr",
                               "name": "b",
                               "pos": null,
                             },
@@ -2812,12 +2812,12 @@ Object {
                           "right": Object {
                             "__c": "ArrayLookupExpr",
                             "array": Object {
-                              "__c": "Lookup",
+                              "__c": "LookupExpr",
                               "name": "points",
                               "pos": null,
                             },
                             "index": Object {
-                              "__c": "Lookup",
+                              "__c": "LookupExpr",
                               "name": "a",
                               "pos": null,
                             },
@@ -2840,14 +2840,14 @@ Object {
           "__c": "VectorExpr",
           "children": Array [
             Object {
-              "__c": "Lookup",
+              "__c": "LookupExpr",
               "name": "normal",
               "pos": null,
             },
             Object {
               "__c": "BinaryOpExpr",
               "left": Object {
-                "__c": "Lookup",
+                "__c": "LookupExpr",
                 "name": "normal",
                 "pos": null,
               },
@@ -2856,12 +2856,12 @@ Object {
               "right": Object {
                 "__c": "ArrayLookupExpr",
                 "array": Object {
-                  "__c": "Lookup",
+                  "__c": "LookupExpr",
                   "name": "points",
                   "pos": null,
                 },
                 "index": Object {
-                  "__c": "Lookup",
+                  "__c": "LookupExpr",
                   "name": "a",
                   "pos": null,
                 },
@@ -2919,7 +2919,7 @@ Object {
         "cond": Object {
           "__c": "BinaryOpExpr",
           "left": Object {
-            "__c": "Lookup",
+            "__c": "LookupExpr",
             "name": "i_",
             "pos": null,
           },
@@ -2933,7 +2933,7 @@ Object {
                 "name": "",
                 "pos": null,
                 "value": Object {
-                  "__c": "Lookup",
+                  "__c": "LookupExpr",
                   "name": "remaining",
                   "pos": null,
                 },
@@ -2953,12 +2953,12 @@ Object {
               "value": Object {
                 "__c": "ArrayLookupExpr",
                 "array": Object {
-                  "__c": "Lookup",
+                  "__c": "LookupExpr",
                   "name": "remaining",
                   "pos": null,
                 },
                 "index": Object {
-                  "__c": "Lookup",
+                  "__c": "LookupExpr",
                   "name": "i_",
                   "pos": null,
                 },
@@ -2979,12 +2979,12 @@ Object {
                     "value": Object {
                       "__c": "ArrayLookupExpr",
                       "array": Object {
-                        "__c": "Lookup",
+                        "__c": "LookupExpr",
                         "name": "points",
                         "pos": null,
                       },
                       "index": Object {
-                        "__c": "Lookup",
+                        "__c": "LookupExpr",
                         "name": "i",
                         "pos": null,
                       },
@@ -2996,7 +2996,7 @@ Object {
                     "name": "",
                     "pos": null,
                     "value": Object {
-                      "__c": "Lookup",
+                      "__c": "LookupExpr",
                       "name": "planes",
                       "pos": null,
                     },
@@ -3021,7 +3021,7 @@ Object {
                         "name": "c",
                         "pos": null,
                         "value": Object {
-                          "__c": "Lookup",
+                          "__c": "LookupExpr",
                           "name": "conflicts",
                           "pos": null,
                         },
@@ -3065,7 +3065,7 @@ Object {
                                 "inner": Object {
                                   "__c": "BinaryOpExpr",
                                   "left": Object {
-                                    "__c": "Lookup",
+                                    "__c": "LookupExpr",
                                     "name": "i",
                                     "pos": null,
                                   },
@@ -3097,19 +3097,19 @@ Object {
                               "array": Object {
                                 "__c": "ArrayLookupExpr",
                                 "array": Object {
-                                  "__c": "Lookup",
+                                  "__c": "LookupExpr",
                                   "name": "triangles",
                                   "pos": null,
                                 },
                                 "index": Object {
-                                  "__c": "Lookup",
+                                  "__c": "LookupExpr",
                                   "name": "c",
                                   "pos": null,
                                 },
                                 "pos": null,
                               },
                               "index": Object {
-                                "__c": "Lookup",
+                                "__c": "LookupExpr",
                                 "name": "i",
                                 "pos": null,
                               },
@@ -3120,19 +3120,19 @@ Object {
                               "array": Object {
                                 "__c": "ArrayLookupExpr",
                                 "array": Object {
-                                  "__c": "Lookup",
+                                  "__c": "LookupExpr",
                                   "name": "triangles",
                                   "pos": null,
                                 },
                                 "index": Object {
-                                  "__c": "Lookup",
+                                  "__c": "LookupExpr",
                                   "name": "c",
                                   "pos": null,
                                 },
                                 "pos": null,
                               },
                               "index": Object {
-                                "__c": "Lookup",
+                                "__c": "LookupExpr",
                                 "name": "j",
                                 "pos": null,
                               },
@@ -3163,7 +3163,7 @@ Object {
                     "name": "",
                     "pos": null,
                     "value": Object {
-                      "__c": "Lookup",
+                      "__c": "LookupExpr",
                       "name": "halfedges",
                       "pos": null,
                     },
@@ -3188,7 +3188,7 @@ Object {
                         "name": "h",
                         "pos": null,
                         "value": Object {
-                          "__c": "Lookup",
+                          "__c": "LookupExpr",
                           "name": "horizon",
                           "pos": null,
                         },
@@ -3202,7 +3202,7 @@ Object {
                           "name": "",
                           "pos": null,
                           "value": Object {
-                            "__c": "Lookup",
+                            "__c": "LookupExpr",
                             "name": "h",
                             "pos": null,
                           },
@@ -3212,7 +3212,7 @@ Object {
                           "name": "",
                           "pos": null,
                           "value": Object {
-                            "__c": "Lookup",
+                            "__c": "LookupExpr",
                             "name": "i",
                             "pos": null,
                           },
@@ -3242,7 +3242,7 @@ Object {
                         "name": "t",
                         "pos": null,
                         "value": Object {
-                          "__c": "Lookup",
+                          "__c": "LookupExpr",
                           "name": "new_triangles",
                           "pos": null,
                         },
@@ -3256,7 +3256,7 @@ Object {
                           "name": "",
                           "pos": null,
                           "value": Object {
-                            "__c": "Lookup",
+                            "__c": "LookupExpr",
                             "name": "points",
                             "pos": null,
                           },
@@ -3268,7 +3268,7 @@ Object {
                           "value": Object {
                             "__c": "ArrayLookupExpr",
                             "array": Object {
-                              "__c": "Lookup",
+                              "__c": "LookupExpr",
                               "name": "t",
                               "pos": null,
                             },
@@ -3287,7 +3287,7 @@ Object {
                           "value": Object {
                             "__c": "ArrayLookupExpr",
                             "array": Object {
-                              "__c": "Lookup",
+                              "__c": "LookupExpr",
                               "name": "t",
                               "pos": null,
                             },
@@ -3306,7 +3306,7 @@ Object {
                           "value": Object {
                             "__c": "ArrayLookupExpr",
                             "array": Object {
-                              "__c": "Lookup",
+                              "__c": "LookupExpr",
                               "name": "t",
                               "pos": null,
                             },
@@ -3337,7 +3337,7 @@ Object {
                 "name": "",
                 "pos": null,
                 "value": Object {
-                  "__c": "Lookup",
+                  "__c": "LookupExpr",
                   "name": "points",
                   "pos": null,
                 },
@@ -3361,7 +3361,7 @@ Object {
                             "name": "",
                             "pos": null,
                             "value": Object {
-                              "__c": "Lookup",
+                              "__c": "LookupExpr",
                               "name": "triangles",
                               "pos": null,
                             },
@@ -3371,7 +3371,7 @@ Object {
                             "name": "",
                             "pos": null,
                             "value": Object {
-                              "__c": "Lookup",
+                              "__c": "LookupExpr",
                               "name": "conflicts",
                               "pos": null,
                             },
@@ -3386,7 +3386,7 @@ Object {
                       "name": "",
                       "pos": null,
                       "value": Object {
-                        "__c": "Lookup",
+                        "__c": "LookupExpr",
                         "name": "new_triangles",
                         "pos": null,
                       },
@@ -3415,7 +3415,7 @@ Object {
                             "name": "",
                             "pos": null,
                             "value": Object {
-                              "__c": "Lookup",
+                              "__c": "LookupExpr",
                               "name": "planes",
                               "pos": null,
                             },
@@ -3425,7 +3425,7 @@ Object {
                             "name": "",
                             "pos": null,
                             "value": Object {
-                              "__c": "Lookup",
+                              "__c": "LookupExpr",
                               "name": "conflicts",
                               "pos": null,
                             },
@@ -3440,7 +3440,7 @@ Object {
                       "name": "",
                       "pos": null,
                       "value": Object {
-                        "__c": "Lookup",
+                        "__c": "LookupExpr",
                         "name": "new_planes",
                         "pos": null,
                       },
@@ -3455,7 +3455,7 @@ Object {
                 "name": "",
                 "pos": null,
                 "value": Object {
-                  "__c": "Lookup",
+                  "__c": "LookupExpr",
                   "name": "remaining",
                   "pos": null,
                 },
@@ -3467,7 +3467,7 @@ Object {
                 "value": Object {
                   "__c": "BinaryOpExpr",
                   "left": Object {
-                    "__c": "Lookup",
+                    "__c": "LookupExpr",
                     "name": "i_",
                     "pos": null,
                   },
@@ -3487,7 +3487,7 @@ Object {
           "pos": null,
         },
         "ifExpr": Object {
-          "__c": "Lookup",
+          "__c": "LookupExpr",
           "name": "triangles",
           "pos": null,
         },
@@ -3518,7 +3518,7 @@ Object {
               "left": Object {
                 "__c": "ArrayLookupExpr",
                 "array": Object {
-                  "__c": "Lookup",
+                  "__c": "LookupExpr",
                   "name": "points",
                   "pos": null,
                 },
@@ -3534,7 +3534,7 @@ Object {
               "right": Object {
                 "__c": "ArrayLookupExpr",
                 "array": Object {
-                  "__c": "Lookup",
+                  "__c": "LookupExpr",
                   "name": "points",
                   "pos": null,
                 },
@@ -3554,7 +3554,7 @@ Object {
             "value": Object {
               "__c": "ArrayLookupExpr",
               "array": Object {
-                "__c": "Lookup",
+                "__c": "LookupExpr",
                 "name": "points",
                 "pos": null,
               },
@@ -3581,7 +3581,7 @@ Object {
                       "name": "p",
                       "pos": null,
                       "value": Object {
-                        "__c": "Lookup",
+                        "__c": "LookupExpr",
                         "name": "points",
                         "pos": null,
                       },
@@ -3594,14 +3594,14 @@ Object {
                       "inner": Object {
                         "__c": "BinaryOpExpr",
                         "left": Object {
-                          "__c": "Lookup",
+                          "__c": "LookupExpr",
                           "name": "p",
                           "pos": null,
                         },
                         "operation": 29,
                         "pos": null,
                         "right": Object {
-                          "__c": "Lookup",
+                          "__c": "LookupExpr",
                           "name": "a",
                           "pos": null,
                         },
@@ -3611,7 +3611,7 @@ Object {
                     "operation": 30,
                     "pos": null,
                     "right": Object {
-                      "__c": "Lookup",
+                      "__c": "LookupExpr",
                       "name": "n",
                       "pos": null,
                     },
@@ -3634,7 +3634,7 @@ Object {
                   "name": "",
                   "pos": null,
                   "value": Object {
-                    "__c": "Lookup",
+                    "__c": "LookupExpr",
                     "name": "points1d",
                     "pos": null,
                   },
@@ -3656,7 +3656,7 @@ Object {
                   "name": "",
                   "pos": null,
                   "value": Object {
-                    "__c": "Lookup",
+                    "__c": "LookupExpr",
                     "name": "points1d",
                     "pos": null,
                   },
@@ -3671,12 +3671,12 @@ Object {
           "__c": "VectorExpr",
           "children": Array [
             Object {
-              "__c": "Lookup",
+              "__c": "LookupExpr",
               "name": "min_i",
               "pos": null,
             },
             Object {
-              "__c": "Lookup",
+              "__c": "LookupExpr",
               "name": "max_i",
               "pos": null,
             },
@@ -3721,7 +3721,7 @@ Object {
         "cond": Object {
           "__c": "BinaryOpExpr",
           "left": Object {
-            "__c": "Lookup",
+            "__c": "LookupExpr",
             "name": "i_",
             "pos": null,
           },
@@ -3738,7 +3738,7 @@ Object {
           "cond": Object {
             "__c": "BinaryOpExpr",
             "left": Object {
-              "__c": "Lookup",
+              "__c": "LookupExpr",
               "name": "i_",
               "pos": null,
             },
@@ -3752,7 +3752,7 @@ Object {
                   "name": "",
                   "pos": null,
                   "value": Object {
-                    "__c": "Lookup",
+                    "__c": "LookupExpr",
                     "name": "values",
                     "pos": null,
                   },
@@ -3769,12 +3769,12 @@ Object {
               "left": Object {
                 "__c": "ArrayLookupExpr",
                 "array": Object {
-                  "__c": "Lookup",
+                  "__c": "LookupExpr",
                   "name": "values",
                   "pos": null,
                 },
                 "index": Object {
-                  "__c": "Lookup",
+                  "__c": "LookupExpr",
                   "name": "i_",
                   "pos": null,
                 },
@@ -3783,7 +3783,7 @@ Object {
               "operation": 19,
               "pos": null,
               "right": Object {
-                "__c": "Lookup",
+                "__c": "LookupExpr",
                 "name": "min_",
                 "pos": null,
               },
@@ -3796,7 +3796,7 @@ Object {
                   "name": "",
                   "pos": null,
                   "value": Object {
-                    "__c": "Lookup",
+                    "__c": "LookupExpr",
                     "name": "values",
                     "pos": null,
                   },
@@ -3806,7 +3806,7 @@ Object {
                   "name": "",
                   "pos": null,
                   "value": Object {
-                    "__c": "Lookup",
+                    "__c": "LookupExpr",
                     "name": "min_",
                     "pos": null,
                   },
@@ -3816,7 +3816,7 @@ Object {
                   "name": "",
                   "pos": null,
                   "value": Object {
-                    "__c": "Lookup",
+                    "__c": "LookupExpr",
                     "name": "min_i_",
                     "pos": null,
                   },
@@ -3828,7 +3828,7 @@ Object {
                   "value": Object {
                     "__c": "BinaryOpExpr",
                     "left": Object {
-                      "__c": "Lookup",
+                      "__c": "LookupExpr",
                       "name": "i_",
                       "pos": null,
                     },
@@ -3853,7 +3853,7 @@ Object {
                   "name": "",
                   "pos": null,
                   "value": Object {
-                    "__c": "Lookup",
+                    "__c": "LookupExpr",
                     "name": "values",
                     "pos": null,
                   },
@@ -3865,12 +3865,12 @@ Object {
                   "value": Object {
                     "__c": "ArrayLookupExpr",
                     "array": Object {
-                      "__c": "Lookup",
+                      "__c": "LookupExpr",
                       "name": "values",
                       "pos": null,
                     },
                     "index": Object {
-                      "__c": "Lookup",
+                      "__c": "LookupExpr",
                       "name": "i_",
                       "pos": null,
                     },
@@ -3882,7 +3882,7 @@ Object {
                   "name": "",
                   "pos": null,
                   "value": Object {
-                    "__c": "Lookup",
+                    "__c": "LookupExpr",
                     "name": "i_",
                     "pos": null,
                   },
@@ -3894,7 +3894,7 @@ Object {
                   "value": Object {
                     "__c": "BinaryOpExpr",
                     "left": Object {
-                      "__c": "Lookup",
+                      "__c": "LookupExpr",
                       "name": "i_",
                       "pos": null,
                     },
@@ -3914,7 +3914,7 @@ Object {
             "pos": null,
           },
           "ifExpr": Object {
-            "__c": "Lookup",
+            "__c": "LookupExpr",
             "name": "min_i_",
             "pos": null,
           },
@@ -3928,7 +3928,7 @@ Object {
               "name": "",
               "pos": null,
               "value": Object {
-                "__c": "Lookup",
+                "__c": "LookupExpr",
                 "name": "values",
                 "pos": null,
               },
@@ -3940,7 +3940,7 @@ Object {
               "value": Object {
                 "__c": "ArrayLookupExpr",
                 "array": Object {
-                  "__c": "Lookup",
+                  "__c": "LookupExpr",
                   "name": "values",
                   "pos": null,
                 },
@@ -4014,7 +4014,7 @@ Object {
         "cond": Object {
           "__c": "BinaryOpExpr",
           "left": Object {
-            "__c": "Lookup",
+            "__c": "LookupExpr",
             "name": "i_",
             "pos": null,
           },
@@ -4031,7 +4031,7 @@ Object {
           "cond": Object {
             "__c": "BinaryOpExpr",
             "left": Object {
-              "__c": "Lookup",
+              "__c": "LookupExpr",
               "name": "i_",
               "pos": null,
             },
@@ -4045,7 +4045,7 @@ Object {
                   "name": "",
                   "pos": null,
                   "value": Object {
-                    "__c": "Lookup",
+                    "__c": "LookupExpr",
                     "name": "values",
                     "pos": null,
                   },
@@ -4062,12 +4062,12 @@ Object {
               "left": Object {
                 "__c": "ArrayLookupExpr",
                 "array": Object {
-                  "__c": "Lookup",
+                  "__c": "LookupExpr",
                   "name": "values",
                   "pos": null,
                 },
                 "index": Object {
-                  "__c": "Lookup",
+                  "__c": "LookupExpr",
                   "name": "i_",
                   "pos": null,
                 },
@@ -4076,7 +4076,7 @@ Object {
               "operation": 20,
               "pos": null,
               "right": Object {
-                "__c": "Lookup",
+                "__c": "LookupExpr",
                 "name": "max_",
                 "pos": null,
               },
@@ -4089,7 +4089,7 @@ Object {
                   "name": "",
                   "pos": null,
                   "value": Object {
-                    "__c": "Lookup",
+                    "__c": "LookupExpr",
                     "name": "values",
                     "pos": null,
                   },
@@ -4099,7 +4099,7 @@ Object {
                   "name": "",
                   "pos": null,
                   "value": Object {
-                    "__c": "Lookup",
+                    "__c": "LookupExpr",
                     "name": "max_",
                     "pos": null,
                   },
@@ -4109,7 +4109,7 @@ Object {
                   "name": "",
                   "pos": null,
                   "value": Object {
-                    "__c": "Lookup",
+                    "__c": "LookupExpr",
                     "name": "max_i_",
                     "pos": null,
                   },
@@ -4121,7 +4121,7 @@ Object {
                   "value": Object {
                     "__c": "BinaryOpExpr",
                     "left": Object {
-                      "__c": "Lookup",
+                      "__c": "LookupExpr",
                       "name": "i_",
                       "pos": null,
                     },
@@ -4146,7 +4146,7 @@ Object {
                   "name": "",
                   "pos": null,
                   "value": Object {
-                    "__c": "Lookup",
+                    "__c": "LookupExpr",
                     "name": "values",
                     "pos": null,
                   },
@@ -4158,12 +4158,12 @@ Object {
                   "value": Object {
                     "__c": "ArrayLookupExpr",
                     "array": Object {
-                      "__c": "Lookup",
+                      "__c": "LookupExpr",
                       "name": "values",
                       "pos": null,
                     },
                     "index": Object {
-                      "__c": "Lookup",
+                      "__c": "LookupExpr",
                       "name": "i_",
                       "pos": null,
                     },
@@ -4175,7 +4175,7 @@ Object {
                   "name": "",
                   "pos": null,
                   "value": Object {
-                    "__c": "Lookup",
+                    "__c": "LookupExpr",
                     "name": "i_",
                     "pos": null,
                   },
@@ -4187,7 +4187,7 @@ Object {
                   "value": Object {
                     "__c": "BinaryOpExpr",
                     "left": Object {
-                      "__c": "Lookup",
+                      "__c": "LookupExpr",
                       "name": "i_",
                       "pos": null,
                     },
@@ -4207,7 +4207,7 @@ Object {
             "pos": null,
           },
           "ifExpr": Object {
-            "__c": "Lookup",
+            "__c": "LookupExpr",
             "name": "max_i_",
             "pos": null,
           },
@@ -4221,7 +4221,7 @@ Object {
               "name": "",
               "pos": null,
               "value": Object {
-                "__c": "Lookup",
+                "__c": "LookupExpr",
                 "name": "values",
                 "pos": null,
               },
@@ -4233,7 +4233,7 @@ Object {
               "value": Object {
                 "__c": "ArrayLookupExpr",
                 "array": Object {
-                  "__c": "Lookup",
+                  "__c": "LookupExpr",
                   "name": "values",
                   "pos": null,
                 },
@@ -4317,7 +4317,7 @@ Object {
                           "name": "",
                           "pos": null,
                           "value": Object {
-                            "__c": "Lookup",
+                            "__c": "LookupExpr",
                             "name": "array",
                             "pos": null,
                           },
@@ -4353,7 +4353,7 @@ Object {
                       "name": "",
                       "pos": null,
                       "value": Object {
-                        "__c": "Lookup",
+                        "__c": "LookupExpr",
                         "name": "i",
                         "pos": null,
                       },
@@ -4363,7 +4363,7 @@ Object {
                       "name": "",
                       "pos": null,
                       "value": Object {
-                        "__c": "Lookup",
+                        "__c": "LookupExpr",
                         "name": "elements",
                         "pos": null,
                       },
@@ -4377,12 +4377,12 @@ Object {
               "ifExpr": Object {
                 "__c": "ArrayLookupExpr",
                 "array": Object {
-                  "__c": "Lookup",
+                  "__c": "LookupExpr",
                   "name": "array",
                   "pos": null,
                 },
                 "index": Object {
-                  "__c": "Lookup",
+                  "__c": "LookupExpr",
                   "name": "i",
                   "pos": null,
                 },
@@ -4419,7 +4419,7 @@ Object {
                 "name": "h",
                 "pos": null,
                 "value": Object {
-                  "__c": "Lookup",
+                  "__c": "LookupExpr",
                   "name": "halfedges",
                   "pos": null,
                 },
@@ -4439,7 +4439,7 @@ Object {
                       "name": "",
                       "pos": null,
                       "value": Object {
-                        "__c": "Lookup",
+                        "__c": "LookupExpr",
                         "name": "halfedges",
                         "pos": null,
                       },
@@ -4456,7 +4456,7 @@ Object {
                             "name": "",
                             "pos": null,
                             "value": Object {
-                              "__c": "Lookup",
+                              "__c": "LookupExpr",
                               "name": "h",
                               "pos": null,
                             },
@@ -4473,7 +4473,7 @@ Object {
               },
               "elseExpr": null,
               "ifExpr": Object {
-                "__c": "Lookup",
+                "__c": "LookupExpr",
                 "name": "h",
                 "pos": null,
               },
@@ -4525,14 +4525,14 @@ Object {
             "value": Object {
               "__c": "BinaryOpExpr",
               "left": Object {
-                "__c": "Lookup",
+                "__c": "LookupExpr",
                 "name": "b",
                 "pos": null,
               },
               "operation": 29,
               "pos": null,
               "right": Object {
-                "__c": "Lookup",
+                "__c": "LookupExpr",
                 "name": "a",
                 "pos": null,
               },
@@ -4545,14 +4545,14 @@ Object {
             "value": Object {
               "__c": "BinaryOpExpr",
               "left": Object {
-                "__c": "Lookup",
+                "__c": "LookupExpr",
                 "name": "c",
                 "pos": null,
               },
               "operation": 29,
               "pos": null,
               "right": Object {
-                "__c": "Lookup",
+                "__c": "LookupExpr",
                 "name": "a",
                 "pos": null,
               },
@@ -4570,7 +4570,7 @@ Object {
                   "name": "",
                   "pos": null,
                   "value": Object {
-                    "__c": "Lookup",
+                    "__c": "LookupExpr",
                     "name": "u",
                     "pos": null,
                   },
@@ -4580,7 +4580,7 @@ Object {
                   "name": "",
                   "pos": null,
                   "value": Object {
-                    "__c": "Lookup",
+                    "__c": "LookupExpr",
                     "name": "v",
                     "pos": null,
                   },
@@ -4602,7 +4602,7 @@ Object {
                   "name": "",
                   "pos": null,
                   "value": Object {
-                    "__c": "Lookup",
+                    "__c": "LookupExpr",
                     "name": "n",
                     "pos": null,
                   },
@@ -4612,7 +4612,7 @@ Object {
                   "name": "",
                   "pos": null,
                   "value": Object {
-                    "__c": "Lookup",
+                    "__c": "LookupExpr",
                     "name": "u",
                     "pos": null,
                   },
@@ -4629,14 +4629,14 @@ Object {
             "value": Object {
               "__c": "BinaryOpExpr",
               "left": Object {
-                "__c": "Lookup",
+                "__c": "LookupExpr",
                 "name": "point",
                 "pos": null,
               },
               "operation": 29,
               "pos": null,
               "right": Object {
-                "__c": "Lookup",
+                "__c": "LookupExpr",
                 "name": "a",
                 "pos": null,
               },
@@ -4649,14 +4649,14 @@ Object {
             Object {
               "__c": "BinaryOpExpr",
               "left": Object {
-                "__c": "Lookup",
+                "__c": "LookupExpr",
                 "name": "relpoint",
                 "pos": null,
               },
               "operation": 30,
               "pos": null,
               "right": Object {
-                "__c": "Lookup",
+                "__c": "LookupExpr",
                 "name": "u",
                 "pos": null,
               },
@@ -4664,14 +4664,14 @@ Object {
             Object {
               "__c": "BinaryOpExpr",
               "left": Object {
-                "__c": "Lookup",
+                "__c": "LookupExpr",
                 "name": "relpoint",
                 "pos": null,
               },
               "operation": 30,
               "pos": null,
               "right": Object {
-                "__c": "Lookup",
+                "__c": "LookupExpr",
                 "name": "w",
                 "pos": null,
               },
@@ -4722,14 +4722,14 @@ Object {
             "value": Object {
               "__c": "BinaryOpExpr",
               "left": Object {
-                "__c": "Lookup",
+                "__c": "LookupExpr",
                 "name": "b",
                 "pos": null,
               },
               "operation": 29,
               "pos": null,
               "right": Object {
-                "__c": "Lookup",
+                "__c": "LookupExpr",
                 "name": "a",
                 "pos": null,
               },
@@ -4742,14 +4742,14 @@ Object {
             "value": Object {
               "__c": "BinaryOpExpr",
               "left": Object {
-                "__c": "Lookup",
+                "__c": "LookupExpr",
                 "name": "c",
                 "pos": null,
               },
               "operation": 29,
               "pos": null,
               "right": Object {
-                "__c": "Lookup",
+                "__c": "LookupExpr",
                 "name": "a",
                 "pos": null,
               },
@@ -4767,7 +4767,7 @@ Object {
                   "name": "",
                   "pos": null,
                   "value": Object {
-                    "__c": "Lookup",
+                    "__c": "LookupExpr",
                     "name": "u",
                     "pos": null,
                   },
@@ -4777,7 +4777,7 @@ Object {
                   "name": "",
                   "pos": null,
                   "value": Object {
-                    "__c": "Lookup",
+                    "__c": "LookupExpr",
                     "name": "v",
                     "pos": null,
                   },
@@ -4799,7 +4799,7 @@ Object {
                   "name": "",
                   "pos": null,
                   "value": Object {
-                    "__c": "Lookup",
+                    "__c": "LookupExpr",
                     "name": "n",
                     "pos": null,
                   },
@@ -4809,7 +4809,7 @@ Object {
                   "name": "",
                   "pos": null,
                   "value": Object {
-                    "__c": "Lookup",
+                    "__c": "LookupExpr",
                     "name": "u",
                     "pos": null,
                   },
@@ -4825,7 +4825,7 @@ Object {
           "left": Object {
             "__c": "BinaryOpExpr",
             "left": Object {
-              "__c": "Lookup",
+              "__c": "LookupExpr",
               "name": "a",
               "pos": null,
             },
@@ -4836,7 +4836,7 @@ Object {
               "left": Object {
                 "__c": "ArrayLookupExpr",
                 "array": Object {
-                  "__c": "Lookup",
+                  "__c": "LookupExpr",
                   "name": "point",
                   "pos": null,
                 },
@@ -4850,7 +4850,7 @@ Object {
               "operation": 30,
               "pos": null,
               "right": Object {
-                "__c": "Lookup",
+                "__c": "LookupExpr",
                 "name": "u",
                 "pos": null,
               },
@@ -4863,7 +4863,7 @@ Object {
             "left": Object {
               "__c": "ArrayLookupExpr",
               "array": Object {
-                "__c": "Lookup",
+                "__c": "LookupExpr",
                 "name": "point",
                 "pos": null,
               },
@@ -4877,7 +4877,7 @@ Object {
             "operation": 30,
             "pos": null,
             "right": Object {
-              "__c": "Lookup",
+              "__c": "LookupExpr",
               "name": "w",
               "pos": null,
             },
@@ -4920,7 +4920,7 @@ Object {
                           "name": "",
                           "pos": null,
                           "value": Object {
-                            "__c": "Lookup",
+                            "__c": "LookupExpr",
                             "name": "arr",
                             "pos": null,
                           },
@@ -4959,12 +4959,12 @@ Object {
             "expr": Object {
               "__c": "ArrayLookupExpr",
               "array": Object {
-                "__c": "Lookup",
+                "__c": "LookupExpr",
                 "name": "arr",
                 "pos": null,
               },
               "index": Object {
-                "__c": "Lookup",
+                "__c": "LookupExpr",
                 "name": "i",
                 "pos": null,
               },
@@ -5011,7 +5011,7 @@ Object {
                     "__c": "VectorExpr",
                     "children": Array [
                       Object {
-                        "__c": "Lookup",
+                        "__c": "LookupExpr",
                         "name": "element",
                         "pos": null,
                       },
@@ -5024,7 +5024,7 @@ Object {
                   "name": "",
                   "pos": null,
                   "value": Object {
-                    "__c": "Lookup",
+                    "__c": "LookupExpr",
                     "name": "arr",
                     "pos": null,
                   },
@@ -5106,7 +5106,7 @@ Object {
                           "name": "",
                           "pos": null,
                           "value": Object {
-                            "__c": "Lookup",
+                            "__c": "LookupExpr",
                             "name": "planes",
                             "pos": null,
                           },
@@ -5140,12 +5140,12 @@ Object {
                     "value": Object {
                       "__c": "ArrayLookupExpr",
                       "array": Object {
-                        "__c": "Lookup",
+                        "__c": "LookupExpr",
                         "name": "planes",
                         "pos": null,
                       },
                       "index": Object {
-                        "__c": "Lookup",
+                        "__c": "LookupExpr",
                         "name": "i",
                         "pos": null,
                       },
@@ -5157,7 +5157,7 @@ Object {
                     "name": "",
                     "pos": null,
                     "value": Object {
-                      "__c": "Lookup",
+                      "__c": "LookupExpr",
                       "name": "point",
                       "pos": null,
                     },
@@ -5168,7 +5168,7 @@ Object {
               },
               "elseExpr": null,
               "ifExpr": Object {
-                "__c": "Lookup",
+                "__c": "LookupExpr",
                 "name": "i",
                 "pos": null,
               },
@@ -5209,7 +5209,7 @@ Object {
         "cond": Object {
           "__c": "BinaryOpExpr",
           "left": Object {
-            "__c": "Lookup",
+            "__c": "LookupExpr",
             "name": "i",
             "pos": null,
           },
@@ -5223,7 +5223,7 @@ Object {
                 "name": "",
                 "pos": null,
                 "value": Object {
-                  "__c": "Lookup",
+                  "__c": "LookupExpr",
                   "name": "points",
                   "pos": null,
                 },
@@ -5245,14 +5245,14 @@ Object {
                 "value": Object {
                   "__c": "ArrayLookupExpr",
                   "array": Object {
-                    "__c": "Lookup",
+                    "__c": "LookupExpr",
                     "name": "points",
                     "pos": null,
                   },
                   "index": Object {
                     "__c": "ArrayLookupExpr",
                     "array": Object {
-                      "__c": "Lookup",
+                      "__c": "LookupExpr",
                       "name": "line",
                       "pos": null,
                     },
@@ -5273,14 +5273,14 @@ Object {
                 "value": Object {
                   "__c": "ArrayLookupExpr",
                   "array": Object {
-                    "__c": "Lookup",
+                    "__c": "LookupExpr",
                     "name": "points",
                     "pos": null,
                   },
                   "index": Object {
                     "__c": "ArrayLookupExpr",
                     "array": Object {
-                      "__c": "Lookup",
+                      "__c": "LookupExpr",
                       "name": "line",
                       "pos": null,
                     },
@@ -5301,12 +5301,12 @@ Object {
                 "value": Object {
                   "__c": "ArrayLookupExpr",
                   "array": Object {
-                    "__c": "Lookup",
+                    "__c": "LookupExpr",
                     "name": "points",
                     "pos": null,
                   },
                   "index": Object {
-                    "__c": "Lookup",
+                    "__c": "LookupExpr",
                     "name": "i",
                     "pos": null,
                   },
@@ -5318,7 +5318,7 @@ Object {
             "pos": null,
           },
           "elseExpr": Object {
-            "__c": "Lookup",
+            "__c": "LookupExpr",
             "name": "i",
             "pos": null,
           },
@@ -5330,7 +5330,7 @@ Object {
                 "name": "",
                 "pos": null,
                 "value": Object {
-                  "__c": "Lookup",
+                  "__c": "LookupExpr",
                   "name": "line",
                   "pos": null,
                 },
@@ -5340,7 +5340,7 @@ Object {
                 "name": "",
                 "pos": null,
                 "value": Object {
-                  "__c": "Lookup",
+                  "__c": "LookupExpr",
                   "name": "points",
                   "pos": null,
                 },
@@ -5352,7 +5352,7 @@ Object {
                 "value": Object {
                   "__c": "BinaryOpExpr",
                   "left": Object {
-                    "__c": "Lookup",
+                    "__c": "LookupExpr",
                     "name": "i",
                     "pos": null,
                   },
@@ -5379,7 +5379,7 @@ Object {
               "name": "",
               "pos": null,
               "value": Object {
-                "__c": "Lookup",
+                "__c": "LookupExpr",
                 "name": "points",
                 "pos": null,
               },
@@ -5420,7 +5420,7 @@ Object {
         "cond": Object {
           "__c": "BinaryOpExpr",
           "left": Object {
-            "__c": "Lookup",
+            "__c": "LookupExpr",
             "name": "i",
             "pos": null,
           },
@@ -5434,7 +5434,7 @@ Object {
                 "name": "",
                 "pos": null,
                 "value": Object {
-                  "__c": "Lookup",
+                  "__c": "LookupExpr",
                   "name": "points",
                   "pos": null,
                 },
@@ -5454,7 +5454,7 @@ Object {
                 "name": "",
                 "pos": null,
                 "value": Object {
-                  "__c": "Lookup",
+                  "__c": "LookupExpr",
                   "name": "plane",
                   "pos": null,
                 },
@@ -5466,12 +5466,12 @@ Object {
                 "value": Object {
                   "__c": "ArrayLookupExpr",
                   "array": Object {
-                    "__c": "Lookup",
+                    "__c": "LookupExpr",
                     "name": "points",
                     "pos": null,
                   },
                   "index": Object {
-                    "__c": "Lookup",
+                    "__c": "LookupExpr",
                     "name": "i",
                     "pos": null,
                   },
@@ -5483,7 +5483,7 @@ Object {
             "pos": null,
           },
           "elseExpr": Object {
-            "__c": "Lookup",
+            "__c": "LookupExpr",
             "name": "i",
             "pos": null,
           },
@@ -5495,7 +5495,7 @@ Object {
                 "name": "",
                 "pos": null,
                 "value": Object {
-                  "__c": "Lookup",
+                  "__c": "LookupExpr",
                   "name": "plane",
                   "pos": null,
                 },
@@ -5505,7 +5505,7 @@ Object {
                 "name": "",
                 "pos": null,
                 "value": Object {
-                  "__c": "Lookup",
+                  "__c": "LookupExpr",
                   "name": "points",
                   "pos": null,
                 },
@@ -5517,7 +5517,7 @@ Object {
                 "value": Object {
                   "__c": "BinaryOpExpr",
                   "left": Object {
-                    "__c": "Lookup",
+                    "__c": "LookupExpr",
                     "name": "i",
                     "pos": null,
                   },
@@ -5544,7 +5544,7 @@ Object {
               "name": "",
               "pos": null,
               "value": Object {
-                "__c": "Lookup",
+                "__c": "LookupExpr",
                 "name": "points",
                 "pos": null,
               },
@@ -5581,7 +5581,7 @@ Object {
           "left": Object {
             "__c": "ArrayLookupExpr",
             "array": Object {
-              "__c": "Lookup",
+              "__c": "LookupExpr",
               "name": "plane",
               "pos": null,
             },
@@ -5595,7 +5595,7 @@ Object {
           "operation": 30,
           "pos": null,
           "right": Object {
-            "__c": "Lookup",
+            "__c": "LookupExpr",
             "name": "point",
             "pos": null,
           },
@@ -5605,7 +5605,7 @@ Object {
         "right": Object {
           "__c": "ArrayLookupExpr",
           "array": Object {
-            "__c": "Lookup",
+            "__c": "LookupExpr",
             "name": "plane",
             "pos": null,
           },
@@ -5646,7 +5646,7 @@ Object {
               "name": "",
               "pos": null,
               "value": Object {
-                "__c": "Lookup",
+                "__c": "LookupExpr",
                 "name": "plane",
                 "pos": null,
               },
@@ -5656,7 +5656,7 @@ Object {
               "name": "",
               "pos": null,
               "value": Object {
-                "__c": "Lookup",
+                "__c": "LookupExpr",
                 "name": "point",
                 "pos": null,
               },
@@ -5668,7 +5668,7 @@ Object {
         "operation": 20,
         "pos": null,
         "right": Object {
-          "__c": "Lookup",
+          "__c": "LookupExpr",
           "name": "epsilon",
           "pos": null,
         },
@@ -5709,7 +5709,7 @@ Object {
                     "name": "",
                     "pos": null,
                     "value": Object {
-                      "__c": "Lookup",
+                      "__c": "LookupExpr",
                       "name": "plane",
                       "pos": null,
                     },
@@ -5719,7 +5719,7 @@ Object {
                     "name": "",
                     "pos": null,
                     "value": Object {
-                      "__c": "Lookup",
+                      "__c": "LookupExpr",
                       "name": "point",
                       "pos": null,
                     },
@@ -5736,7 +5736,7 @@ Object {
         "operation": 21,
         "pos": null,
         "right": Object {
-          "__c": "Lookup",
+          "__c": "LookupExpr",
           "name": "epsilon",
           "pos": null,
         },
@@ -5757,7 +5757,7 @@ Object {
       "expr": Object {
         "__c": "BinaryOpExpr",
         "left": Object {
-          "__c": "Lookup",
+          "__c": "LookupExpr",
           "name": "v",
           "pos": null,
         },
@@ -5771,7 +5771,7 @@ Object {
               "name": "",
               "pos": null,
               "value": Object {
-                "__c": "Lookup",
+                "__c": "LookupExpr",
                 "name": "v",
                 "pos": null,
               },
@@ -5819,7 +5819,7 @@ Object {
                 "left": Object {
                   "__c": "ArrayLookupExpr",
                   "array": Object {
-                    "__c": "Lookup",
+                    "__c": "LookupExpr",
                     "name": "a",
                     "pos": null,
                   },
@@ -5839,7 +5839,7 @@ Object {
                     "left": Object {
                       "__c": "ArrayLookupExpr",
                       "array": Object {
-                        "__c": "Lookup",
+                        "__c": "LookupExpr",
                         "name": "b",
                         "pos": null,
                       },
@@ -5855,7 +5855,7 @@ Object {
                     "right": Object {
                       "__c": "ArrayLookupExpr",
                       "array": Object {
-                        "__c": "Lookup",
+                        "__c": "LookupExpr",
                         "name": "c",
                         "pos": null,
                       },
@@ -5877,7 +5877,7 @@ Object {
                 "left": Object {
                   "__c": "ArrayLookupExpr",
                   "array": Object {
-                    "__c": "Lookup",
+                    "__c": "LookupExpr",
                     "name": "b",
                     "pos": null,
                   },
@@ -5897,7 +5897,7 @@ Object {
                     "left": Object {
                       "__c": "ArrayLookupExpr",
                       "array": Object {
-                        "__c": "Lookup",
+                        "__c": "LookupExpr",
                         "name": "c",
                         "pos": null,
                       },
@@ -5913,7 +5913,7 @@ Object {
                     "right": Object {
                       "__c": "ArrayLookupExpr",
                       "array": Object {
-                        "__c": "Lookup",
+                        "__c": "LookupExpr",
                         "name": "a",
                         "pos": null,
                       },
@@ -5936,7 +5936,7 @@ Object {
               "left": Object {
                 "__c": "ArrayLookupExpr",
                 "array": Object {
-                  "__c": "Lookup",
+                  "__c": "LookupExpr",
                   "name": "c",
                   "pos": null,
                 },
@@ -5956,7 +5956,7 @@ Object {
                   "left": Object {
                     "__c": "ArrayLookupExpr",
                     "array": Object {
-                      "__c": "Lookup",
+                      "__c": "LookupExpr",
                       "name": "a",
                       "pos": null,
                     },
@@ -5972,7 +5972,7 @@ Object {
                   "right": Object {
                     "__c": "ArrayLookupExpr",
                     "array": Object {
-                      "__c": "Lookup",
+                      "__c": "LookupExpr",
                       "name": "b",
                       "pos": null,
                     },
@@ -6040,7 +6040,7 @@ Object {
                     "name": "",
                     "pos": null,
                     "value": Object {
-                      "__c": "Lookup",
+                      "__c": "LookupExpr",
                       "name": "a",
                       "pos": null,
                     },
@@ -6050,7 +6050,7 @@ Object {
                     "name": "",
                     "pos": null,
                     "value": Object {
-                      "__c": "Lookup",
+                      "__c": "LookupExpr",
                       "name": "b",
                       "pos": null,
                     },
@@ -6060,7 +6060,7 @@ Object {
                     "name": "",
                     "pos": null,
                     "value": Object {
-                      "__c": "Lookup",
+                      "__c": "LookupExpr",
                       "name": "c",
                       "pos": null,
                     },
@@ -6077,7 +6077,7 @@ Object {
         "operation": 19,
         "pos": null,
         "right": Object {
-          "__c": "Lookup",
+          "__c": "LookupExpr",
           "name": "epsilon",
           "pos": null,
         },
@@ -6108,7 +6108,7 @@ Object {
                 "value": Object {
                   "__c": "ArrayLookupExpr",
                   "array": Object {
-                    "__c": "Lookup",
+                    "__c": "LookupExpr",
                     "name": "cartesian",
                     "pos": null,
                   },
@@ -6127,7 +6127,7 @@ Object {
                 "value": Object {
                   "__c": "ArrayLookupExpr",
                   "array": Object {
-                    "__c": "Lookup",
+                    "__c": "LookupExpr",
                     "name": "cartesian",
                     "pos": null,
                   },
@@ -6153,7 +6153,7 @@ Object {
                 "value": Object {
                   "__c": "ArrayLookupExpr",
                   "array": Object {
-                    "__c": "Lookup",
+                    "__c": "LookupExpr",
                     "name": "cartesian",
                     "pos": null,
                   },
@@ -6200,7 +6200,7 @@ Object {
                   "value": Object {
                     "__c": "ArrayLookupExpr",
                     "array": Object {
-                      "__c": "Lookup",
+                      "__c": "LookupExpr",
                       "name": "spherical",
                       "pos": null,
                     },
@@ -6228,7 +6228,7 @@ Object {
                   "value": Object {
                     "__c": "ArrayLookupExpr",
                     "array": Object {
-                      "__c": "Lookup",
+                      "__c": "LookupExpr",
                       "name": "spherical",
                       "pos": null,
                     },
@@ -6257,7 +6257,7 @@ Object {
                   "value": Object {
                     "__c": "ArrayLookupExpr",
                     "array": Object {
-                      "__c": "Lookup",
+                      "__c": "LookupExpr",
                       "name": "spherical",
                       "pos": null,
                     },
@@ -6285,7 +6285,7 @@ Object {
                   "value": Object {
                     "__c": "ArrayLookupExpr",
                     "array": Object {
-                      "__c": "Lookup",
+                      "__c": "LookupExpr",
                       "name": "spherical",
                       "pos": null,
                     },
@@ -6312,7 +6312,7 @@ Object {
                 "value": Object {
                   "__c": "ArrayLookupExpr",
                   "array": Object {
-                    "__c": "Lookup",
+                    "__c": "LookupExpr",
                     "name": "spherical",
                     "pos": null,
                   },
@@ -6370,7 +6370,7 @@ Object {
                           "value": 1,
                         },
                         Object {
-                          "__c": "Lookup",
+                          "__c": "LookupExpr",
                           "name": "phi",
                           "pos": null,
                         },
@@ -6396,7 +6396,7 @@ Object {
                           },
                         },
                         Object {
-                          "__c": "Lookup",
+                          "__c": "LookupExpr",
                           "name": "phi",
                           "pos": null,
                         },
@@ -6421,7 +6421,7 @@ Object {
                           "operation": 29,
                           "pos": null,
                           "right": Object {
-                            "__c": "Lookup",
+                            "__c": "LookupExpr",
                             "name": "phi",
                             "pos": null,
                           },
@@ -6452,7 +6452,7 @@ Object {
                           "operation": 29,
                           "pos": null,
                           "right": Object {
-                            "__c": "Lookup",
+                            "__c": "LookupExpr",
                             "name": "phi",
                             "pos": null,
                           },
@@ -6479,7 +6479,7 @@ Object {
                           "value": 1,
                         },
                         Object {
-                          "__c": "Lookup",
+                          "__c": "LookupExpr",
                           "name": "phi",
                           "pos": null,
                         },
@@ -6505,7 +6505,7 @@ Object {
                           },
                         },
                         Object {
-                          "__c": "Lookup",
+                          "__c": "LookupExpr",
                           "name": "phi",
                           "pos": null,
                         },
@@ -6530,7 +6530,7 @@ Object {
                           "operation": 29,
                           "pos": null,
                           "right": Object {
-                            "__c": "Lookup",
+                            "__c": "LookupExpr",
                             "name": "phi",
                             "pos": null,
                           },
@@ -6561,7 +6561,7 @@ Object {
                           "operation": 29,
                           "pos": null,
                           "right": Object {
-                            "__c": "Lookup",
+                            "__c": "LookupExpr",
                             "name": "phi",
                             "pos": null,
                           },
@@ -6573,7 +6573,7 @@ Object {
                       "__c": "VectorExpr",
                       "children": Array [
                         Object {
-                          "__c": "Lookup",
+                          "__c": "LookupExpr",
                           "name": "phi",
                           "pos": null,
                         },
@@ -6598,7 +6598,7 @@ Object {
                           "operation": 29,
                           "pos": null,
                           "right": Object {
-                            "__c": "Lookup",
+                            "__c": "LookupExpr",
                             "name": "phi",
                             "pos": null,
                           },
@@ -6620,7 +6620,7 @@ Object {
                       "__c": "VectorExpr",
                       "children": Array [
                         Object {
-                          "__c": "Lookup",
+                          "__c": "LookupExpr",
                           "name": "phi",
                           "pos": null,
                         },
@@ -6650,7 +6650,7 @@ Object {
                           "operation": 29,
                           "pos": null,
                           "right": Object {
-                            "__c": "Lookup",
+                            "__c": "LookupExpr",
                             "name": "phi",
                             "pos": null,
                           },
@@ -6686,7 +6686,7 @@ Object {
                   "name": "",
                   "pos": null,
                   "value": Object {
-                    "__c": "Lookup",
+                    "__c": "LookupExpr",
                     "name": "p",
                     "pos": null,
                   },
@@ -6716,7 +6716,7 @@ Object {
                 "name": "p",
                 "pos": null,
                 "value": Object {
-                  "__c": "Lookup",
+                  "__c": "LookupExpr",
                   "name": "testpoints_on_sphere",
                   "pos": null,
                 },
@@ -6730,7 +6730,7 @@ Object {
                   "name": "",
                   "pos": null,
                   "value": Object {
-                    "__c": "Lookup",
+                    "__c": "LookupExpr",
                     "name": "p",
                     "pos": null,
                   },
@@ -6776,7 +6776,7 @@ Object {
                     "operation": 29,
                     "pos": null,
                     "right": Object {
-                      "__c": "Lookup",
+                      "__c": "LookupExpr",
                       "name": "epsilon",
                       "pos": null,
                     },
@@ -6801,7 +6801,7 @@ Object {
                       "name": "",
                       "pos": null,
                       "value": Object {
-                        "__c": "Lookup",
+                        "__c": "LookupExpr",
                         "name": "a",
                         "pos": null,
                       },
@@ -6818,7 +6818,7 @@ Object {
                       "name": "",
                       "pos": null,
                       "value": Object {
-                        "__c": "Lookup",
+                        "__c": "LookupExpr",
                         "name": "a",
                         "pos": null,
                       },
@@ -7015,7 +7015,7 @@ Object {
                   "operation": 30,
                   "pos": null,
                   "right": Object {
-                    "__c": "Lookup",
+                    "__c": "LookupExpr",
                     "name": "u",
                     "pos": null,
                   },
@@ -7078,7 +7078,7 @@ Object {
                   "operation": 30,
                   "pos": null,
                   "right": Object {
-                    "__c": "Lookup",
+                    "__c": "LookupExpr",
                     "name": "v",
                     "pos": null,
                   },
@@ -7216,7 +7216,7 @@ Object {
                 "operation": 30,
                 "pos": null,
                 "right": Object {
-                  "__c": "Lookup",
+                  "__c": "LookupExpr",
                   "name": "u",
                   "pos": null,
                 },
@@ -7363,7 +7363,7 @@ Object {
                 "operation": 30,
                 "pos": null,
                 "right": Object {
-                  "__c": "Lookup",
+                  "__c": "LookupExpr",
                   "name": "u",
                   "pos": null,
                 },
@@ -7625,7 +7625,7 @@ Object {
               "operation": 30,
               "pos": null,
               "right": Object {
-                "__c": "Lookup",
+                "__c": "LookupExpr",
                 "name": "testpoints_on_sphere",
                 "pos": null,
               },
@@ -7683,7 +7683,7 @@ Object {
             "name": "",
             "pos": null,
             "value": Object {
-              "__c": "Lookup",
+              "__c": "LookupExpr",
               "name": "testpoints2d",
               "pos": null,
             },
@@ -7749,7 +7749,7 @@ Object {
               "operation": 30,
               "pos": null,
               "right": Object {
-                "__c": "Lookup",
+                "__c": "LookupExpr",
                 "name": "testpoints_circular",
                 "pos": null,
               },
@@ -7821,7 +7821,7 @@ Object {
               "operation": 30,
               "pos": null,
               "right": Object {
-                "__c": "Lookup",
+                "__c": "LookupExpr",
                 "name": "testpoints_coplanar",
                 "pos": null,
               },
@@ -7888,7 +7888,7 @@ Object {
               "operation": 30,
               "pos": null,
               "right": Object {
-                "__c": "Lookup",
+                "__c": "LookupExpr",
                 "name": "testpoints_collinear_2d",
                 "pos": null,
               },
@@ -7960,7 +7960,7 @@ Object {
               "operation": 30,
               "pos": null,
               "right": Object {
-                "__c": "Lookup",
+                "__c": "LookupExpr",
                 "name": "testpoints_collinear_3d",
                 "pos": null,
               },
@@ -7993,7 +7993,7 @@ Object {
           "name": "",
           "pos": null,
           "value": Object {
-            "__c": "Lookup",
+            "__c": "LookupExpr",
             "name": "testpoints3d",
             "pos": null,
           },
@@ -8037,7 +8037,7 @@ Object {
                   "name": "",
                   "pos": null,
                   "value": Object {
-                    "__c": "Lookup",
+                    "__c": "LookupExpr",
                     "name": "points",
                     "pos": null,
                   },
@@ -8061,7 +8061,7 @@ Object {
                       "name": "",
                       "pos": null,
                       "value": Object {
-                        "__c": "Lookup",
+                        "__c": "LookupExpr",
                         "name": "hull",
                         "pos": null,
                       },
@@ -8092,7 +8092,7 @@ Object {
                       "value": Object {
                         "__c": "ArrayLookupExpr",
                         "array": Object {
-                          "__c": "Lookup",
+                          "__c": "LookupExpr",
                           "name": "hull",
                           "pos": null,
                         },
@@ -8125,7 +8125,7 @@ Object {
                   "name": "points",
                   "pos": null,
                   "value": Object {
-                    "__c": "Lookup",
+                    "__c": "LookupExpr",
                     "name": "points",
                     "pos": null,
                   },
@@ -8138,7 +8138,7 @@ Object {
                     "__c": "VectorExpr",
                     "children": Array [
                       Object {
-                        "__c": "Lookup",
+                        "__c": "LookupExpr",
                         "name": "hull",
                         "pos": null,
                       },
@@ -8171,7 +8171,7 @@ Object {
                   "name": "points",
                   "pos": null,
                   "value": Object {
-                    "__c": "Lookup",
+                    "__c": "LookupExpr",
                     "name": "points",
                     "pos": null,
                   },
@@ -8181,7 +8181,7 @@ Object {
                   "name": "faces",
                   "pos": null,
                   "value": Object {
-                    "__c": "Lookup",
+                    "__c": "LookupExpr",
                     "name": "hull",
                     "pos": null,
                   },
@@ -8223,7 +8223,7 @@ Object {
                           "name": "",
                           "pos": null,
                           "value": Object {
-                            "__c": "Lookup",
+                            "__c": "LookupExpr",
                             "name": "points",
                             "pos": null,
                           },
@@ -8255,12 +8255,12 @@ Object {
                   "value": Object {
                     "__c": "ArrayLookupExpr",
                     "array": Object {
-                      "__c": "Lookup",
+                      "__c": "LookupExpr",
                       "name": "points",
                       "pos": null,
                     },
                     "index": Object {
-                      "__c": "Lookup",
+                      "__c": "LookupExpr",
                       "name": "i",
                       "pos": null,
                     },
@@ -8289,7 +8289,7 @@ Object {
                         "name": "",
                         "pos": null,
                         "value": Object {
-                          "__c": "Lookup",
+                          "__c": "LookupExpr",
                           "name": "p",
                           "pos": null,
                         },
@@ -8308,7 +8308,7 @@ Object {
                                 "name": "",
                                 "pos": null,
                                 "value": Object {
-                                  "__c": "Lookup",
+                                  "__c": "LookupExpr",
                                   "name": "hull",
                                   "pos": null,
                                 },
@@ -8318,7 +8318,7 @@ Object {
                                 "name": "",
                                 "pos": null,
                                 "value": Object {
-                                  "__c": "Lookup",
+                                  "__c": "LookupExpr",
                                   "name": "i",
                                   "pos": null,
                                 },
@@ -8492,7 +8492,7 @@ Object {
                       "name": "",
                       "pos": null,
                       "value": Object {
-                        "__c": "Lookup",
+                        "__c": "LookupExpr",
                         "name": "index",
                         "pos": null,
                       },
@@ -8502,7 +8502,7 @@ Object {
                       "name": "",
                       "pos": null,
                       "value": Object {
-                        "__c": "Lookup",
+                        "__c": "LookupExpr",
                         "name": "hull",
                         "pos": null,
                       },
@@ -8541,7 +8541,7 @@ Object {
                       "name": "",
                       "pos": null,
                       "value": Object {
-                        "__c": "Lookup",
+                        "__c": "LookupExpr",
                         "name": "index",
                         "pos": null,
                       },
@@ -8551,7 +8551,7 @@ Object {
                       "name": "",
                       "pos": null,
                       "value": Object {
-                        "__c": "Lookup",
+                        "__c": "LookupExpr",
                         "name": "hull",
                         "pos": null,
                       },
@@ -8591,7 +8591,7 @@ Object {
                     "name": "",
                     "pos": null,
                     "value": Object {
-                      "__c": "Lookup",
+                      "__c": "LookupExpr",
                       "name": "index",
                       "pos": null,
                     },
@@ -8601,7 +8601,7 @@ Object {
                     "name": "",
                     "pos": null,
                     "value": Object {
-                      "__c": "Lookup",
+                      "__c": "LookupExpr",
                       "name": "hull",
                       "pos": null,
                     },
@@ -8874,7 +8874,7 @@ Object {
                 "left": Object {
                   "__c": "BinaryOpExpr",
                   "left": Object {
-                    "__c": "Lookup",
+                    "__c": "LookupExpr",
                     "name": "iter",
                     "pos": null,
                   },
@@ -8896,7 +8896,7 @@ Object {
               },
               "elseExpr": null,
               "ifExpr": Object {
-                "__c": "Lookup",
+                "__c": "LookupExpr",
                 "name": "iter",
                 "pos": null,
               },
@@ -8957,7 +8957,7 @@ Object {
             "cond": Object {
               "__c": "BinaryOpExpr",
               "left": Object {
-                "__c": "Lookup",
+                "__c": "LookupExpr",
                 "name": "iter2",
                 "pos": null,
               },
@@ -8976,7 +8976,7 @@ Object {
                 "left": Object {
                   "__c": "BinaryOpExpr",
                   "left": Object {
-                    "__c": "Lookup",
+                    "__c": "LookupExpr",
                     "name": "iter",
                     "pos": null,
                   },
@@ -8998,7 +8998,7 @@ Object {
               },
               "elseExpr": null,
               "ifExpr": Object {
-                "__c": "Lookup",
+                "__c": "LookupExpr",
                 "name": "iter",
                 "pos": null,
               },
@@ -9010,7 +9010,7 @@ Object {
                 "name": "iter3",
                 "pos": null,
                 "value": Object {
-                  "__c": "Lookup",
+                  "__c": "LookupExpr",
                   "name": "xd",
                   "pos": null,
                 },
@@ -9081,7 +9081,7 @@ Object {
             "cond": Object {
               "__c": "BinaryOpExpr",
               "left": Object {
-                "__c": "Lookup",
+                "__c": "LookupExpr",
                 "name": "iter2",
                 "pos": null,
               },
@@ -9100,7 +9100,7 @@ Object {
                 "left": Object {
                   "__c": "BinaryOpExpr",
                   "left": Object {
-                    "__c": "Lookup",
+                    "__c": "LookupExpr",
                     "name": "iter",
                     "pos": null,
                   },
@@ -9122,7 +9122,7 @@ Object {
               },
               "elseExpr": null,
               "ifExpr": Object {
-                "__c": "Lookup",
+                "__c": "LookupExpr",
                 "name": "iter",
                 "pos": null,
               },
@@ -9134,7 +9134,7 @@ Object {
                 "name": "iter3",
                 "pos": null,
                 "value": Object {
-                  "__c": "Lookup",
+                  "__c": "LookupExpr",
                   "name": "xd",
                   "pos": null,
                 },

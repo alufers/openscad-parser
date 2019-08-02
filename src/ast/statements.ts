@@ -2,6 +2,7 @@ import ASTNode from "./ASTNode";
 import AssignmentNode from "./AssignmentNode";
 import CodeLocation from "../CodeLocation";
 import { Expression } from "./expressions";
+import ASTVisitor from "./ASTVisitor";
 
 export abstract class Statement extends ASTNode {}
 
@@ -13,6 +14,9 @@ export class UseStmt extends Statement {
    */
   constructor(pos: CodeLocation, public filename: string) {
     super(pos);
+  }
+  accept<R>(visitor: ASTVisitor<R>): R {
+    return visitor.visitUseStmt(this);
   }
 }
 
@@ -53,6 +57,9 @@ export class ModuleInstantiationStmt extends Statement
   ) {
     super(pos);
   }
+  accept<R>(visitor: ASTVisitor<R>): R {
+    return visitor.visitModuleInstantiationStmt(this);
+  }
 }
 
 export class ModuleDeclarationStmt extends Statement {
@@ -63,6 +70,9 @@ export class ModuleDeclarationStmt extends Statement {
     public stmt: Statement
   ) {
     super(pos);
+  }
+  accept<R>(visitor: ASTVisitor<R>): R {
+    return visitor.visitModuleDeclarationStmt(this);
   }
 }
 
@@ -75,15 +85,25 @@ export class FunctionDeclarationStmt extends Statement {
   ) {
     super(pos);
   }
+  accept<R>(visitor: ASTVisitor<R>): R {
+    return visitor.visitFunctionDeclarationStmt(this);
+  }
 }
 
 export class BlockStmt extends Statement {
   constructor(pos: CodeLocation, public children: Statement[]) {
     super(pos);
   }
+  accept<R>(visitor: ASTVisitor<R>): R {
+    return visitor.visitBlockStmt(this);
+  }
 }
 
-export class NoopStmt extends Statement {}
+export class NoopStmt extends Statement {
+  accept<R>(visitor: ASTVisitor<R>): R {
+    return visitor.visitNoopStmt(this);
+  }
+}
 
 export class IfElseStatement extends Statement implements TaggableStatement {
   public tagRoot: boolean = false;
@@ -97,5 +117,8 @@ export class IfElseStatement extends Statement implements TaggableStatement {
     public elseBranch: Statement
   ) {
     super(pos);
+  }
+  accept<R>(visitor: ASTVisitor<R>): R {
+    return visitor.visitIfElseStatement(this);
   }
 }

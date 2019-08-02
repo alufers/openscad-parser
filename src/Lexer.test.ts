@@ -5,6 +5,11 @@ import LiteralToken from "./LiteralToken";
 import LexingError from "./LexingError";
 import { resolve } from "path";
 import Token from "./Token";
+import {
+  MultiLineComment,
+  SingleLineComment,
+  NewLineExtraToken
+} from "./extraTokens";
 
 function lexToTTStream(code: string) {
   const lexer = new Lexer(new CodeFile("<test>", code));
@@ -164,6 +169,19 @@ describe("Lexer", () => {
     expect(() => lexToTTStream(`~~~~~~`)).toThrowError(LexingError);
   });
 
+  it("adds extraTokens when scanning comments", () => {
+    const toks = lexTokens(`/* a comment */asdf//really cool\n\r\n`);
+    expect(toks[0].extraTokens).toHaveLength(1);
+    expect(toks[0].extraTokens[0]).toBeInstanceOf(MultiLineComment);
+    expect((toks[0].extraTokens[0] as MultiLineComment).contents).toEqual(
+      " a comment "
+    );
+    expect(toks[1].extraTokens[0]).toBeInstanceOf(SingleLineComment);
+    expect((toks[1].extraTokens[0] as SingleLineComment).contents).toEqual(
+      "really cool"
+    );
+    expect(toks[1].extraTokens[1]).toBeInstanceOf(NewLineExtraToken);
+  });
   describe("number lexing", () => {
     function testNumberLexing(source: string) {
       const tokens = lexTokens(source);
