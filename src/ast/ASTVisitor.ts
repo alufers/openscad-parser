@@ -45,7 +45,6 @@ export default interface ASTVisitor<R = void> {
   visitLookupExpr(n: LookupExpr): R;
   visitMemberLookupExpr(n: MemberLookupExpr): R;
   visitFunctionCallExpr(n: FunctionCallExpr): R;
-  visitFunctionCallLikeExpr(n: FunctionCallLikeExpr): R;
   visitLetExpr(n: LetExpr): R;
   visitAssertExpr(n: AssertExpr): R;
   visitEchoExpr(n: EchoExpr): R;

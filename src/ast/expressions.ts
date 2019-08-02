@@ -219,7 +219,7 @@ export class FunctionCallExpr extends Expression {
   }
 }
 
-export class FunctionCallLikeExpr extends Expression {
+export abstract class FunctionCallLikeExpr extends Expression {
   /**
    * The names of the assigned variables in this let expression.
    */
@@ -234,9 +234,6 @@ export class FunctionCallLikeExpr extends Expression {
     super(pos);
     this.args = args;
     this.expr = expr;
-  }
-  accept<R>(visitor: ASTVisitor<R>): R {
-    return visitor.visitFunctionCallLikeExpr(this);
   }
 }
 
