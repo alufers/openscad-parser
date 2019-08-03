@@ -3,6 +3,7 @@ import AssignmentNode from "./AssignmentNode";
 import CodeLocation from "../CodeLocation";
 import { Expression } from "./expressions";
 import ASTVisitor from "./ASTVisitor";
+import Token from "../Token";
 
 export abstract class Statement extends ASTNode {}
 
@@ -12,7 +13,13 @@ export class UseStmt extends Statement {
    * @param pos
    * @param filename The used filename
    */
-  constructor(pos: CodeLocation, public filename: string) {
+  constructor(
+    pos: CodeLocation,
+    public filename: string,
+    public tokens: {
+      useKeyword: Token;
+    }
+  ) {
     super(pos);
   }
   accept<R>(visitor: ASTVisitor<R>): R {
@@ -53,7 +60,12 @@ export class ModuleInstantiationStmt extends Statement
     pos: CodeLocation,
     public name: string,
     public args: AssignmentNode[],
-    public child: Statement
+    public child: Statement,
+    public tokens: {
+      name: Token;
+      firstParen: Token;
+      secondParen: Token;
+    }
   ) {
     super(pos);
   }
@@ -67,7 +79,13 @@ export class ModuleDeclarationStmt extends Statement {
     pos: CodeLocation,
     public name: string,
     public definitionArgs: AssignmentNode[],
-    public stmt: Statement
+    public stmt: Statement,
+    public tokens: {
+      moduleKeyword: Token;
+      name: Token;
+      firstParen: Token;
+      secondParen: Token;
+    }
   ) {
     super(pos);
   }
@@ -81,7 +99,14 @@ export class FunctionDeclarationStmt extends Statement {
     pos: CodeLocation,
     public name: string,
     public definitionArgs: AssignmentNode[],
-    public expr: Expression
+    public expr: Expression,
+    public tokens: {
+      name: Token;
+      firstParen: Token;
+      secondParen: Token;
+      equals: Token;
+      semicolon: Token;
+    }
   ) {
     super(pos);
   }
@@ -91,7 +116,14 @@ export class FunctionDeclarationStmt extends Statement {
 }
 
 export class BlockStmt extends Statement {
-  constructor(pos: CodeLocation, public children: Statement[]) {
+  constructor(
+    pos: CodeLocation,
+    public children: Statement[],
+    public tokens: {
+      firstBrace: Token;
+      secondBrace: Token;
+    }
+  ) {
     super(pos);
   }
   accept<R>(visitor: ASTVisitor<R>): R {
@@ -100,6 +132,14 @@ export class BlockStmt extends Statement {
 }
 
 export class NoopStmt extends Statement {
+  constructor(
+    pos: CodeLocation,
+    public tokens: {
+      semicolon: Token;
+    }
+  ) {
+    super(pos);
+  }
   accept<R>(visitor: ASTVisitor<R>): R {
     return visitor.visitNoopStmt(this);
   }
@@ -114,7 +154,13 @@ export class IfElseStatement extends Statement implements TaggableStatement {
     pos: CodeLocation,
     public cond: Expression,
     public thenBranch: Statement,
-    public elseBranch: Statement
+    public elseBranch: Statement,
+    public tokens: {
+      ifKeyword: Token;
+      firstParen: Token;
+      secondParen: Token;
+      elseKeyword: Token;
+    }
   ) {
     super(pos);
   }
