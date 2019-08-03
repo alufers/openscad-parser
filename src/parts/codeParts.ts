@@ -1,6 +1,4 @@
-export class CodePart {
-  parent: CodePart;
-}
+export class CodePart {}
 
 export enum CodePartSeparation {
   None,
@@ -11,46 +9,38 @@ export enum CodePartSeparation {
 
 export class StringCodePart extends CodePart {
   separation = CodePartSeparation.None;
-  constructor(public parent: CodePart, public contents: string) {
+  constructor(public contents: string) {
     super();
   }
   withSeparation(sep: CodePartSeparation) {
-    const next = new StringCodePart(this.parent, this.contents);
+    const next = new StringCodePart(this.contents);
     next.separation = sep;
     return next;
   }
 }
 
 export class UnconditionalNewLineCodePart extends CodePart {
-  constructor(public parent: CodePart) {
+  constructor() {
     super();
   }
 }
 
-export class CollapsibleNewLineCodePart extends CodePart {
-  constructor(public parent: CodePart) {
+export class NoOpCodePart extends CodePart {}
+
+/**
+ * A code group represents a line which will always end with an newline. It may be indented.
+ */
+export class CodeGroup extends CodePart {
+  constructor(public children: CodePart[], public indentation: number) {
     super();
   }
 }
 
-export class NoOpCodePart extends CodePart {
-  constructor(public parent: CodePart) {
-    super();
-  }
-}
-
-export class GroupCodePart extends CodePart {
-  constructor(public parent: CodePart, public children: CodePart[]) {
-    super();
-  }
-}
-
-export class IndentedCodePart extends CodePart {
-  constructor(
-    public parent: CodePart,
-    public child: CodePart,
-    public indentation: number
-  ) {
+/**
+ * A list of CodeParts (mostly CodeGroups) which does not have its own newline at the end. Used with statement lists and to nest CodeParts etc.
+ */
+export class CodeList extends CodePart {
+  constructor(public children: CodePart[]) {
     super();
   }
 }
