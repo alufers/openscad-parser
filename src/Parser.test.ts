@@ -866,6 +866,11 @@ describe("Parser", () => {
         x = [for(abc = 10, %%%;false;)];
       `)
     ).toThrowError(ParsingError);
+    expect(() =>
+    doParse(`
+        x = [for(x = 22
+      `)
+  ).toThrowError(ParsingError);
   });
   it("parses the 'let' expression", () => {
     const file = doParse(`
