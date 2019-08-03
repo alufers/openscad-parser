@@ -404,6 +404,16 @@ Object {
       },
     },
   ],
+  "tokens": Object {
+    "__c": "Object",
+    "eot": Object {
+      "__c": "Token",
+      "extraTokens": Array [],
+      "lexeme": ";",
+      "pos": null,
+      "type": 39,
+    },
+  },
 }
 `;
 
@@ -1080,6 +1090,125 @@ Object {
           "lexeme": "(",
           "pos": null,
           "type": 33,
+        },
+        "functionKeyword": Object {
+          "__c": "Token",
+          "extraTokens": Array [
+            Object {
+              "__c": "SingleLineComment",
+              "contents": " https://github.com/OskarLinde/scad-utils/blob/master/hull.scad",
+              "pos": null,
+            },
+            Object {
+              "__c": "NewLineExtraToken",
+              "pos": null,
+            },
+            Object {
+              "__c": "NewLineExtraToken",
+              "pos": null,
+            },
+            Object {
+              "__c": "SingleLineComment",
+              "contents": " NOTE: this code uses",
+              "pos": null,
+            },
+            Object {
+              "__c": "NewLineExtraToken",
+              "pos": null,
+            },
+            Object {
+              "__c": "SingleLineComment",
+              "contents": "	* experimental let() syntax",
+              "pos": null,
+            },
+            Object {
+              "__c": "NewLineExtraToken",
+              "pos": null,
+            },
+            Object {
+              "__c": "SingleLineComment",
+              "contents": "  * experimental list comprehension syntax",
+              "pos": null,
+            },
+            Object {
+              "__c": "NewLineExtraToken",
+              "pos": null,
+            },
+            Object {
+              "__c": "SingleLineComment",
+              "contents": "  * search() bugfix and feature addition",
+              "pos": null,
+            },
+            Object {
+              "__c": "NewLineExtraToken",
+              "pos": null,
+            },
+            Object {
+              "__c": "SingleLineComment",
+              "contents": "  * vector min()/max()",
+              "pos": null,
+            },
+            Object {
+              "__c": "NewLineExtraToken",
+              "pos": null,
+            },
+            Object {
+              "__c": "NewLineExtraToken",
+              "pos": null,
+            },
+            Object {
+              "__c": "SingleLineComment",
+              "contents": " Calculates the convex hull of a set of points. ",
+              "pos": null,
+            },
+            Object {
+              "__c": "NewLineExtraToken",
+              "pos": null,
+            },
+            Object {
+              "__c": "SingleLineComment",
+              "contents": " The result is expressed in point indices. ",
+              "pos": null,
+            },
+            Object {
+              "__c": "NewLineExtraToken",
+              "pos": null,
+            },
+            Object {
+              "__c": "SingleLineComment",
+              "contents": " If the points are collinear (or 2d), the result is a convex ",
+              "pos": null,
+            },
+            Object {
+              "__c": "NewLineExtraToken",
+              "pos": null,
+            },
+            Object {
+              "__c": "SingleLineComment",
+              "contents": " polygon [i1,i2,i3,...], otherwise a triangular ",
+              "pos": null,
+            },
+            Object {
+              "__c": "NewLineExtraToken",
+              "pos": null,
+            },
+            Object {
+              "__c": "SingleLineComment",
+              "contents": " polyhedron [[i1,i2,i3],[i2,i3,i4],...]",
+              "pos": null,
+            },
+            Object {
+              "__c": "NewLineExtraToken",
+              "pos": null,
+            },
+            Object {
+              "__c": "NewLineExtraToken",
+              "pos": null,
+            },
+          ],
+          "lexeme": "function",
+          "pos": null,
+          "type": 3,
         },
         "name": Object {
           "__c": "LiteralToken",
@@ -2859,6 +2988,31 @@ Object {
           "pos": null,
           "type": 33,
         },
+        "functionKeyword": Object {
+          "__c": "Token",
+          "extraTokens": Array [
+            Object {
+              "__c": "NewLineExtraToken",
+              "pos": null,
+            },
+            Object {
+              "__c": "NewLineExtraToken",
+              "pos": null,
+            },
+            Object {
+              "__c": "SingleLineComment",
+              "contents": " 2d version",
+              "pos": null,
+            },
+            Object {
+              "__c": "NewLineExtraToken",
+              "pos": null,
+            },
+          ],
+          "lexeme": "function",
+          "pos": null,
+          "type": 3,
+        },
         "name": Object {
           "__c": "LiteralToken",
           "extraTokens": Array [],
@@ -4277,6 +4431,35 @@ Object {
           "pos": null,
           "type": 33,
         },
+        "functionKeyword": Object {
+          "__c": "Token",
+          "extraTokens": Array [
+            Object {
+              "__c": "NewLineExtraToken",
+              "pos": null,
+            },
+            Object {
+              "__c": "NewLineExtraToken",
+              "pos": null,
+            },
+            Object {
+              "__c": "NewLineExtraToken",
+              "pos": null,
+            },
+            Object {
+              "__c": "SingleLineComment",
+              "contents": " Adds the remaining points one by one to the convex hull",
+              "pos": null,
+            },
+            Object {
+              "__c": "NewLineExtraToken",
+              "pos": null,
+            },
+          ],
+          "lexeme": "function",
+          "pos": null,
+          "type": 3,
+        },
         "name": Object {
           "__c": "LiteralToken",
           "extraTokens": Array [],
@@ -5190,6 +5373,22 @@ Object {
           "lexeme": "(",
           "pos": null,
           "type": 33,
+        },
+        "functionKeyword": Object {
+          "__c": "Token",
+          "extraTokens": Array [
+            Object {
+              "__c": "NewLineExtraToken",
+              "pos": null,
+            },
+            Object {
+              "__c": "NewLineExtraToken",
+              "pos": null,
+            },
+          ],
+          "lexeme": "function",
+          "pos": null,
+          "type": 3,
         },
         "name": Object {
           "__c": "LiteralToken",
@@ -7429,6 +7628,31 @@ Object {
           "lexeme": "(",
           "pos": null,
           "type": 33,
+        },
+        "functionKeyword": Object {
+          "__c": "Token",
+          "extraTokens": Array [
+            Object {
+              "__c": "NewLineExtraToken",
+              "pos": null,
+            },
+            Object {
+              "__c": "NewLineExtraToken",
+              "pos": null,
+            },
+            Object {
+              "__c": "SingleLineComment",
+              "contents": " remove the conflicting segments from the polygon",
+              "pos": null,
+            },
+            Object {
+              "__c": "NewLineExtraToken",
+              "pos": null,
+            },
+          ],
+          "lexeme": "function",
+          "pos": null,
+          "type": 3,
         },
         "name": Object {
           "__c": "LiteralToken",
@@ -10984,6 +11208,35 @@ Object {
           "pos": null,
           "type": 33,
         },
+        "functionKeyword": Object {
+          "__c": "Token",
+          "extraTokens": Array [
+            Object {
+              "__c": "NewLineExtraToken",
+              "pos": null,
+            },
+            Object {
+              "__c": "NewLineExtraToken",
+              "pos": null,
+            },
+            Object {
+              "__c": "NewLineExtraToken",
+              "pos": null,
+            },
+            Object {
+              "__c": "SingleLineComment",
+              "contents": " 3d version",
+              "pos": null,
+            },
+            Object {
+              "__c": "NewLineExtraToken",
+              "pos": null,
+            },
+          ],
+          "lexeme": "function",
+          "pos": null,
+          "type": 3,
+        },
         "name": Object {
           "__c": "LiteralToken",
           "extraTokens": Array [],
@@ -11687,6 +11940,31 @@ Object {
           "lexeme": "(",
           "pos": null,
           "type": 33,
+        },
+        "functionKeyword": Object {
+          "__c": "Token",
+          "extraTokens": Array [
+            Object {
+              "__c": "NewLineExtraToken",
+              "pos": null,
+            },
+            Object {
+              "__c": "NewLineExtraToken",
+              "pos": null,
+            },
+            Object {
+              "__c": "SingleLineComment",
+              "contents": " A plane equation (normal, offset)",
+              "pos": null,
+            },
+            Object {
+              "__c": "NewLineExtraToken",
+              "pos": null,
+            },
+          ],
+          "lexeme": "function",
+          "pos": null,
+          "type": 3,
         },
         "name": Object {
           "__c": "LiteralToken",
@@ -14343,6 +14621,31 @@ Object {
           "pos": null,
           "type": 33,
         },
+        "functionKeyword": Object {
+          "__c": "Token",
+          "extraTokens": Array [
+            Object {
+              "__c": "NewLineExtraToken",
+              "pos": null,
+            },
+            Object {
+              "__c": "NewLineExtraToken",
+              "pos": null,
+            },
+            Object {
+              "__c": "SingleLineComment",
+              "contents": " Adds the remaining points one by one to the convex hull",
+              "pos": null,
+            },
+            Object {
+              "__c": "NewLineExtraToken",
+              "pos": null,
+            },
+          ],
+          "lexeme": "function",
+          "pos": null,
+          "type": 3,
+        },
         "name": Object {
           "__c": "LiteralToken",
           "extraTokens": Array [],
@@ -15170,6 +15473,22 @@ Object {
           "lexeme": "(",
           "pos": null,
           "type": 33,
+        },
+        "functionKeyword": Object {
+          "__c": "Token",
+          "extraTokens": Array [
+            Object {
+              "__c": "NewLineExtraToken",
+              "pos": null,
+            },
+            Object {
+              "__c": "NewLineExtraToken",
+              "pos": null,
+            },
+          ],
+          "lexeme": "function",
+          "pos": null,
+          "type": 3,
         },
         "name": Object {
           "__c": "LiteralToken",
@@ -16281,6 +16600,22 @@ Object {
           "pos": null,
           "type": 33,
         },
+        "functionKeyword": Object {
+          "__c": "Token",
+          "extraTokens": Array [
+            Object {
+              "__c": "NewLineExtraToken",
+              "pos": null,
+            },
+            Object {
+              "__c": "NewLineExtraToken",
+              "pos": null,
+            },
+          ],
+          "lexeme": "function",
+          "pos": null,
+          "type": 3,
+        },
         "name": Object {
           "__c": "LiteralToken",
           "extraTokens": Array [],
@@ -17391,6 +17726,22 @@ Object {
           "pos": null,
           "type": 33,
         },
+        "functionKeyword": Object {
+          "__c": "Token",
+          "extraTokens": Array [
+            Object {
+              "__c": "NewLineExtraToken",
+              "pos": null,
+            },
+            Object {
+              "__c": "NewLineExtraToken",
+              "pos": null,
+            },
+          ],
+          "lexeme": "function",
+          "pos": null,
+          "type": 3,
+        },
         "name": Object {
           "__c": "LiteralToken",
           "extraTokens": Array [],
@@ -17910,6 +18261,22 @@ Object {
           "pos": null,
           "type": 33,
         },
+        "functionKeyword": Object {
+          "__c": "Token",
+          "extraTokens": Array [
+            Object {
+              "__c": "NewLineExtraToken",
+              "pos": null,
+            },
+            Object {
+              "__c": "NewLineExtraToken",
+              "pos": null,
+            },
+          ],
+          "lexeme": "function",
+          "pos": null,
+          "type": 3,
+        },
         "name": Object {
           "__c": "LiteralToken",
           "extraTokens": Array [],
@@ -18292,6 +18659,22 @@ Object {
           "lexeme": "(",
           "pos": null,
           "type": 33,
+        },
+        "functionKeyword": Object {
+          "__c": "Token",
+          "extraTokens": Array [
+            Object {
+              "__c": "NewLineExtraToken",
+              "pos": null,
+            },
+            Object {
+              "__c": "NewLineExtraToken",
+              "pos": null,
+            },
+          ],
+          "lexeme": "function",
+          "pos": null,
+          "type": 3,
         },
         "name": Object {
           "__c": "LiteralToken",
@@ -19110,6 +19493,22 @@ Object {
           "lexeme": "(",
           "pos": null,
           "type": 33,
+        },
+        "functionKeyword": Object {
+          "__c": "Token",
+          "extraTokens": Array [
+            Object {
+              "__c": "NewLineExtraToken",
+              "pos": null,
+            },
+            Object {
+              "__c": "NewLineExtraToken",
+              "pos": null,
+            },
+          ],
+          "lexeme": "function",
+          "pos": null,
+          "type": 3,
         },
         "name": Object {
           "__c": "LiteralToken",
@@ -19940,6 +20339,22 @@ Object {
           "pos": null,
           "type": 33,
         },
+        "functionKeyword": Object {
+          "__c": "Token",
+          "extraTokens": Array [
+            Object {
+              "__c": "NewLineExtraToken",
+              "pos": null,
+            },
+            Object {
+              "__c": "NewLineExtraToken",
+              "pos": null,
+            },
+          ],
+          "lexeme": "function",
+          "pos": null,
+          "type": 3,
+        },
         "name": Object {
           "__c": "LiteralToken",
           "extraTokens": Array [],
@@ -20311,6 +20726,22 @@ Object {
           "pos": null,
           "type": 33,
         },
+        "functionKeyword": Object {
+          "__c": "Token",
+          "extraTokens": Array [
+            Object {
+              "__c": "NewLineExtraToken",
+              "pos": null,
+            },
+            Object {
+              "__c": "NewLineExtraToken",
+              "pos": null,
+            },
+          ],
+          "lexeme": "function",
+          "pos": null,
+          "type": 3,
+        },
         "name": Object {
           "__c": "LiteralToken",
           "extraTokens": Array [],
@@ -20651,6 +21082,22 @@ Object {
           "lexeme": "(",
           "pos": null,
           "type": 33,
+        },
+        "functionKeyword": Object {
+          "__c": "Token",
+          "extraTokens": Array [
+            Object {
+              "__c": "NewLineExtraToken",
+              "pos": null,
+            },
+            Object {
+              "__c": "NewLineExtraToken",
+              "pos": null,
+            },
+          ],
+          "lexeme": "function",
+          "pos": null,
+          "type": 3,
         },
         "name": Object {
           "__c": "LiteralToken",
@@ -21161,6 +21608,22 @@ Object {
           "lexeme": "(",
           "pos": null,
           "type": 33,
+        },
+        "functionKeyword": Object {
+          "__c": "Token",
+          "extraTokens": Array [
+            Object {
+              "__c": "NewLineExtraToken",
+              "pos": null,
+            },
+            Object {
+              "__c": "NewLineExtraToken",
+              "pos": null,
+            },
+          ],
+          "lexeme": "function",
+          "pos": null,
+          "type": 3,
         },
         "name": Object {
           "__c": "LiteralToken",
@@ -21998,6 +22461,22 @@ Object {
           "pos": null,
           "type": 33,
         },
+        "functionKeyword": Object {
+          "__c": "Token",
+          "extraTokens": Array [
+            Object {
+              "__c": "NewLineExtraToken",
+              "pos": null,
+            },
+            Object {
+              "__c": "NewLineExtraToken",
+              "pos": null,
+            },
+          ],
+          "lexeme": "function",
+          "pos": null,
+          "type": 3,
+        },
         "name": Object {
           "__c": "LiteralToken",
           "extraTokens": Array [],
@@ -22640,6 +23119,22 @@ Object {
           "pos": null,
           "type": 33,
         },
+        "functionKeyword": Object {
+          "__c": "Token",
+          "extraTokens": Array [
+            Object {
+              "__c": "NewLineExtraToken",
+              "pos": null,
+            },
+            Object {
+              "__c": "NewLineExtraToken",
+              "pos": null,
+            },
+          ],
+          "lexeme": "function",
+          "pos": null,
+          "type": 3,
+        },
         "name": Object {
           "__c": "LiteralToken",
           "extraTokens": Array [],
@@ -22886,6 +23381,22 @@ Object {
           "pos": null,
           "type": 33,
         },
+        "functionKeyword": Object {
+          "__c": "Token",
+          "extraTokens": Array [
+            Object {
+              "__c": "NewLineExtraToken",
+              "pos": null,
+            },
+            Object {
+              "__c": "NewLineExtraToken",
+              "pos": null,
+            },
+          ],
+          "lexeme": "function",
+          "pos": null,
+          "type": 3,
+        },
         "name": Object {
           "__c": "LiteralToken",
           "extraTokens": Array [],
@@ -23106,6 +23617,22 @@ Object {
           "lexeme": "(",
           "pos": null,
           "type": 33,
+        },
+        "functionKeyword": Object {
+          "__c": "Token",
+          "extraTokens": Array [
+            Object {
+              "__c": "NewLineExtraToken",
+              "pos": null,
+            },
+            Object {
+              "__c": "NewLineExtraToken",
+              "pos": null,
+            },
+          ],
+          "lexeme": "function",
+          "pos": null,
+          "type": 3,
         },
         "name": Object {
           "__c": "LiteralToken",
@@ -23372,6 +23899,22 @@ Object {
           "pos": null,
           "type": 33,
         },
+        "functionKeyword": Object {
+          "__c": "Token",
+          "extraTokens": Array [
+            Object {
+              "__c": "NewLineExtraToken",
+              "pos": null,
+            },
+            Object {
+              "__c": "NewLineExtraToken",
+              "pos": null,
+            },
+          ],
+          "lexeme": "function",
+          "pos": null,
+          "type": 3,
+        },
         "name": Object {
           "__c": "LiteralToken",
           "extraTokens": Array [],
@@ -23528,6 +24071,22 @@ Object {
           "lexeme": "(",
           "pos": null,
           "type": 33,
+        },
+        "functionKeyword": Object {
+          "__c": "Token",
+          "extraTokens": Array [
+            Object {
+              "__c": "NewLineExtraToken",
+              "pos": null,
+            },
+            Object {
+              "__c": "NewLineExtraToken",
+              "pos": null,
+            },
+          ],
+          "lexeme": "function",
+          "pos": null,
+          "type": 3,
         },
         "name": Object {
           "__c": "LiteralToken",
@@ -24378,6 +24937,22 @@ Object {
           "pos": null,
           "type": 33,
         },
+        "functionKeyword": Object {
+          "__c": "Token",
+          "extraTokens": Array [
+            Object {
+              "__c": "NewLineExtraToken",
+              "pos": null,
+            },
+            Object {
+              "__c": "NewLineExtraToken",
+              "pos": null,
+            },
+          ],
+          "lexeme": "function",
+          "pos": null,
+          "type": 3,
+        },
         "name": Object {
           "__c": "LiteralToken",
           "extraTokens": Array [],
@@ -24706,6 +25281,22 @@ Object {
           "lexeme": "(",
           "pos": null,
           "type": 33,
+        },
+        "functionKeyword": Object {
+          "__c": "Token",
+          "extraTokens": Array [
+            Object {
+              "__c": "NewLineExtraToken",
+              "pos": null,
+            },
+            Object {
+              "__c": "NewLineExtraToken",
+              "pos": null,
+            },
+          ],
+          "lexeme": "function",
+          "pos": null,
+          "type": 3,
         },
         "name": Object {
           "__c": "LiteralToken",
@@ -25078,6 +25669,22 @@ Object {
           "lexeme": "(",
           "pos": null,
           "type": 33,
+        },
+        "functionKeyword": Object {
+          "__c": "Token",
+          "extraTokens": Array [
+            Object {
+              "__c": "NewLineExtraToken",
+              "pos": null,
+            },
+            Object {
+              "__c": "NewLineExtraToken",
+              "pos": null,
+            },
+          ],
+          "lexeme": "function",
+          "pos": null,
+          "type": 3,
         },
         "name": Object {
           "__c": "LiteralToken",
@@ -25703,6 +26310,22 @@ Object {
           "lexeme": "(",
           "pos": null,
           "type": 33,
+        },
+        "functionKeyword": Object {
+          "__c": "Token",
+          "extraTokens": Array [
+            Object {
+              "__c": "NewLineExtraToken",
+              "pos": null,
+            },
+            Object {
+              "__c": "NewLineExtraToken",
+              "pos": null,
+            },
+          ],
+          "lexeme": "function",
+          "pos": null,
+          "type": 3,
         },
         "name": Object {
           "__c": "LiteralToken",
@@ -34381,6 +35004,22 @@ Object {
                 "pos": null,
                 "type": 33,
               },
+              "functionKeyword": Object {
+                "__c": "Token",
+                "extraTokens": Array [
+                  Object {
+                    "__c": "NewLineExtraToken",
+                    "pos": null,
+                  },
+                  Object {
+                    "__c": "NewLineExtraToken",
+                    "pos": null,
+                  },
+                ],
+                "lexeme": "function",
+                "pos": null,
+                "type": 3,
+              },
               "name": Object {
                 "__c": "LiteralToken",
                 "extraTokens": Array [],
@@ -34481,6 +35120,25 @@ Object {
       },
     },
   ],
+  "tokens": Object {
+    "__c": "Object",
+    "eot": Object {
+      "__c": "Token",
+      "extraTokens": Array [
+        Object {
+          "__c": "NewLineExtraToken",
+          "pos": null,
+        },
+        Object {
+          "__c": "NewLineExtraToken",
+          "pos": null,
+        },
+      ],
+      "lexeme": "}",
+      "pos": null,
+      "type": 38,
+    },
+  },
 }
 `;
 
@@ -34894,6 +35552,25 @@ Object {
       },
     },
   ],
+  "tokens": Object {
+    "__c": "Object",
+    "eot": Object {
+      "__c": "Token",
+      "extraTokens": Array [
+        Object {
+          "__c": "NewLineExtraToken",
+          "pos": null,
+        },
+        Object {
+          "__c": "NewLineExtraToken",
+          "pos": null,
+        },
+      ],
+      "lexeme": "}",
+      "pos": null,
+      "type": 38,
+    },
+  },
 }
 `;
 
@@ -35034,6 +35711,16 @@ Object {
       },
     },
   ],
+  "tokens": Object {
+    "__c": "Object",
+    "eot": Object {
+      "__c": "Token",
+      "extraTokens": Array [],
+      "lexeme": ";",
+      "pos": null,
+      "type": 39,
+    },
+  },
 }
 `;
 
@@ -35125,6 +35812,16 @@ Object {
       },
     },
   ],
+  "tokens": Object {
+    "__c": "Object",
+    "eot": Object {
+      "__c": "Token",
+      "extraTokens": Array [],
+      "lexeme": ";",
+      "pos": null,
+      "type": 39,
+    },
+  },
 }
 `;
 
@@ -35446,6 +36143,16 @@ Object {
       },
     },
   ],
+  "tokens": Object {
+    "__c": "Object",
+    "eot": Object {
+      "__c": "Token",
+      "extraTokens": Array [],
+      "lexeme": ";",
+      "pos": null,
+      "type": 39,
+    },
+  },
 }
 `;
 
@@ -35871,6 +36578,16 @@ Object {
       },
     },
   ],
+  "tokens": Object {
+    "__c": "Object",
+    "eot": Object {
+      "__c": "Token",
+      "extraTokens": Array [],
+      "lexeme": ";",
+      "pos": null,
+      "type": 39,
+    },
+  },
 }
 `;
 
@@ -36388,5 +37105,15 @@ Object {
       },
     },
   ],
+  "tokens": Object {
+    "__c": "Object",
+    "eot": Object {
+      "__c": "Token",
+      "extraTokens": Array [],
+      "lexeme": ";",
+      "pos": null,
+      "type": 39,
+    },
+  },
 }
 `;

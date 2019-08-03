@@ -99,7 +99,8 @@ export default class Parser {
         statements.push(this.statement());
       }
     }
-    return new ScadFile(new CodeLocation(this.code), statements);
+    const eot = this.previous();
+    return new ScadFile(new CodeLocation(this.code), statements, { eot });
   }
   protected statement() {
     if (this.matchToken(TokenType.Semicolon)) {
@@ -184,6 +185,7 @@ export default class Parser {
     );
   }
   protected functionDeclarationStatement(): FunctionDeclarationStmt {
+    const functionKeyword = this.previous();
     const nameToken = this.consume(
       TokenType.Identifier,
       "Expected function name after 'function' keyword"
@@ -206,6 +208,7 @@ export default class Parser {
       args,
       body,
       {
+        functionKeyword,
         equals,
         firstParen,
         name: nameToken,

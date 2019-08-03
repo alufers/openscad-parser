@@ -1,39 +1,38 @@
-import Lexer from "../Lexer";
 import CodeFile from "../CodeFile";
+import Lexer from "../Lexer";
 import Parser from "../Parser";
-import ASTVisitor from "./ASTVisitor";
-import ScadFile from "./ScadFile";
 import AssignmentNode from "./AssignmentNode";
+import ASTVisitor from "./ASTVisitor";
 import {
-  UnaryOpExpr,
-  BinaryOpExpr,
-  TernaryExpr,
   ArrayLookupExpr,
-  LiteralExpr,
-  RangeExpr,
-  VectorExpr,
-  LookupExpr,
-  FunctionCallExpr,
-  FunctionCallLikeExpr,
-  LetExpr,
   AssertExpr,
+  BinaryOpExpr,
   EchoExpr,
-  LcIfExpr,
-  LcEachExpr,
-  LcForExpr,
-  LcForCExpr,
-  LcLetExpr,
+  FunctionCallExpr,
   GroupingExpr,
-  MemberLookupExpr
+  LcEachExpr,
+  LcForCExpr,
+  LcForExpr,
+  LcIfExpr,
+  LcLetExpr,
+  LetExpr,
+  LiteralExpr,
+  LookupExpr,
+  MemberLookupExpr,
+  RangeExpr,
+  TernaryExpr,
+  UnaryOpExpr,
+  VectorExpr
 } from "./expressions";
+import ScadFile from "./ScadFile";
 import {
-  UseStmt,
-  ModuleInstantiationStmt,
-  ModuleDeclarationStmt,
-  FunctionDeclarationStmt,
   BlockStmt,
+  FunctionDeclarationStmt,
   IfElseStatement,
-  NoopStmt
+  ModuleDeclarationStmt,
+  ModuleInstantiationStmt,
+  NoopStmt,
+  UseStmt
 } from "./statements";
 
 describe("ASTVisitor", () => {

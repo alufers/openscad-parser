@@ -101,6 +101,7 @@ export class FunctionDeclarationStmt extends Statement {
     public definitionArgs: AssignmentNode[],
     public expr: Expression,
     public tokens: {
+      functionKeyword: Token,
       name: Token;
       firstParen: Token;
       secondParen: Token;
