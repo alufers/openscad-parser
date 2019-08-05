@@ -115,7 +115,9 @@ export default class Parser {
           this.advance();
         }
         if (this.isAtEnd()) {
-          throw new UnterminatedUseStatementParsingError(this.getLocation());
+          throw this.errorCollector.reportError(
+            new UnterminatedUseStatementParsingError(this.getLocation())
+          );
         }
         const filename = this.code.code.substring(
           beginning.pos.char,
@@ -152,9 +154,11 @@ export default class Parser {
     if (assignmentOrInst) {
       return assignmentOrInst;
     }
-    throw new UnexpectedTokenWhenStatementParsingError(
-      this.getLocation(),
-      this.peek().type
+    throw this.errorCollector.reportError(
+      new UnexpectedTokenWhenStatementParsingError(
+        this.getLocation(),
+        this.peek().type
+      )
     );
   }
   protected matchAssignmentOrModuleInstantation() {
@@ -166,9 +170,11 @@ export default class Parser {
       if (this.peek().type === TokenType.LeftParen) {
         return this.moduleInstantiationStatement();
       }
-      throw new UnexpectedTokenAfterIdentifierInStatementParsingError(
-        this.getLocation(),
-        this.peek().type
+      throw this.errorCollector.reportError(
+        new UnexpectedTokenAfterIdentifierInStatementParsingError(
+          this.getLocation(),
+          this.peek().type
+        )
       );
     }
     if (
@@ -265,8 +271,10 @@ export default class Parser {
     | ModuleInstantiationStmt
     | IfElseStatement {
     if (this.isAtEnd()) {
-      throw new UnexpectedEndOfFileBeforeModuleInstantiationParsingError(
-        this.getLocation()
+      throw this.errorCollector.reportError(
+        new UnexpectedEndOfFileBeforeModuleInstantiationParsingError(
+          this.getLocation()
+        )
       );
     }
     if (this.previous().type === TokenType.Bang) {
@@ -406,11 +414,15 @@ export default class Parser {
       }
     }
     if (this.isAtEnd()) {
-      throw new UnterminatedParametersListParsingError(this.getLocation());
+      throw this.errorCollector.reportError(
+        new UnterminatedParametersListParsingError(this.getLocation())
+      );
     }
-    throw new UnexpectedTokenInNamedArgumentsListParsingError(
-      this.getLocation(),
-      this.advance().type
+    throw this.errorCollector.reportError(
+      new UnexpectedTokenInNamedArgumentsListParsingError(
+        this.getLocation(),
+        this.advance().type
+      )
     );
   }
   /**
@@ -470,11 +482,15 @@ export default class Parser {
       }
     }
     if (this.isAtEnd()) {
-      throw new UnterminatedForLoopParamsParsingError(this.getLocation());
+      throw this.errorCollector.reportError(
+        new UnterminatedForLoopParamsParsingError(this.getLocation())
+      );
     }
-    throw new UnexpectedTokenInForLoopParamsListParsingError(
-      this.getLocation(),
-      this.advance().type
+    throw this.errorCollector.reportError(
+      new UnexpectedTokenInForLoopParamsListParsingError(
+        this.getLocation(),
+        this.advance().type
+      )
     );
   }
   /**
@@ -744,7 +760,9 @@ export default class Parser {
     if (this.matchToken(TokenType.LeftBracket)) {
       return this.bracketInsides();
     }
-    throw new FailedToMatchPrimaryExpressionParsingError(this.getLocation());
+    throw this.errorCollector.reportError(
+      new FailedToMatchPrimaryExpressionParsingError(this.getLocation())
+    );
   }
   /**
    * Handles the parsing of vector literals and range literals.
@@ -834,8 +852,8 @@ export default class Parser {
       }
       while (true) {
         if (this.isAtEnd()) {
-          throw new UnterminatedVectorExpressionParsingError(
-            this.getLocation()
+          throw this.errorCollector.reportError(
+            new UnterminatedVectorExpressionParsingError(this.getLocation())
           );
         }
 
@@ -982,11 +1000,13 @@ export default class Parser {
     if (this.checkToken(tt)) {
       return this.advance();
     }
-    throw new ConsumptionParsingError(
-      this.getLocation(),
-      this.peek().type,
-      tt,
-      where
+    throw this.errorCollector.reportError(
+      new ConsumptionParsingError(
+        this.getLocation(),
+        this.peek().type,
+        tt,
+        where
+      )
     );
   }
   protected matchToken(...toMatch: TokenType[]) {
