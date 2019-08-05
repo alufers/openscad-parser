@@ -62,7 +62,11 @@ export default class CodeLocation {
         ` ${(contextStartIndex + index + 1).toString().padStart(3)}| ${line}\n`
       );
     }, "");
-    outStr += "\n";
+    outStr += "";
+    for (let i = -5; i < this.col; i++) {
+      outStr += " ";
+    }
+    outStr += "^\n";
     return outStr;
   }
 }

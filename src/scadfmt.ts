@@ -19,7 +19,15 @@ async function run() {
     errorCollector.printErrors();
     process.exit(999);
   }
-  const parser = new Parser(file, tokens, errorCollector);
-  console.log(new SimpleASTPrinter().visitScadFile(parser.parse()));
+  let parser, ast;
+  try {
+    parser = new Parser(file, tokens, errorCollector);
+    ast = parser.parse();
+  } catch (e) {}
+  if (errorCollector.hasErrors()) {
+    errorCollector.printErrors();
+    process.exit(999);
+  }
+  console.log(new SimpleASTPrinter().visitScadFile(ast));
 }
 run().catch(console.error);

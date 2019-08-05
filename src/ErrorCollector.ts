@@ -7,12 +7,26 @@ export default class ErrorCollector {
     return err;
   }
   printErrors() {
-    this.errors.forEach(e => {
-      console.log(e.codeLocation.formatWithContext());
-      console.log(Object.getPrototypeOf(e).constructor.name + ": " + e.message);
-    });
+    const msgs = this.errors.reduce((prev, e) => {
+      return (
+        prev +
+        e.codeLocation.formatWithContext() +
+        Object.getPrototypeOf(e).constructor.name +
+        ": " +
+        e.message + "\n"
+      );
+    }, "");
+    console.log(msgs);
   }
   hasErrors() {
     return this.errors.length > 0;
+  }
+  /**
+   * Throws the first error on the list. Used to simplify testing.
+   */
+  throwIfAny() {
+    if (this.errors.length > 0) {
+      throw this.errors[0];
+    }
   }
 }

@@ -1,5 +1,7 @@
-function abcd() = 1 + 2;
+function ddd() 1 + 2;
+function ddd() 1 + 2;
 
-xddddl;
 
-"dffddf
+module(xdd = 199) {
+    
+}

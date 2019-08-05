@@ -136,30 +136,57 @@ export default class Parser {
     const eot = this.previous();
     return new ScadFile(new CodeLocation(this.code), statements, { eot });
   }
+  protected synchronize() {
+    this.advance();
+    while (!this.isAtEnd()) {
+      if (this.previous().type === TokenType.Semicolon) return;
+      switch (this.peek().type) {
+        case TokenType.Module:
+        case TokenType.Function:
+        case TokenType.If:
+        case TokenType.For:
+        case TokenType.Echo:
+        case TokenType.Assert:
+        case TokenType.Let:
+          return;
+      }
+      this.advance();
+    }
+  }
+
   protected statement() {
-    if (this.matchToken(TokenType.Semicolon)) {
-      const semicolon = this.previous();
-      return new NoopStmt(this.getLocation(), { semicolon });
+    try {
+      if (this.matchToken(TokenType.Semicolon)) {
+        const semicolon = this.previous();
+        return new NoopStmt(this.getLocation(), { semicolon });
+      }
+      if (this.matchToken(TokenType.LeftBrace)) {
+        return this.blockStatement();
+      }
+      if (this.matchToken(TokenType.Module)) {
+        return this.moduleDeclarationStatement();
+      }
+      if (this.matchToken(TokenType.Function)) {
+        return this.functionDeclarationStatement();
+      }
+      const assignmentOrInst = this.matchAssignmentOrModuleInstantation();
+      if (assignmentOrInst) {
+        return assignmentOrInst;
+      }
+      throw this.errorCollector.reportError(
+        new UnexpectedTokenWhenStatementParsingError(
+          this.getLocation(),
+          this.peek().type
+        )
+      );
+    } catch (e) {
+      if (e instanceof ParsingError) {
+        this.synchronize();
+        return;
+      } else {
+        throw e;
+      }
     }
-    if (this.matchToken(TokenType.LeftBrace)) {
-      return this.blockStatement();
-    }
-    if (this.matchToken(TokenType.Module)) {
-      return this.moduleDeclarationStatement();
-    }
-    if (this.matchToken(TokenType.Function)) {
-      return this.functionDeclarationStatement();
-    }
-    const assignmentOrInst = this.matchAssignmentOrModuleInstantation();
-    if (assignmentOrInst) {
-      return assignmentOrInst;
-    }
-    throw this.errorCollector.reportError(
-      new UnexpectedTokenWhenStatementParsingError(
-        this.getLocation(),
-        this.peek().type
-      )
-    );
   }
   protected matchAssignmentOrModuleInstantation() {
     // identifiers can mean either an instantiation is incoming or an assignment

@@ -41,7 +41,9 @@ describe("Parser", () => {
     const errorCollector = new ErrorCollector();
     const l = new Lexer(new CodeFile("<test>", source), errorCollector);
     const parser = new Parser(l.codeFile, l.scan(), errorCollector);
-    return parser.parse();
+    const ast = parser.parse();
+    errorCollector.throwIfAny();
+    return ast;
   }
   /**
    * Recursively removes codeLocations from the ast tree.
