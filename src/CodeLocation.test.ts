@@ -1,5 +1,5 @@
-import CodeLocation from "./CodeLocation";
 import CodeFile from "./CodeFile";
+import CodeLocation from "./CodeLocation";
 
 describe("CodeLocation", () => {
   it("stringifies itself and matches snapshot", () => {

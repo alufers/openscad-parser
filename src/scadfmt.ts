@@ -1,9 +1,8 @@
 import CodeFile from "./CodeFile";
+import ErrorCollector from "./ErrorCollector";
 import Lexer from "./Lexer";
 import Parser from "./Parser";
-import { runInContext } from "vm";
 import SimpleASTPrinter from "./SimpleASTPrinter";
-import ErrorCollector from "./ErrorCollector";
 import Token from "./Token";
 
 async function run() {

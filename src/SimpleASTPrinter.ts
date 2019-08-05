@@ -1,3 +1,4 @@
+import AssignmentNode from "./ast/AssignmentNode";
 import ASTVisitor from "./ast/ASTVisitor";
 import {
   ArrayLookupExpr,
@@ -30,15 +31,13 @@ import {
   NoopStmt,
   UseStmt
 } from "./ast/statements";
-import AssignmentNode from "./ast/AssignmentNode";
-import Token from "./Token";
 import {
-  NewLineExtraToken,
   MultiLineComment,
+  NewLineExtraToken,
   SingleLineComment
 } from "./extraTokens";
+import Token from "./Token";
 import TokenType from "./TokenType";
-import { setFlagsFromString } from "v8";
 
 export default class SimpleASTPrinter implements ASTVisitor<string> {
   visitScadFile(n: ScadFile): string {

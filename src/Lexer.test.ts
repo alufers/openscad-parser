@@ -1,16 +1,16 @@
-import Lexer from "./Lexer";
-import CodeFile from "./CodeFile";
-import TokenType from "./TokenType";
-import LiteralToken from "./LiteralToken";
-import LexingError from "./errors/LexingError";
 import { resolve } from "path";
-import Token from "./Token";
+import CodeFile from "./CodeFile";
+import ErrorCollector from "./ErrorCollector";
+import LexingError from "./errors/LexingError";
 import {
   MultiLineComment,
-  SingleLineComment,
-  NewLineExtraToken
+  NewLineExtraToken,
+  SingleLineComment
 } from "./extraTokens";
-import ErrorCollector from "./ErrorCollector";
+import Lexer from "./Lexer";
+import LiteralToken from "./LiteralToken";
+import Token from "./Token";
+import TokenType from "./TokenType";
 
 function lexToTTStream(code: string) {
   const lexer = new Lexer(new CodeFile("<test>", code), new ErrorCollector());

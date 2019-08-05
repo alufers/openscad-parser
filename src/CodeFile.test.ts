@@ -1,6 +1,5 @@
-import CodeFile from "./CodeFile";
-import { join } from "path";
 import { resolve } from "url";
+import CodeFile from "./CodeFile";
 
 describe("CodeFile", () => {
   it("loads files from disk", async () => {

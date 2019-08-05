@@ -1,6 +1,6 @@
 import CodeLocation from "./CodeLocation";
-import TokenType from "./TokenType";
 import { ExtraToken } from "./extraTokens";
+import TokenType from "./TokenType";
 
 export default class Token {
   /**

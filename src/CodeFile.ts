@@ -1,5 +1,5 @@
-import * as path from "path";
 import * as fs from "fs";
+import * as path from "path";
 
 export default class CodeFile {
   constructor(public path: string, public code: string) {}

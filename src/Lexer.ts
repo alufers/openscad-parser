@@ -1,27 +1,26 @@
 import CodeFile from "./CodeFile";
 import CodeLocation from "./CodeLocation";
-import Token from "./Token";
-import TokenType from "./TokenType";
-import LiteralToken from "./LiteralToken";
-import LexingError from "./errors/LexingError";
-import keywords from "./keywords";
+import ErrorCollector from "./ErrorCollector";
+import {
+  IllegalStringEscapeSequenceLexingError,
+  InvalidNumberLiteralLexingError,
+  SingleCharacterNotAllowedLexingError,
+  TooManyDotsInNumberLiteralLexingError,
+  TooManyEInNumberLiteralLexingError,
+  UnexpectedCharacterLexingError,
+  UnterminatedMultilineCommentLexingError,
+  UnterminatedStringLiteralLexingError
+} from "./errors/lexingErrors";
 import {
   ExtraToken,
-  SingleLineComment,
   MultiLineComment,
-  NewLineExtraToken
+  NewLineExtraToken,
+  SingleLineComment
 } from "./extraTokens";
-import {
-  UnterminatedMultilineCommentLexingError,
-  SingleCharacterNotAllowedLexingError,
-  UnexpectedCharacterLexingError,
-  IllegalStringEscapeSequenceLexingError,
-  UnterminatedStringLiteralLexingError,
-  TooManyEInNumberLiteralLexingError,
-  TooManyDotsInNumberLiteralLexingError,
-  InvalidNumberLiteralLexingError
-} from "./errors/lexingErrors";
-import ErrorCollector from "./ErrorCollector";
+import keywords from "./keywords";
+import LiteralToken from "./LiteralToken";
+import Token from "./Token";
+import TokenType from "./TokenType";
 
 export default class Lexer {
   protected loc: CodeLocation;

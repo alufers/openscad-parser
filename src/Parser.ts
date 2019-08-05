@@ -1,59 +1,59 @@
-import CodeFile from "./CodeFile";
-import Token from "./Token";
-import TokenType from "./TokenType";
-import ParsingError from "./errors/ParsingError";
-import {
-  Statement,
-  UseStmt,
-  NoopStmt,
-  BlockStmt,
-  ModuleDeclarationStmt,
-  FunctionDeclarationStmt,
-  ModuleInstantiationStmt,
-  IfElseStatement
-} from "./ast/statements";
-import ScadFile from "./ast/ScadFile";
-import CodeLocation from "./CodeLocation";
 import AssignmentNode from "./ast/AssignmentNode";
-import LiteralToken from "./LiteralToken";
 import {
+  ArrayLookupExpr,
+  AssertExpr,
+  BinaryOpExpr,
+  EchoExpr,
   Expression,
+  FunctionCallExpr,
+  GroupingExpr,
+  LcEachExpr,
+  LcForCExpr,
+  LcForExpr,
+  LcIfExpr,
+  LcLetExpr,
+  LetExpr,
+  ListComprehensionExpression,
   LiteralExpr,
   LookupExpr,
-  GroupingExpr,
   MemberLookupExpr,
-  ArrayLookupExpr,
-  FunctionCallExpr,
-  BinaryOpExpr,
-  UnaryOpExpr,
-  TernaryExpr,
-  LcLetExpr,
-  LcEachExpr,
-  LcIfExpr,
-  ListComprehensionExpression,
-  VectorExpr,
   RangeExpr,
-  LcForExpr,
-  LcForCExpr,
-  LetExpr,
-  AssertExpr,
-  EchoExpr
+  TernaryExpr,
+  UnaryOpExpr,
+  VectorExpr
 } from "./ast/expressions";
-import keywords from "./keywords";
+import ScadFile from "./ast/ScadFile";
 import {
-  UnterminatedUseStatementParsingError,
-  UnexpectedTokenWhenStatementParsingError,
-  UnexpectedTokenAfterIdentifierInStatementParsingError,
-  UnexpectedEndOfFileBeforeModuleInstantiationParsingError,
-  UnterminatedParametersListParsingError,
-  UnexpectedTokenInNamedArgumentsListParsingError,
-  FailedToMatchPrimaryExpressionParsingError,
-  UnterminatedVectorExpressionParsingError,
-  UnexpectedTokenInForLoopParamsListParsingError,
-  UnterminatedForLoopParamsParsingError,
-  ConsumptionParsingError
-} from "./errors/parsingErrors";
+  BlockStmt,
+  FunctionDeclarationStmt,
+  IfElseStatement,
+  ModuleDeclarationStmt,
+  ModuleInstantiationStmt,
+  NoopStmt,
+  Statement,
+  UseStmt
+} from "./ast/statements";
+import CodeFile from "./CodeFile";
+import CodeLocation from "./CodeLocation";
 import ErrorCollector from "./ErrorCollector";
+import ParsingError from "./errors/ParsingError";
+import {
+  ConsumptionParsingError,
+  FailedToMatchPrimaryExpressionParsingError,
+  UnexpectedEndOfFileBeforeModuleInstantiationParsingError,
+  UnexpectedTokenAfterIdentifierInStatementParsingError,
+  UnexpectedTokenInForLoopParamsListParsingError,
+  UnexpectedTokenInNamedArgumentsListParsingError,
+  UnexpectedTokenWhenStatementParsingError,
+  UnterminatedForLoopParamsParsingError,
+  UnterminatedParametersListParsingError,
+  UnterminatedUseStatementParsingError,
+  UnterminatedVectorExpressionParsingError
+} from "./errors/parsingErrors";
+import keywords from "./keywords";
+import LiteralToken from "./LiteralToken";
+import Token from "./Token";
+import TokenType from "./TokenType";
 
 const moduleInstantiationTagTokens = [
   TokenType.Bang,
