@@ -40,6 +40,19 @@ import {
   EchoExpr
 } from "./ast/expressions";
 import keywords from "./keywords";
+import {
+  UnterminatedUseStatementParsingError,
+  UnexpectedTokenWhenStatementParsingError,
+  UnexpectedTokenAfterIdentifierInStatementParsingError,
+  UnexpectedEndOfFileBeforeModuleInstantiationParsingError,
+  UnterminatedParametersListParsingError,
+  UnexpectedTokenInNamedArgumentsListParsingError,
+  FailedToMatchPrimaryExpressionParsingError,
+  UnterminatedVectorExpressionParsingError,
+  UnexpectedTokenInForLoopParamsListParsingError,
+  UnterminatedForLoopParamsParsingError,
+  ConsumptionParsingError
+} from "./errors/parsingErrors";
 
 const moduleInstantiationTagTokens = [
   TokenType.Bang,
@@ -72,18 +85,12 @@ export default class Parser {
     while (!this.isAtEnd()) {
       if (this.matchToken(TokenType.Use)) {
         const useKeyword = this.previous();
-        const beginning = this.consume(
-          TokenType.Less,
-          "Expected '<' after use"
-        );
+        const beginning = this.consume(TokenType.Less, "after use");
         while (!this.checkToken(TokenType.Greater) && !this.isAtEnd()) {
           this.advance();
         }
         if (this.isAtEnd()) {
-          throw new ParsingError(
-            this.getLocation(),
-            "Unterminated 'use' statement"
-          );
+          throw new UnterminatedUseStatementParsingError(this.getLocation());
         }
         const filename = this.code.code.substring(
           beginning.pos.char,
@@ -120,9 +127,9 @@ export default class Parser {
     if (assignmentOrInst) {
       return assignmentOrInst;
     }
-    throw new ParsingError(
+    throw new UnexpectedTokenWhenStatementParsingError(
       this.getLocation(),
-      `Unexpected token ${this.peek()}. Expected statement.`
+      this.peek().type
     );
   }
   protected matchAssignmentOrModuleInstantation() {
@@ -134,9 +141,9 @@ export default class Parser {
       if (this.peek().type === TokenType.LeftParen) {
         return this.moduleInstantiationStatement();
       }
-      throw new ParsingError(
+      throw new UnexpectedTokenAfterIdentifierInStatementParsingError(
         this.getLocation(),
-        `Unexpected token ${this.peek()} after identifier in statement.`
+        this.peek().type
       );
     }
     if (
@@ -153,7 +160,7 @@ export default class Parser {
     while (!this.checkToken(TokenType.RightBrace) && !this.isAtEnd()) {
       innerStatements.push(this.statement());
     }
-    this.consume(TokenType.RightBrace, "Expected '}' after block statement");
+    this.consume(TokenType.RightBrace, "after block statement");
     const secondBrace = this.previous();
     return new BlockStmt(startLocation, innerStatements, {
       firstBrace,
@@ -164,9 +171,9 @@ export default class Parser {
     const moduleKeyword = this.previous();
     const nameToken = this.consume(
       TokenType.Identifier,
-      "Expected module name after 'module' keyword"
+      "after 'module' keyword"
     );
-    this.consume(TokenType.LeftParen, "Expected '(' after module name");
+    this.consume(TokenType.LeftParen, "after module name");
     const firstParen = this.previous();
     const args: AssignmentNode[] = this.args();
     const secondParen = this.previous();
@@ -188,19 +195,16 @@ export default class Parser {
     const functionKeyword = this.previous();
     const nameToken = this.consume(
       TokenType.Identifier,
-      "Expected function name after 'function' keyword"
+      "after 'function' keyword"
     );
-    this.consume(TokenType.LeftParen, "Expected '(' after function name");
+    this.consume(TokenType.LeftParen, "after function name");
     const firstParen = this.previous();
     const args = this.args();
     const secondParen = this.previous();
-    this.consume(TokenType.Equal, "Expected '=' after function parameters");
+    this.consume(TokenType.Equal, "after function parameters");
     const equals = this.previous();
     const body = this.expression();
-    this.consume(
-      TokenType.Semicolon,
-      "Expected ';' after function declaration"
-    );
+    this.consume(TokenType.Semicolon, "after function declaration");
     const semicolon = this.previous();
     return new FunctionDeclarationStmt(
       this.getLocation(),
@@ -220,13 +224,10 @@ export default class Parser {
   protected assignmentStatement() {
     const pos = this.getLocation();
     const name = this.previous() as LiteralToken<string>;
-    this.consume(TokenType.Equal, "Expected '=' after assignment name.");
+    this.consume(TokenType.Equal, "after assignment name");
     const equals = this.previous();
     const expr = this.expression();
-    this.consume(
-      TokenType.Semicolon,
-      "Expected ';' after assignment statement."
-    );
+    this.consume(TokenType.Semicolon, "after assignment statement");
     const semicolon = this.previous();
     return new AssignmentNode(pos, name.value, expr, {
       name,
@@ -239,9 +240,8 @@ export default class Parser {
     | ModuleInstantiationStmt
     | IfElseStatement {
     if (this.isAtEnd()) {
-      throw new ParsingError(
-        this.getLocation(),
-        "Unexpected end of file before module instantiation."
+      throw new UnexpectedEndOfFileBeforeModuleInstantiationParsingError(
+        this.getLocation()
       );
     }
     if (this.previous().type === TokenType.Bang) {
@@ -276,10 +276,10 @@ export default class Parser {
   }
   protected ifElseStatement(): IfElseStatement {
     const ifKeyword = this.previous();
-    this.consume(TokenType.LeftParen, "Expected '(' after the if keyword.");
+    this.consume(TokenType.LeftParen, "after the if keyword");
     const firstParen = this.previous();
     const cond = this.expression();
-    this.consume(TokenType.RightParen, "Expected ')' after the if condition.");
+    this.consume(TokenType.RightParen, "after the if condition");
     const secondParen = this.previous();
     const thenBranch = this.statement();
     let elseBranch: Statement = null;
@@ -300,10 +300,7 @@ export default class Parser {
     if (prev.type === TokenType.If) {
       return this.ifElseStatement();
     }
-    this.consume(
-      TokenType.LeftParen,
-      "Expected '(' after module instantation."
-    );
+    this.consume(TokenType.LeftParen, "after module instantation");
     const firstParen = this.previous();
     let name: string;
     if (prev instanceof LiteralToken) {
@@ -384,14 +381,11 @@ export default class Parser {
       }
     }
     if (this.isAtEnd()) {
-      throw new ParsingError(
-        this.getLocation(),
-        `Unterminated parameters list.`
-      );
+      throw new UnterminatedParametersListParsingError(this.getLocation());
     }
-    throw new ParsingError(
+    throw new UnexpectedTokenInNamedArgumentsListParsingError(
       this.getLocation(),
-      `Unexpected token ${this.advance()} in named arguments list.`
+      this.advance().type
     );
   }
   /**
@@ -419,7 +413,7 @@ export default class Parser {
       const name = (this.advance() as LiteralToken<string>).value;
       const nameToken = this.previous();
       // a value is provided for this param
-      this.consume(TokenType.Equal, "Expected '=' after for variable name.");
+      this.consume(TokenType.Equal, "after for variable name");
       const equals = this.previous();
       const value = this.expression();
 
@@ -451,14 +445,11 @@ export default class Parser {
       }
     }
     if (this.isAtEnd()) {
-      throw new ParsingError(
-        this.getLocation(),
-        `Unterminated for loop params.`
-      );
+      throw new UnterminatedForLoopParamsParsingError(this.getLocation());
     }
-    throw new ParsingError(
+    throw new UnexpectedTokenInForLoopParamsListParsingError(
       this.getLocation(),
-      `Unexpected token ${this.advance()} in for loop params list.`
+      this.advance().type
     );
   }
   /**
@@ -487,10 +478,7 @@ export default class Parser {
     while (this.matchToken(TokenType.QuestionMark)) {
       const questionMark = this.previous();
       const thenBranch = this.ternary();
-      this.consume(
-        TokenType.Colon,
-        "Expected ':' between ternary expression branches."
-      );
+      this.consume(TokenType.Colon, "between ternary expression branches");
       const colon = this.previous();
       const elseBranch = this.ternary();
       expr = new TernaryExpr(questionMark.pos, expr, thenBranch, elseBranch, {
@@ -604,7 +592,7 @@ export default class Parser {
         const dot = this.previous();
         const name = this.consume(
           TokenType.Identifier,
-          "Expected member name after '.';"
+          "after '.'"
         ) as LiteralToken<string>;
         expr = new MemberLookupExpr(this.getLocation(), expr, name.value, {
           dot,
@@ -613,10 +601,7 @@ export default class Parser {
       } else if (this.matchToken(TokenType.LeftBracket)) {
         const firstBracket = this.previous();
         const index = this.expression();
-        this.consume(
-          TokenType.RightBracket,
-          "Expected ']' after array index expression."
-        );
+        this.consume(TokenType.RightBracket, "after array index expression");
         const secondBracket = this.previous();
         expr = new ArrayLookupExpr(this.getLocation(), expr, index, {
           firstBracket,
@@ -684,7 +669,7 @@ export default class Parser {
     }
     if (this.matchToken(TokenType.Assert)) {
       const keyword = this.previous();
-      this.consume(TokenType.LeftParen, `Expected '(' after call expression.`);
+      this.consume(TokenType.LeftParen, "after call expression");
       const firstParen = this.previous();
       const vars = this.args(true);
       const secondParen = this.previous();
@@ -697,7 +682,7 @@ export default class Parser {
     }
     if (this.matchToken(TokenType.Let)) {
       const keyword = this.previous();
-      this.consume(TokenType.LeftParen, `Expected '(' after call expression.`);
+      this.consume(TokenType.LeftParen, `after call expression`);
       const firstParen = this.previous();
       const vars = this.args(true);
       const secondParen = this.previous();
@@ -710,7 +695,7 @@ export default class Parser {
     }
     if (this.matchToken(TokenType.Echo)) {
       const keyword = this.previous();
-      this.consume(TokenType.LeftParen, `Expected '(' after call expression.`);
+      this.consume(TokenType.LeftParen, `after call expression`);
       const firstParen = this.previous();
       const vars = this.args(true);
       const secondParen = this.previous();
@@ -724,10 +709,7 @@ export default class Parser {
     if (this.matchToken(TokenType.LeftParen)) {
       const firstParen = this.previous();
       const expr = this.expression();
-      this.consume(
-        TokenType.RightParen,
-        "Expected ')' after grouping expression."
-      );
+      this.consume(TokenType.RightParen, "after grouping expression");
       const secondParen = this.previous();
       return new GroupingExpr(this.getLocation(), expr, {
         firstParen,
@@ -737,10 +719,7 @@ export default class Parser {
     if (this.matchToken(TokenType.LeftBracket)) {
       return this.bracketInsides();
     }
-    throw new ParsingError(
-      this.getLocation(),
-      "Failed to match primary expression."
-    );
+    throw new FailedToMatchPrimaryExpressionParsingError(this.getLocation());
   }
   /**
    * Handles the parsing of vector literals and range literals.
@@ -755,7 +734,7 @@ export default class Parser {
     if (this.consumeUselessCommas(uselessCommaTokens)) {
       this.consume(
         TokenType.RightBracket,
-        "Expected ']' after leading commas in a vector literal."
+        "after leading commas in a vector literal"
       );
       const secondBracket = this.previous();
       return new VectorExpr(startBracket.pos, [], {
@@ -790,7 +769,7 @@ export default class Parser {
       }
       this.consume(
         TokenType.RightBracket,
-        "Expected ']' after expression in a range literal."
+        "after expression in a range literal"
       );
       const secondBracket = this.previous();
       if (thirdRangeExpr) {
@@ -830,9 +809,8 @@ export default class Parser {
       }
       while (true) {
         if (this.isAtEnd()) {
-          throw new ParsingError(
-            this.getLocation(),
-            "Unterminated vector literal."
+          throw new UnterminatedVectorExpressionParsingError(
+            this.getLocation()
           );
         }
 
@@ -841,10 +819,7 @@ export default class Parser {
           vectorLiteral.tokens.secondBracket = this.previous();
           break;
         }
-        this.consume(
-          TokenType.Comma,
-          "Expected comma after vector literal element."
-        );
+        this.consume(TokenType.Comma, "after vector literal element");
         this.consumeUselessCommas(vectorLiteral.tokens.commas);
         if (this.matchToken(TokenType.RightBracket)) {
           vectorLiteral.tokens.secondBracket = this.previous();
@@ -853,7 +828,10 @@ export default class Parser {
       }
     } else {
       vectorLiteral.tokens.secondBracket = this.previous();
-      this.consume(TokenType.RightBracket, "Unterminated vector literal.");
+      this.consume(
+        TokenType.RightBracket,
+        "after the only vector expression element"
+      );
     }
 
     return vectorLiteral;
@@ -861,7 +839,7 @@ export default class Parser {
   protected listComprehensionElements(): Expression {
     if (this.matchToken(TokenType.Let)) {
       const letKwrd = this.previous();
-      this.consume(TokenType.LeftParen, "Expected '(' after the let keyword.");
+      this.consume(TokenType.LeftParen, "after the let keyword");
       const firstParen = this.previous();
       const args = this.args();
       const secondParen = this.previous();
@@ -884,12 +862,12 @@ export default class Parser {
     }
     if (this.matchToken(TokenType.If)) {
       const ifKwrd = this.previous();
-      this.consume(TokenType.LeftParen, "Expected '(' after the if keyword.");
+      this.consume(TokenType.LeftParen, "after the if keyword");
       const firstParen = this.previous();
       const cond = this.expression();
       this.consume(
         TokenType.RightParen,
-        "Expected ')' after the if comprehension condition."
+        "after the if comprehension condition"
       );
       const secondParen = this.previous();
       const thenBranch = this.listComprehensionElementsOrExpr();
@@ -911,7 +889,7 @@ export default class Parser {
     const forKwrd = this.previous();
     this.consume(
       TokenType.LeftParen,
-      "Expected '(' after for keyword in list comprehension."
+      "after for keyword in list comprehension"
     );
     const firstParen = this.previous();
     const firstArgs = this.forComprehensionArgs();
@@ -930,19 +908,16 @@ export default class Parser {
     }
     this.consume(
       TokenType.Semicolon,
-      "Expected ';' or ')' after first 'for' comprehension parameters."
+      "after first 'for' comprehension parameters"
     );
     const firstSemicolon = this.previous();
     const condition = this.expression();
-    this.consume(
-      TokenType.Semicolon,
-      "Expected ';' after 'for' comprehension condition."
-    );
+    this.consume(TokenType.Semicolon, "after 'for' comprehension condition");
     const secondSemicolon = this.previous();
     const secondArgs = this.forComprehensionArgs();
     this.consume(
       TokenType.RightParen,
-      "Expected ')' after second 'for' comprehension parameters."
+      "after second 'for' comprehension parameters"
     );
     const secondParen = this.previous();
     const next = this.listComprehensionElementsOrExpr();
@@ -970,7 +945,7 @@ export default class Parser {
       if (withParens) {
         this.consume(
           TokenType.RightParen,
-          "Expected ')' after parenthesized list comprehension expression."
+          "after parenthesized list comprehension expression"
         );
       }
       return comprElemsResult;
@@ -978,11 +953,16 @@ export default class Parser {
 
     return this.expression();
   }
-  protected consume(tt: TokenType, errorMessage: string) {
+  protected consume(tt: TokenType, where: string) {
     if (this.checkToken(tt)) {
       return this.advance();
     }
-    throw new ParsingError(this.getLocation(), errorMessage);
+    throw new ConsumptionParsingError(
+      this.getLocation(),
+      this.peek().type,
+      tt,
+      where
+    );
   }
   protected matchToken(...toMatch: TokenType[]) {
     for (const tt of toMatch) {
