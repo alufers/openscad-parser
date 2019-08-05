@@ -1,7 +1,3 @@
-function ddd() 1 + 2;
-function ddd() 1 + 2;
+function unfinished() = ;
 
-
-module(xdd = 199) {
-    
-}
+module ddd(sdsds = -) {}

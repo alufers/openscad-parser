@@ -923,4 +923,18 @@ describe("Parser", () => {
     const parser = new Parser(file, lexer.scan(), ec);
     expect(simplifyAst(parser.parse())).toMatchSnapshot();
   });
+  it("reports multiple errors when there are many problems", () => {
+    const file = new CodeFile(
+      "<test>",
+      `function unfinished() = ;
+      module ddd(sdsds = -) {}`
+    );
+    const ec = new ErrorCollector();
+    const lexer = new Lexer(file, ec);
+    const parser = new Parser(file, lexer.scan(), ec);
+    parser.parse();
+    expect(ec.hasErrors()).toBeTruthy();
+    expect(ec.errors).toHaveLength(2);
+    expect(ec.errors[0].codeLocation.formatWithContext()).toBeTruthy();
+  });
 });
