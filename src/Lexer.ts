@@ -3,7 +3,7 @@ import CodeLocation from "./CodeLocation";
 import Token from "./Token";
 import TokenType from "./TokenType";
 import LiteralToken from "./LiteralToken";
-import LexingError from "./LexingError";
+import LexingError from "./errors/LexingError";
 import keywords from "./keywords";
 import {
   ExtraToken,
@@ -11,6 +11,16 @@ import {
   MultiLineComment,
   NewLineExtraToken
 } from "./extraTokens";
+import {
+  UnterminatedMultilineCommentLexingError,
+  SingleCharacterNotAllowedLexingError,
+  UnexpectedCharacterLexingError,
+  IllegalStringEscapeSequenceLexingError,
+  UnterminatedStringLiteralLexingError,
+  TooManyEInNumberLiteralLexingError,
+  TooManyDotsInNumberLiteralLexingError,
+  InvalidNumberLiteralLexingError
+} from "./errors/lexingErrors";
 
 export default class Lexer {
   protected loc: CodeLocation;
@@ -86,10 +96,7 @@ export default class Lexer {
             comment.contents += this.advance();
           }
           if (this.isAtEnd()) {
-            throw new LexingError(
-              this.loc.copy(),
-              "Unterminated multiline comment!"
-            );
+            throw new UnterminatedMultilineCommentLexingError(this.loc.copy());
           }
           this.currentExtraTokens.push(comment);
           this.advance(); // advance the star
@@ -153,14 +160,14 @@ export default class Lexer {
         if (this.match("&")) {
           this.addToken(TokenType.AND);
         } else {
-          throw new LexingError(this.loc.copy(), "Single '&' is not allowed.");
+          throw new SingleCharacterNotAllowedLexingError(this.loc.copy(), "&");
         }
         break;
       case "|":
         if (this.match("|")) {
           this.addToken(TokenType.OR);
         } else {
-          throw new LexingError(this.loc.copy(), "Single '|' is not allowed.");
+          throw new SingleCharacterNotAllowedLexingError(this.loc.copy(), "&");
         }
         break;
       case "\n":
@@ -179,10 +186,7 @@ export default class Lexer {
         } else if (/[A-Za-z\$_]/.test(c)) {
           this.consumeIdentifierOrKeyword();
         } else {
-          throw new LexingError(
-            this.loc.copy(),
-            `Unexpected character '${c}'.`
-          );
+          throw new UnexpectedCharacterLexingError(this.loc.copy(), c);
         }
     }
   }
@@ -203,9 +207,9 @@ export default class Lexer {
         } else if (this.match("r")) {
           str += "\r";
         } else {
-          throw new LexingError(
+          throw new IllegalStringEscapeSequenceLexingError(
             this.loc.copy(),
-            `Illegal escape sequence '\\${c}'`
+            `\\${c}`
           );
         }
         //TODO: Add unicode escape sequences handling
@@ -214,7 +218,7 @@ export default class Lexer {
       }
     }
     if (this.isAtEnd()) {
-      throw new LexingError(this.loc.copy(), `Unterminated string literal.`);
+      throw new UnterminatedStringLiteralLexingError(this.loc.copy());
     }
     this.advance();
     this.addToken(TokenType.StringLiteral, str);
@@ -230,23 +234,14 @@ export default class Lexer {
     }
     const lexeme = this.codeFile.code.substring(this.start.char, this.loc.char);
     if ((lexeme.match(/\./g) || []).length > 1) {
-      throw new LexingError(
-        this.loc.copy(),
-        `Too many dots in number literal ${lexeme}.`
-      );
+      throw new TooManyDotsInNumberLiteralLexingError(this.loc.copy(), lexeme);
     }
     if ((lexeme.match(/e/g) || []).length > 1) {
-      throw new LexingError(
-        this.loc.copy(),
-        `Too many e in number literal ${lexeme}.`
-      );
+      throw new TooManyEInNumberLiteralLexingError(this.loc.copy(), lexeme);
     }
     const value = parseFloat(lexeme);
     if (isNaN(value) || !isFinite(value)) {
-      throw new LexingError(
-        this.loc.copy(),
-        `Invalid number literal ${lexeme}.`
-      );
+      throw new InvalidNumberLiteralLexingError(this.loc.copy(), lexeme);
     }
     this.addToken(TokenType.NumberLiteral, value);
   }
@@ -264,7 +259,7 @@ export default class Lexer {
 
   /**
    * Adds a token to the token list. If a value is provieded a LiteralToken is pushed.
-   * 
+   *
    * Additionally it handles clearing and attaching the extra tokens.
    */
   protected addToken<TValue = any>(tokenType: TokenType, value: TValue = null) {

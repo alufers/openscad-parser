@@ -2,7 +2,7 @@ import Lexer from "./Lexer";
 import CodeFile from "./CodeFile";
 import TokenType from "./TokenType";
 import LiteralToken from "./LiteralToken";
-import LexingError from "./LexingError";
+import LexingError from "./errors/LexingError";
 import { resolve } from "path";
 import Token from "./Token";
 import {

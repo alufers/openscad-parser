@@ -1,7 +1,7 @@
 import CodeFile from "./CodeFile";
 import Token from "./Token";
 import TokenType from "./TokenType";
-import ParsingError from "./ParsingError";
+import ParsingError from "./errors/ParsingError";
 import {
   Statement,
   UseStmt,

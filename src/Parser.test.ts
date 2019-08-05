@@ -9,7 +9,7 @@ import {
   ModuleInstantiationStmt,
   IfElseStatement
 } from "./ast/statements";
-import ParsingError from "./ParsingError";
+import ParsingError from "./errors/ParsingError";
 import AssignmentNode from "./ast/AssignmentNode";
 import {
   LiteralExpr,
