@@ -21,13 +21,17 @@ import {
   TooManyDotsInNumberLiteralLexingError,
   InvalidNumberLiteralLexingError
 } from "./errors/lexingErrors";
+import ErrorCollector from "./ErrorCollector";
 
 export default class Lexer {
   protected loc: CodeLocation;
   protected start: CodeLocation;
   public tokens: Token[] = [];
   protected currentExtraTokens: ExtraToken[] = [];
-  constructor(public codeFile: CodeFile) {
+  constructor(
+    public codeFile: CodeFile,
+    public errorCollector: ErrorCollector
+  ) {
     this.loc = new CodeLocation(codeFile, 0, 0, 0);
   }
   /**
@@ -96,7 +100,9 @@ export default class Lexer {
             comment.contents += this.advance();
           }
           if (this.isAtEnd()) {
-            throw new UnterminatedMultilineCommentLexingError(this.loc.copy());
+            throw this.errorCollector.reportError(
+              new UnterminatedMultilineCommentLexingError(this.loc.copy())
+            );
           }
           this.currentExtraTokens.push(comment);
           this.advance(); // advance the star
@@ -160,14 +166,18 @@ export default class Lexer {
         if (this.match("&")) {
           this.addToken(TokenType.AND);
         } else {
-          throw new SingleCharacterNotAllowedLexingError(this.loc.copy(), "&");
+          throw this.errorCollector.reportError(
+            new SingleCharacterNotAllowedLexingError(this.loc.copy(), "&")
+          );
         }
         break;
       case "|":
         if (this.match("|")) {
           this.addToken(TokenType.OR);
         } else {
-          throw new SingleCharacterNotAllowedLexingError(this.loc.copy(), "&");
+          throw this.errorCollector.reportError(
+            new SingleCharacterNotAllowedLexingError(this.loc.copy(), "&")
+          );
         }
         break;
       case "\n":
@@ -186,7 +196,9 @@ export default class Lexer {
         } else if (/[A-Za-z\$_]/.test(c)) {
           this.consumeIdentifierOrKeyword();
         } else {
-          throw new UnexpectedCharacterLexingError(this.loc.copy(), c);
+          throw this.errorCollector.reportError(
+            new UnexpectedCharacterLexingError(this.loc.copy(), c)
+          );
         }
     }
   }
@@ -207,9 +219,11 @@ export default class Lexer {
         } else if (this.match("r")) {
           str += "\r";
         } else {
-          throw new IllegalStringEscapeSequenceLexingError(
-            this.loc.copy(),
-            `\\${c}`
+          throw this.errorCollector.reportError(
+            new IllegalStringEscapeSequenceLexingError(
+              this.loc.copy(),
+              `\\${c}`
+            )
           );
         }
         //TODO: Add unicode escape sequences handling
@@ -218,7 +232,9 @@ export default class Lexer {
       }
     }
     if (this.isAtEnd()) {
-      throw new UnterminatedStringLiteralLexingError(this.loc.copy());
+      throw this.errorCollector.reportError(
+        new UnterminatedStringLiteralLexingError(this.loc.copy())
+      );
     }
     this.advance();
     this.addToken(TokenType.StringLiteral, str);
@@ -234,14 +250,20 @@ export default class Lexer {
     }
     const lexeme = this.codeFile.code.substring(this.start.char, this.loc.char);
     if ((lexeme.match(/\./g) || []).length > 1) {
-      throw new TooManyDotsInNumberLiteralLexingError(this.loc.copy(), lexeme);
+      throw this.errorCollector.reportError(
+        new TooManyDotsInNumberLiteralLexingError(this.loc.copy(), lexeme)
+      );
     }
     if ((lexeme.match(/e/g) || []).length > 1) {
-      throw new TooManyEInNumberLiteralLexingError(this.loc.copy(), lexeme);
+      throw this.errorCollector.reportError(
+        new TooManyEInNumberLiteralLexingError(this.loc.copy(), lexeme)
+      );
     }
     const value = parseFloat(lexeme);
     if (isNaN(value) || !isFinite(value)) {
-      throw new InvalidNumberLiteralLexingError(this.loc.copy(), lexeme);
+      throw this.errorCollector.reportError(
+        new InvalidNumberLiteralLexingError(this.loc.copy(), lexeme)
+      );
     }
     this.addToken(TokenType.NumberLiteral, value);
   }

@@ -1,45 +1,46 @@
-import Lexer from "./Lexer";
-import CodeFile from "./CodeFile";
-import Parser from "./Parser";
-import {
-  UseStmt,
-  BlockStmt,
-  NoopStmt,
-  ModuleDeclarationStmt,
-  ModuleInstantiationStmt,
-  IfElseStatement
-} from "./ast/statements";
-import ParsingError from "./errors/ParsingError";
+import { resolve } from "path";
 import AssignmentNode from "./ast/AssignmentNode";
+import ASTNode from "./ast/ASTNode";
 import {
-  LiteralExpr,
-  Expression,
-  MemberLookupExpr,
   ArrayLookupExpr,
-  FunctionCallExpr,
+  AssertExpr,
   BinaryOpExpr,
-  UnaryOpExpr,
-  TernaryExpr,
+  EchoExpr,
+  Expression,
+  FunctionCallExpr,
   GroupingExpr,
-  RangeExpr,
-  VectorExpr,
-  LcIfExpr,
-  LookupExpr,
   LcEachExpr,
+  LcIfExpr,
   LcLetExpr,
   LetExpr,
-  EchoExpr,
-  AssertExpr
+  LiteralExpr,
+  LookupExpr,
+  MemberLookupExpr,
+  RangeExpr,
+  UnaryOpExpr,
+  VectorExpr
 } from "./ast/expressions";
-import ASTNode from "./ast/ASTNode";
+import {
+  BlockStmt,
+  IfElseStatement,
+  ModuleDeclarationStmt,
+  ModuleInstantiationStmt,
+  NoopStmt,
+  UseStmt
+} from "./ast/statements";
+import CodeFile from "./CodeFile";
 import CodeLocation from "./CodeLocation";
+import ErrorCollector from "./ErrorCollector";
+import ParsingError from "./errors/ParsingError";
+import Lexer from "./Lexer";
+import Parser from "./Parser";
 import TokenType from "./TokenType";
-import { resolve } from "path";
 
 describe("Parser", () => {
   function doParse(source: string) {
-    const l = new Lexer(new CodeFile("<test>", source));
-    const parser = new Parser(l.codeFile, l.scan());
+    const errorCollector = new ErrorCollector();
+    const l = new Lexer(new CodeFile("<test>", source), errorCollector);
+    const parser = new Parser(l.codeFile, l.scan(), errorCollector);
     return parser.parse();
   }
   /**
@@ -867,10 +868,10 @@ describe("Parser", () => {
       `)
     ).toThrowError(ParsingError);
     expect(() =>
-    doParse(`
+      doParse(`
         x = [for(x = 22
       `)
-  ).toThrowError(ParsingError);
+    ).toThrowError(ParsingError);
   });
   it("parses the 'let' expression", () => {
     const file = doParse(`
@@ -908,14 +909,16 @@ describe("Parser", () => {
         this.peekNext();
       }
     }
-    const l = new Lexer(new CodeFile("<test>", ``));
-    const p = new ExtendedParser(l.codeFile, l.scan());
+    const ec = new ErrorCollector();
+    const l = new Lexer(new CodeFile("<test>", ``), ec);
+    const p = new ExtendedParser(l.codeFile, l.scan(), ec);
     p.__test();
   });
   it("parses hull.scad", async () => {
     const file = await CodeFile.load(resolve(__dirname, "testdata/hull.scad"));
-    const lexer = new Lexer(file);
-    const parser = new Parser(file, lexer.scan());
+    const ec = new ErrorCollector();
+    const lexer = new Lexer(file, ec);
+    const parser = new Parser(file, lexer.scan(), ec);
     expect(simplifyAst(parser.parse())).toMatchSnapshot();
   });
 });

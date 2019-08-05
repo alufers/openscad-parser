@@ -53,6 +53,7 @@ import {
   UnterminatedForLoopParamsParsingError,
   ConsumptionParsingError
 } from "./errors/parsingErrors";
+import ErrorCollector from "./ErrorCollector";
 
 const moduleInstantiationTagTokens = [
   TokenType.Bang,
@@ -79,8 +80,32 @@ const listComprehensionElementKeywords = [
 
 export default class Parser {
   protected currentToken = 0;
-  constructor(public code: CodeFile, public tokens: Token[]) {}
-  parse() {
+
+  /**
+   * The code file being parsed.
+   */
+  public code: CodeFile;
+
+  /**
+   * The tokens being parsed.
+   */
+  public tokens: Token[];
+
+  /**
+   * The ErrorCollector for this parser. All the errors encountered by the parser will be put there, since it does not throw on non-fatal errors.
+   */
+  public errorCollector: ErrorCollector;
+
+  constructor(code: CodeFile, tokens: Token[], errorCollector: ErrorCollector) {
+    this.code = code;
+    this.tokens = tokens;
+    this.errorCollector = errorCollector;
+  }
+
+  /**
+   * Attempts to parse a file and return the AST with the ScadFile as a root node.
+   */
+  parse(): ScadFile {
     const statements: Statement[] = [];
     while (!this.isAtEnd()) {
       if (this.matchToken(TokenType.Use)) {

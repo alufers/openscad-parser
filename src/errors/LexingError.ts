@@ -1,7 +1,5 @@
-import CodeLocation from "../CodeLocation";
+import CodeError from "./CodeError";
 
-export default class LexingError extends Error {
-  constructor(public codeLocation: CodeLocation, message: string) {
-    super(message);
-  }
+export default class LexingError extends CodeError {
+  
 }

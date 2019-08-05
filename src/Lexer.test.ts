@@ -10,14 +10,15 @@ import {
   SingleLineComment,
   NewLineExtraToken
 } from "./extraTokens";
+import ErrorCollector from "./ErrorCollector";
 
 function lexToTTStream(code: string) {
-  const lexer = new Lexer(new CodeFile("<test>", code));
+  const lexer = new Lexer(new CodeFile("<test>", code), new ErrorCollector());
   return lexer.scan().map(token => token.type);
 }
 
 function lexTokens(code: string) {
-  const lexer = new Lexer(new CodeFile("<test>", code));
+  const lexer = new Lexer(new CodeFile("<test>", code), new ErrorCollector());
   return lexer.scan();
 }
 
@@ -41,7 +42,7 @@ function simplifyTokens(tokens: Token[]) {
 
 describe("Lexer", () => {
   it("constructs without crashing", () => {
-    new Lexer(new CodeFile("asdf", "b"));
+    new Lexer(new CodeFile("asdf", "b"), new ErrorCollector());
   });
   it("scans simple tokens", () => {
     const tts = lexToTTStream(`%`);
@@ -260,7 +261,7 @@ describe("Lexer", () => {
   describe.skip("lexing of random files found on the internet", () => {
     async function lexFile(path: string) {
       const file = await CodeFile.load(resolve(__dirname, path));
-      const lexer = new Lexer(file);
+      const lexer = new Lexer(file, new ErrorCollector());
       return lexer.scan();
     }
     it("lexes hull.scad and matches snapshot", async () => {

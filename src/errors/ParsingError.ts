@@ -1,7 +1,3 @@
-import CodeLocation from "../CodeLocation";
+import CodeError from "./CodeError";
 
-export default class ParsingError extends Error {
-  constructor(public codeLocation: CodeLocation, message: string) {
-    super(message);
-  }
-}
+export default class ParsingError extends CodeError {}
