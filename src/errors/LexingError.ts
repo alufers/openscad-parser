@@ -1,5 +1,6 @@
 import CodeError from "./CodeError";
 
-export default class LexingError extends CodeError {
-  
-}
+/**
+ * @category Error
+ */
+export default class LexingError extends CodeError {}

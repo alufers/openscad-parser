@@ -5,8 +5,14 @@ import { Expression } from "./expressions";
 import ASTVisitor from "./ASTVisitor";
 import Token from "../Token";
 
+/**
+ * @category AST
+ */
 export abstract class Statement extends ASTNode {}
 
+/**
+ * @category AST
+ */
 export class UseStmt extends Statement {
   /**
    *
@@ -27,6 +33,9 @@ export class UseStmt extends Statement {
   }
 }
 
+/**
+ * @category AST
+ */
 interface TaggableStatement {
   /**
    * Set to true if this module instantation has been tagged with a '!' symbol.
@@ -49,6 +58,9 @@ interface TaggableStatement {
   tagDisabled: boolean;
 }
 
+/**
+ * @category AST
+ */
 export class ModuleInstantiationStmt extends Statement
   implements TaggableStatement {
   public tagRoot: boolean = false;
@@ -74,6 +86,9 @@ export class ModuleInstantiationStmt extends Statement
   }
 }
 
+/**
+ * @category AST
+ */
 export class ModuleDeclarationStmt extends Statement {
   constructor(
     pos: CodeLocation,
@@ -94,6 +109,9 @@ export class ModuleDeclarationStmt extends Statement {
   }
 }
 
+/**
+ * @category AST
+ */
 export class FunctionDeclarationStmt extends Statement {
   constructor(
     pos: CodeLocation,
@@ -116,6 +134,9 @@ export class FunctionDeclarationStmt extends Statement {
   }
 }
 
+/**
+ * @category AST
+ */
 export class BlockStmt extends Statement {
   constructor(
     pos: CodeLocation,
@@ -132,6 +153,9 @@ export class BlockStmt extends Statement {
   }
 }
 
+/**
+ * @category AST
+ */
 export class NoopStmt extends Statement {
   constructor(
     pos: CodeLocation,
@@ -146,6 +170,9 @@ export class NoopStmt extends Statement {
   }
 }
 
+/**
+ * @category AST
+ */
 export class IfElseStatement extends Statement implements TaggableStatement {
   public tagRoot: boolean = false;
   public tagHighlight: boolean = false;

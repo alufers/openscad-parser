@@ -10,6 +10,7 @@ export abstract class Expression extends ASTNode {}
 
 /**
  * Represents an unary expression (!right, -right)
+ * @category AST
  */
 export class UnaryOpExpr extends Expression {
   /**
@@ -39,10 +40,11 @@ export class UnaryOpExpr extends Expression {
 
 /**
  * Represents a binary expression (LogicalAnd, LogicalOr, Multiply, Divide, Modulo, Plus, Minus, Less, LessEqual, Greater, GreaterEqual, Equal, NotEqual).
+ * @category AST
  */
 export class BinaryOpExpr extends Expression {
   /**
-   * THe left side of the operation.
+   * The left side of the operation.
    */
   left: Expression;
 
@@ -75,6 +77,7 @@ export class BinaryOpExpr extends Expression {
 
 /**
  * Represents a ternary expression (cond ? ifexpr : elsexpr)
+ * @category AST
  */
 export class TernaryExpr extends Expression {
   cond: Expression;
@@ -102,6 +105,7 @@ export class TernaryExpr extends Expression {
 
 /**
  * Represents a lookup operation on an array (indexing). Example: arr[5]
+ * @category AST
  */
 export class ArrayLookupExpr extends Expression {
   /**
@@ -134,6 +138,7 @@ export class ArrayLookupExpr extends Expression {
 
 /**
  * A literal expression (just a simple number, string or a boolean)
+ * @category AST
  */
 export class LiteralExpr<TValue> extends Expression {
   value: TValue;
@@ -155,6 +160,7 @@ export class LiteralExpr<TValue> extends Expression {
 
 /**
  * A range epxression. Example: [0: 1 :20]
+ * @category AST
  */
 export class RangeExpr extends Expression {
   begin: Expression;
@@ -184,6 +190,7 @@ export class RangeExpr extends Expression {
 
 /**
  * A vector literal expression. Example: [1, 2, 3, 4]
+ * @category AST
  */
 export class VectorExpr extends Expression {
   children: Expression[];
@@ -206,6 +213,7 @@ export class VectorExpr extends Expression {
 
 /**
  * A lookup expression, it references a variable, module or function by name.
+ * @category AST
  */
 export class LookupExpr extends Expression {
   name: string;
@@ -225,6 +233,7 @@ export class LookupExpr extends Expression {
 
 /**
  * A member lookup expression, (abc.ddd)
+ * @category AST
  */
 export class MemberLookupExpr extends Expression {
   expr: Expression;
@@ -250,6 +259,7 @@ export class MemberLookupExpr extends Expression {
 
 /**
  * A function call expression. Example: sin(10)
+ * @category AST
  */
 export class FunctionCallExpr extends Expression {
   /**
@@ -280,6 +290,10 @@ export class FunctionCallExpr extends Expression {
   }
 }
 
+/**
+ * A common class for the Echo, Assert and Let expression so that the constructor is not copied.
+ * @category AST
+ */
 export abstract class FunctionCallLikeExpr extends Expression {
   /**
    * The names of the assigned variables in this let expression.
@@ -305,6 +319,7 @@ export abstract class FunctionCallLikeExpr extends Expression {
 
 /**
  * Represents a let expression. Please note that this is syntactically diffrent from the let module instantation and the let list comprehension.
+ * @category AST
  */
 export class LetExpr extends FunctionCallLikeExpr {
   accept<R>(visitor: ASTVisitor<R>): R {
@@ -312,20 +327,32 @@ export class LetExpr extends FunctionCallLikeExpr {
   }
 }
 
+/**
+ * @category AST
+ */
 export class AssertExpr extends FunctionCallLikeExpr {
   accept<R>(visitor: ASTVisitor<R>): R {
     return visitor.visitAssertExpr(this);
   }
 }
 
+/**
+ * @category AST
+ */
 export class EchoExpr extends FunctionCallLikeExpr {
   accept<R>(visitor: ASTVisitor<R>): R {
     return visitor.visitEchoExpr(this);
   }
 }
 
+/**
+ * @category AST
+ */
 export abstract class ListComprehensionExpression extends Expression {}
 
+/**
+ * @category AST
+ */
 export class LcIfExpr extends ListComprehensionExpression {
   cond: Expression;
   ifExpr: Expression;
@@ -352,6 +379,9 @@ export class LcIfExpr extends ListComprehensionExpression {
   }
 }
 
+/**
+ * @category AST
+ */
 export class LcEachExpr extends ListComprehensionExpression {
   /**
    * The expression where the declared variables will be accessible.
@@ -374,6 +404,9 @@ export class LcEachExpr extends ListComprehensionExpression {
   }
 }
 
+/**
+ * @category AST
+ */
 export class LcForExpr extends ListComprehensionExpression {
   /**
    * The variable names in the for expression
@@ -405,6 +438,9 @@ export class LcForExpr extends ListComprehensionExpression {
   }
 }
 
+/**
+ * @category AST
+ */
 export class LcForCExpr extends ListComprehensionExpression {
   /**
    * The variable names in the for expression
@@ -444,6 +480,9 @@ export class LcForCExpr extends ListComprehensionExpression {
   }
 }
 
+/**
+ * @category AST
+ */
 export class LcLetExpr extends ListComprehensionExpression {
   /**
    * The variable names in the let expression
@@ -476,6 +515,7 @@ export class LcLetExpr extends ListComprehensionExpression {
 
 /**
  * An expression enclosed in parenthesis.
+ * @category AST
  */
 export class GroupingExpr extends Expression {
   inner: Expression;
