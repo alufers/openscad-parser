@@ -40,6 +40,7 @@ import Token from "./Token";
 import TokenType from "./TokenType";
 
 export default class SimpleASTPrinter implements ASTVisitor<string> {
+  indentLevel = 0;
   visitScadFile(n: ScadFile): string {
     let source = "";
     for (const stmt of n.statements) {
@@ -72,7 +73,7 @@ export default class SimpleASTPrinter implements ASTVisitor<string> {
 
     if (n.tokens.semicolon) {
       source += this.stringifyExtraTokens(n.tokens.semicolon);
-      source += ";\n";
+      source += ";" + this.newLine();
     }
 
     return source;
@@ -309,7 +310,7 @@ export default class SimpleASTPrinter implements ASTVisitor<string> {
   visitUseStmt(n: UseStmt): string {
     let source = "";
     source += this.stringifyExtraTokens(n.tokens.useKeyword);
-    source += "use <" + n.filename + ">\n";
+    source += "use <" + n.filename + ">" + this.newLine();
     return source;
   }
   visitModuleInstantiationStmt(n: ModuleInstantiationStmt): string {
@@ -359,9 +360,6 @@ export default class SimpleASTPrinter implements ASTVisitor<string> {
     for (let i = 0; i < n.definitionArgs.length; i++) {
       const arg = n.definitionArgs[i];
       source += arg.accept(this);
-      //   if (i < n.definitionArgs.length - 1) {
-      //     source += ", ";
-      //   }
     }
     source += this.stringifyExtraTokens(n.tokens.secondParen);
     source += ") ";
@@ -389,18 +387,19 @@ export default class SimpleASTPrinter implements ASTVisitor<string> {
     source += " = ";
     source += n.expr.accept(this);
     source += this.stringifyExtraTokens(n.tokens.semicolon);
-    source += ";\n";
+    source += ";" + this.newLine();
     return source;
   }
   visitBlockStmt(n: BlockStmt): string {
     let source = "";
     source += this.stringifyExtraTokens(n.tokens.firstBrace);
-    source += "{\n";
+    const withIndent = this.copyWithIndent();
+    source += "{" + withIndent.newLine();
     for (const stmt of n.children) {
-      source += stmt.accept(this);
+      source += stmt.accept(withIndent);
     }
     source += this.stringifyExtraTokens(n.tokens.secondBrace);
-    source += "}\n";
+    source += "}" + this.newLine();
     return source;
   }
   visitNoopStmt(n: NoopStmt): string {
@@ -418,10 +417,16 @@ export default class SimpleASTPrinter implements ASTVisitor<string> {
     source += n.cond.accept(this);
     source += this.stringifyExtraTokens(n.tokens.secondParen);
     source += ")";
+    if (!(n.thenBranch instanceof NoopStmt)) {
+      source += " ";
+    }
     source += n.thenBranch.accept(this);
     if (n.tokens.elseKeyword) {
       source += this.stringifyExtraTokens(n.tokens.elseKeyword);
       source += "else";
+      if (!(n.elseBranch instanceof NoopStmt)) {
+        source += " ";
+      }
       source += n.elseBranch.accept(this);
     }
     return source;
@@ -431,7 +436,7 @@ export default class SimpleASTPrinter implements ASTVisitor<string> {
     return token.extraTokens
       .map(et => {
         if (et instanceof NewLineExtraToken) {
-          return "\n";
+          return this.newLine();
         } else if (et instanceof MultiLineComment) {
           return "/*" + et.contents + "*/";
         } else if (et instanceof SingleLineComment) {
@@ -440,5 +445,20 @@ export default class SimpleASTPrinter implements ASTVisitor<string> {
         return "";
       })
       .reduce((prev, curr) => prev + curr, "");
+  }
+  protected newLine() {
+    return "\n" + this.makeIndent();
+  }
+  protected makeIndent() {
+    let ind = "";
+    for (let i = 0; i < this.indentLevel; i++) {
+      ind += "    ";
+    }
+    return ind;
+  }
+  protected copyWithIndent() {
+    const next = new SimpleASTPrinter();
+    next.indentLevel = this.indentLevel + 1;
+    return next;
   }
 }

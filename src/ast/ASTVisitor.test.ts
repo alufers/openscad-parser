@@ -34,12 +34,17 @@ import {
   NoopStmt,
   UseStmt
 } from "./statements";
+import ErrorCollector from "../ErrorCollector";
 
 describe("ASTVisitor", () => {
   function doParse(source: string) {
-    const l = new Lexer(new CodeFile("<test>", source));
-    const parser = new Parser(l.codeFile, l.scan());
-    return parser.parse();
+    const ec = new ErrorCollector();
+    const l = new Lexer(new CodeFile("<test>", source), ec);
+    const parser = new Parser(l.codeFile, l.scan(), ec);
+    ec.throwIfAny();
+    const ast = parser.parse();
+    ec.throwIfAny();
+    return ast;
   }
   it("all the methods are being called", () => {
     const visitScadFile = jest.fn();
