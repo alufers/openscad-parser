@@ -1,0 +1,6 @@
+{
+  "mode": "file",
+  "out": "docs/",
+  "excludeNotExported": true,
+  "include": "src/"
+}
