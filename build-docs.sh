@@ -1,3 +1,2 @@
-npm i typedoc
-env
-./node_modules/.bin/typedoc --gitRevision "$NOW_GITHUB_COMMIT_SHA"
+npm i typedoc typedoc-plugin-sourcefile-url
+./node_modules/.bin/typedoc --sourcefile-url-prefix "https://github.com/alufers/openscad-parser/blob/master/"
