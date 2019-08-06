@@ -87,7 +87,8 @@ export default class Parser {
   public code: CodeFile;
 
   /**
-   * The tokens being parsed.
+   * The tokens being parsed. They have to be provided from the lexer
+   * @see [[Lexer.scan]]
    */
   public tokens: Token[];
 
@@ -104,6 +105,7 @@ export default class Parser {
 
   /**
    * Attempts to parse a file and return the AST with the ScadFile as a root node.
+   * @throws ParsingError
    */
   parse(): ScadFile {
     const statements: Statement[] = [];

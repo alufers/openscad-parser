@@ -293,19 +293,86 @@ export default class SimpleASTPrinter implements ASTVisitor<string> {
     return source;
   }
   visitLcIfExpr(n: LcIfExpr): string {
-    throw new Error("Method not implemented.");
+    let source = "";
+    source += this.stringifyExtraTokens(n.tokens.ifKeyword);
+    source += "if";
+    source += this.stringifyExtraTokens(n.tokens.firstParen);
+    source += "(";
+    source += n.cond.accept(this);
+    source += this.stringifyExtraTokens(n.tokens.secondParen);
+    source += ") ";
+    source += n.ifExpr.accept(this);
+    if (n.elseExpr) {
+      source += this.stringifyExtraTokens(n.tokens.elseKeyword);
+      source += " else ";
+      source += n.elseExpr.accept(this);
+    }
+
+    return source;
   }
   visitLcEachExpr(n: LcEachExpr): string {
-    throw new Error("Method not implemented.");
+    let source = "";
+    source += this.stringifyExtraTokens(n.tokens.eachKeyword);
+    source += "each ";
+    source += n.expr.accept(this);
+    return source;
   }
   visitLcForExpr(n: LcForExpr): string {
-    throw new Error("Method not implemented.");
+    let source = "";
+    source += this.stringifyExtraTokens(n.tokens.forKeyword);
+    source += "for";
+    source += this.stringifyExtraTokens(n.tokens.firstParen);
+    source += "(";
+    for (let i = 0; i < n.args.length; i++) {
+      const arg = n.args[i];
+      source += arg.accept(this);
+    }
+    source += this.stringifyExtraTokens(n.tokens.secondParen);
+    source += ") ";
+    source += n.expr.accept(this);
+
+    return source;
   }
   visitLcForCExpr(n: LcForCExpr): string {
-    throw new Error("Method not implemented.");
+    let source = "";
+    source += this.stringifyExtraTokens(n.tokens.forKeyword);
+    source += "for";
+    source += this.stringifyExtraTokens(n.tokens.firstParen);
+    source += "(";
+    for (let i = 0; i < n.args.length; i++) {
+      const arg = n.args[i];
+      source += arg.accept(this);
+    }
+    source += this.stringifyExtraTokens(n.tokens.firstSemicolon);
+    source += "; ";
+    source += n.cond.accept(this);
+    source += this.stringifyExtraTokens(n.tokens.secondSemicolon);
+    source += "; ";
+    for (let i = 0; i < n.incrArgs.length; i++) {
+      const arg = n.incrArgs[i];
+      source += arg.accept(this);
+    }
+    source += this.stringifyExtraTokens(n.tokens.secondParen);
+    source += ") ";
+    source += n.expr.accept(this);
+
+    return source;
   }
   visitLcLetExpr(n: LcLetExpr): string {
-    throw new Error("Method not implemented.");
+    let source = "";
+    source += this.stringifyExtraTokens(n.tokens.letKeyword);
+    source += "let";
+    source += this.stringifyExtraTokens(n.tokens.firstParen);
+    source += "(";
+    for (let i = 0; i < n.args.length; i++) {
+      const arg = n.args[i];
+      source += arg.accept(this);
+    }
+    source += this.stringifyExtraTokens(n.tokens.secondParen);
+    source += ") ";
+    source += n.expr.accept(this);
+
+    return source;
   }
   visitGroupingExpr(n: GroupingExpr): string {
     let source = "";
