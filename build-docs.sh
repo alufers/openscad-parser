@@ -1,3 +1,3 @@
 npm i typedoc
 env
-./node_modules/.bin/typedoc --gitRevision $(git rev-parse HEAD)
+./node_modules/.bin/typedoc --gitRevision "$NOW_GITHUB_COMMIT_SHA"
