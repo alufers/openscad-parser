@@ -29,7 +29,8 @@ import {
   ModuleDeclarationStmt,
   ModuleInstantiationStmt,
   NoopStmt,
-  UseStmt
+  UseStmt,
+  Statement
 } from "./ast/statements";
 import {
   MultiLineComment,
@@ -38,9 +39,12 @@ import {
 } from "./extraTokens";
 import Token from "./Token";
 import TokenType from "./TokenType";
+import { statement } from "@babel/template";
 
 export default class SimpleASTPrinter implements ASTVisitor<string> {
   indentLevel = 0;
+  breakBetweenModuleInstantations = false;
+  firstModuleInstantation = true;
   /**
    * We store data that is global between all the copies of the ASTPrinter in an object so that it is passed by reference.
    */
@@ -50,7 +54,7 @@ export default class SimpleASTPrinter implements ASTVisitor<string> {
   visitScadFile(n: ScadFile): string {
     let source = "";
     for (const stmt of n.statements) {
-      source += stmt.accept(this);
+      source += this.processStatementWithBreakIfNeeded(stmt);
     }
     source += this.stringifyExtraTokens(n.tokens.eot);
     return source;
@@ -352,7 +356,22 @@ export default class SimpleASTPrinter implements ASTVisitor<string> {
     if (!(n.child instanceof NoopStmt)) {
       source += " ";
     }
-    source += n.child.accept(this);
+    if (this.breakBetweenModuleInstantations) {
+      if (n.child instanceof ModuleInstantiationStmt) {
+        let c = this as SimpleASTPrinter;
+        if (this.firstModuleInstantation) {
+          c = this.copyWithIndent();
+          c.firstModuleInstantation = false;
+        }
+        source += c.newLine() + n.child.accept(c);
+      } else {
+        const c = this.copyWithBreakBetweenModuleInstantations(false);
+        c.firstModuleInstantation = true;
+        source += n.child.accept(c);
+      }
+    } else {
+      source += n.child.accept(this);
+    }
     return source;
   }
   visitModuleDeclarationStmt(n: ModuleDeclarationStmt): string {
@@ -402,9 +421,16 @@ export default class SimpleASTPrinter implements ASTVisitor<string> {
     const withIndent = this.copyWithIndent();
     source += "{" + withIndent.newLine();
     for (const stmt of n.children) {
-      source += stmt.accept(withIndent);
+      source += withIndent.processStatementWithBreakIfNeeded(stmt);
     }
-    source += this.stringifyExtraTokens(n.tokens.secondBrace);
+    source += withIndent.stringifyExtraTokens(n.tokens.secondBrace);
+    if (
+      n.tokens.secondBrace.extraTokens[
+        n.tokens.secondBrace.extraTokens.length - 1
+      ] instanceof NewLineExtraToken
+    ) {
+      source = source.substring(0, source.length - 4);
+    }
     source += "}" + this.newLine();
     return source;
   }
@@ -436,6 +462,21 @@ export default class SimpleASTPrinter implements ASTVisitor<string> {
       source += n.elseBranch.accept(this);
     }
     return source;
+  }
+
+  protected processStatementWithBreakIfNeeded(stmt: Statement) {
+    if (stmt instanceof ModuleInstantiationStmt) {
+      const line = stmt.accept(this);
+      const firstRealLine = line
+        .split("\n")
+        .find(l => !!l.split("//")[0].trim());
+      if (firstRealLine.length > 40) {
+        return stmt.accept(this.copyWithBreakBetweenModuleInstantations());
+      }
+      return line;
+    } else {
+      return stmt.accept(this);
+    }
   }
 
   protected stringifyExtraTokens(token: Token) {
@@ -471,10 +512,21 @@ export default class SimpleASTPrinter implements ASTVisitor<string> {
     }
     return ind;
   }
-  protected copyWithIndent() {
+  protected copy() {
     const next = new SimpleASTPrinter();
-    next.indentLevel = this.indentLevel + 1;
+    next.indentLevel = this.indentLevel;
     next.deepGlobals = this.deepGlobals;
+    next.breakBetweenModuleInstantations = this.breakBetweenModuleInstantations;
+    return next;
+  }
+  protected copyWithIndent() {
+    const next = this.copy();
+    next.indentLevel++;
+    return next;
+  }
+  protected copyWithBreakBetweenModuleInstantations(doBreak = true) {
+    const next = this.copy();
+    next.breakBetweenModuleInstantations = doBreak;
     return next;
   }
 }
