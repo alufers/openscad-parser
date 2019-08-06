@@ -5,9 +5,8 @@
     "allowJs": false,
     "noImplicitAny": true,
     "experimentalDecorators": true,
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "sourceMap": true
   },
-  "include": [
-      "src/**/*.ts"
-  ]
+  "include": ["src/**/*.ts"]
 }

@@ -133,7 +133,7 @@ export default class Parser {
         statements.push(this.statement());
       }
     }
-    const eot = this.previous();
+    const eot = this.peek();
     return new ScadFile(new CodeLocation(this.code), statements, { eot });
   }
   protected synchronize() {

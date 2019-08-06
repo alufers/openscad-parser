@@ -258,6 +258,29 @@ describe("Lexer", () => {
       expect(() => testStringLexing(`"aaaa`)).toThrowError(LexingError);
     });
   });
+  it("does not add duplicate extraTokens", () => {
+    const tokens = lexTokens(`
+      module indented() {
+        asdf = 5;
+        // comment
+      }
+    `);
+    expect(tokens.map(t => t.type)).toEqual([
+      /*  0 */ TokenType.Module,
+      /*  1 */ TokenType.Identifier,
+      /*  2 */ TokenType.LeftParen,
+      /*  3 */ TokenType.RightParen,
+      /*  4 */ TokenType.LeftBrace,
+      /*  5 */ TokenType.Identifier,
+      /*  6 */ TokenType.Equal,
+      /*  7 */ TokenType.NumberLiteral,
+      /*  8 */ TokenType.Semicolon,
+      /*  9 */ TokenType.RightBrace,
+      /* 10 */ TokenType.Eot
+    ]);
+    expect(tokens[9].extraTokens).toHaveLength(3)
+    expect(tokens[10].extraTokens).toHaveLength(1);
+  });
   describe.skip("lexing of random files found on the internet", () => {
     async function lexFile(path: string) {
       const file = await CodeFile.load(resolve(__dirname, path));

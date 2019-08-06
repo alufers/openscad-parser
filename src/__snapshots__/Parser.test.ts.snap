@@ -408,10 +408,15 @@ Object {
     "__c": "Object",
     "eot": Object {
       "__c": "Token",
-      "extraTokens": Array [],
-      "lexeme": ";",
+      "extraTokens": Array [
+        Object {
+          "__c": "NewLineExtraToken",
+          "pos": null,
+        },
+      ],
+      "lexeme": " ",
       "pos": null,
-      "type": 39,
+      "type": 1,
     },
   },
 }
@@ -35124,19 +35129,10 @@ Object {
     "__c": "Object",
     "eot": Object {
       "__c": "Token",
-      "extraTokens": Array [
-        Object {
-          "__c": "NewLineExtraToken",
-          "pos": null,
-        },
-        Object {
-          "__c": "NewLineExtraToken",
-          "pos": null,
-        },
-      ],
+      "extraTokens": Array [],
       "lexeme": "}",
       "pos": null,
-      "type": 38,
+      "type": 1,
     },
   },
 }
@@ -35561,14 +35557,10 @@ Object {
           "__c": "NewLineExtraToken",
           "pos": null,
         },
-        Object {
-          "__c": "NewLineExtraToken",
-          "pos": null,
-        },
       ],
-      "lexeme": "}",
+      "lexeme": " ",
       "pos": null,
-      "type": 38,
+      "type": 1,
     },
   },
 }
@@ -35715,10 +35707,15 @@ Object {
     "__c": "Object",
     "eot": Object {
       "__c": "Token",
-      "extraTokens": Array [],
-      "lexeme": ";",
+      "extraTokens": Array [
+        Object {
+          "__c": "NewLineExtraToken",
+          "pos": null,
+        },
+      ],
+      "lexeme": " ",
       "pos": null,
-      "type": 39,
+      "type": 1,
     },
   },
 }
@@ -35816,10 +35813,15 @@ Object {
     "__c": "Object",
     "eot": Object {
       "__c": "Token",
-      "extraTokens": Array [],
-      "lexeme": ";",
+      "extraTokens": Array [
+        Object {
+          "__c": "NewLineExtraToken",
+          "pos": null,
+        },
+      ],
+      "lexeme": " ",
       "pos": null,
-      "type": 39,
+      "type": 1,
     },
   },
 }
@@ -36147,10 +36149,15 @@ Object {
     "__c": "Object",
     "eot": Object {
       "__c": "Token",
-      "extraTokens": Array [],
-      "lexeme": ";",
+      "extraTokens": Array [
+        Object {
+          "__c": "NewLineExtraToken",
+          "pos": null,
+        },
+      ],
+      "lexeme": " ",
       "pos": null,
-      "type": 39,
+      "type": 1,
     },
   },
 }
@@ -36582,10 +36589,15 @@ Object {
     "__c": "Object",
     "eot": Object {
       "__c": "Token",
-      "extraTokens": Array [],
-      "lexeme": ";",
+      "extraTokens": Array [
+        Object {
+          "__c": "NewLineExtraToken",
+          "pos": null,
+        },
+      ],
+      "lexeme": " ",
       "pos": null,
-      "type": 39,
+      "type": 1,
     },
   },
 }
@@ -37109,10 +37121,15 @@ Object {
     "__c": "Object",
     "eot": Object {
       "__c": "Token",
-      "extraTokens": Array [],
-      "lexeme": ";",
+      "extraTokens": Array [
+        Object {
+          "__c": "NewLineExtraToken",
+          "pos": null,
+        },
+      ],
+      "lexeme": " ",
       "pos": null,
-      "type": 39,
+      "type": 1,
     },
   },
 }

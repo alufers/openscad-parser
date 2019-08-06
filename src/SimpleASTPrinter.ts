@@ -41,6 +41,12 @@ import TokenType from "./TokenType";
 
 export default class SimpleASTPrinter implements ASTVisitor<string> {
   indentLevel = 0;
+  /**
+   * We store data that is global between all the copies of the ASTPrinter in an object so that it is passed by reference.
+   */
+  deepGlobals = {
+    didAddNewline: false
+  };
   visitScadFile(n: ScadFile): string {
     let source = "";
     for (const stmt of n.statements) {
@@ -68,7 +74,7 @@ export default class SimpleASTPrinter implements ASTVisitor<string> {
       for (const tc of n.tokens.trailingCommas) {
         source += this.stringifyExtraTokens(tc);
       }
-      source += ",";
+      source += ", ";
     }
 
     if (n.tokens.semicolon) {
@@ -433,10 +439,14 @@ export default class SimpleASTPrinter implements ASTVisitor<string> {
   }
 
   protected stringifyExtraTokens(token: Token) {
-    return token.extraTokens
+    const source = token.extraTokens
       .map(et => {
         if (et instanceof NewLineExtraToken) {
-          return this.newLine();
+          if (this.deepGlobals.didAddNewline) {
+            this.deepGlobals.didAddNewline = false;
+            return "";
+          }
+          return this.newLine(true);
         } else if (et instanceof MultiLineComment) {
           return "/*" + et.contents + "*/";
         } else if (et instanceof SingleLineComment) {
@@ -445,8 +455,13 @@ export default class SimpleASTPrinter implements ASTVisitor<string> {
         return "";
       })
       .reduce((prev, curr) => prev + curr, "");
+    this.deepGlobals.didAddNewline = false;
+    return source;
   }
-  protected newLine() {
+  protected newLine(forced = false) {
+    if (!forced) {
+      this.deepGlobals.didAddNewline = true;
+    }
     return "\n" + this.makeIndent();
   }
   protected makeIndent() {
@@ -459,6 +474,7 @@ export default class SimpleASTPrinter implements ASTVisitor<string> {
   protected copyWithIndent() {
     const next = new SimpleASTPrinter();
     next.indentLevel = this.indentLevel + 1;
+    next.deepGlobals = this.deepGlobals;
     return next;
   }
 }

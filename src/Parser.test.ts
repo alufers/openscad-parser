@@ -937,4 +937,15 @@ describe("Parser", () => {
     expect(ec.errors).toHaveLength(2);
     expect(ec.errors[0].codeLocation.formatWithContext()).toBeTruthy();
   });
+  it("always sets codeFile.tokens.eot to the Eot token", () => {
+    [
+      ``,
+      `x = assert(x == 22) varz + 10;`,
+      `/*comment*/`,
+      `if(true && false || undef) {}`,
+      `//single-line`
+    ]
+      .map(doParse)
+      .forEach(f => expect(f.tokens.eot.type).toEqual(TokenType.Eot));
+  });
 });
