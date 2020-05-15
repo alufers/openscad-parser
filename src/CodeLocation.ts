@@ -24,7 +24,7 @@ export default class CodeLocation {
   file: CodeFile;
 
   /**
-   * The character offset in the fil;e contents.
+   * The character offset in the file contents.
    */
   char = 0;
 
