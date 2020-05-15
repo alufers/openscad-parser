@@ -1,6 +1,6 @@
 {
   "name": "openscad-parser",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "devDependencies": {
     "@types/jest": "^25.2.2",
     "@types/node": "^14.0.1",
@@ -13,12 +13,11 @@
     "typescript": "^3.9.2"
   },
   "source": "src/index.ts",
-  "main": "dist/openscad-parser.js",
-  "module": "dist/openscad-parser.mjs",
+  "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "test": "jest",
     "generate-barrels": "barrelsby -c barrelsby.json",
-    "build": "microbundle"
+    "build": "tsc --module commonjs"
   }
 }

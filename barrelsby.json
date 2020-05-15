@@ -1,4 +1,6 @@
 {
   "delete": true,
-  "directory": "src/"
+  "directory": "src/",
+  "exportDefault": true,
+  "exclude": ".test.ts$"
 }

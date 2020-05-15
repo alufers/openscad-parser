@@ -440,7 +440,19 @@ export default class ASTPrinter implements ASTVisitor<string> {
         source += n.child.accept(c);
       }
     } else {
-      source += n.child.accept(this);
+      let c: ASTPrinter = this;
+      if (n.child instanceof ModuleInstantiationStmt) {
+        if (
+          this.firstModuleInstantation &&
+          n.child.tokens.name.hasNewlineInExtraTokens()
+        ) {
+          c = this.copyWithIndent();
+          c.firstModuleInstantation = false;
+        }
+      } else {
+        c.firstModuleInstantation = true;
+      }
+      source += n.child.accept(c);
     }
     return source;
   }

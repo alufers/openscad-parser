@@ -1,13 +1,15 @@
 {
   "compilerOptions": {
-    "module": "ESNext",
+    "module": "CommonJS",
+    "declaration": true,
     "moduleResolution": "Node",
     "target": "esnext",
     "allowJs": false,
     "noImplicitAny": true,
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
-    "sourceMap": true
+    "sourceMap": true,
+    "outDir": "dist"
   },
   "include": ["src/**/*.ts"]
 }

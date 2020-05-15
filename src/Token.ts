@@ -1,5 +1,5 @@
 import CodeLocation from "./CodeLocation";
-import { ExtraToken } from "./extraTokens";
+import { ExtraToken, NewLineExtraToken } from "./extraTokens";
 import TokenType from "./TokenType";
 
 export default class Token {
@@ -16,5 +16,9 @@ export default class Token {
 
   toString(): string {
     return `token ${TokenType[this.type]} ${this.pos.toString()}`;
+  }
+
+  hasNewlineInExtraTokens() {
+    return this.extraTokens.some((t) => t instanceof NewLineExtraToken);
   }
 }
