@@ -12,7 +12,7 @@ export * from "./Lexer";
 export * from "./LiteralToken";
 export * from "./Parser.test";
 export * from "./Parser";
-export * from "./SimpleASTPrinter";
+export * from "./ASTPrinter";
 export * from "./Token";
 export * from "./TokenType";
 export * from "./extraTokens";

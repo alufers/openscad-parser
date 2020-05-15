@@ -2,8 +2,9 @@ import CodeFile from "./CodeFile";
 import ErrorCollector from "./ErrorCollector";
 import Lexer from "./Lexer";
 import Parser from "./Parser";
-import SimpleASTPrinter from "./SimpleASTPrinter";
+import ASTPrinter from "./ASTPrinter";
 import Token from "./Token";
+import FormattingConfiguration from "./FormattingConfiguration";
 
 async function run() {
   const filename = process.argv[2];
@@ -27,6 +28,8 @@ async function run() {
     errorCollector.printErrors();
     process.exit(999);
   }
-  console.log(new SimpleASTPrinter().visitScadFile(ast));
+  console.log(
+    new ASTPrinter(new FormattingConfiguration()).visitScadFile(ast)
+  );
 }
 run().catch(console.error);

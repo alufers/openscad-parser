@@ -40,8 +40,9 @@ import {
 import Token from "./Token";
 import TokenType from "./TokenType";
 import { statement } from "@babel/template";
+import FormattingConfiguration from "./FormattingConfiguration";
 
-export default class SimpleASTPrinter implements ASTVisitor<string> {
+export default class ASTPrinter implements ASTVisitor<string> {
   indentLevel = 0;
   breakBetweenModuleInstantations = false;
   firstModuleInstantation = true;
@@ -50,8 +51,10 @@ export default class SimpleASTPrinter implements ASTVisitor<string> {
    */
   deepGlobals = {
     didAddNewline: false,
-    debugNewlines: false,
   };
+
+  constructor(public config: FormattingConfiguration) {}
+
   visitScadFile(n: ScadFile): string {
     let source = "";
     for (const stmt of n.statements) {
@@ -423,7 +426,7 @@ export default class SimpleASTPrinter implements ASTVisitor<string> {
     }
     if (this.breakBetweenModuleInstantations) {
       if (n.child instanceof ModuleInstantiationStmt) {
-        let c = this as SimpleASTPrinter;
+        let c = this as ASTPrinter;
         if (this.firstModuleInstantation) {
           c = this.copyWithIndent();
           c.firstModuleInstantation = false;
@@ -501,7 +504,7 @@ export default class SimpleASTPrinter implements ASTVisitor<string> {
         n.tokens.secondBrace.extraTokens.length - 1
       ] instanceof NewLineExtraToken
     ) {
-      source = source.substring(0, source.length - 4);
+      source = source.substring(0, source.length - this.config.indentCount);
     }
     source += "}" + this.newLine(false, "afterBlockStmt");
     return source;
@@ -547,7 +550,7 @@ export default class SimpleASTPrinter implements ASTVisitor<string> {
       const firstRealLine = line
         .split("\n")
         .find((l) => !!l.split("//")[0].trim());
-      if (firstRealLine.length > 40) {
+      if (firstRealLine.length > this.config.moduleInstantiationBreakLength) {
         this.restoreDeepGlobals(saved);
         return stmt.accept(this.copyWithBreakBetweenModuleInstantations());
       }
@@ -581,20 +584,20 @@ export default class SimpleASTPrinter implements ASTVisitor<string> {
     if (!forced) {
       this.deepGlobals.didAddNewline = true;
     }
-    if (this.deepGlobals.debugNewlines) {
+    if (this.config.debugNewlines) {
       return `   /* NL: ${newlineReason} */` + "\n" + this.makeIndent();
     }
     return "\n" + this.makeIndent();
   }
   protected makeIndent() {
     let ind = "";
-    for (let i = 0; i < this.indentLevel; i++) {
-      ind += "    ";
+    for (let i = 0; i < this.indentLevel * this.config.indentCount; i++) {
+      ind += this.config.indentChar;
     }
     return ind;
   }
   protected copy() {
-    const next = new SimpleASTPrinter();
+    const next = new ASTPrinter(this.config);
     next.indentLevel = this.indentLevel;
     next.deepGlobals = this.deepGlobals;
     next.breakBetweenModuleInstantations = this.breakBetweenModuleInstantations;
