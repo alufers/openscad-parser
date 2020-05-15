@@ -19,7 +19,7 @@ import {
   RangeExpr,
   TernaryExpr,
   UnaryOpExpr,
-  VectorExpr
+  VectorExpr,
 } from "./ast/expressions";
 import ScadFile from "./ast/ScadFile";
 import {
@@ -30,12 +30,12 @@ import {
   ModuleInstantiationStmt,
   NoopStmt,
   UseStmt,
-  Statement
+  Statement,
 } from "./ast/statements";
 import {
   MultiLineComment,
   NewLineExtraToken,
-  SingleLineComment
+  SingleLineComment,
 } from "./extraTokens";
 import Token from "./Token";
 import TokenType from "./TokenType";
@@ -49,7 +49,8 @@ export default class SimpleASTPrinter implements ASTVisitor<string> {
    * We store data that is global between all the copies of the ASTPrinter in an object so that it is passed by reference.
    */
   deepGlobals = {
-    didAddNewline: false
+    didAddNewline: false,
+    debugNewlines: false,
   };
   visitScadFile(n: ScadFile): string {
     let source = "";
@@ -83,7 +84,7 @@ export default class SimpleASTPrinter implements ASTVisitor<string> {
 
     if (n.tokens.semicolon) {
       source += this.stringifyExtraTokens(n.tokens.semicolon);
-      source += ";" + this.newLine();
+      source += ";" + this.newLine(false, "afterAssignment");
     }
 
     return source;
@@ -249,10 +250,7 @@ export default class SimpleASTPrinter implements ASTVisitor<string> {
     source += "(";
     for (let i = 0; i < n.args.length; i++) {
       const arg = n.args[i];
-      source += arg.accept(this);
-      //   if (i < n.args.length - 1) {
-      //     source += ", ";
-      //   }
+      source += arg.accept(this.copyWithIndent());
     }
     source += this.stringifyExtraTokens(n.tokens.secondParen);
     source += ")";
@@ -430,7 +428,9 @@ export default class SimpleASTPrinter implements ASTVisitor<string> {
           c = this.copyWithIndent();
           c.firstModuleInstantation = false;
         }
-        source += c.newLine() + n.child.accept(c);
+        source +=
+          c.newLine(false, "breakBetweenModuleInstantations") +
+          n.child.accept(c);
       } else {
         const c = this.copyWithBreakBetweenModuleInstantations(false);
         c.firstModuleInstantation = true;
@@ -457,6 +457,10 @@ export default class SimpleASTPrinter implements ASTVisitor<string> {
     source += ") ";
     source += n.stmt.accept(this);
     return source;
+    var d = [
+      //
+      2 + 2,
+    ];
   }
   visitFunctionDeclarationStmt(n: FunctionDeclarationStmt): string {
     let source = "";
@@ -477,20 +481,21 @@ export default class SimpleASTPrinter implements ASTVisitor<string> {
     source += ")";
     source += this.stringifyExtraTokens(n.tokens.equals);
     source += " = ";
-    source += n.expr.accept(this);
+    source += n.expr.accept(this.copyWithIndent());
     source += this.stringifyExtraTokens(n.tokens.semicolon);
-    source += ";" + this.newLine();
+    source += ";" + this.newLine(false, "afterFunctionDeclaration");
     return source;
   }
   visitBlockStmt(n: BlockStmt): string {
     let source = "";
     source += this.stringifyExtraTokens(n.tokens.firstBrace);
     const withIndent = this.copyWithIndent();
-    source += "{" + withIndent.newLine();
+    source += "{" + withIndent.newLine(false, "beforeBlockStmt");
     for (const stmt of n.children) {
       source += withIndent.processStatementWithBreakIfNeeded(stmt);
     }
     source += withIndent.stringifyExtraTokens(n.tokens.secondBrace);
+    // erease indentation
     if (
       n.tokens.secondBrace.extraTokens[
         n.tokens.secondBrace.extraTokens.length - 1
@@ -498,7 +503,7 @@ export default class SimpleASTPrinter implements ASTVisitor<string> {
     ) {
       source = source.substring(0, source.length - 4);
     }
-    source += "}" + this.newLine();
+    source += "}" + this.newLine(false, "afterBlockStmt");
     return source;
   }
   visitNoopStmt(n: NoopStmt): string {
@@ -531,13 +536,19 @@ export default class SimpleASTPrinter implements ASTVisitor<string> {
     return source;
   }
 
+  /**
+   * Tries printing a ModuleInstantiationStmt without breaking it, if it exceeds 40 chars it breaks it, by printing it again.
+   * @param stmt
+   */
   protected processStatementWithBreakIfNeeded(stmt: Statement) {
     if (stmt instanceof ModuleInstantiationStmt) {
+      const saved = this.saveDeepGlobals();
       const line = stmt.accept(this);
       const firstRealLine = line
         .split("\n")
-        .find(l => !!l.split("//")[0].trim());
+        .find((l) => !!l.split("//")[0].trim());
       if (firstRealLine.length > 40) {
+        this.restoreDeepGlobals(saved);
         return stmt.accept(this.copyWithBreakBetweenModuleInstantations());
       }
       return line;
@@ -548,13 +559,13 @@ export default class SimpleASTPrinter implements ASTVisitor<string> {
 
   protected stringifyExtraTokens(token: Token) {
     const source = token.extraTokens
-      .map(et => {
+      .map((et) => {
         if (et instanceof NewLineExtraToken) {
           if (this.deepGlobals.didAddNewline) {
             this.deepGlobals.didAddNewline = false;
             return "";
           }
-          return this.newLine(true);
+          return this.newLine(true, "forcedNewlineExtraToken");
         } else if (et instanceof MultiLineComment) {
           return "/*" + et.contents + "*/";
         } else if (et instanceof SingleLineComment) {
@@ -566,9 +577,12 @@ export default class SimpleASTPrinter implements ASTVisitor<string> {
     this.deepGlobals.didAddNewline = false;
     return source;
   }
-  protected newLine(forced = false) {
+  protected newLine(forced = false, newlineReason = "no reason") {
     if (!forced) {
       this.deepGlobals.didAddNewline = true;
+    }
+    if (this.deepGlobals.debugNewlines) {
+      return `   /* NL: ${newlineReason} */` + "\n" + this.makeIndent();
     }
     return "\n" + this.makeIndent();
   }
@@ -595,5 +609,13 @@ export default class SimpleASTPrinter implements ASTVisitor<string> {
     const next = this.copy();
     next.breakBetweenModuleInstantations = doBreak;
     return next;
+  }
+  protected saveDeepGlobals() {
+    return JSON.parse(JSON.stringify(this.deepGlobals));
+  }
+  protected restoreDeepGlobals(dat: any) {
+    for (const k of Object.keys(dat)) {
+      (this.deepGlobals as any)[k] = dat[k];
+    }
   }
 }
