@@ -257,6 +257,8 @@ export default class ASTPrinter implements ASTVisitor<string> {
     }
     source += this.stringifyExtraTokens(n.tokens.secondParen);
     source += ")";
+    source += " ";
+    source += n.expr.accept(this);
     return source;
   }
   visitAssertExpr(n: AssertExpr): string {
@@ -274,6 +276,8 @@ export default class ASTPrinter implements ASTVisitor<string> {
     }
     source += this.stringifyExtraTokens(n.tokens.secondParen);
     source += ")";
+    source += " ";
+    source += n.expr.accept(this);
     return source;
   }
   visitEchoExpr(n: EchoExpr): string {
@@ -291,6 +295,8 @@ export default class ASTPrinter implements ASTVisitor<string> {
     }
     source += this.stringifyExtraTokens(n.tokens.secondParen);
     source += ")";
+    source += " ";
+    source += n.expr.accept(this);
     return source;
   }
   visitLcIfExpr(n: LcIfExpr): string {
@@ -472,10 +478,6 @@ export default class ASTPrinter implements ASTVisitor<string> {
     source += ") ";
     source += n.stmt.accept(this);
     return source;
-    var d = [
-      //
-      2 + 2,
-    ];
   }
   visitFunctionDeclarationStmt(n: FunctionDeclarationStmt): string {
     let source = "";

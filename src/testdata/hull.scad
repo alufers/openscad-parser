@@ -14,7 +14,7 @@
 
 function hull(points) = 
 	!(len(points) > 0)  ? [] :
-	len(points[0]) == 2 ? convexhull2d(points) :
+len(points[0]) == 2 ? convexhull2d(points) :
 	len(points[0]) == 3 ? convexhull3d(points) : [];
 
 epsilon = 1e-9;

@@ -37134,3 +37134,428 @@ Object {
   },
 }
 `;
+
+exports[`Parser parses the 'let expression' inside the ternary expression 1`] = `
+ScadFile {
+  "pos": CodeLocation {
+    "char": 0,
+    "col": 0,
+    "file": CodeFile {
+      "code": "
+    x = 0 ? 1 : let(a = 5) a;
+    ",
+      "path": "<test>",
+    },
+    "line": 0,
+  },
+  "statements": Array [
+    AssignmentNode {
+      "name": "x",
+      "pos": CodeLocation {
+        "char": 8,
+        "col": 7,
+        "file": CodeFile {
+          "code": "
+    x = 0 ? 1 : let(a = 5) a;
+    ",
+          "path": "<test>",
+        },
+        "line": 1,
+      },
+      "tokens": Object {
+        "equals": Token {
+          "extraTokens": Array [],
+          "lexeme": "=",
+          "pos": CodeLocation {
+            "char": 8,
+            "col": 7,
+            "file": CodeFile {
+              "code": "
+    x = 0 ? 1 : let(a = 5) a;
+    ",
+              "path": "<test>",
+            },
+            "line": 1,
+          },
+          "type": 24,
+        },
+        "name": LiteralToken {
+          "extraTokens": Array [
+            NewLineExtraToken {
+              "pos": CodeLocation {
+                "char": 1,
+                "col": 0,
+                "file": CodeFile {
+                  "code": "
+    x = 0 ? 1 : let(a = 5) a;
+    ",
+                  "path": "<test>",
+                },
+                "line": 1,
+              },
+            },
+          ],
+          "lexeme": "x",
+          "pos": CodeLocation {
+            "char": 6,
+            "col": 5,
+            "file": CodeFile {
+              "code": "
+    x = 0 ? 1 : let(a = 5) a;
+    ",
+              "path": "<test>",
+            },
+            "line": 1,
+          },
+          "type": 12,
+          "value": "x",
+        },
+        "semicolon": Token {
+          "extraTokens": Array [],
+          "lexeme": ";",
+          "pos": CodeLocation {
+            "char": 30,
+            "col": 29,
+            "file": CodeFile {
+              "code": "
+    x = 0 ? 1 : let(a = 5) a;
+    ",
+              "path": "<test>",
+            },
+            "line": 1,
+          },
+          "type": 39,
+        },
+        "trailingCommas": null,
+      },
+      "value": TernaryExpr {
+        "cond": LiteralExpr {
+          "pos": CodeLocation {
+            "char": 12,
+            "col": 11,
+            "file": CodeFile {
+              "code": "
+    x = 0 ? 1 : let(a = 5) a;
+    ",
+              "path": "<test>",
+            },
+            "line": 1,
+          },
+          "tokens": Object {
+            "literalToken": LiteralToken {
+              "extraTokens": Array [],
+              "lexeme": "0",
+              "pos": CodeLocation {
+                "char": 10,
+                "col": 9,
+                "file": CodeFile {
+                  "code": "
+    x = 0 ? 1 : let(a = 5) a;
+    ",
+                  "path": "<test>",
+                },
+                "line": 1,
+              },
+              "type": 14,
+              "value": 0,
+            },
+          },
+          "value": 0,
+        },
+        "elseExpr": LetExpr {
+          "args": Array [
+            AssignmentNode {
+              "name": "a",
+              "pos": CodeLocation {
+                "char": 27,
+                "col": 26,
+                "file": CodeFile {
+                  "code": "
+    x = 0 ? 1 : let(a = 5) a;
+    ",
+                  "path": "<test>",
+                },
+                "line": 1,
+              },
+              "tokens": Object {
+                "equals": Token {
+                  "extraTokens": Array [],
+                  "lexeme": "=",
+                  "pos": CodeLocation {
+                    "char": 24,
+                    "col": 23,
+                    "file": CodeFile {
+                      "code": "
+    x = 0 ? 1 : let(a = 5) a;
+    ",
+                      "path": "<test>",
+                    },
+                    "line": 1,
+                  },
+                  "type": 24,
+                },
+                "name": LiteralToken {
+                  "extraTokens": Array [],
+                  "lexeme": "a",
+                  "pos": CodeLocation {
+                    "char": 22,
+                    "col": 21,
+                    "file": CodeFile {
+                      "code": "
+    x = 0 ? 1 : let(a = 5) a;
+    ",
+                      "path": "<test>",
+                    },
+                    "line": 1,
+                  },
+                  "type": 12,
+                  "value": "a",
+                },
+                "semicolon": null,
+                "trailingCommas": Array [],
+              },
+              "value": LiteralExpr {
+                "pos": CodeLocation {
+                  "char": 27,
+                  "col": 26,
+                  "file": CodeFile {
+                    "code": "
+    x = 0 ? 1 : let(a = 5) a;
+    ",
+                    "path": "<test>",
+                  },
+                  "line": 1,
+                },
+                "tokens": Object {
+                  "literalToken": LiteralToken {
+                    "extraTokens": Array [],
+                    "lexeme": "5",
+                    "pos": CodeLocation {
+                      "char": 26,
+                      "col": 25,
+                      "file": CodeFile {
+                        "code": "
+    x = 0 ? 1 : let(a = 5) a;
+    ",
+                        "path": "<test>",
+                      },
+                      "line": 1,
+                    },
+                    "type": 14,
+                    "value": 5,
+                  },
+                },
+                "value": 5,
+              },
+            },
+          ],
+          "expr": LookupExpr {
+            "name": "a",
+            "pos": CodeLocation {
+              "char": 30,
+              "col": 29,
+              "file": CodeFile {
+                "code": "
+    x = 0 ? 1 : let(a = 5) a;
+    ",
+                "path": "<test>",
+              },
+              "line": 1,
+            },
+            "tokens": Object {
+              "identifier": LiteralToken {
+                "extraTokens": Array [],
+                "lexeme": "a",
+                "pos": CodeLocation {
+                  "char": 29,
+                  "col": 28,
+                  "file": CodeFile {
+                    "code": "
+    x = 0 ? 1 : let(a = 5) a;
+    ",
+                    "path": "<test>",
+                  },
+                  "line": 1,
+                },
+                "type": 12,
+                "value": "a",
+              },
+            },
+          },
+          "pos": CodeLocation {
+            "char": 20,
+            "col": 19,
+            "file": CodeFile {
+              "code": "
+    x = 0 ? 1 : let(a = 5) a;
+    ",
+              "path": "<test>",
+            },
+            "line": 1,
+          },
+          "tokens": Object {
+            "firstParen": Token {
+              "extraTokens": Array [],
+              "lexeme": "(",
+              "pos": CodeLocation {
+                "char": 21,
+                "col": 20,
+                "file": CodeFile {
+                  "code": "
+    x = 0 ? 1 : let(a = 5) a;
+    ",
+                  "path": "<test>",
+                },
+                "line": 1,
+              },
+              "type": 33,
+            },
+            "name": Token {
+              "extraTokens": Array [],
+              "lexeme": "let",
+              "pos": CodeLocation {
+                "char": 20,
+                "col": 19,
+                "file": CodeFile {
+                  "code": "
+    x = 0 ? 1 : let(a = 5) a;
+    ",
+                  "path": "<test>",
+                },
+                "line": 1,
+              },
+              "type": 7,
+            },
+            "secondParen": Token {
+              "extraTokens": Array [],
+              "lexeme": ")",
+              "pos": CodeLocation {
+                "char": 27,
+                "col": 26,
+                "file": CodeFile {
+                  "code": "
+    x = 0 ? 1 : let(a = 5) a;
+    ",
+                  "path": "<test>",
+                },
+                "line": 1,
+              },
+              "type": 34,
+            },
+          },
+        },
+        "ifExpr": LiteralExpr {
+          "pos": CodeLocation {
+            "char": 16,
+            "col": 15,
+            "file": CodeFile {
+              "code": "
+    x = 0 ? 1 : let(a = 5) a;
+    ",
+              "path": "<test>",
+            },
+            "line": 1,
+          },
+          "tokens": Object {
+            "literalToken": LiteralToken {
+              "extraTokens": Array [],
+              "lexeme": "1",
+              "pos": CodeLocation {
+                "char": 14,
+                "col": 13,
+                "file": CodeFile {
+                  "code": "
+    x = 0 ? 1 : let(a = 5) a;
+    ",
+                  "path": "<test>",
+                },
+                "line": 1,
+              },
+              "type": 14,
+              "value": 1,
+            },
+          },
+          "value": 1,
+        },
+        "pos": CodeLocation {
+          "char": 12,
+          "col": 11,
+          "file": CodeFile {
+            "code": "
+    x = 0 ? 1 : let(a = 5) a;
+    ",
+            "path": "<test>",
+          },
+          "line": 1,
+        },
+        "tokens": Object {
+          "colon": Token {
+            "extraTokens": Array [],
+            "lexeme": ":",
+            "pos": CodeLocation {
+              "char": 16,
+              "col": 15,
+              "file": CodeFile {
+                "code": "
+    x = 0 ? 1 : let(a = 5) a;
+    ",
+                "path": "<test>",
+              },
+              "line": 1,
+            },
+            "type": 43,
+          },
+          "questionMark": Token {
+            "extraTokens": Array [],
+            "lexeme": "?",
+            "pos": CodeLocation {
+              "char": 12,
+              "col": 11,
+              "file": CodeFile {
+                "code": "
+    x = 0 ? 1 : let(a = 5) a;
+    ",
+                "path": "<test>",
+              },
+              "line": 1,
+            },
+            "type": 42,
+          },
+        },
+      },
+    },
+  ],
+  "tokens": Object {
+    "eot": Token {
+      "extraTokens": Array [
+        NewLineExtraToken {
+          "pos": CodeLocation {
+            "char": 31,
+            "col": 0,
+            "file": CodeFile {
+              "code": "
+    x = 0 ? 1 : let(a = 5) a;
+    ",
+              "path": "<test>",
+            },
+            "line": 2,
+          },
+        },
+      ],
+      "lexeme": " ",
+      "pos": CodeLocation {
+        "char": 35,
+        "col": 4,
+        "file": CodeFile {
+          "code": "
+    x = 0 ? 1 : let(a = 5) a;
+    ",
+          "path": "<test>",
+        },
+        "line": 2,
+      },
+      "type": 1,
+    },
+  },
+}
+`;

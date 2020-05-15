@@ -18,7 +18,7 @@ import {
   MemberLookupExpr,
   RangeExpr,
   UnaryOpExpr,
-  VectorExpr
+  VectorExpr,
 } from "./ast/expressions";
 import {
   BlockStmt,
@@ -26,7 +26,7 @@ import {
   ModuleDeclarationStmt,
   ModuleInstantiationStmt,
   NoopStmt,
-  UseStmt
+  UseStmt,
 } from "./ast/statements";
 import CodeFile from "./CodeFile";
 import CodeLocation from "./CodeLocation";
@@ -228,7 +228,7 @@ describe("Parser", () => {
       "!": "tagRoot",
       "#": "tagHighlight",
       "%": "tagBackground",
-      "*": "tagDisabled"
+      "*": "tagDisabled",
     };
     for (const tagToken of Object.keys(tags)) {
       it(`parses the '${tagToken}' tag`, () => {
@@ -885,6 +885,13 @@ describe("Parser", () => {
     expect(letExpr.args[0].value).toBeInstanceOf(LiteralExpr);
     expect(letExpr.expr).toBeInstanceOf(BinaryOpExpr);
   });
+
+  it("parses the 'let expression' inside the ternary expression", () => {
+    const file = doParse(`
+    x = 0 ? 1 : let(a = 5) a;
+    `);
+    expect(file).toMatchSnapshot();
+  });
   it("parses the 'echo' expression", () => {
     const file = doParse(`
       x = echo("dddd") varz + 10;
@@ -943,9 +950,9 @@ describe("Parser", () => {
       `x = assert(x == 22) varz + 10;`,
       `/*comment*/`,
       `if(true && false || undef) {}`,
-      `//single-line`
+      `//single-line`,
     ]
       .map(doParse)
-      .forEach(f => expect(f.tokens.eot.type).toEqual(TokenType.Eot));
+      .forEach((f) => expect(f.tokens.eot.type).toEqual(TokenType.Eot));
   });
 });
