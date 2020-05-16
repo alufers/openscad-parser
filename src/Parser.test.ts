@@ -35,13 +35,13 @@ import ParsingError from "./errors/ParsingError";
 import Lexer from "./Lexer";
 import Parser from "./Parser";
 import TokenType from "./TokenType";
+import ParsingHelper from "./ParsingHelper";
 
 describe("Parser", () => {
   function doParse(source: string) {
-    const errorCollector = new ErrorCollector();
-    const l = new Lexer(new CodeFile("<test>", source), errorCollector);
-    const parser = new Parser(l.codeFile, l.scan(), errorCollector);
-    const ast = parser.parse();
+    const [ast, errorCollector] = ParsingHelper.parseFile(
+      new CodeFile("<test>", source)
+    );
     errorCollector.throwIfAny();
     return ast;
   }

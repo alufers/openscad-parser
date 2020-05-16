@@ -41,6 +41,7 @@ import Token from "./Token";
 import TokenType from "./TokenType";
 import { statement } from "@babel/template";
 import FormattingConfiguration from "./FormattingConfiguration";
+import ErrorNode from "./ast/ErrorNode";
 
 export default class ASTPrinter implements ASTVisitor<string> {
   indentLevel = 0;
@@ -54,6 +55,9 @@ export default class ASTPrinter implements ASTVisitor<string> {
   };
 
   constructor(public config: FormattingConfiguration) {}
+  visitErrorNode(n: ErrorNode): string {
+    throw new Error("Cannot pretty print ast with an error node.");
+  }
 
   visitScadFile(n: ScadFile): string {
     let source = "";

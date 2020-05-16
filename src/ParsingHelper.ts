@@ -26,7 +26,7 @@ export default class ParsingHelper {
       ast = parser.parse();
     } catch (e) {}
     if (errorCollector.hasErrors()) {
-      return [null, errorCollector];
+      return [ast, errorCollector];
     }
     return [ast, errorCollector];
   }

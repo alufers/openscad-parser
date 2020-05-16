@@ -31,6 +31,7 @@ import {
   IfElseStatement,
   NoopStmt
 } from "./statements";
+import ErrorNode from "./ErrorNode";
 
 export default interface ASTVisitor<R = void> {
   visitScadFile(n: ScadFile): R;
@@ -61,4 +62,5 @@ export default interface ASTVisitor<R = void> {
   visitBlockStmt(n: BlockStmt): R;
   visitNoopStmt(n: NoopStmt): R;
   visitIfElseStatement(n: IfElseStatement): R;
+  visitErrorNode(n: ErrorNode): R;
 }
