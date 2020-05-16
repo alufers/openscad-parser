@@ -1,13 +1,9 @@
-import {
-  CodeFile,
-  Lexer,
-  ErrorCollector,
-  Token,
-  Parser,
-  ASTPrinter,
-  FormattingConfiguration,
-  ScadFile,
-} from ".";
+import CodeFile from "./CodeFile";
+import ScadFile from "./ast/ScadFile";
+import ErrorCollector from "./ErrorCollector";
+import Lexer from "./Lexer";
+import Token from "./Token";
+import Parser from "./Parser";
 
 export default class ParsingHelper {
   static parseFile(f: CodeFile): [ScadFile | null, ErrorCollector] {

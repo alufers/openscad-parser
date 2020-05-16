@@ -24,6 +24,8 @@ export class UseStmt extends Statement {
     public filename: string,
     public tokens: {
       useKeyword: Token;
+      startChevron: Token;
+      endChevron: Token;
     }
   ) {
     super(pos);
@@ -119,7 +121,7 @@ export class FunctionDeclarationStmt extends Statement {
     public definitionArgs: AssignmentNode[],
     public expr: Expression,
     public tokens: {
-      functionKeyword: Token,
+      functionKeyword: Token;
       name: Token;
       firstParen: Token;
       secondParen: Token;

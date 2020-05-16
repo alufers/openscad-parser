@@ -76,6 +76,9 @@ describe("ASTVisitor", () => {
     const visitNoopStmt = jest.fn();
     const visitIfElseStatement = jest.fn();
     class SampleVisitor implements ASTVisitor<void> {
+      visitErrorNode(n: import("./ErrorNode").default): void {
+        throw new Error("Method not implemented.");
+      }
       visitScadFile(n: ScadFile) {
         visitScadFile(); // call the mocked function so that jest knows it has been called
         expect(n).toBeInstanceOf(ScadFile);

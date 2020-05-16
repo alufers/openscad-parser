@@ -125,3 +125,12 @@ export class ConsumptionParsingError extends UnexpectedTokenParsingError {
     super(pos, real, `, expected ${friendlyTokenNames[expected]} ${where}.`);
   }
 }
+
+/**
+ * @category Error
+ */
+export class UnexpectedCommentBeforeUseChevron extends ParsingError {
+  constructor(pos: CodeLocation) {
+    super(pos, `Comments are illegal before '<' in the use statement.`);
+  }
+}

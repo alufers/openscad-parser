@@ -203,13 +203,20 @@ export default class ASTPrinter implements ASTVisitor<string> {
     let source = "";
     source += this.stringifyExtraTokens(n.tokens.firstBracket);
     source += "[";
+    let commaI = 0;
     for (let i = 0; i < n.children.length; i++) {
       const child = n.children[i];
       source += child.accept(this);
       if (i < n.children.length - 1) {
+        source += this.stringifyExtraTokens(n.tokens.commas[commaI]);
+        commaI++;
         source += ", ";
       }
     }
+    for (; commaI < n.tokens.commas.length; commaI++) {
+      source += this.stringifyExtraTokens(n.tokens.commas[commaI]);
+    }
+
     source += this.stringifyExtraTokens(n.tokens.secondBracket);
     source += "]";
     return source;
@@ -398,7 +405,12 @@ export default class ASTPrinter implements ASTVisitor<string> {
   visitUseStmt(n: UseStmt): string {
     let source = "";
     source += this.stringifyExtraTokens(n.tokens.useKeyword);
-    source += "use <" + n.filename + ">" + this.newLine();
+    source +=
+      "use " +
+      this.stringifyExtraTokens(n.tokens.startChevron) +
+      " <" +
+      n.filename;
+    ">" + this.newLine();
     return source;
   }
   visitModuleInstantiationStmt(n: ModuleInstantiationStmt): string {

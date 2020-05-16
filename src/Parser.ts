@@ -49,12 +49,14 @@ import {
   UnterminatedParametersListParsingError,
   UnterminatedUseStatementParsingError,
   UnterminatedVectorExpressionParsingError,
+  UnexpectedCommentBeforeUseChevron,
 } from "./errors/parsingErrors";
 import keywords from "./keywords";
 import LiteralToken from "./LiteralToken";
 import Token from "./Token";
 import TokenType from "./TokenType";
-import { ErrorNode } from ".";
+import ErrorNode from "./ast/ErrorNode";
+import { MultiLineComment, SingleLineComment } from "./extraTokens";
 
 const moduleInstantiationTagTokens = [
   TokenType.Bang,
@@ -113,7 +115,20 @@ export default class Parser {
     while (!this.isAtEnd()) {
       if (this.matchToken(TokenType.Use)) {
         const useKeyword = this.previous();
-        const beginning = this.consume(TokenType.Less, "after use");
+        const startChevron = this.consume(TokenType.Less, "after use");
+        // The openscad parser does not allow putting comments like this: `use /* ddd*/ <file.scad>`
+        // We must check that and report an error
+        if (
+          startChevron.extraTokens.some(
+            (t) =>
+              t instanceof MultiLineComment || t instanceof SingleLineComment
+          )
+        ) {
+          // we don't throw here since this is not a fatal error and it will not mess up the parser, just a openscad quirk
+          this.errorCollector.reportError(
+            new UnexpectedCommentBeforeUseChevron(startChevron.pos)
+          );
+        }
         while (!this.checkToken(TokenType.Greater) && !this.isAtEnd()) {
           this.advance();
         }
@@ -123,15 +138,18 @@ export default class Parser {
           );
         }
         const filename = this.code.code.substring(
-          beginning.pos.char,
-          this.previous().pos.char
+          startChevron.pos.char,
+          this.peek().pos.char - 1 // we use  this.peek().pos.char - 1 to include any comments befor the '>' toke
         );
+
+        const endChevron = this.advance(); // advance the '>' token
         statements.push(
           new UseStmt(this.getLocation(), filename, {
             useKeyword,
+            startChevron: startChevron,
+            endChevron: endChevron,
           })
         );
-        this.advance(); // advance the '>' token
       } else {
         statements.push(this.statement());
       }
@@ -879,6 +897,7 @@ export default class Parser {
       secondBracket: null,
     });
     if (this.matchToken(TokenType.Comma)) {
+      vectorLiteral.tokens.commas.push(this.previous()); // add the comma to the tokens list, because we matchedIt
       this.consumeUselessCommas(vectorLiteral.tokens.commas);
       if (this.matchToken(TokenType.RightBracket)) {
         vectorLiteral.tokens.secondBracket = this.previous();
