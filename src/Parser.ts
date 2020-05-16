@@ -916,6 +916,7 @@ export default class Parser {
           break;
         }
         this.consume(TokenType.Comma, "after vector literal element");
+        vectorLiteral.tokens.commas.push(this.previous()); // we musn't forget about adding the comma to the array since it may contain comments
         this.consumeUselessCommas(vectorLiteral.tokens.commas);
         if (this.matchToken(TokenType.RightBracket)) {
           vectorLiteral.tokens.secondBracket = this.previous();
@@ -923,11 +924,11 @@ export default class Parser {
         }
       }
     } else {
-      vectorLiteral.tokens.secondBracket = this.previous();
       this.consume(
         TokenType.RightBracket,
         "after the only vector expression element"
       );
+      vectorLiteral.tokens.secondBracket = this.previous();
     }
 
     return vectorLiteral;

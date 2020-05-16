@@ -396,9 +396,9 @@ Object {
           "secondBracket": Object {
             "__c": "Token",
             "extraTokens": Array [],
-            "lexeme": "true",
+            "lexeme": "]",
             "pos": null,
-            "type": 15,
+            "type": 36,
           },
         },
       },
@@ -2176,12 +2176,11 @@ Object {
                         "type": 35,
                       },
                       "secondBracket": Object {
-                        "__c": "LiteralToken",
+                        "__c": "Token",
                         "extraTokens": Array [],
-                        "lexeme": "i",
+                        "lexeme": "]",
                         "pos": null,
-                        "type": 12,
-                        "value": "i",
+                        "type": 36,
                       },
                     },
                   },
@@ -2558,6 +2557,13 @@ Object {
                             "pos": null,
                             "type": 40,
                           },
+                          Object {
+                            "__c": "Token",
+                            "extraTokens": Array [],
+                            "lexeme": ",",
+                            "pos": null,
+                            "type": 40,
+                          },
                         ],
                         "firstBracket": Object {
                           "__c": "Token",
@@ -2631,6 +2637,13 @@ Object {
                       "tokens": Object {
                         "__c": "Object",
                         "commas": Array [
+                          Object {
+                            "__c": "Token",
+                            "extraTokens": Array [],
+                            "lexeme": ",",
+                            "pos": null,
+                            "type": 40,
+                          },
                           Object {
                             "__c": "Token",
                             "extraTokens": Array [],
@@ -5371,17 +5384,16 @@ Object {
             "type": 35,
           },
           "secondBracket": Object {
-            "__c": "LiteralToken",
+            "__c": "Token",
             "extraTokens": Array [
               Object {
                 "__c": "NewLineExtraToken",
                 "pos": null,
               },
             ],
-            "lexeme": "i",
+            "lexeme": "]",
             "pos": null,
-            "type": 12,
-            "value": "i",
+            "type": 36,
           },
         },
       },
@@ -6932,12 +6944,11 @@ Object {
                     "type": 35,
                   },
                   "secondBracket": Object {
-                    "__c": "LiteralToken",
+                    "__c": "Token",
                     "extraTokens": Array [],
-                    "lexeme": "i",
+                    "lexeme": "]",
                     "pos": null,
-                    "type": 12,
-                    "value": "i",
+                    "type": 36,
                   },
                 },
               },
@@ -8808,12 +8819,11 @@ Object {
                         "type": 35,
                       },
                       "secondBracket": Object {
-                        "__c": "LiteralToken",
+                        "__c": "Token",
                         "extraTokens": Array [],
-                        "lexeme": "i",
+                        "lexeme": "]",
                         "pos": null,
-                        "type": 12,
-                        "value": "i",
+                        "type": 36,
                       },
                     },
                   },
@@ -9448,6 +9458,13 @@ Object {
                               "pos": null,
                               "type": 40,
                             },
+                            Object {
+                              "__c": "Token",
+                              "extraTokens": Array [],
+                              "lexeme": ",",
+                              "pos": null,
+                              "type": 40,
+                            },
                           ],
                           "firstBracket": Object {
                             "__c": "Token",
@@ -9526,6 +9543,13 @@ Object {
                         "tokens": Object {
                           "__c": "Object",
                           "commas": Array [
+                            Object {
+                              "__c": "Token",
+                              "extraTokens": Array [],
+                              "lexeme": ",",
+                              "pos": null,
+                              "type": 40,
+                            },
                             Object {
                               "__c": "Token",
                               "extraTokens": Array [],
@@ -9618,6 +9642,13 @@ Object {
                               "pos": null,
                               "type": 40,
                             },
+                            Object {
+                              "__c": "Token",
+                              "extraTokens": Array [],
+                              "lexeme": ",",
+                              "pos": null,
+                              "type": 40,
+                            },
                           ],
                           "firstBracket": Object {
                             "__c": "Token",
@@ -9696,6 +9727,13 @@ Object {
                         "tokens": Object {
                           "__c": "Object",
                           "commas": Array [
+                            Object {
+                              "__c": "Token",
+                              "extraTokens": Array [],
+                              "lexeme": ",",
+                              "pos": null,
+                              "type": 40,
+                            },
                             Object {
                               "__c": "Token",
                               "extraTokens": Array [],
@@ -9730,6 +9768,27 @@ Object {
                     "tokens": Object {
                       "__c": "Object",
                       "commas": Array [
+                        Object {
+                          "__c": "Token",
+                          "extraTokens": Array [],
+                          "lexeme": ",",
+                          "pos": null,
+                          "type": 40,
+                        },
+                        Object {
+                          "__c": "Token",
+                          "extraTokens": Array [],
+                          "lexeme": ",",
+                          "pos": null,
+                          "type": 40,
+                        },
+                        Object {
+                          "__c": "Token",
+                          "extraTokens": Array [],
+                          "lexeme": ",",
+                          "pos": null,
+                          "type": 40,
+                        },
                         Object {
                           "__c": "Token",
                           "extraTokens": Array [],
@@ -10170,9 +10229,9 @@ Object {
                       "secondBracket": Object {
                         "__c": "Token",
                         "extraTokens": Array [],
-                        "lexeme": ")",
+                        "lexeme": "]",
                         "pos": null,
-                        "type": 34,
+                        "type": 36,
                       },
                     },
                   },
@@ -10793,9 +10852,9 @@ Object {
                       "secondBracket": Object {
                         "__c": "Token",
                         "extraTokens": Array [],
-                        "lexeme": ")",
+                        "lexeme": "]",
                         "pos": null,
-                        "type": 34,
+                        "type": 36,
                       },
                     },
                   },
@@ -11247,12 +11306,11 @@ Object {
               "type": 35,
             },
             "secondBracket": Object {
-              "__c": "LiteralToken",
+              "__c": "Token",
               "extraTokens": Array [],
-              "lexeme": "i",
+              "lexeme": "]",
               "pos": null,
-              "type": 12,
-              "value": "i",
+              "type": 36,
             },
           },
         },
@@ -13256,7 +13314,12 @@ Object {
                   },
                   "secondBracket": Object {
                     "__c": "Token",
-                    "extraTokens": Array [],
+                    "extraTokens": Array [
+                      Object {
+                        "__c": "NewLineExtraToken",
+                        "pos": null,
+                      },
+                    ],
                     "lexeme": "]",
                     "pos": null,
                     "type": 36,
@@ -13610,9 +13673,9 @@ Object {
                   "secondBracket": Object {
                     "__c": "Token",
                     "extraTokens": Array [],
-                    "lexeme": ")",
+                    "lexeme": "]",
                     "pos": null,
-                    "type": 34,
+                    "type": 36,
                   },
                 },
               },
@@ -14027,9 +14090,9 @@ Object {
                   "secondBracket": Object {
                     "__c": "Token",
                     "extraTokens": Array [],
-                    "lexeme": ")",
+                    "lexeme": "]",
                     "pos": null,
-                    "type": 34,
+                    "type": 36,
                   },
                 },
               },
@@ -15271,12 +15334,11 @@ Object {
                   "type": 35,
                 },
                 "secondBracket": Object {
-                  "__c": "LiteralToken",
+                  "__c": "Token",
                   "extraTokens": Array [],
-                  "lexeme": "n",
+                  "lexeme": "]",
                   "pos": null,
-                  "type": 12,
-                  "value": "n",
+                  "type": 36,
                 },
               },
             },
@@ -18345,7 +18407,12 @@ Object {
           },
           "secondBracket": Object {
             "__c": "Token",
-            "extraTokens": Array [],
+            "extraTokens": Array [
+              Object {
+                "__c": "NewLineExtraToken",
+                "pos": null,
+              },
+            ],
             "lexeme": "]",
             "pos": null,
             "type": 36,
@@ -18737,17 +18804,16 @@ Object {
             "type": 35,
           },
           "secondBracket": Object {
-            "__c": "LiteralToken",
+            "__c": "Token",
             "extraTokens": Array [
               Object {
                 "__c": "NewLineExtraToken",
                 "pos": null,
               },
             ],
-            "lexeme": "h",
+            "lexeme": "]",
             "pos": null,
-            "type": 12,
-            "value": "h",
+            "type": 36,
           },
         },
       },
@@ -20995,12 +21061,11 @@ Object {
                         "type": 35,
                       },
                       "secondBracket": Object {
-                        "__c": "LiteralToken",
+                        "__c": "Token",
                         "extraTokens": Array [],
-                        "lexeme": "element",
+                        "lexeme": "]",
                         "pos": null,
-                        "type": 12,
-                        "value": "element",
+                        "type": 36,
                       },
                     },
                   },
@@ -21694,17 +21759,16 @@ Object {
             "type": 35,
           },
           "secondBracket": Object {
-            "__c": "LiteralToken",
+            "__c": "Token",
             "extraTokens": Array [
               Object {
                 "__c": "NewLineExtraToken",
                 "pos": null,
               },
             ],
-            "lexeme": "i",
+            "lexeme": "]",
             "pos": null,
-            "type": 12,
-            "value": "i",
+            "type": 36,
           },
         },
       },
@@ -26404,6 +26468,13 @@ Object {
               "pos": null,
               "type": 40,
             },
+            Object {
+              "__c": "Token",
+              "extraTokens": Array [],
+              "lexeme": ",",
+              "pos": null,
+              "type": 40,
+            },
           ],
           "firstBracket": Object {
             "__c": "Token",
@@ -26696,769 +26767,6 @@ Object {
                             "pos": null,
                             "type": 40,
                           },
-                        ],
-                        "firstBracket": Object {
-                          "__c": "Token",
-                          "extraTokens": Array [
-                            Object {
-                              "__c": "NewLineExtraToken",
-                              "pos": null,
-                            },
-                          ],
-                          "lexeme": "[",
-                          "pos": null,
-                          "type": 35,
-                        },
-                        "secondBracket": Object {
-                          "__c": "Token",
-                          "extraTokens": Array [],
-                          "lexeme": "]",
-                          "pos": null,
-                          "type": 36,
-                        },
-                      },
-                    },
-                    Object {
-                      "__c": "VectorExpr",
-                      "children": Array [
-                        Object {
-                          "__c": "UnaryOpExpr",
-                          "operation": 29,
-                          "pos": null,
-                          "right": Object {
-                            "__c": "LiteralExpr",
-                            "pos": null,
-                            "tokens": Object {
-                              "__c": "Object",
-                              "literalToken": Object {
-                                "__c": "LiteralToken",
-                                "extraTokens": Array [],
-                                "lexeme": "1",
-                                "pos": null,
-                                "type": 14,
-                                "value": 1,
-                              },
-                            },
-                            "value": 1,
-                          },
-                          "tokens": Object {
-                            "__c": "Object",
-                            "operator": Object {
-                              "__c": "Token",
-                              "extraTokens": Array [],
-                              "lexeme": "-",
-                              "pos": null,
-                              "type": 29,
-                            },
-                          },
-                        },
-                        Object {
-                          "__c": "LookupExpr",
-                          "name": "phi",
-                          "pos": null,
-                          "tokens": Object {
-                            "__c": "Object",
-                            "identifier": Object {
-                              "__c": "LiteralToken",
-                              "extraTokens": Array [],
-                              "lexeme": "phi",
-                              "pos": null,
-                              "type": 12,
-                              "value": "phi",
-                            },
-                          },
-                        },
-                        Object {
-                          "__c": "LiteralExpr",
-                          "pos": null,
-                          "tokens": Object {
-                            "__c": "Object",
-                            "literalToken": Object {
-                              "__c": "LiteralToken",
-                              "extraTokens": Array [],
-                              "lexeme": "0",
-                              "pos": null,
-                              "type": 14,
-                              "value": 0,
-                            },
-                          },
-                          "value": 0,
-                        },
-                      ],
-                      "pos": null,
-                      "tokens": Object {
-                        "__c": "Object",
-                        "commas": Array [
-                          Object {
-                            "__c": "Token",
-                            "extraTokens": Array [],
-                            "lexeme": ",",
-                            "pos": null,
-                            "type": 40,
-                          },
-                        ],
-                        "firstBracket": Object {
-                          "__c": "Token",
-                          "extraTokens": Array [],
-                          "lexeme": "[",
-                          "pos": null,
-                          "type": 35,
-                        },
-                        "secondBracket": Object {
-                          "__c": "Token",
-                          "extraTokens": Array [],
-                          "lexeme": "]",
-                          "pos": null,
-                          "type": 36,
-                        },
-                      },
-                    },
-                    Object {
-                      "__c": "VectorExpr",
-                      "children": Array [
-                        Object {
-                          "__c": "LiteralExpr",
-                          "pos": null,
-                          "tokens": Object {
-                            "__c": "Object",
-                            "literalToken": Object {
-                              "__c": "LiteralToken",
-                              "extraTokens": Array [],
-                              "lexeme": "1",
-                              "pos": null,
-                              "type": 14,
-                              "value": 1,
-                            },
-                          },
-                          "value": 1,
-                        },
-                        Object {
-                          "__c": "UnaryOpExpr",
-                          "operation": 29,
-                          "pos": null,
-                          "right": Object {
-                            "__c": "LookupExpr",
-                            "name": "phi",
-                            "pos": null,
-                            "tokens": Object {
-                              "__c": "Object",
-                              "identifier": Object {
-                                "__c": "LiteralToken",
-                                "extraTokens": Array [],
-                                "lexeme": "phi",
-                                "pos": null,
-                                "type": 12,
-                                "value": "phi",
-                              },
-                            },
-                          },
-                          "tokens": Object {
-                            "__c": "Object",
-                            "operator": Object {
-                              "__c": "Token",
-                              "extraTokens": Array [],
-                              "lexeme": "-",
-                              "pos": null,
-                              "type": 29,
-                            },
-                          },
-                        },
-                        Object {
-                          "__c": "LiteralExpr",
-                          "pos": null,
-                          "tokens": Object {
-                            "__c": "Object",
-                            "literalToken": Object {
-                              "__c": "LiteralToken",
-                              "extraTokens": Array [],
-                              "lexeme": "0",
-                              "pos": null,
-                              "type": 14,
-                              "value": 0,
-                            },
-                          },
-                          "value": 0,
-                        },
-                      ],
-                      "pos": null,
-                      "tokens": Object {
-                        "__c": "Object",
-                        "commas": Array [
-                          Object {
-                            "__c": "Token",
-                            "extraTokens": Array [],
-                            "lexeme": ",",
-                            "pos": null,
-                            "type": 40,
-                          },
-                        ],
-                        "firstBracket": Object {
-                          "__c": "Token",
-                          "extraTokens": Array [],
-                          "lexeme": "[",
-                          "pos": null,
-                          "type": 35,
-                        },
-                        "secondBracket": Object {
-                          "__c": "Token",
-                          "extraTokens": Array [],
-                          "lexeme": "]",
-                          "pos": null,
-                          "type": 36,
-                        },
-                      },
-                    },
-                    Object {
-                      "__c": "VectorExpr",
-                      "children": Array [
-                        Object {
-                          "__c": "UnaryOpExpr",
-                          "operation": 29,
-                          "pos": null,
-                          "right": Object {
-                            "__c": "LiteralExpr",
-                            "pos": null,
-                            "tokens": Object {
-                              "__c": "Object",
-                              "literalToken": Object {
-                                "__c": "LiteralToken",
-                                "extraTokens": Array [],
-                                "lexeme": "1",
-                                "pos": null,
-                                "type": 14,
-                                "value": 1,
-                              },
-                            },
-                            "value": 1,
-                          },
-                          "tokens": Object {
-                            "__c": "Object",
-                            "operator": Object {
-                              "__c": "Token",
-                              "extraTokens": Array [],
-                              "lexeme": "-",
-                              "pos": null,
-                              "type": 29,
-                            },
-                          },
-                        },
-                        Object {
-                          "__c": "UnaryOpExpr",
-                          "operation": 29,
-                          "pos": null,
-                          "right": Object {
-                            "__c": "LookupExpr",
-                            "name": "phi",
-                            "pos": null,
-                            "tokens": Object {
-                              "__c": "Object",
-                              "identifier": Object {
-                                "__c": "LiteralToken",
-                                "extraTokens": Array [],
-                                "lexeme": "phi",
-                                "pos": null,
-                                "type": 12,
-                                "value": "phi",
-                              },
-                            },
-                          },
-                          "tokens": Object {
-                            "__c": "Object",
-                            "operator": Object {
-                              "__c": "Token",
-                              "extraTokens": Array [],
-                              "lexeme": "-",
-                              "pos": null,
-                              "type": 29,
-                            },
-                          },
-                        },
-                        Object {
-                          "__c": "LiteralExpr",
-                          "pos": null,
-                          "tokens": Object {
-                            "__c": "Object",
-                            "literalToken": Object {
-                              "__c": "LiteralToken",
-                              "extraTokens": Array [],
-                              "lexeme": "0",
-                              "pos": null,
-                              "type": 14,
-                              "value": 0,
-                            },
-                          },
-                          "value": 0,
-                        },
-                      ],
-                      "pos": null,
-                      "tokens": Object {
-                        "__c": "Object",
-                        "commas": Array [
-                          Object {
-                            "__c": "Token",
-                            "extraTokens": Array [],
-                            "lexeme": ",",
-                            "pos": null,
-                            "type": 40,
-                          },
-                        ],
-                        "firstBracket": Object {
-                          "__c": "Token",
-                          "extraTokens": Array [],
-                          "lexeme": "[",
-                          "pos": null,
-                          "type": 35,
-                        },
-                        "secondBracket": Object {
-                          "__c": "Token",
-                          "extraTokens": Array [],
-                          "lexeme": "]",
-                          "pos": null,
-                          "type": 36,
-                        },
-                      },
-                    },
-                    Object {
-                      "__c": "VectorExpr",
-                      "children": Array [
-                        Object {
-                          "__c": "LiteralExpr",
-                          "pos": null,
-                          "tokens": Object {
-                            "__c": "Object",
-                            "literalToken": Object {
-                              "__c": "LiteralToken",
-                              "extraTokens": Array [],
-                              "lexeme": "0",
-                              "pos": null,
-                              "type": 14,
-                              "value": 0,
-                            },
-                          },
-                          "value": 0,
-                        },
-                        Object {
-                          "__c": "LiteralExpr",
-                          "pos": null,
-                          "tokens": Object {
-                            "__c": "Object",
-                            "literalToken": Object {
-                              "__c": "LiteralToken",
-                              "extraTokens": Array [],
-                              "lexeme": "1",
-                              "pos": null,
-                              "type": 14,
-                              "value": 1,
-                            },
-                          },
-                          "value": 1,
-                        },
-                        Object {
-                          "__c": "LookupExpr",
-                          "name": "phi",
-                          "pos": null,
-                          "tokens": Object {
-                            "__c": "Object",
-                            "identifier": Object {
-                              "__c": "LiteralToken",
-                              "extraTokens": Array [],
-                              "lexeme": "phi",
-                              "pos": null,
-                              "type": 12,
-                              "value": "phi",
-                            },
-                          },
-                        },
-                      ],
-                      "pos": null,
-                      "tokens": Object {
-                        "__c": "Object",
-                        "commas": Array [
-                          Object {
-                            "__c": "Token",
-                            "extraTokens": Array [],
-                            "lexeme": ",",
-                            "pos": null,
-                            "type": 40,
-                          },
-                        ],
-                        "firstBracket": Object {
-                          "__c": "Token",
-                          "extraTokens": Array [
-                            Object {
-                              "__c": "NewLineExtraToken",
-                              "pos": null,
-                            },
-                          ],
-                          "lexeme": "[",
-                          "pos": null,
-                          "type": 35,
-                        },
-                        "secondBracket": Object {
-                          "__c": "Token",
-                          "extraTokens": Array [],
-                          "lexeme": "]",
-                          "pos": null,
-                          "type": 36,
-                        },
-                      },
-                    },
-                    Object {
-                      "__c": "VectorExpr",
-                      "children": Array [
-                        Object {
-                          "__c": "LiteralExpr",
-                          "pos": null,
-                          "tokens": Object {
-                            "__c": "Object",
-                            "literalToken": Object {
-                              "__c": "LiteralToken",
-                              "extraTokens": Array [],
-                              "lexeme": "0",
-                              "pos": null,
-                              "type": 14,
-                              "value": 0,
-                            },
-                          },
-                          "value": 0,
-                        },
-                        Object {
-                          "__c": "UnaryOpExpr",
-                          "operation": 29,
-                          "pos": null,
-                          "right": Object {
-                            "__c": "LiteralExpr",
-                            "pos": null,
-                            "tokens": Object {
-                              "__c": "Object",
-                              "literalToken": Object {
-                                "__c": "LiteralToken",
-                                "extraTokens": Array [],
-                                "lexeme": "1",
-                                "pos": null,
-                                "type": 14,
-                                "value": 1,
-                              },
-                            },
-                            "value": 1,
-                          },
-                          "tokens": Object {
-                            "__c": "Object",
-                            "operator": Object {
-                              "__c": "Token",
-                              "extraTokens": Array [],
-                              "lexeme": "-",
-                              "pos": null,
-                              "type": 29,
-                            },
-                          },
-                        },
-                        Object {
-                          "__c": "LookupExpr",
-                          "name": "phi",
-                          "pos": null,
-                          "tokens": Object {
-                            "__c": "Object",
-                            "identifier": Object {
-                              "__c": "LiteralToken",
-                              "extraTokens": Array [],
-                              "lexeme": "phi",
-                              "pos": null,
-                              "type": 12,
-                              "value": "phi",
-                            },
-                          },
-                        },
-                      ],
-                      "pos": null,
-                      "tokens": Object {
-                        "__c": "Object",
-                        "commas": Array [
-                          Object {
-                            "__c": "Token",
-                            "extraTokens": Array [],
-                            "lexeme": ",",
-                            "pos": null,
-                            "type": 40,
-                          },
-                        ],
-                        "firstBracket": Object {
-                          "__c": "Token",
-                          "extraTokens": Array [],
-                          "lexeme": "[",
-                          "pos": null,
-                          "type": 35,
-                        },
-                        "secondBracket": Object {
-                          "__c": "Token",
-                          "extraTokens": Array [],
-                          "lexeme": "]",
-                          "pos": null,
-                          "type": 36,
-                        },
-                      },
-                    },
-                    Object {
-                      "__c": "VectorExpr",
-                      "children": Array [
-                        Object {
-                          "__c": "LiteralExpr",
-                          "pos": null,
-                          "tokens": Object {
-                            "__c": "Object",
-                            "literalToken": Object {
-                              "__c": "LiteralToken",
-                              "extraTokens": Array [],
-                              "lexeme": "0",
-                              "pos": null,
-                              "type": 14,
-                              "value": 0,
-                            },
-                          },
-                          "value": 0,
-                        },
-                        Object {
-                          "__c": "LiteralExpr",
-                          "pos": null,
-                          "tokens": Object {
-                            "__c": "Object",
-                            "literalToken": Object {
-                              "__c": "LiteralToken",
-                              "extraTokens": Array [],
-                              "lexeme": "1",
-                              "pos": null,
-                              "type": 14,
-                              "value": 1,
-                            },
-                          },
-                          "value": 1,
-                        },
-                        Object {
-                          "__c": "UnaryOpExpr",
-                          "operation": 29,
-                          "pos": null,
-                          "right": Object {
-                            "__c": "LookupExpr",
-                            "name": "phi",
-                            "pos": null,
-                            "tokens": Object {
-                              "__c": "Object",
-                              "identifier": Object {
-                                "__c": "LiteralToken",
-                                "extraTokens": Array [],
-                                "lexeme": "phi",
-                                "pos": null,
-                                "type": 12,
-                                "value": "phi",
-                              },
-                            },
-                          },
-                          "tokens": Object {
-                            "__c": "Object",
-                            "operator": Object {
-                              "__c": "Token",
-                              "extraTokens": Array [],
-                              "lexeme": "-",
-                              "pos": null,
-                              "type": 29,
-                            },
-                          },
-                        },
-                      ],
-                      "pos": null,
-                      "tokens": Object {
-                        "__c": "Object",
-                        "commas": Array [
-                          Object {
-                            "__c": "Token",
-                            "extraTokens": Array [],
-                            "lexeme": ",",
-                            "pos": null,
-                            "type": 40,
-                          },
-                        ],
-                        "firstBracket": Object {
-                          "__c": "Token",
-                          "extraTokens": Array [],
-                          "lexeme": "[",
-                          "pos": null,
-                          "type": 35,
-                        },
-                        "secondBracket": Object {
-                          "__c": "Token",
-                          "extraTokens": Array [],
-                          "lexeme": "]",
-                          "pos": null,
-                          "type": 36,
-                        },
-                      },
-                    },
-                    Object {
-                      "__c": "VectorExpr",
-                      "children": Array [
-                        Object {
-                          "__c": "LiteralExpr",
-                          "pos": null,
-                          "tokens": Object {
-                            "__c": "Object",
-                            "literalToken": Object {
-                              "__c": "LiteralToken",
-                              "extraTokens": Array [],
-                              "lexeme": "0",
-                              "pos": null,
-                              "type": 14,
-                              "value": 0,
-                            },
-                          },
-                          "value": 0,
-                        },
-                        Object {
-                          "__c": "UnaryOpExpr",
-                          "operation": 29,
-                          "pos": null,
-                          "right": Object {
-                            "__c": "LiteralExpr",
-                            "pos": null,
-                            "tokens": Object {
-                              "__c": "Object",
-                              "literalToken": Object {
-                                "__c": "LiteralToken",
-                                "extraTokens": Array [],
-                                "lexeme": "1",
-                                "pos": null,
-                                "type": 14,
-                                "value": 1,
-                              },
-                            },
-                            "value": 1,
-                          },
-                          "tokens": Object {
-                            "__c": "Object",
-                            "operator": Object {
-                              "__c": "Token",
-                              "extraTokens": Array [],
-                              "lexeme": "-",
-                              "pos": null,
-                              "type": 29,
-                            },
-                          },
-                        },
-                        Object {
-                          "__c": "UnaryOpExpr",
-                          "operation": 29,
-                          "pos": null,
-                          "right": Object {
-                            "__c": "LookupExpr",
-                            "name": "phi",
-                            "pos": null,
-                            "tokens": Object {
-                              "__c": "Object",
-                              "identifier": Object {
-                                "__c": "LiteralToken",
-                                "extraTokens": Array [],
-                                "lexeme": "phi",
-                                "pos": null,
-                                "type": 12,
-                                "value": "phi",
-                              },
-                            },
-                          },
-                          "tokens": Object {
-                            "__c": "Object",
-                            "operator": Object {
-                              "__c": "Token",
-                              "extraTokens": Array [],
-                              "lexeme": "-",
-                              "pos": null,
-                              "type": 29,
-                            },
-                          },
-                        },
-                      ],
-                      "pos": null,
-                      "tokens": Object {
-                        "__c": "Object",
-                        "commas": Array [
-                          Object {
-                            "__c": "Token",
-                            "extraTokens": Array [],
-                            "lexeme": ",",
-                            "pos": null,
-                            "type": 40,
-                          },
-                        ],
-                        "firstBracket": Object {
-                          "__c": "Token",
-                          "extraTokens": Array [],
-                          "lexeme": "[",
-                          "pos": null,
-                          "type": 35,
-                        },
-                        "secondBracket": Object {
-                          "__c": "Token",
-                          "extraTokens": Array [],
-                          "lexeme": "]",
-                          "pos": null,
-                          "type": 36,
-                        },
-                      },
-                    },
-                    Object {
-                      "__c": "VectorExpr",
-                      "children": Array [
-                        Object {
-                          "__c": "LookupExpr",
-                          "name": "phi",
-                          "pos": null,
-                          "tokens": Object {
-                            "__c": "Object",
-                            "identifier": Object {
-                              "__c": "LiteralToken",
-                              "extraTokens": Array [],
-                              "lexeme": "phi",
-                              "pos": null,
-                              "type": 12,
-                              "value": "phi",
-                            },
-                          },
-                        },
-                        Object {
-                          "__c": "LiteralExpr",
-                          "pos": null,
-                          "tokens": Object {
-                            "__c": "Object",
-                            "literalToken": Object {
-                              "__c": "LiteralToken",
-                              "extraTokens": Array [],
-                              "lexeme": "0",
-                              "pos": null,
-                              "type": 14,
-                              "value": 0,
-                            },
-                          },
-                          "value": 0,
-                        },
-                        Object {
-                          "__c": "LiteralExpr",
-                          "pos": null,
-                          "tokens": Object {
-                            "__c": "Object",
-                            "literalToken": Object {
-                              "__c": "LiteralToken",
-                              "extraTokens": Array [],
-                              "lexeme": "1",
-                              "pos": null,
-                              "type": 14,
-                              "value": 1,
-                            },
-                          },
-                          "value": 1,
-                        },
-                      ],
-                      "pos": null,
-                      "tokens": Object {
-                        "__c": "Object",
-                        "commas": Array [
                           Object {
                             "__c": "Token",
                             "extraTokens": Array [],
@@ -27496,6 +26804,832 @@ Object {
                           "operation": 29,
                           "pos": null,
                           "right": Object {
+                            "__c": "LiteralExpr",
+                            "pos": null,
+                            "tokens": Object {
+                              "__c": "Object",
+                              "literalToken": Object {
+                                "__c": "LiteralToken",
+                                "extraTokens": Array [],
+                                "lexeme": "1",
+                                "pos": null,
+                                "type": 14,
+                                "value": 1,
+                              },
+                            },
+                            "value": 1,
+                          },
+                          "tokens": Object {
+                            "__c": "Object",
+                            "operator": Object {
+                              "__c": "Token",
+                              "extraTokens": Array [],
+                              "lexeme": "-",
+                              "pos": null,
+                              "type": 29,
+                            },
+                          },
+                        },
+                        Object {
+                          "__c": "LookupExpr",
+                          "name": "phi",
+                          "pos": null,
+                          "tokens": Object {
+                            "__c": "Object",
+                            "identifier": Object {
+                              "__c": "LiteralToken",
+                              "extraTokens": Array [],
+                              "lexeme": "phi",
+                              "pos": null,
+                              "type": 12,
+                              "value": "phi",
+                            },
+                          },
+                        },
+                        Object {
+                          "__c": "LiteralExpr",
+                          "pos": null,
+                          "tokens": Object {
+                            "__c": "Object",
+                            "literalToken": Object {
+                              "__c": "LiteralToken",
+                              "extraTokens": Array [],
+                              "lexeme": "0",
+                              "pos": null,
+                              "type": 14,
+                              "value": 0,
+                            },
+                          },
+                          "value": 0,
+                        },
+                      ],
+                      "pos": null,
+                      "tokens": Object {
+                        "__c": "Object",
+                        "commas": Array [
+                          Object {
+                            "__c": "Token",
+                            "extraTokens": Array [],
+                            "lexeme": ",",
+                            "pos": null,
+                            "type": 40,
+                          },
+                          Object {
+                            "__c": "Token",
+                            "extraTokens": Array [],
+                            "lexeme": ",",
+                            "pos": null,
+                            "type": 40,
+                          },
+                        ],
+                        "firstBracket": Object {
+                          "__c": "Token",
+                          "extraTokens": Array [],
+                          "lexeme": "[",
+                          "pos": null,
+                          "type": 35,
+                        },
+                        "secondBracket": Object {
+                          "__c": "Token",
+                          "extraTokens": Array [],
+                          "lexeme": "]",
+                          "pos": null,
+                          "type": 36,
+                        },
+                      },
+                    },
+                    Object {
+                      "__c": "VectorExpr",
+                      "children": Array [
+                        Object {
+                          "__c": "LiteralExpr",
+                          "pos": null,
+                          "tokens": Object {
+                            "__c": "Object",
+                            "literalToken": Object {
+                              "__c": "LiteralToken",
+                              "extraTokens": Array [],
+                              "lexeme": "1",
+                              "pos": null,
+                              "type": 14,
+                              "value": 1,
+                            },
+                          },
+                          "value": 1,
+                        },
+                        Object {
+                          "__c": "UnaryOpExpr",
+                          "operation": 29,
+                          "pos": null,
+                          "right": Object {
+                            "__c": "LookupExpr",
+                            "name": "phi",
+                            "pos": null,
+                            "tokens": Object {
+                              "__c": "Object",
+                              "identifier": Object {
+                                "__c": "LiteralToken",
+                                "extraTokens": Array [],
+                                "lexeme": "phi",
+                                "pos": null,
+                                "type": 12,
+                                "value": "phi",
+                              },
+                            },
+                          },
+                          "tokens": Object {
+                            "__c": "Object",
+                            "operator": Object {
+                              "__c": "Token",
+                              "extraTokens": Array [],
+                              "lexeme": "-",
+                              "pos": null,
+                              "type": 29,
+                            },
+                          },
+                        },
+                        Object {
+                          "__c": "LiteralExpr",
+                          "pos": null,
+                          "tokens": Object {
+                            "__c": "Object",
+                            "literalToken": Object {
+                              "__c": "LiteralToken",
+                              "extraTokens": Array [],
+                              "lexeme": "0",
+                              "pos": null,
+                              "type": 14,
+                              "value": 0,
+                            },
+                          },
+                          "value": 0,
+                        },
+                      ],
+                      "pos": null,
+                      "tokens": Object {
+                        "__c": "Object",
+                        "commas": Array [
+                          Object {
+                            "__c": "Token",
+                            "extraTokens": Array [],
+                            "lexeme": ",",
+                            "pos": null,
+                            "type": 40,
+                          },
+                          Object {
+                            "__c": "Token",
+                            "extraTokens": Array [],
+                            "lexeme": ",",
+                            "pos": null,
+                            "type": 40,
+                          },
+                        ],
+                        "firstBracket": Object {
+                          "__c": "Token",
+                          "extraTokens": Array [],
+                          "lexeme": "[",
+                          "pos": null,
+                          "type": 35,
+                        },
+                        "secondBracket": Object {
+                          "__c": "Token",
+                          "extraTokens": Array [],
+                          "lexeme": "]",
+                          "pos": null,
+                          "type": 36,
+                        },
+                      },
+                    },
+                    Object {
+                      "__c": "VectorExpr",
+                      "children": Array [
+                        Object {
+                          "__c": "UnaryOpExpr",
+                          "operation": 29,
+                          "pos": null,
+                          "right": Object {
+                            "__c": "LiteralExpr",
+                            "pos": null,
+                            "tokens": Object {
+                              "__c": "Object",
+                              "literalToken": Object {
+                                "__c": "LiteralToken",
+                                "extraTokens": Array [],
+                                "lexeme": "1",
+                                "pos": null,
+                                "type": 14,
+                                "value": 1,
+                              },
+                            },
+                            "value": 1,
+                          },
+                          "tokens": Object {
+                            "__c": "Object",
+                            "operator": Object {
+                              "__c": "Token",
+                              "extraTokens": Array [],
+                              "lexeme": "-",
+                              "pos": null,
+                              "type": 29,
+                            },
+                          },
+                        },
+                        Object {
+                          "__c": "UnaryOpExpr",
+                          "operation": 29,
+                          "pos": null,
+                          "right": Object {
+                            "__c": "LookupExpr",
+                            "name": "phi",
+                            "pos": null,
+                            "tokens": Object {
+                              "__c": "Object",
+                              "identifier": Object {
+                                "__c": "LiteralToken",
+                                "extraTokens": Array [],
+                                "lexeme": "phi",
+                                "pos": null,
+                                "type": 12,
+                                "value": "phi",
+                              },
+                            },
+                          },
+                          "tokens": Object {
+                            "__c": "Object",
+                            "operator": Object {
+                              "__c": "Token",
+                              "extraTokens": Array [],
+                              "lexeme": "-",
+                              "pos": null,
+                              "type": 29,
+                            },
+                          },
+                        },
+                        Object {
+                          "__c": "LiteralExpr",
+                          "pos": null,
+                          "tokens": Object {
+                            "__c": "Object",
+                            "literalToken": Object {
+                              "__c": "LiteralToken",
+                              "extraTokens": Array [],
+                              "lexeme": "0",
+                              "pos": null,
+                              "type": 14,
+                              "value": 0,
+                            },
+                          },
+                          "value": 0,
+                        },
+                      ],
+                      "pos": null,
+                      "tokens": Object {
+                        "__c": "Object",
+                        "commas": Array [
+                          Object {
+                            "__c": "Token",
+                            "extraTokens": Array [],
+                            "lexeme": ",",
+                            "pos": null,
+                            "type": 40,
+                          },
+                          Object {
+                            "__c": "Token",
+                            "extraTokens": Array [],
+                            "lexeme": ",",
+                            "pos": null,
+                            "type": 40,
+                          },
+                        ],
+                        "firstBracket": Object {
+                          "__c": "Token",
+                          "extraTokens": Array [],
+                          "lexeme": "[",
+                          "pos": null,
+                          "type": 35,
+                        },
+                        "secondBracket": Object {
+                          "__c": "Token",
+                          "extraTokens": Array [],
+                          "lexeme": "]",
+                          "pos": null,
+                          "type": 36,
+                        },
+                      },
+                    },
+                    Object {
+                      "__c": "VectorExpr",
+                      "children": Array [
+                        Object {
+                          "__c": "LiteralExpr",
+                          "pos": null,
+                          "tokens": Object {
+                            "__c": "Object",
+                            "literalToken": Object {
+                              "__c": "LiteralToken",
+                              "extraTokens": Array [],
+                              "lexeme": "0",
+                              "pos": null,
+                              "type": 14,
+                              "value": 0,
+                            },
+                          },
+                          "value": 0,
+                        },
+                        Object {
+                          "__c": "LiteralExpr",
+                          "pos": null,
+                          "tokens": Object {
+                            "__c": "Object",
+                            "literalToken": Object {
+                              "__c": "LiteralToken",
+                              "extraTokens": Array [],
+                              "lexeme": "1",
+                              "pos": null,
+                              "type": 14,
+                              "value": 1,
+                            },
+                          },
+                          "value": 1,
+                        },
+                        Object {
+                          "__c": "LookupExpr",
+                          "name": "phi",
+                          "pos": null,
+                          "tokens": Object {
+                            "__c": "Object",
+                            "identifier": Object {
+                              "__c": "LiteralToken",
+                              "extraTokens": Array [],
+                              "lexeme": "phi",
+                              "pos": null,
+                              "type": 12,
+                              "value": "phi",
+                            },
+                          },
+                        },
+                      ],
+                      "pos": null,
+                      "tokens": Object {
+                        "__c": "Object",
+                        "commas": Array [
+                          Object {
+                            "__c": "Token",
+                            "extraTokens": Array [],
+                            "lexeme": ",",
+                            "pos": null,
+                            "type": 40,
+                          },
+                          Object {
+                            "__c": "Token",
+                            "extraTokens": Array [],
+                            "lexeme": ",",
+                            "pos": null,
+                            "type": 40,
+                          },
+                        ],
+                        "firstBracket": Object {
+                          "__c": "Token",
+                          "extraTokens": Array [
+                            Object {
+                              "__c": "NewLineExtraToken",
+                              "pos": null,
+                            },
+                          ],
+                          "lexeme": "[",
+                          "pos": null,
+                          "type": 35,
+                        },
+                        "secondBracket": Object {
+                          "__c": "Token",
+                          "extraTokens": Array [],
+                          "lexeme": "]",
+                          "pos": null,
+                          "type": 36,
+                        },
+                      },
+                    },
+                    Object {
+                      "__c": "VectorExpr",
+                      "children": Array [
+                        Object {
+                          "__c": "LiteralExpr",
+                          "pos": null,
+                          "tokens": Object {
+                            "__c": "Object",
+                            "literalToken": Object {
+                              "__c": "LiteralToken",
+                              "extraTokens": Array [],
+                              "lexeme": "0",
+                              "pos": null,
+                              "type": 14,
+                              "value": 0,
+                            },
+                          },
+                          "value": 0,
+                        },
+                        Object {
+                          "__c": "UnaryOpExpr",
+                          "operation": 29,
+                          "pos": null,
+                          "right": Object {
+                            "__c": "LiteralExpr",
+                            "pos": null,
+                            "tokens": Object {
+                              "__c": "Object",
+                              "literalToken": Object {
+                                "__c": "LiteralToken",
+                                "extraTokens": Array [],
+                                "lexeme": "1",
+                                "pos": null,
+                                "type": 14,
+                                "value": 1,
+                              },
+                            },
+                            "value": 1,
+                          },
+                          "tokens": Object {
+                            "__c": "Object",
+                            "operator": Object {
+                              "__c": "Token",
+                              "extraTokens": Array [],
+                              "lexeme": "-",
+                              "pos": null,
+                              "type": 29,
+                            },
+                          },
+                        },
+                        Object {
+                          "__c": "LookupExpr",
+                          "name": "phi",
+                          "pos": null,
+                          "tokens": Object {
+                            "__c": "Object",
+                            "identifier": Object {
+                              "__c": "LiteralToken",
+                              "extraTokens": Array [],
+                              "lexeme": "phi",
+                              "pos": null,
+                              "type": 12,
+                              "value": "phi",
+                            },
+                          },
+                        },
+                      ],
+                      "pos": null,
+                      "tokens": Object {
+                        "__c": "Object",
+                        "commas": Array [
+                          Object {
+                            "__c": "Token",
+                            "extraTokens": Array [],
+                            "lexeme": ",",
+                            "pos": null,
+                            "type": 40,
+                          },
+                          Object {
+                            "__c": "Token",
+                            "extraTokens": Array [],
+                            "lexeme": ",",
+                            "pos": null,
+                            "type": 40,
+                          },
+                        ],
+                        "firstBracket": Object {
+                          "__c": "Token",
+                          "extraTokens": Array [],
+                          "lexeme": "[",
+                          "pos": null,
+                          "type": 35,
+                        },
+                        "secondBracket": Object {
+                          "__c": "Token",
+                          "extraTokens": Array [],
+                          "lexeme": "]",
+                          "pos": null,
+                          "type": 36,
+                        },
+                      },
+                    },
+                    Object {
+                      "__c": "VectorExpr",
+                      "children": Array [
+                        Object {
+                          "__c": "LiteralExpr",
+                          "pos": null,
+                          "tokens": Object {
+                            "__c": "Object",
+                            "literalToken": Object {
+                              "__c": "LiteralToken",
+                              "extraTokens": Array [],
+                              "lexeme": "0",
+                              "pos": null,
+                              "type": 14,
+                              "value": 0,
+                            },
+                          },
+                          "value": 0,
+                        },
+                        Object {
+                          "__c": "LiteralExpr",
+                          "pos": null,
+                          "tokens": Object {
+                            "__c": "Object",
+                            "literalToken": Object {
+                              "__c": "LiteralToken",
+                              "extraTokens": Array [],
+                              "lexeme": "1",
+                              "pos": null,
+                              "type": 14,
+                              "value": 1,
+                            },
+                          },
+                          "value": 1,
+                        },
+                        Object {
+                          "__c": "UnaryOpExpr",
+                          "operation": 29,
+                          "pos": null,
+                          "right": Object {
+                            "__c": "LookupExpr",
+                            "name": "phi",
+                            "pos": null,
+                            "tokens": Object {
+                              "__c": "Object",
+                              "identifier": Object {
+                                "__c": "LiteralToken",
+                                "extraTokens": Array [],
+                                "lexeme": "phi",
+                                "pos": null,
+                                "type": 12,
+                                "value": "phi",
+                              },
+                            },
+                          },
+                          "tokens": Object {
+                            "__c": "Object",
+                            "operator": Object {
+                              "__c": "Token",
+                              "extraTokens": Array [],
+                              "lexeme": "-",
+                              "pos": null,
+                              "type": 29,
+                            },
+                          },
+                        },
+                      ],
+                      "pos": null,
+                      "tokens": Object {
+                        "__c": "Object",
+                        "commas": Array [
+                          Object {
+                            "__c": "Token",
+                            "extraTokens": Array [],
+                            "lexeme": ",",
+                            "pos": null,
+                            "type": 40,
+                          },
+                          Object {
+                            "__c": "Token",
+                            "extraTokens": Array [],
+                            "lexeme": ",",
+                            "pos": null,
+                            "type": 40,
+                          },
+                        ],
+                        "firstBracket": Object {
+                          "__c": "Token",
+                          "extraTokens": Array [],
+                          "lexeme": "[",
+                          "pos": null,
+                          "type": 35,
+                        },
+                        "secondBracket": Object {
+                          "__c": "Token",
+                          "extraTokens": Array [],
+                          "lexeme": "]",
+                          "pos": null,
+                          "type": 36,
+                        },
+                      },
+                    },
+                    Object {
+                      "__c": "VectorExpr",
+                      "children": Array [
+                        Object {
+                          "__c": "LiteralExpr",
+                          "pos": null,
+                          "tokens": Object {
+                            "__c": "Object",
+                            "literalToken": Object {
+                              "__c": "LiteralToken",
+                              "extraTokens": Array [],
+                              "lexeme": "0",
+                              "pos": null,
+                              "type": 14,
+                              "value": 0,
+                            },
+                          },
+                          "value": 0,
+                        },
+                        Object {
+                          "__c": "UnaryOpExpr",
+                          "operation": 29,
+                          "pos": null,
+                          "right": Object {
+                            "__c": "LiteralExpr",
+                            "pos": null,
+                            "tokens": Object {
+                              "__c": "Object",
+                              "literalToken": Object {
+                                "__c": "LiteralToken",
+                                "extraTokens": Array [],
+                                "lexeme": "1",
+                                "pos": null,
+                                "type": 14,
+                                "value": 1,
+                              },
+                            },
+                            "value": 1,
+                          },
+                          "tokens": Object {
+                            "__c": "Object",
+                            "operator": Object {
+                              "__c": "Token",
+                              "extraTokens": Array [],
+                              "lexeme": "-",
+                              "pos": null,
+                              "type": 29,
+                            },
+                          },
+                        },
+                        Object {
+                          "__c": "UnaryOpExpr",
+                          "operation": 29,
+                          "pos": null,
+                          "right": Object {
+                            "__c": "LookupExpr",
+                            "name": "phi",
+                            "pos": null,
+                            "tokens": Object {
+                              "__c": "Object",
+                              "identifier": Object {
+                                "__c": "LiteralToken",
+                                "extraTokens": Array [],
+                                "lexeme": "phi",
+                                "pos": null,
+                                "type": 12,
+                                "value": "phi",
+                              },
+                            },
+                          },
+                          "tokens": Object {
+                            "__c": "Object",
+                            "operator": Object {
+                              "__c": "Token",
+                              "extraTokens": Array [],
+                              "lexeme": "-",
+                              "pos": null,
+                              "type": 29,
+                            },
+                          },
+                        },
+                      ],
+                      "pos": null,
+                      "tokens": Object {
+                        "__c": "Object",
+                        "commas": Array [
+                          Object {
+                            "__c": "Token",
+                            "extraTokens": Array [],
+                            "lexeme": ",",
+                            "pos": null,
+                            "type": 40,
+                          },
+                          Object {
+                            "__c": "Token",
+                            "extraTokens": Array [],
+                            "lexeme": ",",
+                            "pos": null,
+                            "type": 40,
+                          },
+                        ],
+                        "firstBracket": Object {
+                          "__c": "Token",
+                          "extraTokens": Array [],
+                          "lexeme": "[",
+                          "pos": null,
+                          "type": 35,
+                        },
+                        "secondBracket": Object {
+                          "__c": "Token",
+                          "extraTokens": Array [],
+                          "lexeme": "]",
+                          "pos": null,
+                          "type": 36,
+                        },
+                      },
+                    },
+                    Object {
+                      "__c": "VectorExpr",
+                      "children": Array [
+                        Object {
+                          "__c": "LookupExpr",
+                          "name": "phi",
+                          "pos": null,
+                          "tokens": Object {
+                            "__c": "Object",
+                            "identifier": Object {
+                              "__c": "LiteralToken",
+                              "extraTokens": Array [],
+                              "lexeme": "phi",
+                              "pos": null,
+                              "type": 12,
+                              "value": "phi",
+                            },
+                          },
+                        },
+                        Object {
+                          "__c": "LiteralExpr",
+                          "pos": null,
+                          "tokens": Object {
+                            "__c": "Object",
+                            "literalToken": Object {
+                              "__c": "LiteralToken",
+                              "extraTokens": Array [],
+                              "lexeme": "0",
+                              "pos": null,
+                              "type": 14,
+                              "value": 0,
+                            },
+                          },
+                          "value": 0,
+                        },
+                        Object {
+                          "__c": "LiteralExpr",
+                          "pos": null,
+                          "tokens": Object {
+                            "__c": "Object",
+                            "literalToken": Object {
+                              "__c": "LiteralToken",
+                              "extraTokens": Array [],
+                              "lexeme": "1",
+                              "pos": null,
+                              "type": 14,
+                              "value": 1,
+                            },
+                          },
+                          "value": 1,
+                        },
+                      ],
+                      "pos": null,
+                      "tokens": Object {
+                        "__c": "Object",
+                        "commas": Array [
+                          Object {
+                            "__c": "Token",
+                            "extraTokens": Array [],
+                            "lexeme": ",",
+                            "pos": null,
+                            "type": 40,
+                          },
+                          Object {
+                            "__c": "Token",
+                            "extraTokens": Array [],
+                            "lexeme": ",",
+                            "pos": null,
+                            "type": 40,
+                          },
+                        ],
+                        "firstBracket": Object {
+                          "__c": "Token",
+                          "extraTokens": Array [
+                            Object {
+                              "__c": "NewLineExtraToken",
+                              "pos": null,
+                            },
+                          ],
+                          "lexeme": "[",
+                          "pos": null,
+                          "type": 35,
+                        },
+                        "secondBracket": Object {
+                          "__c": "Token",
+                          "extraTokens": Array [],
+                          "lexeme": "]",
+                          "pos": null,
+                          "type": 36,
+                        },
+                      },
+                    },
+                    Object {
+                      "__c": "VectorExpr",
+                      "children": Array [
+                        Object {
+                          "__c": "UnaryOpExpr",
+                          "operation": 29,
+                          "pos": null,
+                          "right": Object {
                             "__c": "LookupExpr",
                             "name": "phi",
                             "pos": null,
@@ -27559,6 +27693,13 @@ Object {
                       "tokens": Object {
                         "__c": "Object",
                         "commas": Array [
+                          Object {
+                            "__c": "Token",
+                            "extraTokens": Array [],
+                            "lexeme": ",",
+                            "pos": null,
+                            "type": 40,
+                          },
                           Object {
                             "__c": "Token",
                             "extraTokens": Array [],
@@ -27661,6 +27802,13 @@ Object {
                             "pos": null,
                             "type": 40,
                           },
+                          Object {
+                            "__c": "Token",
+                            "extraTokens": Array [],
+                            "lexeme": ",",
+                            "pos": null,
+                            "type": 40,
+                          },
                         ],
                         "firstBracket": Object {
                           "__c": "Token",
@@ -27764,6 +27912,13 @@ Object {
                       "tokens": Object {
                         "__c": "Object",
                         "commas": Array [
+                          Object {
+                            "__c": "Token",
+                            "extraTokens": Array [],
+                            "lexeme": ",",
+                            "pos": null,
+                            "type": 40,
+                          },
                           Object {
                             "__c": "Token",
                             "extraTokens": Array [],
@@ -27793,6 +27948,76 @@ Object {
                   "tokens": Object {
                     "__c": "Object",
                     "commas": Array [
+                      Object {
+                        "__c": "Token",
+                        "extraTokens": Array [],
+                        "lexeme": ",",
+                        "pos": null,
+                        "type": 40,
+                      },
+                      Object {
+                        "__c": "Token",
+                        "extraTokens": Array [],
+                        "lexeme": ",",
+                        "pos": null,
+                        "type": 40,
+                      },
+                      Object {
+                        "__c": "Token",
+                        "extraTokens": Array [],
+                        "lexeme": ",",
+                        "pos": null,
+                        "type": 40,
+                      },
+                      Object {
+                        "__c": "Token",
+                        "extraTokens": Array [],
+                        "lexeme": ",",
+                        "pos": null,
+                        "type": 40,
+                      },
+                      Object {
+                        "__c": "Token",
+                        "extraTokens": Array [],
+                        "lexeme": ",",
+                        "pos": null,
+                        "type": 40,
+                      },
+                      Object {
+                        "__c": "Token",
+                        "extraTokens": Array [],
+                        "lexeme": ",",
+                        "pos": null,
+                        "type": 40,
+                      },
+                      Object {
+                        "__c": "Token",
+                        "extraTokens": Array [],
+                        "lexeme": ",",
+                        "pos": null,
+                        "type": 40,
+                      },
+                      Object {
+                        "__c": "Token",
+                        "extraTokens": Array [],
+                        "lexeme": ",",
+                        "pos": null,
+                        "type": 40,
+                      },
+                      Object {
+                        "__c": "Token",
+                        "extraTokens": Array [],
+                        "lexeme": ",",
+                        "pos": null,
+                        "type": 40,
+                      },
+                      Object {
+                        "__c": "Token",
+                        "extraTokens": Array [],
+                        "lexeme": ",",
+                        "pos": null,
+                        "type": 40,
+                      },
                       Object {
                         "__c": "Token",
                         "extraTokens": Array [],
@@ -27934,10 +28159,15 @@ Object {
           },
           "secondBracket": Object {
             "__c": "Token",
-            "extraTokens": Array [],
-            "lexeme": ")",
+            "extraTokens": Array [
+              Object {
+                "__c": "NewLineExtraToken",
+                "pos": null,
+              },
+            ],
+            "lexeme": "]",
             "pos": null,
-            "type": 34,
+            "type": 36,
           },
         },
       },
@@ -28130,9 +28360,9 @@ Object {
           "secondBracket": Object {
             "__c": "Token",
             "extraTokens": Array [],
-            "lexeme": ")",
+            "lexeme": "]",
             "pos": null,
-            "type": 34,
+            "type": 36,
           },
         },
       },
@@ -28669,6 +28899,13 @@ Object {
                           "pos": null,
                           "type": 40,
                         },
+                        Object {
+                          "__c": "Token",
+                          "extraTokens": Array [],
+                          "lexeme": ",",
+                          "pos": null,
+                          "type": 40,
+                        },
                       ],
                       "firstBracket": Object {
                         "__c": "Token",
@@ -28841,6 +29078,13 @@ Object {
                     "tokens": Object {
                       "__c": "Object",
                       "commas": Array [
+                        Object {
+                          "__c": "Token",
+                          "extraTokens": Array [],
+                          "lexeme": ",",
+                          "pos": null,
+                          "type": 40,
+                        },
                         Object {
                           "__c": "Token",
                           "extraTokens": Array [],
@@ -29475,12 +29719,11 @@ Object {
               "type": 35,
             },
             "secondBracket": Object {
-              "__c": "LiteralToken",
+              "__c": "Token",
               "extraTokens": Array [],
-              "lexeme": "v",
+              "lexeme": "]",
               "pos": null,
-              "type": 12,
-              "value": "v",
+              "type": 36,
             },
           },
         },
@@ -30035,12 +30278,11 @@ Object {
               "type": 35,
             },
             "secondBracket": Object {
-              "__c": "LiteralToken",
+              "__c": "Token",
               "extraTokens": Array [],
-              "lexeme": "u",
+              "lexeme": "]",
               "pos": null,
-              "type": 12,
-              "value": "u",
+              "type": 36,
             },
           },
         },
@@ -30218,6 +30460,13 @@ Object {
                     "tokens": Object {
                       "__c": "Object",
                       "commas": Array [
+                        Object {
+                          "__c": "Token",
+                          "extraTokens": Array [],
+                          "lexeme": ",",
+                          "pos": null,
+                          "type": 40,
+                        },
                         Object {
                           "__c": "Token",
                           "extraTokens": Array [],
@@ -30622,12 +30871,11 @@ Object {
               "type": 35,
             },
             "secondBracket": Object {
-              "__c": "LiteralToken",
+              "__c": "Token",
               "extraTokens": Array [],
-              "lexeme": "u",
+              "lexeme": "]",
               "pos": null,
-              "type": 12,
-              "value": "u",
+              "type": 36,
             },
           },
         },
@@ -31043,9 +31291,9 @@ Object {
             "secondBracket": Object {
               "__c": "Token",
               "extraTokens": Array [],
-              "lexeme": ")",
+              "lexeme": "]",
               "pos": null,
-              "type": 34,
+              "type": 36,
             },
           },
         },
@@ -31442,9 +31690,9 @@ Object {
             "secondBracket": Object {
               "__c": "Token",
               "extraTokens": Array [],
-              "lexeme": ")",
+              "lexeme": "]",
               "pos": null,
-              "type": 34,
+              "type": 36,
             },
           },
         },
@@ -33477,12 +33725,11 @@ Object {
                         "type": 35,
                       },
                       "secondBracket": Object {
-                        "__c": "LiteralToken",
+                        "__c": "Token",
                         "extraTokens": Array [],
-                        "lexeme": "hull",
+                        "lexeme": "]",
                         "pos": null,
-                        "type": 12,
-                        "value": "hull",
+                        "type": 36,
                       },
                     },
                   },
@@ -36280,6 +36527,13 @@ Object {
                         "pos": null,
                         "type": 40,
                       },
+                      Object {
+                        "__c": "Token",
+                        "extraTokens": Array [],
+                        "lexeme": ",",
+                        "pos": null,
+                        "type": 40,
+                      },
                     ],
                     "firstBracket": Object {
                       "__c": "Token",
@@ -36462,12 +36716,11 @@ Object {
             "type": 35,
           },
           "secondBracket": Object {
-            "__c": "LiteralToken",
+            "__c": "Token",
             "extraTokens": Array [],
-            "lexeme": "iter",
+            "lexeme": "]",
             "pos": null,
-            "type": 12,
-            "value": "iter",
+            "type": 36,
           },
         },
       },
@@ -36617,6 +36870,13 @@ Object {
                   "tokens": Object {
                     "__c": "Object",
                     "commas": Array [
+                      Object {
+                        "__c": "Token",
+                        "extraTokens": Array [],
+                        "lexeme": ",",
+                        "pos": null,
+                        "type": 40,
+                      },
                       Object {
                         "__c": "Token",
                         "extraTokens": Array [],
@@ -36910,12 +37170,11 @@ Object {
             "type": 35,
           },
           "secondBracket": Object {
-            "__c": "LiteralToken",
+            "__c": "Token",
             "extraTokens": Array [],
-            "lexeme": "iter",
+            "lexeme": "]",
             "pos": null,
-            "type": 12,
-            "value": "iter",
+            "type": 36,
           },
         },
       },
@@ -37094,6 +37353,13 @@ Object {
                   "tokens": Object {
                     "__c": "Object",
                     "commas": Array [
+                      Object {
+                        "__c": "Token",
+                        "extraTokens": Array [],
+                        "lexeme": ",",
+                        "pos": null,
+                        "type": 40,
+                      },
                       Object {
                         "__c": "Token",
                         "extraTokens": Array [],
@@ -37450,12 +37716,11 @@ Object {
             "type": 35,
           },
           "secondBracket": Object {
-            "__c": "LiteralToken",
+            "__c": "Token",
             "extraTokens": Array [],
-            "lexeme": "iter",
+            "lexeme": "]",
             "pos": null,
-            "type": 12,
-            "value": "iter",
+            "type": 36,
           },
         },
       },

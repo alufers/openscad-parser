@@ -7,6 +7,7 @@ import ErrorCollector from "./ErrorCollector";
 import TokenType from "./TokenType";
 import AssignmentNode from "./ast/AssignmentNode";
 import { VectorExpr } from "./ast/expressions";
+import { resolve } from "path";
 
 describe("ASTPrinter", () => {
   function doFormat(source: string) {
@@ -57,28 +58,42 @@ describe("ASTPrinter", () => {
     const [codeWithInjections, injectedStrings] = injectCommentsBetweenTokens(
       source
     );
+      
 
+    // we do two passes, one with all the comments and another one with the problematic ones, this is where we throw errors
     const formatted = doFormat(codeWithInjections);
+    let problematicCode = codeWithInjections;
+    let problematicInjections: string[] = [];
     for (const inj of injectedStrings) {
-      expect(formatted).toEqual(expect.stringContaining(inj));
+      if (formatted.indexOf(inj) !== -1) {
+        // the injection exists in the formatted code se we remove it
+        problematicCode = problematicCode.replace(inj, " ");
+      } else {
+        problematicInjections.push(inj);
+      }
+    }
+    const problematicFormatted = doFormat(problematicCode);
+    if (problematicInjections.length > 0) console.log(problematicCode);
+    for (const prob of problematicInjections) {
+      expect(problematicFormatted).toEqual(expect.stringContaining(prob));
     }
   }
 
-  test.skip("it preserves all comments in a file with all the syntactical elements", () => {
+  test("it preserves all comments in a file with all the syntactical elements", () => {
     doPreserveTest(`
-      use <ddd>
-      function ddd(argv = 10, second = !true) = (10 + 20) * 10;
-      ybyby = x > 10 ? let(v = 200) doSomething() : assert(x = 20) echo("nothing") 5;
-      arr = [20, if(true) each [20:50:30] else [808][0].x];
-      compre = [for(a = [rang1, 2, 3]) let(x = a + 1) [sin(a)],];
-      module the_mod() {
-          echo( [for (a = 0, b = 1;a < 5;a = a + 1, b = b + 2) [ a, b * b ] ] );
-          if(yeah == true) {
-              ;
-          } else {
-  
-          }
-      }
+    use <ddd>
+    function ddd(argv = 10, second = !true) = (10 + 20) * 10;
+    ybyby = x > 10 ? let(v = 200) doSomething() : assert(x = 20) echo("nothing") 5;
+    arr = [20, if(true) each [20:50:30] else [808][0].x];
+    compre = [for(a = [rang1, 2, 3]) let(x = a + 1) [sin(a)],];
+    module the_mod() {
+        echo( [for (a = 0, b = 1;a < 5;a = a + 1, b = b + 2) [ a, b * b ] ] );
+        if(yeah == true) {
+            ;
+        } else {
+
+        }
+    }
     `);
   });
   test("it preserves all comments nearby an use statement", () => {
@@ -87,9 +102,26 @@ describe("ASTPrinter", () => {
       
     `);
   });
-  test("it preserves all comments nearby vectors with trailing comments", () => {
+  test("it preserves all comments nearby vectors", () => {
     doPreserveTest(`
       a = [d,];
     `);
+    doPreserveTest(`
+      a = [d,a,b];
+    `);
+    doPreserveTest(`
+      a = [d];
+    `);
+  });
+  test("it preserves all comments nearby list comprehensions with a for", () => {
+    doPreserveTest(`
+    compre = [for(a = [rang1, 2, 3]) x ];
+    `);
+  });
+
+  test.skip("it preserves comments in ddd.scad", async () => {
+    doPreserveTest(
+      (await CodeFile.load(resolve(__dirname, "testdata/ddd.scad"))).code
+    );
   });
 });
