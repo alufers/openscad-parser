@@ -138,8 +138,8 @@ export default class Parser {
           );
         }
         const filename = this.code.code.substring(
-          startChevron.pos.char,
-          this.peek().pos.char - 1 // we use  this.peek().pos.char - 1 to include any comments befor the '>' toke
+          startChevron.pos.char + 1,
+          this.peek().pos.char // we use  this.peek().pos.char - 1 to include any comments befor the '>' toke
         );
 
         const endChevron = this.advance(); // advance the '>' token

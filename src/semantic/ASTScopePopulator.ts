@@ -214,13 +214,12 @@ export default class ASTScopePopulator implements ASTVisitor<ASTNode> {
     );
   }
   visitBlockStmt(n: BlockStmt): ASTNode {
-    const blk = new BlockStmtWithScope(
-      n.pos,
-      (n.children.map((c) => () =>
-        c.accept(this.copyWithNewNearestScope(blk.scope))
-      ) as unknown) as Statement[],
-      n.tokens
-    );
+    const blk = new BlockStmtWithScope(n.pos, null, n.tokens);
+    blk.scope = new Scope();
+    blk.scope.parent = this.nearestScope;
+    blk.children = (n.children.map((c) => () =>
+      c.accept(this.copyWithNewNearestScope(blk.scope))
+    ) as unknown) as Statement[];
     return blk;
   }
   visitNoopStmt(n: NoopStmt): ASTNode {

@@ -1,7 +1,7 @@
 import CodeFile from "./CodeFile";
 import ASTPinpointer, { BinBefore, BinAfter } from "./ASTPinpointer";
 import CodeLocation from "./CodeLocation";
-import { LiteralExpr, LookupExpr } from "./ast/expressions";
+import { LiteralExpr, LookupExpr, GroupingExpr } from "./ast/expressions";
 import ErrorCollector from "./ErrorCollector";
 import Lexer from "./Lexer";
 import AssignmentNode from "./ast/AssignmentNode";
@@ -75,17 +75,17 @@ describe("ASTPinpointer", () => {
         );
       }
     }
-    const p = new TstClass(new CodeLocation(f, 1));
+    const p = new TstClass(new CodeLocation(f, 0));
     expect(p.testFunc1()).toBeInstanceOf(AssignmentNode);
 
     p.pinpointLocation = new CodeLocation(f, 200);
     expect(p.testFunc1()).toEqual(BinAfter);
 
-    p.pinpointLocation = new CodeLocation(f, 2);
+    p.pinpointLocation = new CodeLocation(f, 1);
     expect(p.testFunc1()).toBeInstanceOf(AssignmentNode);
-    p.pinpointLocation = new CodeLocation(f, 3);
+    p.pinpointLocation = new CodeLocation(f, 2);
     expect(p.testFunc1()).toBeInstanceOf(LiteralExpr);
-    p.pinpointLocation = new CodeLocation(f, 4);
+    p.pinpointLocation = new CodeLocation(f, 3);
     expect(p.testFunc1()).toBeInstanceOf(AssignmentNode);
   });
   it("pinpoints nodes in a simple assignment expression", () => {
@@ -97,9 +97,12 @@ describe("ASTPinpointer", () => {
     const ap = new ASTPinpointer(new CodeLocation(f, 1));
     let theNode = ap.doPinpoint(ast);
     expect(theNode).toBeInstanceOf(AssignmentNode);
-    ap.pinpointLocation = new CodeLocation(f, 3);
+    ap.pinpointLocation = new CodeLocation(f, 2);
     theNode = ap.doPinpoint(ast);
     expect(theNode).toBeInstanceOf(LiteralExpr);
+    ap.pinpointLocation = new CodeLocation(f, 3);
+    theNode = ap.doPinpoint(ast);
+    expect(theNode).toBeInstanceOf(AssignmentNode);
     ap.pinpointLocation = new CodeLocation(f, 4);
     theNode = ap.doPinpoint(ast);
     expect(theNode).toBeInstanceOf(AssignmentNode);
@@ -108,13 +111,23 @@ describe("ASTPinpointer", () => {
     expect(theNode).toBeInstanceOf(AssignmentNode);
     ap.pinpointLocation = new CodeLocation(f, 6);
     theNode = ap.doPinpoint(ast);
-    expect(theNode).toBeInstanceOf(AssignmentNode);
-    ap.pinpointLocation = new CodeLocation(f, 7);
-    theNode = ap.doPinpoint(ast);
     expect(theNode).toBeInstanceOf(LookupExpr);
-    ap.pinpointLocation = new CodeLocation(f, 8);
+    ap.pinpointLocation = new CodeLocation(f, 7);
     theNode = ap.doPinpoint(ast);
     expect(theNode).toBeInstanceOf(AssignmentNode);
   });
-  it
+  it("populates bottomUpHierarchy", () => {
+    const f = new CodeFile("<test>", "x=(10);");
+
+    const [ast, ec] = ParsingHelper.parseFile(f);
+    ec.throwIfAny();
+
+    const ap = new ASTPinpointer(new CodeLocation(f, 4));
+    let theNode = ap.doPinpoint(ast);
+    expect(theNode).toBeInstanceOf(LiteralExpr);
+    expect(ap.bottomUpHierarchy[0]).toBeInstanceOf(LiteralExpr);
+    expect(ap.bottomUpHierarchy[1]).toBeInstanceOf(GroupingExpr);
+    expect(ap.bottomUpHierarchy[2]).toBeInstanceOf(AssignmentNode);
+    expect(ap.bottomUpHierarchy[3]).toBeInstanceOf(ScadFile);
+  });
 });

@@ -414,7 +414,7 @@ Object {
           "pos": null,
         },
       ],
-      "lexeme": " ",
+      "lexeme": "",
       "pos": null,
       "type": 1,
     },
@@ -35738,7 +35738,7 @@ Object {
     "eot": Object {
       "__c": "Token",
       "extraTokens": Array [],
-      "lexeme": "}",
+      "lexeme": "",
       "pos": null,
       "type": 1,
     },
@@ -36171,7 +36171,7 @@ Object {
           "pos": null,
         },
       ],
-      "lexeme": " ",
+      "lexeme": "",
       "pos": null,
       "type": 1,
     },
@@ -36327,7 +36327,7 @@ Object {
           "pos": null,
         },
       ],
-      "lexeme": " ",
+      "lexeme": "",
       "pos": null,
       "type": 1,
     },
@@ -36434,7 +36434,7 @@ Object {
           "pos": null,
         },
       ],
-      "lexeme": " ",
+      "lexeme": "",
       "pos": null,
       "type": 1,
     },
@@ -36784,7 +36784,7 @@ Object {
           "pos": null,
         },
       ],
-      "lexeme": " ",
+      "lexeme": "",
       "pos": null,
       "type": 1,
     },
@@ -37238,7 +37238,7 @@ Object {
           "pos": null,
         },
       ],
-      "lexeme": " ",
+      "lexeme": "",
       "pos": null,
       "type": 1,
     },
@@ -37784,7 +37784,7 @@ Object {
           "pos": null,
         },
       ],
-      "lexeme": " ",
+      "lexeme": "",
       "pos": null,
       "type": 1,
     },
@@ -37809,8 +37809,8 @@ ScadFile {
     AssignmentNode {
       "name": "x",
       "pos": CodeLocation {
-        "char": 8,
-        "col": 7,
+        "char": 7,
+        "col": 6,
         "file": CodeFile {
           "code": "
     x = 0 ? 1 : let(a = 5) a;
@@ -37824,8 +37824,8 @@ ScadFile {
           "extraTokens": Array [],
           "lexeme": "=",
           "pos": CodeLocation {
-            "char": 8,
-            "col": 7,
+            "char": 7,
+            "col": 6,
             "file": CodeFile {
               "code": "
     x = 0 ? 1 : let(a = 5) a;
@@ -37854,8 +37854,8 @@ ScadFile {
           ],
           "lexeme": "x",
           "pos": CodeLocation {
-            "char": 6,
-            "col": 5,
+            "char": 5,
+            "col": 4,
             "file": CodeFile {
               "code": "
     x = 0 ? 1 : let(a = 5) a;
@@ -37871,8 +37871,8 @@ ScadFile {
           "extraTokens": Array [],
           "lexeme": ";",
           "pos": CodeLocation {
-            "char": 30,
-            "col": 29,
+            "char": 29,
+            "col": 28,
             "file": CodeFile {
               "code": "
     x = 0 ? 1 : let(a = 5) a;
@@ -37888,8 +37888,8 @@ ScadFile {
       "value": TernaryExpr {
         "cond": LiteralExpr {
           "pos": CodeLocation {
-            "char": 12,
-            "col": 11,
+            "char": 11,
+            "col": 10,
             "file": CodeFile {
               "code": "
     x = 0 ? 1 : let(a = 5) a;
@@ -37903,8 +37903,8 @@ ScadFile {
               "extraTokens": Array [],
               "lexeme": "0",
               "pos": CodeLocation {
-                "char": 10,
-                "col": 9,
+                "char": 9,
+                "col": 8,
                 "file": CodeFile {
                   "code": "
     x = 0 ? 1 : let(a = 5) a;
@@ -37924,8 +37924,8 @@ ScadFile {
             AssignmentNode {
               "name": "a",
               "pos": CodeLocation {
-                "char": 27,
-                "col": 26,
+                "char": 26,
+                "col": 25,
                 "file": CodeFile {
                   "code": "
     x = 0 ? 1 : let(a = 5) a;
@@ -37939,8 +37939,8 @@ ScadFile {
                   "extraTokens": Array [],
                   "lexeme": "=",
                   "pos": CodeLocation {
-                    "char": 24,
-                    "col": 23,
+                    "char": 23,
+                    "col": 22,
                     "file": CodeFile {
                       "code": "
     x = 0 ? 1 : let(a = 5) a;
@@ -37955,8 +37955,8 @@ ScadFile {
                   "extraTokens": Array [],
                   "lexeme": "a",
                   "pos": CodeLocation {
-                    "char": 22,
-                    "col": 21,
+                    "char": 21,
+                    "col": 20,
                     "file": CodeFile {
                       "code": "
     x = 0 ? 1 : let(a = 5) a;
@@ -37973,8 +37973,8 @@ ScadFile {
               },
               "value": LiteralExpr {
                 "pos": CodeLocation {
-                  "char": 27,
-                  "col": 26,
+                  "char": 26,
+                  "col": 25,
                   "file": CodeFile {
                     "code": "
     x = 0 ? 1 : let(a = 5) a;
@@ -37988,8 +37988,8 @@ ScadFile {
                     "extraTokens": Array [],
                     "lexeme": "5",
                     "pos": CodeLocation {
-                      "char": 26,
-                      "col": 25,
+                      "char": 25,
+                      "col": 24,
                       "file": CodeFile {
                         "code": "
     x = 0 ? 1 : let(a = 5) a;
@@ -38009,8 +38009,8 @@ ScadFile {
           "expr": LookupExpr {
             "name": "a",
             "pos": CodeLocation {
-              "char": 30,
-              "col": 29,
+              "char": 29,
+              "col": 28,
               "file": CodeFile {
                 "code": "
     x = 0 ? 1 : let(a = 5) a;
@@ -38024,8 +38024,8 @@ ScadFile {
                 "extraTokens": Array [],
                 "lexeme": "a",
                 "pos": CodeLocation {
-                  "char": 29,
-                  "col": 28,
+                  "char": 28,
+                  "col": 27,
                   "file": CodeFile {
                     "code": "
     x = 0 ? 1 : let(a = 5) a;
@@ -38040,8 +38040,8 @@ ScadFile {
             },
           },
           "pos": CodeLocation {
-            "char": 20,
-            "col": 19,
+            "char": 17,
+            "col": 16,
             "file": CodeFile {
               "code": "
     x = 0 ? 1 : let(a = 5) a;
@@ -38055,8 +38055,8 @@ ScadFile {
               "extraTokens": Array [],
               "lexeme": "(",
               "pos": CodeLocation {
-                "char": 21,
-                "col": 20,
+                "char": 20,
+                "col": 19,
                 "file": CodeFile {
                   "code": "
     x = 0 ? 1 : let(a = 5) a;
@@ -38071,8 +38071,8 @@ ScadFile {
               "extraTokens": Array [],
               "lexeme": "let",
               "pos": CodeLocation {
-                "char": 20,
-                "col": 19,
+                "char": 17,
+                "col": 16,
                 "file": CodeFile {
                   "code": "
     x = 0 ? 1 : let(a = 5) a;
@@ -38087,8 +38087,8 @@ ScadFile {
               "extraTokens": Array [],
               "lexeme": ")",
               "pos": CodeLocation {
-                "char": 27,
-                "col": 26,
+                "char": 26,
+                "col": 25,
                 "file": CodeFile {
                   "code": "
     x = 0 ? 1 : let(a = 5) a;
@@ -38103,8 +38103,8 @@ ScadFile {
         },
         "ifExpr": LiteralExpr {
           "pos": CodeLocation {
-            "char": 16,
-            "col": 15,
+            "char": 15,
+            "col": 14,
             "file": CodeFile {
               "code": "
     x = 0 ? 1 : let(a = 5) a;
@@ -38118,8 +38118,8 @@ ScadFile {
               "extraTokens": Array [],
               "lexeme": "1",
               "pos": CodeLocation {
-                "char": 14,
-                "col": 13,
+                "char": 13,
+                "col": 12,
                 "file": CodeFile {
                   "code": "
     x = 0 ? 1 : let(a = 5) a;
@@ -38135,8 +38135,8 @@ ScadFile {
           "value": 1,
         },
         "pos": CodeLocation {
-          "char": 12,
-          "col": 11,
+          "char": 11,
+          "col": 10,
           "file": CodeFile {
             "code": "
     x = 0 ? 1 : let(a = 5) a;
@@ -38150,8 +38150,8 @@ ScadFile {
             "extraTokens": Array [],
             "lexeme": ":",
             "pos": CodeLocation {
-              "char": 16,
-              "col": 15,
+              "char": 15,
+              "col": 14,
               "file": CodeFile {
                 "code": "
     x = 0 ? 1 : let(a = 5) a;
@@ -38166,8 +38166,8 @@ ScadFile {
             "extraTokens": Array [],
             "lexeme": "?",
             "pos": CodeLocation {
-              "char": 12,
-              "col": 11,
+              "char": 11,
+              "col": 10,
               "file": CodeFile {
                 "code": "
     x = 0 ? 1 : let(a = 5) a;
@@ -38199,7 +38199,7 @@ ScadFile {
           },
         },
       ],
-      "lexeme": " ",
+      "lexeme": "",
       "pos": CodeLocation {
         "char": 35,
         "col": 4,

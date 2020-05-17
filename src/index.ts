@@ -58,3 +58,5 @@ export * from "./semantic/NodeWithScope";
 export { default as Scope } from "./semantic/Scope";
 export * from "./semantic/Scope";
 export * from "./semantic/nodesWithScopes";
+export { default as CompletionUtil } from "./semantic/CompletionUtil";
+export * from "./semantic/CompletionUtil";

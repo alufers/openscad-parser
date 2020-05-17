@@ -9,13 +9,13 @@ import {
   TooManyEInNumberLiteralLexingError,
   UnexpectedCharacterLexingError,
   UnterminatedMultilineCommentLexingError,
-  UnterminatedStringLiteralLexingError
+  UnterminatedStringLiteralLexingError,
 } from "./errors/lexingErrors";
 import {
   ExtraToken,
   MultiLineComment,
   NewLineExtraToken,
-  SingleLineComment
+  SingleLineComment,
 } from "./extraTokens";
 import keywords from "./keywords";
 import LiteralToken from "./LiteralToken";
@@ -43,6 +43,7 @@ export default class Lexer {
       this.start = this.loc.copy();
       this.scanToken();
     }
+    this.start = this.loc.copy();
     this.addToken(TokenType.Eot);
     return this.tokens;
   }
@@ -287,9 +288,9 @@ export default class Lexer {
     const lexeme = this.codeFile.code.substring(this.start.char, this.loc.char);
     let token;
     if (value != null) {
-      token = new LiteralToken(tokenType, this.loc.copy(), lexeme, value);
+      token = new LiteralToken(tokenType, this.start.copy(), lexeme, value);
     } else {
-      token = new Token(tokenType, this.loc.copy(), lexeme);
+      token = new Token(tokenType, this.start.copy(), lexeme);
     }
     token.extraTokens = this.currentExtraTokens;
     this.currentExtraTokens = [];

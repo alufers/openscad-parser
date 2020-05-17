@@ -56,8 +56,17 @@ type DispatchTokenMix = (Token | (() => PinpointerRet))[];
  * It may return BinAfter or BinBefore if the node cannot be found.
  */
 export default class ASTPinpointer implements ASTVisitor<PinpointerRet> {
+  /**
+   * Contains all the ancestors of the pinpointed nodes. The pinpointed node is always first.
+   */
+  public bottomUpHierarchy: ASTNode[] = [];
   constructor(public pinpointLocation: CodeLocation) {}
+  /**
+   * Returns the node at pinpointLocation and populates bottomUpHierarchy.
+   * @param n The AST (or AST fragment) to search through.
+   */
   doPinpoint(n: ASTNode): PinpointerRet {
+    this.bottomUpHierarchy = [];
     return n.accept(this);
   }
   protected binSearchDispatch(t: DispatchTokenMix, self: ASTNode) {
@@ -78,6 +87,7 @@ export default class ASTPinpointer implements ASTVisitor<PinpointerRet> {
           r = pivot - 1;
           continue;
         }
+        this.bottomUpHierarchy.push(self);
         return self; // yay this is us
       } else if (typeof t[pivot] === "function") {
         const astFunc = t[pivot] as () => PinpointerRet;
@@ -92,6 +102,7 @@ export default class ASTPinpointer implements ASTVisitor<PinpointerRet> {
           continue;
         }
         if (result instanceof ASTNode) {
+          this.bottomUpHierarchy.push(self);
           return result;
         }
       } else {
