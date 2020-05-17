@@ -79,6 +79,7 @@ export class ModuleInstantiationStmt extends Statement
       name: Token;
       firstParen: Token;
       secondParen: Token;
+      modifiersInOrder: Token[];
     }
   ) {
     super(pos);
@@ -190,6 +191,7 @@ export class IfElseStatement extends Statement implements TaggableStatement {
       firstParen: Token;
       secondParen: Token;
       elseKeyword: Token;
+      modifiersInOrder: Token[];
     }
   ) {
     super(pos);

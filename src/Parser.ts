@@ -330,27 +330,35 @@ export default class Parser {
       );
     }
     if (this.previous().type === TokenType.Bang) {
+      const tagToken = this.previous();
       this.advance();
       const mod = this.moduleInstantiationStatement();
       mod.tagRoot = true;
+      mod.tokens.modifiersInOrder.push(tagToken);
       return mod;
     }
     if (this.previous().type === TokenType.Hash) {
+      const tagToken = this.previous();
       this.advance();
       const mod = this.moduleInstantiationStatement();
       mod.tagHighlight = true;
+      mod.tokens.modifiersInOrder.push(tagToken);
       return mod;
     }
     if (this.previous().type === TokenType.Percent) {
+      const tagToken = this.previous();
       this.advance();
       const mod = this.moduleInstantiationStatement();
       mod.tagBackground = true;
+      mod.tokens.modifiersInOrder.push(tagToken);
       return mod;
     }
     if (this.previous().type === TokenType.Star) {
+      const tagToken = this.previous();
       this.advance();
       const mod = this.moduleInstantiationStatement();
       mod.tagDisabled = true;
+      mod.tokens.modifiersInOrder.push(tagToken);
       return mod;
     }
     const mod = this.singleModuleInstantiation();
@@ -378,6 +386,7 @@ export default class Parser {
       elseKeyword,
       firstParen,
       secondParen,
+      modifiersInOrder: [],
     });
   }
   protected singleModuleInstantiation() {
@@ -404,6 +413,7 @@ export default class Parser {
       firstParen,
       name: prev,
       secondParen,
+      modifiersInOrder: [],
     });
   }
   /**
