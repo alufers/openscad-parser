@@ -222,9 +222,9 @@ export default class ASTScopePopulator implements ASTVisitor<ASTNode> {
     const blk = new BlockStmtWithScope(n.pos, null, n.tokens);
     blk.scope = new Scope();
     blk.scope.parent = this.nearestScope;
-    blk.children = (n.children.map((c) => () =>
+    blk.children = n.children.map((c) =>
       c.accept(this.copyWithNewNearestScope(blk.scope))
-    ) as unknown) as Statement[];
+    ) as Statement[];
     return blk;
   }
   visitNoopStmt(n: NoopStmt): ASTNode {

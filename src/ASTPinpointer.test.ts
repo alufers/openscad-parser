@@ -7,7 +7,9 @@ import Lexer from "./Lexer";
 import AssignmentNode from "./ast/AssignmentNode";
 import ParsingHelper from "./ParsingHelper";
 import Token from "./Token";
-import { ScadFile } from ".";
+import ScadFile from "./ast/ScadFile";
+import ASTScopePopulator from "./semantic/ASTScopePopulator";
+import Scope from "./semantic/Scope";
 
 describe("ASTPinpointer", () => {
   it("the internal binsearch dispatch works with simple tokens", () => {
@@ -131,8 +133,6 @@ describe("ASTPinpointer", () => {
     expect(ap.bottomUpHierarchy[3]).toBeInstanceOf(ScadFile);
   });
   it("does not throw when pinpointing in a code file with a module instantation", () => {
-   
-
     const f = new CodeFile("<test>", "cube([10, 10, 10]);");
 
     const [ast, ec] = ParsingHelper.parseFile(f);
@@ -140,5 +140,15 @@ describe("ASTPinpointer", () => {
 
     const ap = new ASTPinpointer(new CodeLocation(f, 4));
     let theNode = ap.doPinpoint(ast);
-  })
+  });
+  it("does not throw when pinpointing a module delcaration in a scope populated ast", async () => {
+    const f = await CodeFile.load("./src/testdata/pinpointer_block_test.scad");
+
+    const [ast, ec] = ParsingHelper.parseFile(f);
+    ec.throwIfAny();
+    const populator = new ASTScopePopulator(new Scope());
+    const astWithScopes = ast.accept(populator);
+    const ap = new ASTPinpointer(new CodeLocation(f, 32));
+    let theNode = ap.doPinpoint(astWithScopes);
+  });
 });
