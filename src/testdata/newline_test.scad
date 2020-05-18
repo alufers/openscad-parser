@@ -1,5 +1,6 @@
-module block() {
-    xd() 
-        xdd() 
-        looooooooooooooooooooooooooooooooong();
+module testowy() {
+
+    module xD() {
+
+    }
 }

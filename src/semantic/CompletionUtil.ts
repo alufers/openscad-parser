@@ -27,6 +27,14 @@ export default class CompletionUtil {
             new CompletionSymbol(CompletionType.VARIABLE, v[1].name)
           );
         }
+        for (const f of hh.scope.functions) {
+          symbols.push(
+            new CompletionSymbol(CompletionType.FUNCTION, f[1].name)
+          );
+        }
+        for (const m of hh.scope.modules) {
+          symbols.push(new CompletionSymbol(CompletionType.MODULE, m[1].name));
+        }
       }
     }
     return symbols;

@@ -35,7 +35,12 @@ import {
 import AssignmentNode from "../ast/AssignmentNode";
 import Scope from "./Scope";
 import ErrorNode from "../ast/ErrorNode";
-import { BlockStmtWithScope } from "./nodesWithScopes";
+import {
+  BlockStmtWithScope,
+  ScadFileWithScope,
+  FunctionDeclarationStmtWithScope,
+  ModuleDeclarationStmtWithScope,
+} from "./nodesWithScopes";
 
 export default class ASTScopePopulator implements ASTVisitor<ASTNode> {
   nearestScope: Scope;
@@ -46,20 +51,25 @@ export default class ASTScopePopulator implements ASTVisitor<ASTNode> {
     return new ASTScopePopulator(newScope);
   }
   visitScadFile(n: ScadFile): ASTNode {
-    return new ScadFile(
+    const sf = new ScadFileWithScope(
       n.pos,
       n.statements.map((stmt) => stmt.accept(this)),
       n.tokens
     );
+    sf.scope = this.nearestScope; // we assume the nearest scope is the root scope, since we are processing the scad file
+    return sf;
   }
   visitAssignmentNode(n: AssignmentNode): ASTNode {
-    this.nearestScope.variables.set(n.name, n);
-    return new AssignmentNode(
+    const an = new AssignmentNode(
       n.pos,
       n.name,
       n.value ? n.value.accept(this) : null,
       n.tokens
     );
+    if (n.name) {
+      this.nearestScope.variables.set(an.name, an);
+    }
+    return an;
   }
   visitUnaryOpExpr(n: UnaryOpExpr): ASTNode {
     return new UnaryOpExpr(n.pos, n.operation, n.right.accept(this), n.tokens);
@@ -201,22 +211,40 @@ export default class ASTScopePopulator implements ASTVisitor<ASTNode> {
     );
   }
   visitModuleDeclarationStmt(n: ModuleDeclarationStmt): ASTNode {
-    return new ModuleDeclarationStmt(
+    const md = new ModuleDeclarationStmtWithScope(
       n.pos,
       n.name,
-      n.definitionArgs.map((a) => a.accept(this)) as AssignmentNode[],
-      n.stmt.accept(this),
+      null,
+      null,
       n.tokens
     );
+    this.nearestScope.modules.set(md.name, md);
+    md.scope = new Scope();
+    md.scope.parent = this.nearestScope;
+    const copy = this.copyWithNewNearestScope(md.scope);
+    md.definitionArgs = n.definitionArgs.map((a) =>
+      a.accept(copy)
+    ) as AssignmentNode[];
+    md.stmt = n.stmt.accept(copy);
+    return md;
   }
   visitFunctionDeclarationStmt(n: FunctionDeclarationStmt): ASTNode {
-    return new FunctionDeclarationStmt(
+    const fDecl = new FunctionDeclarationStmtWithScope(
       n.pos,
       n.name,
-      n.definitionArgs.map((a) => a.accept(this)) as AssignmentNode[],
-      n.expr.accept(this),
+      null,
+      null,
       n.tokens
     );
+    this.nearestScope.functions.set(n.name, fDecl);
+    fDecl.scope = new Scope();
+    fDecl.scope.parent = this.nearestScope;
+    const newPopulator = this.copyWithNewNearestScope(fDecl.scope);
+    fDecl.definitionArgs = n.definitionArgs.map((a) =>
+      a.accept(newPopulator)
+    ) as AssignmentNode[];
+    fDecl.expr = n.expr.accept(newPopulator);
+    return fDecl;
   }
   visitBlockStmt(n: BlockStmt): ASTNode {
     const blk = new BlockStmtWithScope(n.pos, null, n.tokens);
