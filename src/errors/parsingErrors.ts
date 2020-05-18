@@ -118,8 +118,8 @@ export class UnterminatedVectorExpressionParsingError extends ParsingError {
 export class ConsumptionParsingError extends UnexpectedTokenParsingError {
   constructor(
     pos: CodeLocation,
-    real: TokenType,
-    expected: TokenType,
+    public real: TokenType,
+    public expected: TokenType,
     where: string
   ) {
     super(pos, real, `, expected ${friendlyTokenNames[expected]} ${where}.`);

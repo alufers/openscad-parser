@@ -158,6 +158,13 @@ export default class Parser {
     return new ScadFile(new CodeLocation(this.code), statements, { eot });
   }
   protected synchronize(e: ParsingError) {
+    if (e instanceof ConsumptionParsingError) {
+      if (e.expected === TokenType.Semicolon) {
+        if (this.peek().hasNewlineInExtraTokens()) {
+          return;
+        }
+      }
+    }
     if (e instanceof FailedToMatchPrimaryExpressionParsingError) {
       if (this.peek().hasNewlineInExtraTokens()) {
         // assume that when there is a newline we want to parse the next statement
