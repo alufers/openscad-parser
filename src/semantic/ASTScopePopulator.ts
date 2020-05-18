@@ -32,7 +32,7 @@ import {
   UseStmt,
   Statement,
 } from "../ast/statements";
-import AssignmentNode from "../ast/AssignmentNode";
+import AssignmentNode, { AssignmentNodeRole } from "../ast/AssignmentNode";
 import Scope from "./Scope";
 import ErrorNode from "../ast/ErrorNode";
 import {
@@ -64,9 +64,10 @@ export default class ASTScopePopulator implements ASTVisitor<ASTNode> {
       n.pos,
       n.name,
       n.value ? n.value.accept(this) : null,
+      n.role,
       n.tokens
     );
-    if (n.name) {
+    if (n.name && n.role != AssignmentNodeRole.ARGUMENT_ASSIGNMENT) {
       this.nearestScope.variables.set(an.name, an);
     }
     return an;

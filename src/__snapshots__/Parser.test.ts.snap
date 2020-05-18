@@ -307,6 +307,7 @@ Object {
       "__c": "AssignmentNode",
       "name": "x",
       "pos": null,
+      "role": 0,
       "tokens": Object {
         "__c": "Object",
         "equals": Object {
@@ -494,6 +495,7 @@ Object {
           "__c": "AssignmentNode",
           "name": "points",
           "pos": null,
+          "role": 1,
           "tokens": Object {
             "__c": "Object",
             "equals": null,
@@ -530,6 +532,7 @@ Object {
                     "__c": "AssignmentNode",
                     "name": "",
                     "pos": null,
+                    "role": 2,
                     "tokens": Object {
                       "__c": "Object",
                       "equals": null,
@@ -676,6 +679,7 @@ Object {
                   "__c": "AssignmentNode",
                   "name": "",
                   "pos": null,
+                  "role": 2,
                   "tokens": Object {
                     "__c": "Object",
                     "equals": null,
@@ -829,6 +833,7 @@ Object {
                     "__c": "AssignmentNode",
                     "name": "",
                     "pos": null,
+                    "role": 2,
                     "tokens": Object {
                       "__c": "Object",
                       "equals": null,
@@ -1005,6 +1010,7 @@ Object {
                   "__c": "AssignmentNode",
                   "name": "",
                   "pos": null,
+                  "role": 2,
                   "tokens": Object {
                     "__c": "Object",
                     "equals": null,
@@ -1096,6 +1102,7 @@ Object {
                 "__c": "AssignmentNode",
                 "name": "",
                 "pos": null,
+                "role": 2,
                 "tokens": Object {
                   "__c": "Object",
                   "equals": null,
@@ -1407,6 +1414,7 @@ Object {
       "__c": "AssignmentNode",
       "name": "epsilon",
       "pos": null,
+      "role": 0,
       "tokens": Object {
         "__c": "Object",
         "equals": Object {
@@ -1474,6 +1482,7 @@ Object {
           "__c": "AssignmentNode",
           "name": "points",
           "pos": null,
+          "role": 1,
           "tokens": Object {
             "__c": "Object",
             "equals": null,
@@ -1504,6 +1513,7 @@ Object {
                 "__c": "AssignmentNode",
                 "name": "",
                 "pos": null,
+                "role": 2,
                 "tokens": Object {
                   "__c": "Object",
                   "equals": null,
@@ -1610,6 +1620,7 @@ Object {
               "__c": "AssignmentNode",
               "name": "a",
               "pos": null,
+              "role": 2,
               "tokens": Object {
                 "__c": "Object",
                 "equals": Object {
@@ -1672,6 +1683,7 @@ Object {
               "__c": "AssignmentNode",
               "name": "b",
               "pos": null,
+              "role": 2,
               "tokens": Object {
                 "__c": "Object",
                 "equals": Object {
@@ -1729,6 +1741,7 @@ Object {
               "__c": "AssignmentNode",
               "name": "c",
               "pos": null,
+              "role": 2,
               "tokens": Object {
                 "__c": "Object",
                 "equals": Object {
@@ -1769,6 +1782,7 @@ Object {
                     "__c": "AssignmentNode",
                     "name": "",
                     "pos": null,
+                    "role": 2,
                     "tokens": Object {
                       "__c": "Object",
                       "equals": null,
@@ -1865,6 +1879,7 @@ Object {
                     "__c": "AssignmentNode",
                     "name": "",
                     "pos": null,
+                    "role": 2,
                     "tokens": Object {
                       "__c": "Object",
                       "equals": null,
@@ -1905,6 +1920,7 @@ Object {
                     "__c": "AssignmentNode",
                     "name": "",
                     "pos": null,
+                    "role": 2,
                     "tokens": Object {
                       "__c": "Object",
                       "equals": null,
@@ -1999,6 +2015,7 @@ Object {
                     "__c": "AssignmentNode",
                     "name": "",
                     "pos": null,
+                    "role": 2,
                     "tokens": Object {
                       "__c": "Object",
                       "equals": null,
@@ -2080,6 +2097,7 @@ Object {
                   "__c": "AssignmentNode",
                   "name": "remaining",
                   "pos": null,
+                  "role": 2,
                   "tokens": Object {
                     "__c": "Object",
                     "equals": Object {
@@ -2133,6 +2151,7 @@ Object {
                             "__c": "AssignmentNode",
                             "name": "i",
                             "pos": null,
+                            "role": 0,
                             "tokens": Object {
                               "__c": "Object",
                               "equals": Object {
@@ -2186,6 +2205,7 @@ Object {
                                       "__c": "AssignmentNode",
                                       "name": "",
                                       "pos": null,
+                                      "role": 2,
                                       "tokens": Object {
                                         "__c": "Object",
                                         "equals": null,
@@ -2485,6 +2505,7 @@ Object {
                   "__c": "AssignmentNode",
                   "name": "polygon",
                   "pos": null,
+                  "role": 2,
                   "tokens": Object {
                     "__c": "Object",
                     "equals": Object {
@@ -2529,6 +2550,7 @@ Object {
                             "__c": "AssignmentNode",
                             "name": "",
                             "pos": null,
+                            "role": 2,
                             "tokens": Object {
                               "__c": "Object",
                               "equals": null,
@@ -2612,6 +2634,7 @@ Object {
                             "__c": "AssignmentNode",
                             "name": "",
                             "pos": null,
+                            "role": 2,
                             "tokens": Object {
                               "__c": "Object",
                               "equals": null,
@@ -2695,6 +2718,7 @@ Object {
                             "__c": "AssignmentNode",
                             "name": "",
                             "pos": null,
+                            "role": 2,
                             "tokens": Object {
                               "__c": "Object",
                               "equals": null,
@@ -3066,6 +3090,7 @@ Object {
                     "__c": "AssignmentNode",
                     "name": "",
                     "pos": null,
+                    "role": 2,
                     "tokens": Object {
                       "__c": "Object",
                       "equals": null,
@@ -3106,6 +3131,7 @@ Object {
                     "__c": "AssignmentNode",
                     "name": "",
                     "pos": null,
+                    "role": 2,
                     "tokens": Object {
                       "__c": "Object",
                       "equals": null,
@@ -3146,6 +3172,7 @@ Object {
                     "__c": "AssignmentNode",
                     "name": "",
                     "pos": null,
+                    "role": 2,
                     "tokens": Object {
                       "__c": "Object",
                       "equals": null,
@@ -3255,6 +3282,7 @@ Object {
                   "__c": "AssignmentNode",
                   "name": "",
                   "pos": null,
+                  "role": 2,
                   "tokens": Object {
                     "__c": "Object",
                     "equals": null,
@@ -3516,6 +3544,7 @@ Object {
           "__c": "AssignmentNode",
           "name": "points",
           "pos": null,
+          "role": 1,
           "tokens": Object {
             "__c": "Object",
             "equals": null,
@@ -3548,6 +3577,7 @@ Object {
           "__c": "AssignmentNode",
           "name": "polygon",
           "pos": null,
+          "role": 1,
           "tokens": Object {
             "__c": "Object",
             "equals": null,
@@ -3580,6 +3610,7 @@ Object {
           "__c": "AssignmentNode",
           "name": "remaining",
           "pos": null,
+          "role": 1,
           "tokens": Object {
             "__c": "Object",
             "equals": null,
@@ -3612,6 +3643,7 @@ Object {
           "__c": "AssignmentNode",
           "name": "i_",
           "pos": null,
+          "role": 1,
           "tokens": Object {
             "__c": "Object",
             "equals": Object {
@@ -3687,6 +3719,7 @@ Object {
                 "__c": "AssignmentNode",
                 "name": "",
                 "pos": null,
+                "role": 2,
                 "tokens": Object {
                   "__c": "Object",
                   "equals": null,
@@ -3768,6 +3801,7 @@ Object {
               "__c": "AssignmentNode",
               "name": "i",
               "pos": null,
+              "role": 2,
               "tokens": Object {
                 "__c": "Object",
                 "equals": Object {
@@ -3882,6 +3916,7 @@ Object {
               "__c": "AssignmentNode",
               "name": "conflicts",
               "pos": null,
+              "role": 2,
               "tokens": Object {
                 "__c": "Object",
                 "equals": Object {
@@ -3931,6 +3966,7 @@ Object {
                     "__c": "AssignmentNode",
                     "name": "",
                     "pos": null,
+                    "role": 2,
                     "tokens": Object {
                       "__c": "Object",
                       "equals": null,
@@ -3971,6 +4007,7 @@ Object {
                     "__c": "AssignmentNode",
                     "name": "",
                     "pos": null,
+                    "role": 2,
                     "tokens": Object {
                       "__c": "Object",
                       "equals": null,
@@ -4011,6 +4048,7 @@ Object {
                     "__c": "AssignmentNode",
                     "name": "",
                     "pos": null,
+                    "role": 2,
                     "tokens": Object {
                       "__c": "Object",
                       "equals": null,
@@ -4128,6 +4166,7 @@ Object {
                     "__c": "AssignmentNode",
                     "name": "",
                     "pos": null,
+                    "role": 2,
                     "tokens": Object {
                       "__c": "Object",
                       "equals": null,
@@ -4229,6 +4268,7 @@ Object {
                   "__c": "AssignmentNode",
                   "name": "polygon",
                   "pos": null,
+                  "role": 2,
                   "tokens": Object {
                     "__c": "Object",
                     "equals": Object {
@@ -4287,6 +4327,7 @@ Object {
                         "__c": "AssignmentNode",
                         "name": "",
                         "pos": null,
+                        "role": 2,
                         "tokens": Object {
                           "__c": "Object",
                           "equals": null,
@@ -4327,6 +4368,7 @@ Object {
                         "__c": "AssignmentNode",
                         "name": "",
                         "pos": null,
+                        "role": 2,
                         "tokens": Object {
                           "__c": "Object",
                           "equals": null,
@@ -4367,6 +4409,7 @@ Object {
                         "__c": "AssignmentNode",
                         "name": "",
                         "pos": null,
+                        "role": 2,
                         "tokens": Object {
                           "__c": "Object",
                           "equals": null,
@@ -4437,6 +4480,7 @@ Object {
                     "__c": "AssignmentNode",
                     "name": "",
                     "pos": null,
+                    "role": 2,
                     "tokens": Object {
                       "__c": "Object",
                       "equals": null,
@@ -4482,6 +4526,7 @@ Object {
                     "__c": "AssignmentNode",
                     "name": "",
                     "pos": null,
+                    "role": 2,
                     "tokens": Object {
                       "__c": "Object",
                       "equals": null,
@@ -4527,6 +4572,7 @@ Object {
                     "__c": "AssignmentNode",
                     "name": "",
                     "pos": null,
+                    "role": 2,
                     "tokens": Object {
                       "__c": "Object",
                       "equals": null,
@@ -4572,6 +4618,7 @@ Object {
                     "__c": "AssignmentNode",
                     "name": "",
                     "pos": null,
+                    "role": 2,
                     "tokens": Object {
                       "__c": "Object",
                       "equals": null,
@@ -4722,6 +4769,7 @@ Object {
                   "__c": "AssignmentNode",
                   "name": "",
                   "pos": null,
+                  "role": 2,
                   "tokens": Object {
                     "__c": "Object",
                     "equals": null,
@@ -4762,6 +4810,7 @@ Object {
                   "__c": "AssignmentNode",
                   "name": "",
                   "pos": null,
+                  "role": 2,
                   "tokens": Object {
                     "__c": "Object",
                     "equals": null,
@@ -4802,6 +4851,7 @@ Object {
                   "__c": "AssignmentNode",
                   "name": "",
                   "pos": null,
+                  "role": 2,
                   "tokens": Object {
                     "__c": "Object",
                     "equals": null,
@@ -4842,6 +4892,7 @@ Object {
                   "__c": "AssignmentNode",
                   "name": "",
                   "pos": null,
+                  "role": 2,
                   "tokens": Object {
                     "__c": "Object",
                     "equals": null,
@@ -5147,6 +5198,7 @@ Object {
           "__c": "AssignmentNode",
           "name": "points",
           "pos": null,
+          "role": 1,
           "tokens": Object {
             "__c": "Object",
             "equals": null,
@@ -5179,6 +5231,7 @@ Object {
           "__c": "AssignmentNode",
           "name": "polygon",
           "pos": null,
+          "role": 1,
           "tokens": Object {
             "__c": "Object",
             "equals": null,
@@ -5211,6 +5264,7 @@ Object {
           "__c": "AssignmentNode",
           "name": "point",
           "pos": null,
+          "role": 1,
           "tokens": Object {
             "__c": "Object",
             "equals": null,
@@ -5240,6 +5294,7 @@ Object {
                 "__c": "AssignmentNode",
                 "name": "i",
                 "pos": null,
+                "role": 0,
                 "tokens": Object {
                   "__c": "Object",
                   "equals": Object {
@@ -5293,6 +5348,7 @@ Object {
                           "__c": "AssignmentNode",
                           "name": "",
                           "pos": null,
+                          "role": 2,
                           "tokens": Object {
                             "__c": "Object",
                             "equals": null,
@@ -5430,6 +5486,7 @@ Object {
                   "__c": "AssignmentNode",
                   "name": "j",
                   "pos": null,
+                  "role": 1,
                   "tokens": Object {
                     "__c": "Object",
                     "equals": Object {
@@ -5543,6 +5600,7 @@ Object {
                           "__c": "AssignmentNode",
                           "name": "",
                           "pos": null,
+                          "role": 2,
                           "tokens": Object {
                             "__c": "Object",
                             "equals": null,
@@ -5630,6 +5688,7 @@ Object {
                         "__c": "AssignmentNode",
                         "name": "",
                         "pos": null,
+                        "role": 2,
                         "tokens": Object {
                           "__c": "Object",
                           "equals": null,
@@ -5756,6 +5815,7 @@ Object {
                         "__c": "AssignmentNode",
                         "name": "",
                         "pos": null,
+                        "role": 2,
                         "tokens": Object {
                           "__c": "Object",
                           "equals": null,
@@ -5882,6 +5942,7 @@ Object {
                         "__c": "AssignmentNode",
                         "name": "",
                         "pos": null,
+                        "role": 2,
                         "tokens": Object {
                           "__c": "Object",
                           "equals": null,
@@ -6214,6 +6275,7 @@ Object {
           "__c": "AssignmentNode",
           "name": "polygon",
           "pos": null,
+          "role": 1,
           "tokens": Object {
             "__c": "Object",
             "equals": null,
@@ -6246,6 +6308,7 @@ Object {
           "__c": "AssignmentNode",
           "name": "conflicts",
           "pos": null,
+          "role": 1,
           "tokens": Object {
             "__c": "Object",
             "equals": null,
@@ -6278,6 +6341,7 @@ Object {
           "__c": "AssignmentNode",
           "name": "point",
           "pos": null,
+          "role": 1,
           "tokens": Object {
             "__c": "Object",
             "equals": null,
@@ -6407,6 +6471,7 @@ Object {
               "__c": "AssignmentNode",
               "name": "prior_to_first_conflict",
               "pos": null,
+              "role": 2,
               "tokens": Object {
                 "__c": "Object",
                 "equals": Object {
@@ -6456,6 +6521,7 @@ Object {
                         "__c": "AssignmentNode",
                         "name": "i",
                         "pos": null,
+                        "role": 0,
                         "tokens": Object {
                           "__c": "Object",
                           "equals": Object {
@@ -6507,6 +6573,7 @@ Object {
                                 "__c": "AssignmentNode",
                                 "name": "",
                                 "pos": null,
+                                "role": 2,
                                 "tokens": Object {
                                   "__c": "Object",
                                   "equals": null,
@@ -6752,6 +6819,7 @@ Object {
               "__c": "AssignmentNode",
               "name": "after_last_conflict",
               "pos": null,
+              "role": 2,
               "tokens": Object {
                 "__c": "Object",
                 "equals": Object {
@@ -6801,6 +6869,7 @@ Object {
                         "__c": "AssignmentNode",
                         "name": "i",
                         "pos": null,
+                        "role": 0,
                         "tokens": Object {
                           "__c": "Object",
                           "equals": Object {
@@ -6836,6 +6905,7 @@ Object {
                                   "__c": "AssignmentNode",
                                   "name": "",
                                   "pos": null,
+                                  "role": 2,
                                   "tokens": Object {
                                     "__c": "Object",
                                     "equals": null,
@@ -6939,6 +7009,7 @@ Object {
                                   "__c": "AssignmentNode",
                                   "name": "",
                                   "pos": null,
+                                  "role": 2,
                                   "tokens": Object {
                                     "__c": "Object",
                                     "equals": null,
@@ -7217,6 +7288,7 @@ Object {
               "__c": "AssignmentNode",
               "name": "polygon",
               "pos": null,
+              "role": 2,
               "tokens": Object {
                 "__c": "Object",
                 "equals": Object {
@@ -7253,6 +7325,7 @@ Object {
                     "__c": "AssignmentNode",
                     "name": "",
                     "pos": null,
+                    "role": 2,
                     "tokens": Object {
                       "__c": "Object",
                       "equals": null,
@@ -7293,6 +7366,7 @@ Object {
                     "__c": "AssignmentNode",
                     "name": "",
                     "pos": null,
+                    "role": 2,
                     "tokens": Object {
                       "__c": "Object",
                       "equals": null,
@@ -7333,6 +7407,7 @@ Object {
                     "__c": "AssignmentNode",
                     "name": "",
                     "pos": null,
+                    "role": 2,
                     "tokens": Object {
                       "__c": "Object",
                       "equals": null,
@@ -7458,6 +7533,7 @@ Object {
               "__c": "AssignmentNode",
               "name": "nonconflicting",
               "pos": null,
+              "role": 2,
               "tokens": Object {
                 "__c": "Object",
                 "equals": Object {
@@ -7507,6 +7583,7 @@ Object {
                         "__c": "AssignmentNode",
                         "name": "i",
                         "pos": null,
+                        "role": 0,
                         "tokens": Object {
                           "__c": "Object",
                           "equals": Object {
@@ -7560,6 +7637,7 @@ Object {
                                   "__c": "AssignmentNode",
                                   "name": "",
                                   "pos": null,
+                                  "role": 2,
                                   "tokens": Object {
                                     "__c": "Object",
                                     "equals": null,
@@ -7703,6 +7781,7 @@ Object {
                               "__c": "AssignmentNode",
                               "name": "",
                               "pos": null,
+                              "role": 2,
                               "tokens": Object {
                                 "__c": "Object",
                                 "equals": null,
@@ -7743,6 +7822,7 @@ Object {
                               "__c": "AssignmentNode",
                               "name": "",
                               "pos": null,
+                              "role": 2,
                               "tokens": Object {
                                 "__c": "Object",
                                 "equals": null,
@@ -7931,6 +8011,7 @@ Object {
               "__c": "AssignmentNode",
               "name": "new_indices",
               "pos": null,
+              "role": 2,
               "tokens": Object {
                 "__c": "Object",
                 "equals": Object {
@@ -7977,6 +8058,7 @@ Object {
                     "__c": "AssignmentNode",
                     "name": "",
                     "pos": null,
+                    "role": 2,
                     "tokens": Object {
                       "__c": "Object",
                       "equals": null,
@@ -8017,6 +8099,7 @@ Object {
                     "__c": "AssignmentNode",
                     "name": "",
                     "pos": null,
+                    "role": 2,
                     "tokens": Object {
                       "__c": "Object",
                       "equals": null,
@@ -8059,6 +8142,7 @@ Object {
                                     "__c": "AssignmentNode",
                                     "name": "",
                                     "pos": null,
+                                    "role": 2,
                                     "tokens": Object {
                                       "__c": "Object",
                                       "equals": null,
@@ -8241,6 +8325,7 @@ Object {
                             "__c": "AssignmentNode",
                             "name": "",
                             "pos": null,
+                            "role": 2,
                             "tokens": Object {
                               "__c": "Object",
                               "equals": null,
@@ -8356,6 +8441,7 @@ Object {
               "__c": "AssignmentNode",
               "name": "polygon",
               "pos": null,
+              "role": 2,
               "tokens": Object {
                 "__c": "Object",
                 "equals": Object {
@@ -8392,6 +8478,7 @@ Object {
                     "__c": "AssignmentNode",
                     "name": "",
                     "pos": null,
+                    "role": 2,
                     "tokens": Object {
                       "__c": "Object",
                       "equals": null,
@@ -8419,6 +8506,7 @@ Object {
                               "__c": "AssignmentNode",
                               "name": "i",
                               "pos": null,
+                              "role": 0,
                               "tokens": Object {
                                 "__c": "Object",
                                 "equals": Object {
@@ -8586,6 +8674,7 @@ Object {
                     "__c": "AssignmentNode",
                     "name": "",
                     "pos": null,
+                    "role": 2,
                     "tokens": Object {
                       "__c": "Object",
                       "equals": null,
@@ -8813,6 +8902,7 @@ Object {
           "__c": "AssignmentNode",
           "name": "points",
           "pos": null,
+          "role": 1,
           "tokens": Object {
             "__c": "Object",
             "equals": null,
@@ -8843,6 +8933,7 @@ Object {
                 "__c": "AssignmentNode",
                 "name": "",
                 "pos": null,
+                "role": 2,
                 "tokens": Object {
                   "__c": "Object",
                   "equals": null,
@@ -8949,6 +9040,7 @@ Object {
               "__c": "AssignmentNode",
               "name": "a",
               "pos": null,
+              "role": 2,
               "tokens": Object {
                 "__c": "Object",
                 "equals": Object {
@@ -9024,6 +9116,7 @@ Object {
               "__c": "AssignmentNode",
               "name": "b",
               "pos": null,
+              "role": 2,
               "tokens": Object {
                 "__c": "Object",
                 "equals": Object {
@@ -9081,6 +9174,7 @@ Object {
               "__c": "AssignmentNode",
               "name": "c",
               "pos": null,
+              "role": 2,
               "tokens": Object {
                 "__c": "Object",
                 "equals": Object {
@@ -9138,6 +9232,7 @@ Object {
               "__c": "AssignmentNode",
               "name": "plane",
               "pos": null,
+              "role": 2,
               "tokens": Object {
                 "__c": "Object",
                 "equals": Object {
@@ -9184,6 +9279,7 @@ Object {
                     "__c": "AssignmentNode",
                     "name": "",
                     "pos": null,
+                    "role": 2,
                     "tokens": Object {
                       "__c": "Object",
                       "equals": null,
@@ -9224,6 +9320,7 @@ Object {
                     "__c": "AssignmentNode",
                     "name": "",
                     "pos": null,
+                    "role": 2,
                     "tokens": Object {
                       "__c": "Object",
                       "equals": null,
@@ -9264,6 +9361,7 @@ Object {
                     "__c": "AssignmentNode",
                     "name": "",
                     "pos": null,
+                    "role": 2,
                     "tokens": Object {
                       "__c": "Object",
                       "equals": null,
@@ -9304,6 +9402,7 @@ Object {
                     "__c": "AssignmentNode",
                     "name": "",
                     "pos": null,
+                    "role": 2,
                     "tokens": Object {
                       "__c": "Object",
                       "equals": null,
@@ -9370,6 +9469,7 @@ Object {
               "__c": "AssignmentNode",
               "name": "d",
               "pos": null,
+              "role": 2,
               "tokens": Object {
                 "__c": "Object",
                 "equals": Object {
@@ -9410,6 +9510,7 @@ Object {
                     "__c": "AssignmentNode",
                     "name": "",
                     "pos": null,
+                    "role": 2,
                     "tokens": Object {
                       "__c": "Object",
                       "equals": null,
@@ -9450,6 +9551,7 @@ Object {
                     "__c": "AssignmentNode",
                     "name": "",
                     "pos": null,
+                    "role": 2,
                     "tokens": Object {
                       "__c": "Object",
                       "equals": null,
@@ -9490,6 +9592,7 @@ Object {
                     "__c": "AssignmentNode",
                     "name": "",
                     "pos": null,
+                    "role": 2,
                     "tokens": Object {
                       "__c": "Object",
                       "equals": null,
@@ -9584,6 +9687,7 @@ Object {
                     "__c": "AssignmentNode",
                     "name": "",
                     "pos": null,
+                    "role": 2,
                     "tokens": Object {
                       "__c": "Object",
                       "equals": null,
@@ -9665,6 +9769,7 @@ Object {
                   "__c": "AssignmentNode",
                   "name": "remaining",
                   "pos": null,
+                  "role": 2,
                   "tokens": Object {
                     "__c": "Object",
                     "equals": Object {
@@ -9718,6 +9823,7 @@ Object {
                             "__c": "AssignmentNode",
                             "name": "i",
                             "pos": null,
+                            "role": 0,
                             "tokens": Object {
                               "__c": "Object",
                               "equals": Object {
@@ -9771,6 +9877,7 @@ Object {
                                       "__c": "AssignmentNode",
                                       "name": "",
                                       "pos": null,
+                                      "role": 2,
                                       "tokens": Object {
                                         "__c": "Object",
                                         "equals": null,
@@ -10070,6 +10177,7 @@ Object {
                   "__c": "AssignmentNode",
                   "name": "bc",
                   "pos": null,
+                  "role": 2,
                   "tokens": Object {
                     "__c": "Object",
                     "equals": Object {
@@ -10144,6 +10252,7 @@ Object {
                           "__c": "AssignmentNode",
                           "name": "",
                           "pos": null,
+                          "role": 2,
                           "tokens": Object {
                             "__c": "Object",
                             "equals": null,
@@ -10184,6 +10293,7 @@ Object {
                           "__c": "AssignmentNode",
                           "name": "",
                           "pos": null,
+                          "role": 2,
                           "tokens": Object {
                             "__c": "Object",
                             "equals": null,
@@ -10464,6 +10574,7 @@ Object {
                   "__c": "AssignmentNode",
                   "name": "b",
                   "pos": null,
+                  "role": 2,
                   "tokens": Object {
                     "__c": "Object",
                     "equals": Object {
@@ -10569,6 +10680,7 @@ Object {
                   "__c": "AssignmentNode",
                   "name": "c",
                   "pos": null,
+                  "role": 2,
                   "tokens": Object {
                     "__c": "Object",
                     "equals": Object {
@@ -10669,6 +10781,7 @@ Object {
                   "__c": "AssignmentNode",
                   "name": "triangles",
                   "pos": null,
+                  "role": 2,
                   "tokens": Object {
                     "__c": "Object",
                     "equals": Object {
@@ -11211,6 +11324,7 @@ Object {
                   "__c": "AssignmentNode",
                   "name": "planes",
                   "pos": null,
+                  "role": 2,
                   "tokens": Object {
                     "__c": "Object",
                     "equals": Object {
@@ -11263,6 +11377,7 @@ Object {
                             "__c": "AssignmentNode",
                             "name": "t",
                             "pos": null,
+                            "role": 0,
                             "tokens": Object {
                               "__c": "Object",
                               "equals": Object {
@@ -11314,6 +11429,7 @@ Object {
                               "__c": "AssignmentNode",
                               "name": "",
                               "pos": null,
+                              "role": 2,
                               "tokens": Object {
                                 "__c": "Object",
                                 "equals": null,
@@ -11354,6 +11470,7 @@ Object {
                               "__c": "AssignmentNode",
                               "name": "",
                               "pos": null,
+                              "role": 2,
                               "tokens": Object {
                                 "__c": "Object",
                                 "equals": null,
@@ -11437,6 +11554,7 @@ Object {
                               "__c": "AssignmentNode",
                               "name": "",
                               "pos": null,
+                              "role": 2,
                               "tokens": Object {
                                 "__c": "Object",
                                 "equals": null,
@@ -11520,6 +11638,7 @@ Object {
                               "__c": "AssignmentNode",
                               "name": "",
                               "pos": null,
+                              "role": 2,
                               "tokens": Object {
                                 "__c": "Object",
                                 "equals": null,
@@ -11690,6 +11809,7 @@ Object {
                     "__c": "AssignmentNode",
                     "name": "",
                     "pos": null,
+                    "role": 2,
                     "tokens": Object {
                       "__c": "Object",
                       "equals": null,
@@ -11730,6 +11850,7 @@ Object {
                     "__c": "AssignmentNode",
                     "name": "",
                     "pos": null,
+                    "role": 2,
                     "tokens": Object {
                       "__c": "Object",
                       "equals": null,
@@ -11770,6 +11891,7 @@ Object {
                     "__c": "AssignmentNode",
                     "name": "",
                     "pos": null,
+                    "role": 2,
                     "tokens": Object {
                       "__c": "Object",
                       "equals": null,
@@ -11810,6 +11932,7 @@ Object {
                     "__c": "AssignmentNode",
                     "name": "",
                     "pos": null,
+                    "role": 2,
                     "tokens": Object {
                       "__c": "Object",
                       "equals": null,
@@ -11919,6 +12042,7 @@ Object {
                   "__c": "AssignmentNode",
                   "name": "pts2d",
                   "pos": null,
+                  "role": 2,
                   "tokens": Object {
                     "__c": "Object",
                     "equals": Object {
@@ -11972,6 +12096,7 @@ Object {
                             "__c": "AssignmentNode",
                             "name": "p",
                             "pos": null,
+                            "role": 0,
                             "tokens": Object {
                               "__c": "Object",
                               "equals": Object {
@@ -12023,6 +12148,7 @@ Object {
                               "__c": "AssignmentNode",
                               "name": "",
                               "pos": null,
+                              "role": 2,
                               "tokens": Object {
                                 "__c": "Object",
                                 "equals": null,
@@ -12063,6 +12189,7 @@ Object {
                               "__c": "AssignmentNode",
                               "name": "",
                               "pos": null,
+                              "role": 2,
                               "tokens": Object {
                                 "__c": "Object",
                                 "equals": null,
@@ -12146,6 +12273,7 @@ Object {
                               "__c": "AssignmentNode",
                               "name": "",
                               "pos": null,
+                              "role": 2,
                               "tokens": Object {
                                 "__c": "Object",
                                 "equals": null,
@@ -12229,6 +12357,7 @@ Object {
                               "__c": "AssignmentNode",
                               "name": "",
                               "pos": null,
+                              "role": 2,
                               "tokens": Object {
                                 "__c": "Object",
                                 "equals": null,
@@ -12395,6 +12524,7 @@ Object {
                   "__c": "AssignmentNode",
                   "name": "hull2d",
                   "pos": null,
+                  "role": 2,
                   "tokens": Object {
                     "__c": "Object",
                     "equals": Object {
@@ -12431,6 +12561,7 @@ Object {
                         "__c": "AssignmentNode",
                         "name": "",
                         "pos": null,
+                        "role": 2,
                         "tokens": Object {
                           "__c": "Object",
                           "equals": null,
@@ -12633,6 +12764,7 @@ Object {
                   "__c": "AssignmentNode",
                   "name": "i",
                   "pos": null,
+                  "role": 0,
                   "tokens": Object {
                     "__c": "Object",
                     "equals": Object {
@@ -12686,6 +12818,7 @@ Object {
                             "__c": "AssignmentNode",
                             "name": "",
                             "pos": null,
+                            "role": 2,
                             "tokens": Object {
                               "__c": "Object",
                               "equals": null,
@@ -13029,6 +13162,7 @@ Object {
           "__c": "AssignmentNode",
           "name": "points",
           "pos": null,
+          "role": 1,
           "tokens": Object {
             "__c": "Object",
             "equals": null,
@@ -13061,6 +13195,7 @@ Object {
           "__c": "AssignmentNode",
           "name": "a",
           "pos": null,
+          "role": 1,
           "tokens": Object {
             "__c": "Object",
             "equals": null,
@@ -13093,6 +13228,7 @@ Object {
           "__c": "AssignmentNode",
           "name": "b",
           "pos": null,
+          "role": 1,
           "tokens": Object {
             "__c": "Object",
             "equals": null,
@@ -13125,6 +13261,7 @@ Object {
           "__c": "AssignmentNode",
           "name": "c",
           "pos": null,
+          "role": 1,
           "tokens": Object {
             "__c": "Object",
             "equals": null,
@@ -13151,6 +13288,7 @@ Object {
             "__c": "AssignmentNode",
             "name": "normal",
             "pos": null,
+            "role": 2,
             "tokens": Object {
               "__c": "Object",
               "equals": Object {
@@ -13187,6 +13325,7 @@ Object {
                   "__c": "AssignmentNode",
                   "name": "",
                   "pos": null,
+                  "role": 2,
                   "tokens": Object {
                     "__c": "Object",
                     "equals": null,
@@ -13201,6 +13340,7 @@ Object {
                         "__c": "AssignmentNode",
                         "name": "",
                         "pos": null,
+                        "role": 2,
                         "tokens": Object {
                           "__c": "Object",
                           "equals": null,
@@ -13362,6 +13502,7 @@ Object {
                         "__c": "AssignmentNode",
                         "name": "",
                         "pos": null,
+                        "role": 2,
                         "tokens": Object {
                           "__c": "Object",
                           "equals": null,
@@ -13872,6 +14013,7 @@ Object {
           "__c": "AssignmentNode",
           "name": "points",
           "pos": null,
+          "role": 1,
           "tokens": Object {
             "__c": "Object",
             "equals": null,
@@ -13904,6 +14046,7 @@ Object {
           "__c": "AssignmentNode",
           "name": "triangles",
           "pos": null,
+          "role": 1,
           "tokens": Object {
             "__c": "Object",
             "equals": null,
@@ -13936,6 +14079,7 @@ Object {
           "__c": "AssignmentNode",
           "name": "planes",
           "pos": null,
+          "role": 1,
           "tokens": Object {
             "__c": "Object",
             "equals": null,
@@ -13968,6 +14112,7 @@ Object {
           "__c": "AssignmentNode",
           "name": "remaining",
           "pos": null,
+          "role": 1,
           "tokens": Object {
             "__c": "Object",
             "equals": null,
@@ -14000,6 +14145,7 @@ Object {
           "__c": "AssignmentNode",
           "name": "i_",
           "pos": null,
+          "role": 1,
           "tokens": Object {
             "__c": "Object",
             "equals": Object {
@@ -14075,6 +14221,7 @@ Object {
                 "__c": "AssignmentNode",
                 "name": "",
                 "pos": null,
+                "role": 2,
                 "tokens": Object {
                   "__c": "Object",
                   "equals": null,
@@ -14156,6 +14303,7 @@ Object {
               "__c": "AssignmentNode",
               "name": "i",
               "pos": null,
+              "role": 2,
               "tokens": Object {
                 "__c": "Object",
                 "equals": Object {
@@ -14270,6 +14418,7 @@ Object {
               "__c": "AssignmentNode",
               "name": "conflicts",
               "pos": null,
+              "role": 2,
               "tokens": Object {
                 "__c": "Object",
                 "equals": Object {
@@ -14329,6 +14478,7 @@ Object {
                     "__c": "AssignmentNode",
                     "name": "",
                     "pos": null,
+                    "role": 2,
                     "tokens": Object {
                       "__c": "Object",
                       "equals": null,
@@ -14412,6 +14562,7 @@ Object {
                     "__c": "AssignmentNode",
                     "name": "",
                     "pos": null,
+                    "role": 2,
                     "tokens": Object {
                       "__c": "Object",
                       "equals": null,
@@ -14478,6 +14629,7 @@ Object {
               "__c": "AssignmentNode",
               "name": "halfedges",
               "pos": null,
+              "role": 2,
               "tokens": Object {
                 "__c": "Object",
                 "equals": Object {
@@ -14540,6 +14692,7 @@ Object {
                         "__c": "AssignmentNode",
                         "name": "c",
                         "pos": null,
+                        "role": 0,
                         "tokens": Object {
                           "__c": "Object",
                           "equals": Object {
@@ -14591,6 +14744,7 @@ Object {
                           "__c": "AssignmentNode",
                           "name": "i",
                           "pos": null,
+                          "role": 0,
                           "tokens": Object {
                             "__c": "Object",
                             "equals": Object {
@@ -14696,6 +14850,7 @@ Object {
                             "__c": "AssignmentNode",
                             "name": "j",
                             "pos": null,
+                            "role": 1,
                             "tokens": Object {
                               "__c": "Object",
                               "equals": Object {
@@ -15227,6 +15382,7 @@ Object {
               "__c": "AssignmentNode",
               "name": "horizon",
               "pos": null,
+              "role": 2,
               "tokens": Object {
                 "__c": "Object",
                 "equals": Object {
@@ -15286,6 +15442,7 @@ Object {
                     "__c": "AssignmentNode",
                     "name": "",
                     "pos": null,
+                    "role": 2,
                     "tokens": Object {
                       "__c": "Object",
                       "equals": null,
@@ -15352,6 +15509,7 @@ Object {
               "__c": "AssignmentNode",
               "name": "new_triangles",
               "pos": null,
+              "role": 2,
               "tokens": Object {
                 "__c": "Object",
                 "equals": Object {
@@ -15414,6 +15572,7 @@ Object {
                         "__c": "AssignmentNode",
                         "name": "h",
                         "pos": null,
+                        "role": 0,
                         "tokens": Object {
                           "__c": "Object",
                           "equals": Object {
@@ -15465,6 +15624,7 @@ Object {
                           "__c": "AssignmentNode",
                           "name": "",
                           "pos": null,
+                          "role": 2,
                           "tokens": Object {
                             "__c": "Object",
                             "equals": null,
@@ -15505,6 +15665,7 @@ Object {
                           "__c": "AssignmentNode",
                           "name": "",
                           "pos": null,
+                          "role": 2,
                           "tokens": Object {
                             "__c": "Object",
                             "equals": null,
@@ -15628,6 +15789,7 @@ Object {
               "__c": "AssignmentNode",
               "name": "new_planes",
               "pos": null,
+              "role": 2,
               "tokens": Object {
                 "__c": "Object",
                 "equals": Object {
@@ -15680,6 +15842,7 @@ Object {
                         "__c": "AssignmentNode",
                         "name": "t",
                         "pos": null,
+                        "role": 0,
                         "tokens": Object {
                           "__c": "Object",
                           "equals": Object {
@@ -15731,6 +15894,7 @@ Object {
                           "__c": "AssignmentNode",
                           "name": "",
                           "pos": null,
+                          "role": 2,
                           "tokens": Object {
                             "__c": "Object",
                             "equals": null,
@@ -15771,6 +15935,7 @@ Object {
                           "__c": "AssignmentNode",
                           "name": "",
                           "pos": null,
+                          "role": 2,
                           "tokens": Object {
                             "__c": "Object",
                             "equals": null,
@@ -15854,6 +16019,7 @@ Object {
                           "__c": "AssignmentNode",
                           "name": "",
                           "pos": null,
+                          "role": 2,
                           "tokens": Object {
                             "__c": "Object",
                             "equals": null,
@@ -15937,6 +16103,7 @@ Object {
                           "__c": "AssignmentNode",
                           "name": "",
                           "pos": null,
+                          "role": 2,
                           "tokens": Object {
                             "__c": "Object",
                             "equals": null,
@@ -16107,6 +16274,7 @@ Object {
                 "__c": "AssignmentNode",
                 "name": "",
                 "pos": null,
+                "role": 2,
                 "tokens": Object {
                   "__c": "Object",
                   "equals": null,
@@ -16152,6 +16320,7 @@ Object {
                 "__c": "AssignmentNode",
                 "name": "",
                 "pos": null,
+                "role": 2,
                 "tokens": Object {
                   "__c": "Object",
                   "equals": null,
@@ -16176,6 +16345,7 @@ Object {
                       "__c": "AssignmentNode",
                       "name": "",
                       "pos": null,
+                      "role": 2,
                       "tokens": Object {
                         "__c": "Object",
                         "equals": null,
@@ -16200,6 +16370,7 @@ Object {
                             "__c": "AssignmentNode",
                             "name": "",
                             "pos": null,
+                            "role": 2,
                             "tokens": Object {
                               "__c": "Object",
                               "equals": null,
@@ -16240,6 +16411,7 @@ Object {
                             "__c": "AssignmentNode",
                             "name": "",
                             "pos": null,
+                            "role": 2,
                             "tokens": Object {
                               "__c": "Object",
                               "equals": null,
@@ -16306,6 +16478,7 @@ Object {
                       "__c": "AssignmentNode",
                       "name": "",
                       "pos": null,
+                      "role": 2,
                       "tokens": Object {
                         "__c": "Object",
                         "equals": null,
@@ -16386,6 +16559,7 @@ Object {
                 "__c": "AssignmentNode",
                 "name": "",
                 "pos": null,
+                "role": 2,
                 "tokens": Object {
                   "__c": "Object",
                   "equals": null,
@@ -16410,6 +16584,7 @@ Object {
                       "__c": "AssignmentNode",
                       "name": "",
                       "pos": null,
+                      "role": 2,
                       "tokens": Object {
                         "__c": "Object",
                         "equals": null,
@@ -16434,6 +16609,7 @@ Object {
                             "__c": "AssignmentNode",
                             "name": "",
                             "pos": null,
+                            "role": 2,
                             "tokens": Object {
                               "__c": "Object",
                               "equals": null,
@@ -16474,6 +16650,7 @@ Object {
                             "__c": "AssignmentNode",
                             "name": "",
                             "pos": null,
+                            "role": 2,
                             "tokens": Object {
                               "__c": "Object",
                               "equals": null,
@@ -16540,6 +16717,7 @@ Object {
                       "__c": "AssignmentNode",
                       "name": "",
                       "pos": null,
+                      "role": 2,
                       "tokens": Object {
                         "__c": "Object",
                         "equals": null,
@@ -16611,6 +16789,7 @@ Object {
                 "__c": "AssignmentNode",
                 "name": "",
                 "pos": null,
+                "role": 2,
                 "tokens": Object {
                   "__c": "Object",
                   "equals": null,
@@ -16656,6 +16835,7 @@ Object {
                 "__c": "AssignmentNode",
                 "name": "",
                 "pos": null,
+                "role": 2,
                 "tokens": Object {
                   "__c": "Object",
                   "equals": null,
@@ -16935,6 +17115,7 @@ Object {
           "__c": "AssignmentNode",
           "name": "points",
           "pos": null,
+          "role": 1,
           "tokens": Object {
             "__c": "Object",
             "equals": null,
@@ -16961,6 +17142,7 @@ Object {
             "__c": "AssignmentNode",
             "name": "n",
             "pos": null,
+            "role": 2,
             "tokens": Object {
               "__c": "Object",
               "equals": Object {
@@ -17144,6 +17326,7 @@ Object {
             "__c": "AssignmentNode",
             "name": "a",
             "pos": null,
+            "role": 2,
             "tokens": Object {
               "__c": "Object",
               "equals": Object {
@@ -17249,6 +17432,7 @@ Object {
             "__c": "AssignmentNode",
             "name": "points1d",
             "pos": null,
+            "role": 2,
             "tokens": Object {
               "__c": "Object",
               "equals": Object {
@@ -17298,6 +17482,7 @@ Object {
                       "__c": "AssignmentNode",
                       "name": "p",
                       "pos": null,
+                      "role": 0,
                       "tokens": Object {
                         "__c": "Object",
                         "equals": Object {
@@ -17517,6 +17702,7 @@ Object {
             "__c": "AssignmentNode",
             "name": "min_i",
             "pos": null,
+            "role": 2,
             "tokens": Object {
               "__c": "Object",
               "equals": Object {
@@ -17563,6 +17749,7 @@ Object {
                   "__c": "AssignmentNode",
                   "name": "",
                   "pos": null,
+                  "role": 2,
                   "tokens": Object {
                     "__c": "Object",
                     "equals": null,
@@ -17629,6 +17816,7 @@ Object {
             "__c": "AssignmentNode",
             "name": "max_i",
             "pos": null,
+            "role": 2,
             "tokens": Object {
               "__c": "Object",
               "equals": Object {
@@ -17665,6 +17853,7 @@ Object {
                   "__c": "AssignmentNode",
                   "name": "",
                   "pos": null,
+                  "role": 2,
                   "tokens": Object {
                     "__c": "Object",
                     "equals": null,
@@ -17916,6 +18105,7 @@ Object {
           "__c": "AssignmentNode",
           "name": "values",
           "pos": null,
+          "role": 1,
           "tokens": Object {
             "__c": "Object",
             "equals": null,
@@ -17948,6 +18138,7 @@ Object {
           "__c": "AssignmentNode",
           "name": "min_",
           "pos": null,
+          "role": 1,
           "tokens": Object {
             "__c": "Object",
             "equals": null,
@@ -17980,6 +18171,7 @@ Object {
           "__c": "AssignmentNode",
           "name": "min_i_",
           "pos": null,
+          "role": 1,
           "tokens": Object {
             "__c": "Object",
             "equals": null,
@@ -18012,6 +18204,7 @@ Object {
           "__c": "AssignmentNode",
           "name": "i_",
           "pos": null,
+          "role": 1,
           "tokens": Object {
             "__c": "Object",
             "equals": null,
@@ -18126,6 +18319,7 @@ Object {
                   "__c": "AssignmentNode",
                   "name": "",
                   "pos": null,
+                  "role": 2,
                   "tokens": Object {
                     "__c": "Object",
                     "equals": null,
@@ -18310,6 +18504,7 @@ Object {
                   "__c": "AssignmentNode",
                   "name": "",
                   "pos": null,
+                  "role": 2,
                   "tokens": Object {
                     "__c": "Object",
                     "equals": null,
@@ -18350,6 +18545,7 @@ Object {
                   "__c": "AssignmentNode",
                   "name": "",
                   "pos": null,
+                  "role": 2,
                   "tokens": Object {
                     "__c": "Object",
                     "equals": null,
@@ -18390,6 +18586,7 @@ Object {
                   "__c": "AssignmentNode",
                   "name": "",
                   "pos": null,
+                  "role": 2,
                   "tokens": Object {
                     "__c": "Object",
                     "equals": null,
@@ -18430,6 +18627,7 @@ Object {
                   "__c": "AssignmentNode",
                   "name": "",
                   "pos": null,
+                  "role": 2,
                   "tokens": Object {
                     "__c": "Object",
                     "equals": null,
@@ -18533,6 +18731,7 @@ Object {
                   "__c": "AssignmentNode",
                   "name": "",
                   "pos": null,
+                  "role": 2,
                   "tokens": Object {
                     "__c": "Object",
                     "equals": null,
@@ -18573,6 +18772,7 @@ Object {
                   "__c": "AssignmentNode",
                   "name": "",
                   "pos": null,
+                  "role": 2,
                   "tokens": Object {
                     "__c": "Object",
                     "equals": null,
@@ -18656,6 +18856,7 @@ Object {
                   "__c": "AssignmentNode",
                   "name": "",
                   "pos": null,
+                  "role": 2,
                   "tokens": Object {
                     "__c": "Object",
                     "equals": null,
@@ -18696,6 +18897,7 @@ Object {
                   "__c": "AssignmentNode",
                   "name": "",
                   "pos": null,
+                  "role": 2,
                   "tokens": Object {
                     "__c": "Object",
                     "equals": null,
@@ -18868,6 +19070,7 @@ Object {
               "__c": "AssignmentNode",
               "name": "",
               "pos": null,
+              "role": 2,
               "tokens": Object {
                 "__c": "Object",
                 "equals": null,
@@ -18908,6 +19111,7 @@ Object {
               "__c": "AssignmentNode",
               "name": "",
               "pos": null,
+              "role": 2,
               "tokens": Object {
                 "__c": "Object",
                 "equals": null,
@@ -18991,6 +19195,7 @@ Object {
               "__c": "AssignmentNode",
               "name": "",
               "pos": null,
+              "role": 2,
               "tokens": Object {
                 "__c": "Object",
                 "equals": null,
@@ -19031,6 +19236,7 @@ Object {
               "__c": "AssignmentNode",
               "name": "",
               "pos": null,
+              "role": 2,
               "tokens": Object {
                 "__c": "Object",
                 "equals": null,
@@ -19192,6 +19398,7 @@ Object {
           "__c": "AssignmentNode",
           "name": "values",
           "pos": null,
+          "role": 1,
           "tokens": Object {
             "__c": "Object",
             "equals": null,
@@ -19224,6 +19431,7 @@ Object {
           "__c": "AssignmentNode",
           "name": "max_",
           "pos": null,
+          "role": 1,
           "tokens": Object {
             "__c": "Object",
             "equals": null,
@@ -19256,6 +19464,7 @@ Object {
           "__c": "AssignmentNode",
           "name": "max_i_",
           "pos": null,
+          "role": 1,
           "tokens": Object {
             "__c": "Object",
             "equals": null,
@@ -19288,6 +19497,7 @@ Object {
           "__c": "AssignmentNode",
           "name": "i_",
           "pos": null,
+          "role": 1,
           "tokens": Object {
             "__c": "Object",
             "equals": null,
@@ -19402,6 +19612,7 @@ Object {
                   "__c": "AssignmentNode",
                   "name": "",
                   "pos": null,
+                  "role": 2,
                   "tokens": Object {
                     "__c": "Object",
                     "equals": null,
@@ -19586,6 +19797,7 @@ Object {
                   "__c": "AssignmentNode",
                   "name": "",
                   "pos": null,
+                  "role": 2,
                   "tokens": Object {
                     "__c": "Object",
                     "equals": null,
@@ -19626,6 +19838,7 @@ Object {
                   "__c": "AssignmentNode",
                   "name": "",
                   "pos": null,
+                  "role": 2,
                   "tokens": Object {
                     "__c": "Object",
                     "equals": null,
@@ -19666,6 +19879,7 @@ Object {
                   "__c": "AssignmentNode",
                   "name": "",
                   "pos": null,
+                  "role": 2,
                   "tokens": Object {
                     "__c": "Object",
                     "equals": null,
@@ -19706,6 +19920,7 @@ Object {
                   "__c": "AssignmentNode",
                   "name": "",
                   "pos": null,
+                  "role": 2,
                   "tokens": Object {
                     "__c": "Object",
                     "equals": null,
@@ -19809,6 +20024,7 @@ Object {
                   "__c": "AssignmentNode",
                   "name": "",
                   "pos": null,
+                  "role": 2,
                   "tokens": Object {
                     "__c": "Object",
                     "equals": null,
@@ -19849,6 +20065,7 @@ Object {
                   "__c": "AssignmentNode",
                   "name": "",
                   "pos": null,
+                  "role": 2,
                   "tokens": Object {
                     "__c": "Object",
                     "equals": null,
@@ -19932,6 +20149,7 @@ Object {
                   "__c": "AssignmentNode",
                   "name": "",
                   "pos": null,
+                  "role": 2,
                   "tokens": Object {
                     "__c": "Object",
                     "equals": null,
@@ -19972,6 +20190,7 @@ Object {
                   "__c": "AssignmentNode",
                   "name": "",
                   "pos": null,
+                  "role": 2,
                   "tokens": Object {
                     "__c": "Object",
                     "equals": null,
@@ -20144,6 +20363,7 @@ Object {
               "__c": "AssignmentNode",
               "name": "",
               "pos": null,
+              "role": 2,
               "tokens": Object {
                 "__c": "Object",
                 "equals": null,
@@ -20184,6 +20404,7 @@ Object {
               "__c": "AssignmentNode",
               "name": "",
               "pos": null,
+              "role": 2,
               "tokens": Object {
                 "__c": "Object",
                 "equals": null,
@@ -20267,6 +20488,7 @@ Object {
               "__c": "AssignmentNode",
               "name": "",
               "pos": null,
+              "role": 2,
               "tokens": Object {
                 "__c": "Object",
                 "equals": null,
@@ -20307,6 +20529,7 @@ Object {
               "__c": "AssignmentNode",
               "name": "",
               "pos": null,
+              "role": 2,
               "tokens": Object {
                 "__c": "Object",
                 "equals": null,
@@ -20468,6 +20691,7 @@ Object {
           "__c": "AssignmentNode",
           "name": "array",
           "pos": null,
+          "role": 1,
           "tokens": Object {
             "__c": "Object",
             "equals": null,
@@ -20500,6 +20724,7 @@ Object {
           "__c": "AssignmentNode",
           "name": "elements",
           "pos": null,
+          "role": 1,
           "tokens": Object {
             "__c": "Object",
             "equals": null,
@@ -20529,6 +20754,7 @@ Object {
                 "__c": "AssignmentNode",
                 "name": "i",
                 "pos": null,
+                "role": 0,
                 "tokens": Object {
                   "__c": "Object",
                   "equals": Object {
@@ -20582,6 +20808,7 @@ Object {
                           "__c": "AssignmentNode",
                           "name": "",
                           "pos": null,
+                          "role": 2,
                           "tokens": Object {
                             "__c": "Object",
                             "equals": null,
@@ -20725,6 +20952,7 @@ Object {
                       "__c": "AssignmentNode",
                       "name": "",
                       "pos": null,
+                      "role": 2,
                       "tokens": Object {
                         "__c": "Object",
                         "equals": null,
@@ -20765,6 +20993,7 @@ Object {
                       "__c": "AssignmentNode",
                       "name": "",
                       "pos": null,
+                      "role": 2,
                       "tokens": Object {
                         "__c": "Object",
                         "equals": null,
@@ -21088,6 +21317,7 @@ Object {
           "__c": "AssignmentNode",
           "name": "halfedges",
           "pos": null,
+          "role": 1,
           "tokens": Object {
             "__c": "Object",
             "equals": null,
@@ -21117,6 +21347,7 @@ Object {
                 "__c": "AssignmentNode",
                 "name": "h",
                 "pos": null,
+                "role": 0,
                 "tokens": Object {
                   "__c": "Object",
                   "equals": Object {
@@ -21174,6 +21405,7 @@ Object {
                       "__c": "AssignmentNode",
                       "name": "",
                       "pos": null,
+                      "role": 2,
                       "tokens": Object {
                         "__c": "Object",
                         "equals": null,
@@ -21214,6 +21446,7 @@ Object {
                       "__c": "AssignmentNode",
                       "name": "",
                       "pos": null,
+                      "role": 2,
                       "tokens": Object {
                         "__c": "Object",
                         "equals": null,
@@ -21228,6 +21461,7 @@ Object {
                             "__c": "AssignmentNode",
                             "name": "",
                             "pos": null,
+                            "role": 2,
                             "tokens": Object {
                               "__c": "Object",
                               "equals": null,
@@ -21544,6 +21778,7 @@ Object {
           "__c": "AssignmentNode",
           "name": "point",
           "pos": null,
+          "role": 1,
           "tokens": Object {
             "__c": "Object",
             "equals": null,
@@ -21576,6 +21811,7 @@ Object {
           "__c": "AssignmentNode",
           "name": "a",
           "pos": null,
+          "role": 1,
           "tokens": Object {
             "__c": "Object",
             "equals": null,
@@ -21608,6 +21844,7 @@ Object {
           "__c": "AssignmentNode",
           "name": "b",
           "pos": null,
+          "role": 1,
           "tokens": Object {
             "__c": "Object",
             "equals": null,
@@ -21640,6 +21877,7 @@ Object {
           "__c": "AssignmentNode",
           "name": "c",
           "pos": null,
+          "role": 1,
           "tokens": Object {
             "__c": "Object",
             "equals": null,
@@ -21666,6 +21904,7 @@ Object {
             "__c": "AssignmentNode",
             "name": "u",
             "pos": null,
+            "role": 2,
             "tokens": Object {
               "__c": "Object",
               "equals": Object {
@@ -21763,6 +22002,7 @@ Object {
             "__c": "AssignmentNode",
             "name": "v",
             "pos": null,
+            "role": 2,
             "tokens": Object {
               "__c": "Object",
               "equals": Object {
@@ -21860,6 +22100,7 @@ Object {
             "__c": "AssignmentNode",
             "name": "n",
             "pos": null,
+            "role": 2,
             "tokens": Object {
               "__c": "Object",
               "equals": Object {
@@ -21906,6 +22147,7 @@ Object {
                   "__c": "AssignmentNode",
                   "name": "",
                   "pos": null,
+                  "role": 2,
                   "tokens": Object {
                     "__c": "Object",
                     "equals": null,
@@ -21946,6 +22188,7 @@ Object {
                   "__c": "AssignmentNode",
                   "name": "",
                   "pos": null,
+                  "role": 2,
                   "tokens": Object {
                     "__c": "Object",
                     "equals": null,
@@ -22012,6 +22255,7 @@ Object {
             "__c": "AssignmentNode",
             "name": "w",
             "pos": null,
+            "role": 2,
             "tokens": Object {
               "__c": "Object",
               "equals": Object {
@@ -22058,6 +22302,7 @@ Object {
                   "__c": "AssignmentNode",
                   "name": "",
                   "pos": null,
+                  "role": 2,
                   "tokens": Object {
                     "__c": "Object",
                     "equals": null,
@@ -22098,6 +22343,7 @@ Object {
                   "__c": "AssignmentNode",
                   "name": "",
                   "pos": null,
+                  "role": 2,
                   "tokens": Object {
                     "__c": "Object",
                     "equals": null,
@@ -22164,6 +22410,7 @@ Object {
             "__c": "AssignmentNode",
             "name": "relpoint",
             "pos": null,
+            "role": 2,
             "tokens": Object {
               "__c": "Object",
               "equals": Object {
@@ -22506,6 +22753,7 @@ Object {
           "__c": "AssignmentNode",
           "name": "point",
           "pos": null,
+          "role": 1,
           "tokens": Object {
             "__c": "Object",
             "equals": null,
@@ -22538,6 +22786,7 @@ Object {
           "__c": "AssignmentNode",
           "name": "a",
           "pos": null,
+          "role": 1,
           "tokens": Object {
             "__c": "Object",
             "equals": null,
@@ -22570,6 +22819,7 @@ Object {
           "__c": "AssignmentNode",
           "name": "b",
           "pos": null,
+          "role": 1,
           "tokens": Object {
             "__c": "Object",
             "equals": null,
@@ -22602,6 +22852,7 @@ Object {
           "__c": "AssignmentNode",
           "name": "c",
           "pos": null,
+          "role": 1,
           "tokens": Object {
             "__c": "Object",
             "equals": null,
@@ -22628,6 +22879,7 @@ Object {
             "__c": "AssignmentNode",
             "name": "u",
             "pos": null,
+            "role": 2,
             "tokens": Object {
               "__c": "Object",
               "equals": Object {
@@ -22725,6 +22977,7 @@ Object {
             "__c": "AssignmentNode",
             "name": "v",
             "pos": null,
+            "role": 2,
             "tokens": Object {
               "__c": "Object",
               "equals": Object {
@@ -22822,6 +23075,7 @@ Object {
             "__c": "AssignmentNode",
             "name": "n",
             "pos": null,
+            "role": 2,
             "tokens": Object {
               "__c": "Object",
               "equals": Object {
@@ -22868,6 +23122,7 @@ Object {
                   "__c": "AssignmentNode",
                   "name": "",
                   "pos": null,
+                  "role": 2,
                   "tokens": Object {
                     "__c": "Object",
                     "equals": null,
@@ -22908,6 +23163,7 @@ Object {
                   "__c": "AssignmentNode",
                   "name": "",
                   "pos": null,
+                  "role": 2,
                   "tokens": Object {
                     "__c": "Object",
                     "equals": null,
@@ -22974,6 +23230,7 @@ Object {
             "__c": "AssignmentNode",
             "name": "w",
             "pos": null,
+            "role": 2,
             "tokens": Object {
               "__c": "Object",
               "equals": Object {
@@ -23010,6 +23267,7 @@ Object {
                   "__c": "AssignmentNode",
                   "name": "",
                   "pos": null,
+                  "role": 2,
                   "tokens": Object {
                     "__c": "Object",
                     "equals": null,
@@ -23050,6 +23308,7 @@ Object {
                   "__c": "AssignmentNode",
                   "name": "",
                   "pos": null,
+                  "role": 2,
                   "tokens": Object {
                     "__c": "Object",
                     "equals": null,
@@ -23471,6 +23730,7 @@ Object {
           "__c": "AssignmentNode",
           "name": "arr",
           "pos": null,
+          "role": 1,
           "tokens": Object {
             "__c": "Object",
             "equals": null,
@@ -23500,6 +23760,7 @@ Object {
                 "__c": "AssignmentNode",
                 "name": "i",
                 "pos": null,
+                "role": 0,
                 "tokens": Object {
                   "__c": "Object",
                   "equals": Object {
@@ -23535,6 +23796,7 @@ Object {
                           "__c": "AssignmentNode",
                           "name": "",
                           "pos": null,
+                          "role": 2,
                           "tokens": Object {
                             "__c": "Object",
                             "equals": null,
@@ -23920,6 +24182,7 @@ Object {
           "__c": "AssignmentNode",
           "name": "arr",
           "pos": null,
+          "role": 1,
           "tokens": Object {
             "__c": "Object",
             "equals": null,
@@ -23952,6 +24215,7 @@ Object {
           "__c": "AssignmentNode",
           "name": "element",
           "pos": null,
+          "role": 1,
           "tokens": Object {
             "__c": "Object",
             "equals": null,
@@ -23984,6 +24248,7 @@ Object {
                   "__c": "AssignmentNode",
                   "name": "",
                   "pos": null,
+                  "role": 2,
                   "tokens": Object {
                     "__c": "Object",
                     "equals": null,
@@ -24052,6 +24317,7 @@ Object {
                   "__c": "AssignmentNode",
                   "name": "",
                   "pos": null,
+                  "role": 2,
                   "tokens": Object {
                     "__c": "Object",
                     "equals": null,
@@ -24330,6 +24596,7 @@ Object {
           "__c": "AssignmentNode",
           "name": "point",
           "pos": null,
+          "role": 1,
           "tokens": Object {
             "__c": "Object",
             "equals": null,
@@ -24362,6 +24629,7 @@ Object {
           "__c": "AssignmentNode",
           "name": "planes",
           "pos": null,
+          "role": 1,
           "tokens": Object {
             "__c": "Object",
             "equals": null,
@@ -24391,6 +24659,7 @@ Object {
                 "__c": "AssignmentNode",
                 "name": "i",
                 "pos": null,
+                "role": 0,
                 "tokens": Object {
                   "__c": "Object",
                   "equals": Object {
@@ -24444,6 +24713,7 @@ Object {
                           "__c": "AssignmentNode",
                           "name": "",
                           "pos": null,
+                          "role": 2,
                           "tokens": Object {
                             "__c": "Object",
                             "equals": null,
@@ -24583,6 +24853,7 @@ Object {
                     "__c": "AssignmentNode",
                     "name": "",
                     "pos": null,
+                    "role": 2,
                     "tokens": Object {
                       "__c": "Object",
                       "equals": null,
@@ -24666,6 +24937,7 @@ Object {
                     "__c": "AssignmentNode",
                     "name": "",
                     "pos": null,
+                    "role": 2,
                     "tokens": Object {
                       "__c": "Object",
                       "equals": null,
@@ -24933,6 +25205,7 @@ Object {
           "__c": "AssignmentNode",
           "name": "line",
           "pos": null,
+          "role": 1,
           "tokens": Object {
             "__c": "Object",
             "equals": null,
@@ -24965,6 +25238,7 @@ Object {
           "__c": "AssignmentNode",
           "name": "points",
           "pos": null,
+          "role": 1,
           "tokens": Object {
             "__c": "Object",
             "equals": null,
@@ -24997,6 +25271,7 @@ Object {
           "__c": "AssignmentNode",
           "name": "i",
           "pos": null,
+          "role": 1,
           "tokens": Object {
             "__c": "Object",
             "equals": null,
@@ -25052,6 +25327,7 @@ Object {
                 "__c": "AssignmentNode",
                 "name": "",
                 "pos": null,
+                "role": 2,
                 "tokens": Object {
                   "__c": "Object",
                   "equals": null,
@@ -25135,6 +25411,7 @@ Object {
                 "__c": "AssignmentNode",
                 "name": "",
                 "pos": null,
+                "role": 2,
                 "tokens": Object {
                   "__c": "Object",
                   "equals": null,
@@ -25261,6 +25538,7 @@ Object {
                 "__c": "AssignmentNode",
                 "name": "",
                 "pos": null,
+                "role": 2,
                 "tokens": Object {
                   "__c": "Object",
                   "equals": null,
@@ -25392,6 +25670,7 @@ Object {
                 "__c": "AssignmentNode",
                 "name": "",
                 "pos": null,
+                "role": 2,
                 "tokens": Object {
                   "__c": "Object",
                   "equals": null,
@@ -25531,6 +25810,7 @@ Object {
                 "__c": "AssignmentNode",
                 "name": "",
                 "pos": null,
+                "role": 2,
                 "tokens": Object {
                   "__c": "Object",
                   "equals": null,
@@ -25571,6 +25851,7 @@ Object {
                 "__c": "AssignmentNode",
                 "name": "",
                 "pos": null,
+                "role": 2,
                 "tokens": Object {
                   "__c": "Object",
                   "equals": null,
@@ -25611,6 +25892,7 @@ Object {
                 "__c": "AssignmentNode",
                 "name": "",
                 "pos": null,
+                "role": 2,
                 "tokens": Object {
                   "__c": "Object",
                   "equals": null,
@@ -25742,6 +26024,7 @@ Object {
               "__c": "AssignmentNode",
               "name": "",
               "pos": null,
+              "role": 2,
               "tokens": Object {
                 "__c": "Object",
                 "equals": null,
@@ -25903,6 +26186,7 @@ Object {
           "__c": "AssignmentNode",
           "name": "plane",
           "pos": null,
+          "role": 1,
           "tokens": Object {
             "__c": "Object",
             "equals": null,
@@ -25935,6 +26219,7 @@ Object {
           "__c": "AssignmentNode",
           "name": "points",
           "pos": null,
+          "role": 1,
           "tokens": Object {
             "__c": "Object",
             "equals": null,
@@ -25967,6 +26252,7 @@ Object {
           "__c": "AssignmentNode",
           "name": "i",
           "pos": null,
+          "role": 1,
           "tokens": Object {
             "__c": "Object",
             "equals": null,
@@ -26022,6 +26308,7 @@ Object {
                 "__c": "AssignmentNode",
                 "name": "",
                 "pos": null,
+                "role": 2,
                 "tokens": Object {
                   "__c": "Object",
                   "equals": null,
@@ -26105,6 +26392,7 @@ Object {
                 "__c": "AssignmentNode",
                 "name": "",
                 "pos": null,
+                "role": 2,
                 "tokens": Object {
                   "__c": "Object",
                   "equals": null,
@@ -26145,6 +26433,7 @@ Object {
                 "__c": "AssignmentNode",
                 "name": "",
                 "pos": null,
+                "role": 2,
                 "tokens": Object {
                   "__c": "Object",
                   "equals": null,
@@ -26279,6 +26568,7 @@ Object {
                 "__c": "AssignmentNode",
                 "name": "",
                 "pos": null,
+                "role": 2,
                 "tokens": Object {
                   "__c": "Object",
                   "equals": null,
@@ -26319,6 +26609,7 @@ Object {
                 "__c": "AssignmentNode",
                 "name": "",
                 "pos": null,
+                "role": 2,
                 "tokens": Object {
                   "__c": "Object",
                   "equals": null,
@@ -26359,6 +26650,7 @@ Object {
                 "__c": "AssignmentNode",
                 "name": "",
                 "pos": null,
+                "role": 2,
                 "tokens": Object {
                   "__c": "Object",
                   "equals": null,
@@ -26490,6 +26782,7 @@ Object {
               "__c": "AssignmentNode",
               "name": "",
               "pos": null,
+              "role": 2,
               "tokens": Object {
                 "__c": "Object",
                 "equals": null,
@@ -26651,6 +26944,7 @@ Object {
           "__c": "AssignmentNode",
           "name": "plane",
           "pos": null,
+          "role": 1,
           "tokens": Object {
             "__c": "Object",
             "equals": null,
@@ -26683,6 +26977,7 @@ Object {
           "__c": "AssignmentNode",
           "name": "point",
           "pos": null,
+          "role": 1,
           "tokens": Object {
             "__c": "Object",
             "equals": null,
@@ -26953,6 +27248,7 @@ Object {
           "__c": "AssignmentNode",
           "name": "plane",
           "pos": null,
+          "role": 1,
           "tokens": Object {
             "__c": "Object",
             "equals": null,
@@ -26985,6 +27281,7 @@ Object {
           "__c": "AssignmentNode",
           "name": "point",
           "pos": null,
+          "role": 1,
           "tokens": Object {
             "__c": "Object",
             "equals": null,
@@ -27013,6 +27310,7 @@ Object {
               "__c": "AssignmentNode",
               "name": "",
               "pos": null,
+              "role": 2,
               "tokens": Object {
                 "__c": "Object",
                 "equals": null,
@@ -27053,6 +27351,7 @@ Object {
               "__c": "AssignmentNode",
               "name": "",
               "pos": null,
+              "role": 2,
               "tokens": Object {
                 "__c": "Object",
                 "equals": null,
@@ -27224,6 +27523,7 @@ Object {
           "__c": "AssignmentNode",
           "name": "plane",
           "pos": null,
+          "role": 1,
           "tokens": Object {
             "__c": "Object",
             "equals": null,
@@ -27256,6 +27556,7 @@ Object {
           "__c": "AssignmentNode",
           "name": "point",
           "pos": null,
+          "role": 1,
           "tokens": Object {
             "__c": "Object",
             "equals": null,
@@ -27284,6 +27585,7 @@ Object {
               "__c": "AssignmentNode",
               "name": "",
               "pos": null,
+              "role": 2,
               "tokens": Object {
                 "__c": "Object",
                 "equals": null,
@@ -27298,6 +27600,7 @@ Object {
                     "__c": "AssignmentNode",
                     "name": "",
                     "pos": null,
+                    "role": 2,
                     "tokens": Object {
                       "__c": "Object",
                       "equals": null,
@@ -27338,6 +27641,7 @@ Object {
                     "__c": "AssignmentNode",
                     "name": "",
                     "pos": null,
+                    "role": 2,
                     "tokens": Object {
                       "__c": "Object",
                       "equals": null,
@@ -27545,6 +27849,7 @@ Object {
           "__c": "AssignmentNode",
           "name": "v",
           "pos": null,
+          "role": 1,
           "tokens": Object {
             "__c": "Object",
             "equals": null,
@@ -27593,6 +27898,7 @@ Object {
               "__c": "AssignmentNode",
               "name": "",
               "pos": null,
+              "role": 2,
               "tokens": Object {
                 "__c": "Object",
                 "equals": null,
@@ -27744,6 +28050,7 @@ Object {
           "__c": "AssignmentNode",
           "name": "a",
           "pos": null,
+          "role": 1,
           "tokens": Object {
             "__c": "Object",
             "equals": null,
@@ -27776,6 +28083,7 @@ Object {
           "__c": "AssignmentNode",
           "name": "b",
           "pos": null,
+          "role": 1,
           "tokens": Object {
             "__c": "Object",
             "equals": null,
@@ -27808,6 +28116,7 @@ Object {
           "__c": "AssignmentNode",
           "name": "c",
           "pos": null,
+          "role": 1,
           "tokens": Object {
             "__c": "Object",
             "equals": null,
@@ -28739,6 +29048,7 @@ Object {
           "__c": "AssignmentNode",
           "name": "a",
           "pos": null,
+          "role": 1,
           "tokens": Object {
             "__c": "Object",
             "equals": null,
@@ -28771,6 +29081,7 @@ Object {
           "__c": "AssignmentNode",
           "name": "b",
           "pos": null,
+          "role": 1,
           "tokens": Object {
             "__c": "Object",
             "equals": null,
@@ -28803,6 +29114,7 @@ Object {
           "__c": "AssignmentNode",
           "name": "c",
           "pos": null,
+          "role": 1,
           "tokens": Object {
             "__c": "Object",
             "equals": null,
@@ -28831,6 +29143,7 @@ Object {
               "__c": "AssignmentNode",
               "name": "",
               "pos": null,
+              "role": 2,
               "tokens": Object {
                 "__c": "Object",
                 "equals": null,
@@ -28845,6 +29158,7 @@ Object {
                     "__c": "AssignmentNode",
                     "name": "",
                     "pos": null,
+                    "role": 2,
                     "tokens": Object {
                       "__c": "Object",
                       "equals": null,
@@ -28885,6 +29199,7 @@ Object {
                     "__c": "AssignmentNode",
                     "name": "",
                     "pos": null,
+                    "role": 2,
                     "tokens": Object {
                       "__c": "Object",
                       "equals": null,
@@ -28925,6 +29240,7 @@ Object {
                     "__c": "AssignmentNode",
                     "name": "",
                     "pos": null,
+                    "role": 2,
                     "tokens": Object {
                       "__c": "Object",
                       "equals": null,
@@ -29132,6 +29448,7 @@ Object {
           "__c": "AssignmentNode",
           "name": "cartesian",
           "pos": null,
+          "role": 1,
           "tokens": Object {
             "__c": "Object",
             "equals": null,
@@ -29161,6 +29478,7 @@ Object {
                 "__c": "AssignmentNode",
                 "name": "",
                 "pos": null,
+                "role": 2,
                 "tokens": Object {
                   "__c": "Object",
                   "equals": null,
@@ -29244,6 +29562,7 @@ Object {
                 "__c": "AssignmentNode",
                 "name": "",
                 "pos": null,
+                "role": 2,
                 "tokens": Object {
                   "__c": "Object",
                   "equals": null,
@@ -29360,6 +29679,7 @@ Object {
                 "__c": "AssignmentNode",
                 "name": "",
                 "pos": null,
+                "role": 2,
                 "tokens": Object {
                   "__c": "Object",
                   "equals": null,
@@ -29586,6 +29906,7 @@ Object {
           "__c": "AssignmentNode",
           "name": "spherical",
           "pos": null,
+          "role": 1,
           "tokens": Object {
             "__c": "Object",
             "equals": null,
@@ -29617,6 +29938,7 @@ Object {
                   "__c": "AssignmentNode",
                   "name": "",
                   "pos": null,
+                  "role": 2,
                   "tokens": Object {
                     "__c": "Object",
                     "equals": null,
@@ -29735,6 +30057,7 @@ Object {
                   "__c": "AssignmentNode",
                   "name": "",
                   "pos": null,
+                  "role": 2,
                   "tokens": Object {
                     "__c": "Object",
                     "equals": null,
@@ -29861,6 +30184,7 @@ Object {
                   "__c": "AssignmentNode",
                   "name": "",
                   "pos": null,
+                  "role": 2,
                   "tokens": Object {
                     "__c": "Object",
                     "equals": null,
@@ -29979,6 +30303,7 @@ Object {
                   "__c": "AssignmentNode",
                   "name": "",
                   "pos": null,
+                  "role": 2,
                   "tokens": Object {
                     "__c": "Object",
                     "equals": null,
@@ -30103,6 +30428,7 @@ Object {
                 "__c": "AssignmentNode",
                 "name": "",
                 "pos": null,
+                "role": 2,
                 "tokens": Object {
                   "__c": "Object",
                   "equals": null,
@@ -30335,6 +30661,7 @@ Object {
       "__c": "AssignmentNode",
       "name": "phi",
       "pos": null,
+      "role": 0,
       "tokens": Object {
         "__c": "Object",
         "equals": Object {
@@ -30420,6 +30747,7 @@ Object {
       "__c": "AssignmentNode",
       "name": "testpoints_on_sphere",
       "pos": null,
+      "role": 0,
       "tokens": Object {
         "__c": "Object",
         "equals": Object {
@@ -30471,6 +30799,7 @@ Object {
                 "__c": "AssignmentNode",
                 "name": "p",
                 "pos": null,
+                "role": 0,
                 "tokens": Object {
                   "__c": "Object",
                   "equals": Object {
@@ -32073,6 +32402,7 @@ Object {
                   "__c": "AssignmentNode",
                   "name": "",
                   "pos": null,
+                  "role": 2,
                   "tokens": Object {
                     "__c": "Object",
                     "equals": null,
@@ -32206,6 +32536,7 @@ Object {
       "__c": "AssignmentNode",
       "name": "testpoints_spherical",
       "pos": null,
+      "role": 0,
       "tokens": Object {
         "__c": "Object",
         "equals": Object {
@@ -32257,6 +32588,7 @@ Object {
                 "__c": "AssignmentNode",
                 "name": "p",
                 "pos": null,
+                "role": 0,
                 "tokens": Object {
                   "__c": "Object",
                   "equals": Object {
@@ -32308,6 +32640,7 @@ Object {
                   "__c": "AssignmentNode",
                   "name": "",
                   "pos": null,
+                  "role": 2,
                   "tokens": Object {
                     "__c": "Object",
                     "equals": null,
@@ -32431,6 +32764,7 @@ Object {
       "__c": "AssignmentNode",
       "name": "testpoints_circular",
       "pos": null,
+      "role": 0,
       "tokens": Object {
         "__c": "Object",
         "equals": Object {
@@ -32478,6 +32812,7 @@ Object {
                 "__c": "AssignmentNode",
                 "name": "a",
                 "pos": null,
+                "role": 0,
                 "tokens": Object {
                   "__c": "Object",
                   "equals": Object {
@@ -32646,6 +32981,7 @@ Object {
                       "__c": "AssignmentNode",
                       "name": "",
                       "pos": null,
+                      "role": 2,
                       "tokens": Object {
                         "__c": "Object",
                         "equals": null,
@@ -32714,6 +33050,7 @@ Object {
                       "__c": "AssignmentNode",
                       "name": "",
                       "pos": null,
+                      "role": 2,
                       "tokens": Object {
                         "__c": "Object",
                         "equals": null,
@@ -32872,6 +33209,7 @@ Object {
       "__c": "AssignmentNode",
       "name": "testpoints_coplanar",
       "pos": null,
+      "role": 0,
       "tokens": Object {
         "__c": "Object",
         "equals": Object {
@@ -32920,6 +33258,7 @@ Object {
             "__c": "AssignmentNode",
             "name": "u",
             "pos": null,
+            "role": 2,
             "tokens": Object {
               "__c": "Object",
               "equals": Object {
@@ -32961,6 +33300,7 @@ Object {
                   "__c": "AssignmentNode",
                   "name": "",
                   "pos": null,
+                  "role": 2,
                   "tokens": Object {
                     "__c": "Object",
                     "equals": null,
@@ -33110,6 +33450,7 @@ Object {
             "__c": "AssignmentNode",
             "name": "v",
             "pos": null,
+            "role": 2,
             "tokens": Object {
               "__c": "Object",
               "equals": Object {
@@ -33141,6 +33482,7 @@ Object {
                   "__c": "AssignmentNode",
                   "name": "",
                   "pos": null,
+                  "role": 2,
                   "tokens": Object {
                     "__c": "Object",
                     "equals": null,
@@ -33331,6 +33673,7 @@ Object {
                   "__c": "AssignmentNode",
                   "name": "i",
                   "pos": null,
+                  "role": 0,
                   "tokens": Object {
                     "__c": "Object",
                     "equals": Object {
@@ -33442,6 +33785,7 @@ Object {
                           "__c": "AssignmentNode",
                           "name": "",
                           "pos": null,
+                          "role": 2,
                           "tokens": Object {
                             "__c": "Object",
                             "equals": null,
@@ -33499,6 +33843,7 @@ Object {
                           "__c": "AssignmentNode",
                           "name": "",
                           "pos": null,
+                          "role": 2,
                           "tokens": Object {
                             "__c": "Object",
                             "equals": null,
@@ -33539,6 +33884,7 @@ Object {
                           "__c": "AssignmentNode",
                           "name": "",
                           "pos": null,
+                          "role": 2,
                           "tokens": Object {
                             "__c": "Object",
                             "equals": null,
@@ -33687,6 +34033,7 @@ Object {
                           "__c": "AssignmentNode",
                           "name": "",
                           "pos": null,
+                          "role": 2,
                           "tokens": Object {
                             "__c": "Object",
                             "equals": null,
@@ -33744,6 +34091,7 @@ Object {
                           "__c": "AssignmentNode",
                           "name": "",
                           "pos": null,
+                          "role": 2,
                           "tokens": Object {
                             "__c": "Object",
                             "equals": null,
@@ -33784,6 +34132,7 @@ Object {
                           "__c": "AssignmentNode",
                           "name": "",
                           "pos": null,
+                          "role": 2,
                           "tokens": Object {
                             "__c": "Object",
                             "equals": null,
@@ -34026,6 +34375,7 @@ Object {
       "__c": "AssignmentNode",
       "name": "testpoints_collinear_2d",
       "pos": null,
+      "role": 0,
       "tokens": Object {
         "__c": "Object",
         "equals": Object {
@@ -34074,6 +34424,7 @@ Object {
             "__c": "AssignmentNode",
             "name": "u",
             "pos": null,
+            "role": 2,
             "tokens": Object {
               "__c": "Object",
               "equals": Object {
@@ -34105,6 +34456,7 @@ Object {
                   "__c": "AssignmentNode",
                   "name": "",
                   "pos": null,
+                  "role": 2,
                   "tokens": Object {
                     "__c": "Object",
                     "equals": null,
@@ -34234,6 +34586,7 @@ Object {
                   "__c": "AssignmentNode",
                   "name": "i",
                   "pos": null,
+                  "role": 0,
                   "tokens": Object {
                     "__c": "Object",
                     "equals": Object {
@@ -34343,6 +34696,7 @@ Object {
                         "__c": "AssignmentNode",
                         "name": "",
                         "pos": null,
+                        "role": 2,
                         "tokens": Object {
                           "__c": "Object",
                           "equals": null,
@@ -34400,6 +34754,7 @@ Object {
                         "__c": "AssignmentNode",
                         "name": "",
                         "pos": null,
+                        "role": 2,
                         "tokens": Object {
                           "__c": "Object",
                           "equals": null,
@@ -34440,6 +34795,7 @@ Object {
                         "__c": "AssignmentNode",
                         "name": "",
                         "pos": null,
+                        "role": 2,
                         "tokens": Object {
                           "__c": "Object",
                           "equals": null,
@@ -34669,6 +35025,7 @@ Object {
       "__c": "AssignmentNode",
       "name": "testpoints_collinear_3d",
       "pos": null,
+      "role": 0,
       "tokens": Object {
         "__c": "Object",
         "equals": Object {
@@ -34713,6 +35070,7 @@ Object {
             "__c": "AssignmentNode",
             "name": "u",
             "pos": null,
+            "role": 2,
             "tokens": Object {
               "__c": "Object",
               "equals": Object {
@@ -34744,6 +35102,7 @@ Object {
                   "__c": "AssignmentNode",
                   "name": "",
                   "pos": null,
+                  "role": 2,
                   "tokens": Object {
                     "__c": "Object",
                     "equals": null,
@@ -34917,6 +35276,7 @@ Object {
                   "__c": "AssignmentNode",
                   "name": "i",
                   "pos": null,
+                  "role": 0,
                   "tokens": Object {
                     "__c": "Object",
                     "equals": Object {
@@ -35026,6 +35386,7 @@ Object {
                         "__c": "AssignmentNode",
                         "name": "",
                         "pos": null,
+                        "role": 2,
                         "tokens": Object {
                           "__c": "Object",
                           "equals": null,
@@ -35083,6 +35444,7 @@ Object {
                         "__c": "AssignmentNode",
                         "name": "",
                         "pos": null,
+                        "role": 2,
                         "tokens": Object {
                           "__c": "Object",
                           "equals": null,
@@ -35123,6 +35485,7 @@ Object {
                         "__c": "AssignmentNode",
                         "name": "",
                         "pos": null,
+                        "role": 2,
                         "tokens": Object {
                           "__c": "Object",
                           "equals": null,
@@ -35352,6 +35715,7 @@ Object {
       "__c": "AssignmentNode",
       "name": "testpoints2d",
       "pos": null,
+      "role": 0,
       "tokens": Object {
         "__c": "Object",
         "equals": Object {
@@ -35425,6 +35789,7 @@ Object {
                   "__c": "AssignmentNode",
                   "name": "i",
                   "pos": null,
+                  "role": 0,
                   "tokens": Object {
                     "__c": "Object",
                     "equals": Object {
@@ -35530,6 +35895,7 @@ Object {
                     "__c": "AssignmentNode",
                     "name": "",
                     "pos": null,
+                    "role": 2,
                     "tokens": Object {
                       "__c": "Object",
                       "equals": null,
@@ -35544,6 +35910,7 @@ Object {
                           "__c": "AssignmentNode",
                           "name": "",
                           "pos": null,
+                          "role": 2,
                           "tokens": Object {
                             "__c": "Object",
                             "equals": null,
@@ -35601,6 +35968,7 @@ Object {
                           "__c": "AssignmentNode",
                           "name": "",
                           "pos": null,
+                          "role": 2,
                           "tokens": Object {
                             "__c": "Object",
                             "equals": null,
@@ -35641,6 +36009,7 @@ Object {
                           "__c": "AssignmentNode",
                           "name": "",
                           "pos": null,
+                          "role": 2,
                           "tokens": Object {
                             "__c": "Object",
                             "equals": null,
@@ -35813,6 +36182,7 @@ Object {
       "__c": "AssignmentNode",
       "name": "testpoints3d",
       "pos": null,
+      "role": 0,
       "tokens": Object {
         "__c": "Object",
         "equals": Object {
@@ -35882,6 +36252,7 @@ Object {
                   "__c": "AssignmentNode",
                   "name": "i",
                   "pos": null,
+                  "role": 0,
                   "tokens": Object {
                     "__c": "Object",
                     "equals": Object {
@@ -35987,6 +36358,7 @@ Object {
                     "__c": "AssignmentNode",
                     "name": "",
                     "pos": null,
+                    "role": 2,
                     "tokens": Object {
                       "__c": "Object",
                       "equals": null,
@@ -36001,6 +36373,7 @@ Object {
                           "__c": "AssignmentNode",
                           "name": "",
                           "pos": null,
+                          "role": 2,
                           "tokens": Object {
                             "__c": "Object",
                             "equals": null,
@@ -36058,6 +36431,7 @@ Object {
                           "__c": "AssignmentNode",
                           "name": "",
                           "pos": null,
+                          "role": 2,
                           "tokens": Object {
                             "__c": "Object",
                             "equals": null,
@@ -36098,6 +36472,7 @@ Object {
                           "__c": "AssignmentNode",
                           "name": "",
                           "pos": null,
+                          "role": 2,
                           "tokens": Object {
                             "__c": "Object",
                             "equals": null,
@@ -36273,6 +36648,7 @@ Object {
           "__c": "AssignmentNode",
           "name": "",
           "pos": null,
+          "role": 2,
           "tokens": Object {
             "__c": "Object",
             "equals": null,
@@ -36380,6 +36756,7 @@ Object {
             "__c": "AssignmentNode",
             "name": "",
             "pos": null,
+            "role": 2,
             "tokens": Object {
               "__c": "Object",
               "equals": null,
@@ -36561,6 +36938,7 @@ Object {
           "__c": "AssignmentNode",
           "name": "",
           "pos": null,
+          "role": 2,
           "tokens": Object {
             "__c": "Object",
             "equals": null,
@@ -36651,6 +37029,7 @@ Object {
             "__c": "AssignmentNode",
             "name": "",
             "pos": null,
+            "role": 2,
             "tokens": Object {
               "__c": "Object",
               "equals": null,
@@ -36797,6 +37176,7 @@ Object {
           "__c": "AssignmentNode",
           "name": "",
           "pos": null,
+          "role": 2,
           "tokens": Object {
             "__c": "Object",
             "equals": null,
@@ -36887,6 +37267,7 @@ Object {
             "__c": "AssignmentNode",
             "name": "",
             "pos": null,
+            "role": 2,
             "tokens": Object {
               "__c": "Object",
               "equals": null,
@@ -37068,6 +37449,7 @@ Object {
           "__c": "AssignmentNode",
           "name": "",
           "pos": null,
+          "role": 2,
           "tokens": Object {
             "__c": "Object",
             "equals": null,
@@ -37175,6 +37557,7 @@ Object {
             "__c": "AssignmentNode",
             "name": "",
             "pos": null,
+            "role": 2,
             "tokens": Object {
               "__c": "Object",
               "equals": null,
@@ -37356,6 +37739,7 @@ Object {
           "__c": "AssignmentNode",
           "name": "",
           "pos": null,
+          "role": 2,
           "tokens": Object {
             "__c": "Object",
             "equals": null,
@@ -37446,6 +37830,7 @@ Object {
             "__c": "AssignmentNode",
             "name": "",
             "pos": null,
+            "role": 2,
             "tokens": Object {
               "__c": "Object",
               "equals": null,
@@ -37627,6 +38012,7 @@ Object {
           "__c": "AssignmentNode",
           "name": "",
           "pos": null,
+          "role": 2,
           "tokens": Object {
             "__c": "Object",
             "equals": null,
@@ -37734,6 +38120,7 @@ Object {
             "__c": "AssignmentNode",
             "name": "",
             "pos": null,
+            "role": 2,
             "tokens": Object {
               "__c": "Object",
               "equals": null,
@@ -37915,6 +38302,7 @@ Object {
           "__c": "AssignmentNode",
           "name": "",
           "pos": null,
+          "role": 2,
           "tokens": Object {
             "__c": "Object",
             "equals": null,
@@ -38022,6 +38410,7 @@ Object {
           "__c": "AssignmentNode",
           "name": "points",
           "pos": null,
+          "role": 1,
           "tokens": Object {
             "__c": "Object",
             "equals": null,
@@ -38050,6 +38439,7 @@ Object {
             "__c": "AssignmentNode",
             "name": "hull",
             "pos": null,
+            "role": 0,
             "tokens": Object {
               "__c": "Object",
               "equals": Object {
@@ -38098,6 +38488,7 @@ Object {
                   "__c": "AssignmentNode",
                   "name": "",
                   "pos": null,
+                  "role": 2,
                   "tokens": Object {
                     "__c": "Object",
                     "equals": null,
@@ -38173,6 +38564,7 @@ Object {
                       "__c": "AssignmentNode",
                       "name": "",
                       "pos": null,
+                      "role": 2,
                       "tokens": Object {
                         "__c": "Object",
                         "equals": null,
@@ -38278,6 +38670,7 @@ Object {
                       "__c": "AssignmentNode",
                       "name": "",
                       "pos": null,
+                      "role": 2,
                       "tokens": Object {
                         "__c": "Object",
                         "equals": null,
@@ -38435,6 +38828,7 @@ Object {
                   "__c": "AssignmentNode",
                   "name": "points",
                   "pos": null,
+                  "role": 2,
                   "tokens": Object {
                     "__c": "Object",
                     "equals": Object {
@@ -38492,6 +38886,7 @@ Object {
                   "__c": "AssignmentNode",
                   "name": "faces",
                   "pos": null,
+                  "role": 2,
                   "tokens": Object {
                     "__c": "Object",
                     "equals": Object {
@@ -38636,6 +39031,7 @@ Object {
                   "__c": "AssignmentNode",
                   "name": "points",
                   "pos": null,
+                  "role": 2,
                   "tokens": Object {
                     "__c": "Object",
                     "equals": Object {
@@ -38693,6 +39089,7 @@ Object {
                   "__c": "AssignmentNode",
                   "name": "faces",
                   "pos": null,
+                  "role": 2,
                   "tokens": Object {
                     "__c": "Object",
                     "equals": Object {
@@ -38869,6 +39266,7 @@ Object {
                 "__c": "AssignmentNode",
                 "name": "i",
                 "pos": null,
+                "role": 2,
                 "tokens": Object {
                   "__c": "Object",
                   "equals": Object {
@@ -38922,6 +39320,7 @@ Object {
                           "__c": "AssignmentNode",
                           "name": "",
                           "pos": null,
+                          "role": 2,
                           "tokens": Object {
                             "__c": "Object",
                             "equals": null,
@@ -39059,6 +39458,7 @@ Object {
                   "__c": "AssignmentNode",
                   "name": "p",
                   "pos": null,
+                  "role": 2,
                   "tokens": Object {
                     "__c": "Object",
                     "equals": Object {
@@ -39159,6 +39559,7 @@ Object {
                   "__c": "AssignmentNode",
                   "name": "$fn",
                   "pos": null,
+                  "role": 2,
                   "tokens": Object {
                     "__c": "Object",
                     "equals": Object {
@@ -39213,6 +39614,7 @@ Object {
                         "__c": "AssignmentNode",
                         "name": "",
                         "pos": null,
+                        "role": 2,
                         "tokens": Object {
                           "__c": "Object",
                           "equals": null,
@@ -39252,6 +39654,7 @@ Object {
                                 "__c": "AssignmentNode",
                                 "name": "",
                                 "pos": null,
+                                "role": 2,
                                 "tokens": Object {
                                   "__c": "Object",
                                   "equals": null,
@@ -39292,6 +39695,7 @@ Object {
                                 "__c": "AssignmentNode",
                                 "name": "",
                                 "pos": null,
+                                "role": 2,
                                 "tokens": Object {
                                   "__c": "Object",
                                   "equals": null,
@@ -39363,6 +39767,7 @@ Object {
                                     "__c": "AssignmentNode",
                                     "name": "",
                                     "pos": null,
+                                    "role": 2,
                                     "tokens": Object {
                                       "__c": "Object",
                                       "equals": null,
@@ -39397,6 +39802,7 @@ Object {
                                       "__c": "AssignmentNode",
                                       "name": "",
                                       "pos": null,
+                                      "role": 2,
                                       "tokens": Object {
                                         "__c": "Object",
                                         "equals": null,
@@ -39567,6 +39973,7 @@ Object {
                                     "__c": "AssignmentNode",
                                     "name": "",
                                     "pos": null,
+                                    "role": 2,
                                     "tokens": Object {
                                       "__c": "Object",
                                       "equals": null,
@@ -39601,6 +40008,7 @@ Object {
                                       "__c": "AssignmentNode",
                                       "name": "",
                                       "pos": null,
+                                      "role": 2,
                                       "tokens": Object {
                                         "__c": "Object",
                                         "equals": null,
@@ -39997,6 +40405,7 @@ Object {
                 "__c": "AssignmentNode",
                 "name": "hull",
                 "pos": null,
+                "role": 1,
                 "tokens": Object {
                   "__c": "Object",
                   "equals": null,
@@ -40029,6 +40438,7 @@ Object {
                 "__c": "AssignmentNode",
                 "name": "index",
                 "pos": null,
+                "role": 1,
                 "tokens": Object {
                   "__c": "Object",
                   "equals": null,
@@ -40059,6 +40469,7 @@ Object {
                       "__c": "AssignmentNode",
                       "name": "",
                       "pos": null,
+                      "role": 2,
                       "tokens": Object {
                         "__c": "Object",
                         "equals": null,
@@ -40099,6 +40510,7 @@ Object {
                       "__c": "AssignmentNode",
                       "name": "",
                       "pos": null,
+                      "role": 2,
                       "tokens": Object {
                         "__c": "Object",
                         "equals": null,
@@ -40139,6 +40551,7 @@ Object {
                       "__c": "AssignmentNode",
                       "name": "",
                       "pos": null,
+                      "role": 2,
                       "tokens": Object {
                         "__c": "Object",
                         "equals": null,
@@ -40179,6 +40592,7 @@ Object {
                       "__c": "AssignmentNode",
                       "name": "",
                       "pos": null,
+                      "role": 2,
                       "tokens": Object {
                         "__c": "Object",
                         "equals": null,
@@ -40254,6 +40668,7 @@ Object {
                       "__c": "AssignmentNode",
                       "name": "",
                       "pos": null,
+                      "role": 2,
                       "tokens": Object {
                         "__c": "Object",
                         "equals": null,
@@ -40294,6 +40709,7 @@ Object {
                       "__c": "AssignmentNode",
                       "name": "",
                       "pos": null,
+                      "role": 2,
                       "tokens": Object {
                         "__c": "Object",
                         "equals": null,
@@ -40334,6 +40750,7 @@ Object {
                       "__c": "AssignmentNode",
                       "name": "",
                       "pos": null,
+                      "role": 2,
                       "tokens": Object {
                         "__c": "Object",
                         "equals": null,
@@ -40374,6 +40791,7 @@ Object {
                       "__c": "AssignmentNode",
                       "name": "",
                       "pos": null,
+                      "role": 2,
                       "tokens": Object {
                         "__c": "Object",
                         "equals": null,
@@ -40462,6 +40880,7 @@ Object {
                     "__c": "AssignmentNode",
                     "name": "",
                     "pos": null,
+                    "role": 2,
                     "tokens": Object {
                       "__c": "Object",
                       "equals": null,
@@ -40502,6 +40921,7 @@ Object {
                     "__c": "AssignmentNode",
                     "name": "",
                     "pos": null,
+                    "role": 2,
                     "tokens": Object {
                       "__c": "Object",
                       "equals": null,
@@ -40542,6 +40962,7 @@ Object {
                     "__c": "AssignmentNode",
                     "name": "",
                     "pos": null,
+                    "role": 2,
                     "tokens": Object {
                       "__c": "Object",
                       "equals": null,
@@ -40582,6 +41003,7 @@ Object {
                     "__c": "AssignmentNode",
                     "name": "",
                     "pos": null,
+                    "role": 2,
                     "tokens": Object {
                       "__c": "Object",
                       "equals": null,
@@ -40927,6 +41349,7 @@ Object {
           "__c": "AssignmentNode",
           "name": "x",
           "pos": null,
+          "role": 2,
           "tokens": Object {
             "__c": "Object",
             "equals": Object {
@@ -41137,6 +41560,7 @@ Object {
           "__c": "AssignmentNode",
           "name": "",
           "pos": null,
+          "role": 2,
           "tokens": Object {
             "__c": "Object",
             "equals": null,
@@ -41337,6 +41761,7 @@ Object {
           "__c": "AssignmentNode",
           "name": "",
           "pos": null,
+          "role": 2,
           "tokens": Object {
             "__c": "Object",
             "equals": null,
@@ -41376,6 +41801,7 @@ Object {
           "__c": "AssignmentNode",
           "name": "r",
           "pos": null,
+          "role": 2,
           "tokens": Object {
             "__c": "Object",
             "equals": Object {
@@ -41513,6 +41939,7 @@ Object {
           "__c": "AssignmentNode",
           "name": "",
           "pos": null,
+          "role": 2,
           "tokens": Object {
             "__c": "Object",
             "equals": null,
@@ -41629,6 +42056,7 @@ Object {
       "__c": "AssignmentNode",
       "name": "x",
       "pos": null,
+      "role": 0,
       "tokens": Object {
         "__c": "Object",
         "equals": Object {
@@ -41676,6 +42104,7 @@ Object {
                 "__c": "AssignmentNode",
                 "name": "iter",
                 "pos": null,
+                "role": 0,
                 "tokens": Object {
                   "__c": "Object",
                   "equals": Object {
@@ -42033,6 +42462,7 @@ Object {
       "__c": "AssignmentNode",
       "name": "x",
       "pos": null,
+      "role": 0,
       "tokens": Object {
         "__c": "Object",
         "equals": Object {
@@ -42080,6 +42510,7 @@ Object {
                 "__c": "AssignmentNode",
                 "name": "iter",
                 "pos": null,
+                "role": 0,
                 "tokens": Object {
                   "__c": "Object",
                   "equals": Object {
@@ -42407,6 +42838,7 @@ Object {
                 "__c": "AssignmentNode",
                 "name": "iter3",
                 "pos": null,
+                "role": 0,
                 "tokens": Object {
                   "__c": "Object",
                   "equals": Object {
@@ -42557,6 +42989,7 @@ Object {
       "__c": "AssignmentNode",
       "name": "x",
       "pos": null,
+      "role": 0,
       "tokens": Object {
         "__c": "Object",
         "equals": Object {
@@ -42604,6 +43037,7 @@ Object {
                 "__c": "AssignmentNode",
                 "name": "iter",
                 "pos": null,
+                "role": 0,
                 "tokens": Object {
                   "__c": "Object",
                   "equals": Object {
@@ -42771,6 +43205,7 @@ Object {
                 "__c": "AssignmentNode",
                 "name": "abc",
                 "pos": null,
+                "role": 0,
                 "tokens": Object {
                   "__c": "Object",
                   "equals": Object {
@@ -43043,6 +43478,7 @@ Object {
                 "__c": "AssignmentNode",
                 "name": "iter3",
                 "pos": null,
+                "role": 0,
                 "tokens": Object {
                   "__c": "Object",
                   "equals": Object {
@@ -43211,6 +43647,7 @@ ScadFile {
         },
         "line": 1,
       },
+      "role": 0,
       "tokens": Object {
         "equals": Token {
           "end": CodeLocation {
@@ -43414,6 +43851,7 @@ ScadFile {
                 },
                 "line": 1,
               },
+              "role": 2,
               "tokens": Object {
                 "equals": Token {
                   "end": CodeLocation {

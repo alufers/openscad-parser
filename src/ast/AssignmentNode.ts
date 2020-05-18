@@ -4,9 +4,14 @@ import CodeLocation from "../CodeLocation";
 import ASTVisitor from "./ASTVisitor";
 import Token from "../Token";
 
+export enum AssignmentNodeRole {
+  VARIABLE_DECLARATION,
+  ARGUMENT_DECLARATION,
+  ARGUMENT_ASSIGNMENT,
+}
 
 /**
- * Represents a value being assigned to a name. Used when declaring and calling modules or functions. 
+ * Represents a value being assigned to a name. Used when declaring and calling modules or functions.
  * It is also used in control flow structures such as for loops and let expressions.
  * @category AST
  */
@@ -24,11 +29,12 @@ export default class AssignmentNode extends ASTNode {
     pos: CodeLocation,
     name: string,
     value: Expression,
+    public role: AssignmentNodeRole,
     public tokens: {
       name: Token;
       equals: Token;
       trailingCommas: Token[];
-      semicolon: Token
+      semicolon: Token;
     }
   ) {
     super(pos);

@@ -1,4 +1,4 @@
-import AssignmentNode from "./ast/AssignmentNode";
+import AssignmentNode, { AssignmentNodeRole } from "./ast/AssignmentNode";
 import {
   ArrayLookupExpr,
   AssertExpr,
@@ -312,12 +312,18 @@ export default class Parser {
     const expr = this.expression();
     this.consume(TokenType.Semicolon, "after assignment statement");
     const semicolon = this.previous();
-    return new AssignmentNode(pos, name.value, expr, {
-      name,
-      equals,
-      trailingCommas: null,
-      semicolon,
-    });
+    return new AssignmentNode(
+      pos,
+      name.value,
+      expr,
+      AssignmentNodeRole.VARIABLE_DECLARATION,
+      {
+        name,
+        equals,
+        trailingCommas: null,
+        semicolon,
+      }
+    );
   }
   protected moduleInstantiationStatement():
     | ModuleInstantiationStmt
@@ -453,12 +459,20 @@ export default class Parser {
         // this is a positional paramater
       }
 
-      const arg = new AssignmentNode(this.getLocation(), name, value, {
-        name: nameToken,
-        equals,
-        semicolon: null,
-        trailingCommas: [],
-      });
+      const arg = new AssignmentNode(
+        this.getLocation(),
+        name,
+        value,
+        allowPositional
+          ? AssignmentNodeRole.ARGUMENT_ASSIGNMENT
+          : AssignmentNodeRole.ARGUMENT_DECLARATION,
+        {
+          name: nameToken,
+          equals,
+          semicolon: null,
+          trailingCommas: [],
+        }
+      );
       args.push(arg);
 
       if (this.matchToken(TokenType.Comma)) {
@@ -516,12 +530,18 @@ export default class Parser {
       const equals = this.previous();
       const value = this.expression();
 
-      const arg = new AssignmentNode(this.getLocation(), name, value, {
-        equals,
-        semicolon: null,
-        name: nameToken,
-        trailingCommas: [],
-      });
+      const arg = new AssignmentNode(
+        this.getLocation(),
+        name,
+        value,
+        AssignmentNodeRole.VARIABLE_DECLARATION,
+        {
+          equals,
+          semicolon: null,
+          name: nameToken,
+          trailingCommas: [],
+        }
+      );
       args.push(arg);
 
       if (this.matchToken(TokenType.Comma)) {
