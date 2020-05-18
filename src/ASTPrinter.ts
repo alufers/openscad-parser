@@ -491,7 +491,10 @@ export default class ASTPrinter implements ASTVisitor<string> {
       source += arg.accept(this);
     }
     source += this.stringifyExtraTokens(n.tokens.secondParen);
-    source += ") ";
+    source += ")";
+    if (!(n instanceof NoopStmt)) {
+      source += " ";
+    }
     source += n.stmt.accept(this);
     return source;
   }
