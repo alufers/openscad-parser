@@ -849,7 +849,7 @@ export default class Parser {
       return this.bracketInsides();
     }
     throw this.errorCollector.reportError(
-      new FailedToMatchPrimaryExpressionParsingError(this.getLocation())
+      new FailedToMatchPrimaryExpressionParsingError(this.previous().pos)
     );
   }
   /**
