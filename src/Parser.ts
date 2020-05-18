@@ -157,7 +157,13 @@ export default class Parser {
     const eot = this.peek();
     return new ScadFile(new CodeLocation(this.code), statements, { eot });
   }
-  protected synchronize() {
+  protected synchronize(e: ParsingError) {
+    if (e instanceof FailedToMatchPrimaryExpressionParsingError) {
+      if (this.peek().hasNewlineInExtraTokens()) {
+        // assume that when there is a newline we want to parse the next statement
+        return;
+      }
+    }
     this.advance();
     while (!this.isAtEnd()) {
       if (this.previous().type === TokenType.Semicolon) return;
@@ -204,7 +210,7 @@ export default class Parser {
       );
     } catch (e) {
       if (e instanceof ParsingError) {
-        this.synchronize();
+        this.synchronize(e);
         return new ErrorNode(syncStartLocation, {
           tokens: this.tokens.slice(syncStartToken, this.currentToken),
         });
