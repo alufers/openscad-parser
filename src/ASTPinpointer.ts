@@ -106,7 +106,7 @@ export default class ASTPinpointer implements ASTVisitor<PinpointerRet> {
           return result;
         }
       } else {
-        throw new Error("Bad elemnent in token mix");
+        throw new Error("Bad element in token mix");
       }
     }
     const firstThing = t[0];
@@ -122,7 +122,7 @@ export default class ASTPinpointer implements ASTVisitor<PinpointerRet> {
     if (typeof firstThing === "function") {
       return firstThing.call(this);
     }
-    throw new Error("Bad elemnent in first token mix element");
+    throw new Error("Bad element in first token mix element");
   }
   visitScadFile(n: ScadFile): PinpointerRet {
     return this.binSearchDispatch(
@@ -131,7 +131,13 @@ export default class ASTPinpointer implements ASTVisitor<PinpointerRet> {
     );
   }
   visitAssignmentNode(n: AssignmentNode): PinpointerRet {
-    const arr = [n.tokens.name, n.tokens.equals, () => n.value.accept(this)];
+    const arr: DispatchTokenMix = [n.tokens.name];
+    if (n.tokens.equals) {
+      arr.push(n.tokens.equals);
+    }
+    if (n.value) {
+      arr.push(() => n.value.accept(this));
+    }
     if (n.tokens.trailingCommas) {
       arr.push(...n.tokens.trailingCommas);
     }

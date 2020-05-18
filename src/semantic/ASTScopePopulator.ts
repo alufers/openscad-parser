@@ -54,7 +54,12 @@ export default class ASTScopePopulator implements ASTVisitor<ASTNode> {
   }
   visitAssignmentNode(n: AssignmentNode): ASTNode {
     this.nearestScope.variables.set(n.name, n);
-    return new AssignmentNode(n.pos, n.name, n.value.accept(this), n.tokens);
+    return new AssignmentNode(
+      n.pos,
+      n.name,
+      n.value ? n.value.accept(this) : null,
+      n.tokens
+    );
   }
   visitUnaryOpExpr(n: UnaryOpExpr): ASTNode {
     return new UnaryOpExpr(n.pos, n.operation, n.right.accept(this), n.tokens);

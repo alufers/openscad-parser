@@ -22,7 +22,7 @@ describe("ASTPinpointer", () => {
         return this.binSearchDispatch([tokens[1], tokens[2]], null);
       }
     }
-    const p = new TstClass(new CodeLocation(f, 1));
+    const p = new TstClass(new CodeLocation(f, 0));
     expect(p.testFunc1()).toEqual(BinBefore);
 
     p.pinpointLocation = new CodeLocation(f, 200);
