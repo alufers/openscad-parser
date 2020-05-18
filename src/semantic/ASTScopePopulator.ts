@@ -98,7 +98,7 @@ export default class ASTScopePopulator implements ASTVisitor<ASTNode> {
       n.pos,
       n.begin.accept(this),
       n.step ? n.step.accept(this) : null,
-      n.accept(this),
+      n.end.accept(this),
       n.tokens
     );
   }
