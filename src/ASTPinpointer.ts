@@ -106,7 +106,9 @@ export default class ASTPinpointer implements ASTVisitor<PinpointerRet> {
           return result;
         }
       } else {
-        throw new Error("Bad element in token mix");
+        throw new Error(
+          `Bad element in token mix: ${typeof t[pivot]} at index ${pivot}.`
+        );
       }
     }
     const firstThing = t[0];
@@ -131,7 +133,10 @@ export default class ASTPinpointer implements ASTVisitor<PinpointerRet> {
     );
   }
   visitAssignmentNode(n: AssignmentNode): PinpointerRet {
-    const arr: DispatchTokenMix = [n.tokens.name];
+    const arr: DispatchTokenMix = [];
+    if (n.tokens.name) {
+      arr.push(n.tokens.name);
+    }
     if (n.tokens.equals) {
       arr.push(n.tokens.equals);
     }

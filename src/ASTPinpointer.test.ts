@@ -130,4 +130,15 @@ describe("ASTPinpointer", () => {
     expect(ap.bottomUpHierarchy[2]).toBeInstanceOf(AssignmentNode);
     expect(ap.bottomUpHierarchy[3]).toBeInstanceOf(ScadFile);
   });
+  it("does not throw when pinpointing in a code file with a module instantation", () => {
+   
+
+    const f = new CodeFile("<test>", "cube([10, 10, 10]);");
+
+    const [ast, ec] = ParsingHelper.parseFile(f);
+    ec.throwIfAny();
+
+    const ap = new ASTPinpointer(new CodeLocation(f, 4));
+    let theNode = ap.doPinpoint(ast);
+  })
 });
