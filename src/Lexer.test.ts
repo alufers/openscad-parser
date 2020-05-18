@@ -5,7 +5,7 @@ import LexingError from "./errors/LexingError";
 import {
   MultiLineComment,
   NewLineExtraToken,
-  SingleLineComment
+  SingleLineComment,
 } from "./extraTokens";
 import Lexer from "./Lexer";
 import LiteralToken from "./LiteralToken";
@@ -14,7 +14,7 @@ import TokenType from "./TokenType";
 
 function lexToTTStream(code: string) {
   const lexer = new Lexer(new CodeFile("<test>", code), new ErrorCollector());
-  return lexer.scan().map(token => token.type);
+  return lexer.scan().map((token) => token.type);
 }
 
 function lexTokens(code: string) {
@@ -23,19 +23,19 @@ function lexTokens(code: string) {
 }
 
 function simplifyTokens(tokens: Token[]) {
-  return tokens.map(token => {
+  return tokens.map((token) => {
     if (token instanceof LiteralToken) {
       return {
         val: token.value,
         posChar: token.pos.char,
         type: TokenType[token.type],
-        l: token.lexeme
+        l: token.lexeme,
       };
     }
     return {
       posChar: token.pos.char,
       type: TokenType[token.type], // reverse lookup the token type so that it is easier to read the snaps
-      l: token.lexeme
+      l: token.lexeme,
     };
   });
 }
@@ -60,7 +60,7 @@ describe("Lexer", () => {
       TokenType.Percent,
       TokenType.LeftBrace,
       TokenType.RightBrace,
-      TokenType.Eot
+      TokenType.Eot,
     ]);
   });
   it("scans braces, parens and brackets", () => {
@@ -72,7 +72,7 @@ describe("Lexer", () => {
       TokenType.RightBrace,
       TokenType.LeftParen,
       TokenType.RightParen,
-      TokenType.Eot
+      TokenType.Eot,
     ]);
   });
   it("scans braces, parens and brackets", () => {
@@ -84,7 +84,7 @@ describe("Lexer", () => {
       TokenType.RightBrace,
       TokenType.LeftParen,
       TokenType.RightParen,
-      TokenType.Eot
+      TokenType.Eot,
     ]);
   });
   it("scans identifiers", () => {
@@ -92,7 +92,7 @@ describe("Lexer", () => {
     expect(tts).toEqual([
       TokenType.Identifier,
       TokenType.Semicolon,
-      TokenType.Eot
+      TokenType.Eot,
     ]);
   });
   it("scans number literals", () => {
@@ -100,7 +100,7 @@ describe("Lexer", () => {
     expect(tts).toEqual([
       TokenType.NumberLiteral,
       TokenType.Semicolon,
-      TokenType.Eot
+      TokenType.Eot,
     ]);
   });
   it("scans string literals", () => {
@@ -108,7 +108,7 @@ describe("Lexer", () => {
     expect(tts).toEqual([
       TokenType.StringLiteral,
       TokenType.Semicolon,
-      TokenType.Eot
+      TokenType.Eot,
     ]);
   });
 
@@ -121,7 +121,7 @@ describe("Lexer", () => {
       TokenType.OR,
       TokenType.Identifier,
       TokenType.Semicolon,
-      TokenType.Eot
+      TokenType.Eot,
     ]);
   });
 
@@ -132,7 +132,7 @@ describe("Lexer", () => {
       TokenType.Dot,
       TokenType.Identifier,
       TokenType.Semicolon,
-      TokenType.Eot
+      TokenType.Eot,
     ]);
   });
   it("scans hashes", () => {
@@ -141,7 +141,7 @@ describe("Lexer", () => {
       TokenType.Hash,
       TokenType.LeftBrace,
       TokenType.RightBrace,
-      TokenType.Eot
+      TokenType.Eot,
     ]);
   });
   it("scans single line comments", () => {
@@ -151,7 +151,7 @@ describe("Lexer", () => {
       TokenType.Equal,
       TokenType.NumberLiteral,
       TokenType.Semicolon,
-      TokenType.Eot
+      TokenType.Eot,
     ]);
   });
   it("scans multiline comments", () => {
@@ -226,7 +226,7 @@ describe("Lexer", () => {
       expect(lexToTTStream(`1.`)).toEqual([
         TokenType.NumberLiteral,
         TokenType.Dot,
-        TokenType.Eot
+        TokenType.Eot,
       ]);
     });
   });
@@ -265,7 +265,7 @@ describe("Lexer", () => {
         // comment
       }
     `);
-    expect(tokens.map(t => t.type)).toEqual([
+    expect(tokens.map((t) => t.type)).toEqual([
       /*  0 */ TokenType.Module,
       /*  1 */ TokenType.Identifier,
       /*  2 */ TokenType.LeftParen,
@@ -276,10 +276,14 @@ describe("Lexer", () => {
       /*  7 */ TokenType.NumberLiteral,
       /*  8 */ TokenType.Semicolon,
       /*  9 */ TokenType.RightBrace,
-      /* 10 */ TokenType.Eot
+      /* 10 */ TokenType.Eot,
     ]);
-    expect(tokens[9].extraTokens).toHaveLength(3)
+    expect(tokens[9].extraTokens).toHaveLength(3);
     expect(tokens[10].extraTokens).toHaveLength(1);
+  });
+  it("sets pos and and end of tokens so that there is no gaps between them", () => {
+    const tokens = lexTokens(`{     }{}`); // 5 spaces
+    expect(tokens[0].end.char).toEqual(tokens[1].startWithWhitespace.char);
   });
   describe.skip("lexing of random files found on the internet", () => {
     async function lexFile(path: string) {

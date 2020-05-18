@@ -25,6 +25,7 @@ import TokenType from "./TokenType";
 export default class Lexer {
   protected loc: CodeLocation;
   protected start: CodeLocation;
+  protected startWithWhitespace: CodeLocation;
   public tokens: Token[] = [];
   protected currentExtraTokens: ExtraToken[] = [];
   constructor(
@@ -39,6 +40,7 @@ export default class Lexer {
    */
   scan(): Token[] {
     this.start = this.loc.copy();
+    this.startWithWhitespace = this.loc.copy();
     while (!this.isAtEnd()) {
       this.start = this.loc.copy();
       this.scanToken();
@@ -288,11 +290,19 @@ export default class Lexer {
     const lexeme = this.codeFile.code.substring(this.start.char, this.loc.char);
     let token;
     if (value != null) {
-      token = new LiteralToken(tokenType, this.start.copy(), lexeme, value);
+      token = new LiteralToken(
+        tokenType,
+        this.start.copy(),
+        this.loc.copy(),
+        lexeme,
+        value
+      );
     } else {
-      token = new Token(tokenType, this.start.copy(), lexeme);
+      token = new Token(tokenType, this.start.copy(), this.loc.copy(), lexeme);
     }
     token.extraTokens = this.currentExtraTokens;
+    token.startWithWhitespace = this.startWithWhitespace.copy();
+    this.startWithWhitespace = this.loc.copy();
     this.currentExtraTokens = [];
     this.tokens.push(token);
   }

@@ -9,9 +9,10 @@ export default class LiteralToken<ValueT> extends Token {
   constructor(
     type: TokenType,
     pos: CodeLocation,
+    end: CodeLocation,
     lexeme: string,
     public value: ValueT
   ) {
-    super(type, pos, lexeme);
+    super(type, pos, end, lexeme);
   }
 }

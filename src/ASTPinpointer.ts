@@ -76,14 +76,11 @@ export default class ASTPinpointer implements ASTVisitor<PinpointerRet> {
       let pivot = Math.floor((r + l) / 2);
       if (t[pivot] instanceof Token) {
         const tokenAtPiviot = t[pivot] as Token;
-        if (
-          tokenAtPiviot.pos.char + tokenAtPiviot.lexeme.length <=
-          this.pinpointLocation.char
-        ) {
+        if (tokenAtPiviot.end.char <= this.pinpointLocation.char) {
           l = pivot + 1;
           continue;
         }
-        if (tokenAtPiviot.pos.char > this.pinpointLocation.char) {
+        if (tokenAtPiviot.startWithWhitespace.char > this.pinpointLocation.char) {
           r = pivot - 1;
           continue;
         }
@@ -113,10 +110,7 @@ export default class ASTPinpointer implements ASTVisitor<PinpointerRet> {
     }
     const firstThing = t[0];
     if (firstThing instanceof Token) {
-      if (
-        firstThing.pos.char + firstThing.lexeme.length <=
-        this.pinpointLocation.char
-      ) {
+      if (firstThing.end.char <= this.pinpointLocation.char) {
         return BinAfter;
       }
       return BinBefore;

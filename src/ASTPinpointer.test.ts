@@ -10,6 +10,7 @@ import Token from "./Token";
 import ScadFile from "./ast/ScadFile";
 import ASTScopePopulator from "./semantic/ASTScopePopulator";
 import Scope from "./semantic/Scope";
+import { BlockStmt } from "./ast/statements";
 
 describe("ASTPinpointer", () => {
   it("the internal binsearch dispatch works with simple tokens", () => {
@@ -141,14 +142,19 @@ describe("ASTPinpointer", () => {
     const ap = new ASTPinpointer(new CodeLocation(f, 4));
     let theNode = ap.doPinpoint(ast);
   });
-  it("does not throw when pinpointing a module delcaration in a scope populated ast", async () => {
+  it("does not throw when pinpointing a module delcaration in a scope populated ast, pinpoints the correct ast nodes", async () => {
     const f = await CodeFile.load("./src/testdata/pinpointer_block_test.scad");
 
     const [ast, ec] = ParsingHelper.parseFile(f);
+    const lexer = new Lexer(f, ec);
+    const tokens = lexer.scan();
     ec.throwIfAny();
     const populator = new ASTScopePopulator(new Scope());
     const astWithScopes = ast.accept(populator);
     const ap = new ASTPinpointer(new CodeLocation(f, 32));
-    let theNode = ap.doPinpoint(astWithScopes);
+    let theNode; //= ap.doPinpoint(astWithScopes);
+    ap.pinpointLocation = new CodeLocation(f, 58);
+    theNode = ap.doPinpoint(ast);
+    expect(theNode).toBeInstanceOf(BlockStmt);
   });
 });
