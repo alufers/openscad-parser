@@ -409,8 +409,9 @@ export default class ASTPrinter implements ASTVisitor<string> {
       "use " +
       this.stringifyExtraTokens(n.tokens.filename) +
       " <" +
-      n.filename;
-    ">" + this.newLine();
+      n.filename +
+      ">" +
+      this.newLine();
     return source;
   }
   visitModuleInstantiationStmt(n: ModuleInstantiationStmt): string {

@@ -128,4 +128,9 @@ describe("ASTPrinter", () => {
 
     expect(f).not.toStrictEqual(expect.stringContaining(") ;"));
   });
+  test("does not cutt off end chevron of an use statement", () => {
+    const f = doFormat(`use <xD>`);
+
+    expect(f).toStrictEqual(expect.stringContaining("<xD>"));
+  });
 });
