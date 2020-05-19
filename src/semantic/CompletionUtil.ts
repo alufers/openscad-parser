@@ -2,7 +2,7 @@ import ASTNode from "../ast/ASTNode";
 import CodeLocation from "../CodeLocation";
 import ASTPinpointer from "../ASTPinpointer";
 import Scope from "./Scope";
-import { NodeWithScope } from "..";
+import NodeWithScope from "./NodeWithScope";
 
 export enum CompletionType {
   VARIABLE,
@@ -19,22 +19,23 @@ export default class CompletionUtil {
     const pp = new ASTPinpointer(loc);
     pp.doPinpoint(ast);
     let symbols: CompletionSymbol[] = [];
+    const scopesToShow: Scope[] = [];
     for (const h of pp.bottomUpHierarchy) {
       const hh: NodeWithScope = h as NodeWithScope;
       if ("scope" in hh && hh.scope instanceof Scope) {
-        for (const v of hh.scope.variables) {
-          symbols.push(
-            new CompletionSymbol(CompletionType.VARIABLE, v[1].name)
-          );
-        }
-        for (const f of hh.scope.functions) {
-          symbols.push(
-            new CompletionSymbol(CompletionType.FUNCTION, f[1].name)
-          );
-        }
-        for (const m of hh.scope.modules) {
-          symbols.push(new CompletionSymbol(CompletionType.MODULE, m[1].name));
-        }
+        scopesToShow.push(hh.scope);
+        scopesToShow.push(...hh.scope.siblingScopes);
+      }
+    }
+    for (const scope of scopesToShow) {
+      for (const v of scope.variables) {
+        symbols.push(new CompletionSymbol(CompletionType.VARIABLE, v[1].name));
+      }
+      for (const f of scope.functions) {
+        symbols.push(new CompletionSymbol(CompletionType.FUNCTION, f[1].name));
+      }
+      for (const m of scope.modules) {
+        symbols.push(new CompletionSymbol(CompletionType.MODULE, m[1].name));
       }
     }
     return symbols;

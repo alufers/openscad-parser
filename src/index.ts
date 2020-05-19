@@ -60,3 +60,4 @@ export * from "./semantic/Scope";
 export * from "./semantic/nodesWithScopes";
 export { default as CompletionUtil } from "./semantic/CompletionUtil";
 export * from "./semantic/CompletionUtil";
+export { default as PreludeUtil } from "./prelude/PreludeUtil";
