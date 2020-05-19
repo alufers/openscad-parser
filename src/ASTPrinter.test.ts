@@ -58,7 +58,6 @@ describe("ASTPrinter", () => {
     const [codeWithInjections, injectedStrings] = injectCommentsBetweenTokens(
       source
     );
-      
 
     // we do two passes, one with all the comments and another one with the problematic ones, this is where we throw errors
     const formatted = doFormat(codeWithInjections);
@@ -123,5 +122,10 @@ describe("ASTPrinter", () => {
     doPreserveTest(
       (await CodeFile.load(resolve(__dirname, "testdata/ddd.scad"))).code
     );
+  });
+  test("it does not add a space between the closing paren and semicolon in an empty module", () => {
+    const f = doFormat(`module asdf();`);
+
+    expect(f).not.toStrictEqual(expect.stringContaining(") ;"));
   });
 });
