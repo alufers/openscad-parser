@@ -346,7 +346,7 @@ export default class ASTPinpointer implements ASTVisitor<PinpointerRet> {
   }
   visitUseStmt(n: UseStmt): PinpointerRet {
     return this.binSearchDispatch(
-      [n.tokens.useKeyword, n.tokens.startChevron, n.tokens.endChevron],
+      [n.tokens.useKeyword, n.tokens.useKeyword],
       n
     );
   }
