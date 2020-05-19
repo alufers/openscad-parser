@@ -10,6 +10,7 @@ import {
   UnexpectedCharacterLexingError,
   UnterminatedMultilineCommentLexingError,
   UnterminatedStringLiteralLexingError,
+  UnterminatedFilenameLexingError,
 } from "./errors/lexingErrors";
 import {
   ExtraToken,
@@ -275,10 +276,57 @@ export default class Lexer {
     }
     const lexeme = this.codeFile.code.substring(this.start.char, this.loc.char);
     if (lexeme in keywords) {
-      this.addToken(keywords[lexeme]);
+      const keywordType = keywords[lexeme];
+      this.addToken(keywordType);
+      // check if we need to lex a filename
+      if (keywordType === TokenType.Use) {
+        this.consumeFileNameInChevrons();
+      }
       return;
     }
     this.addToken(TokenType.Identifier, lexeme);
+  }
+
+  protected consumeFileNameInChevrons() {
+    this.startWithWhitespace = this.loc.copy();
+    while (!this.isAtEnd()) {
+      this.start = this.loc.copy();
+      if (
+        this.match("\n") ||
+        this.match("\t") ||
+        this.match("\r") ||
+        this.match(" ")
+      )
+        continue; // ignore whitespace
+
+      if (this.match("<")) break;
+      // The openscad parser does not allow putting comments like this: `use /* ddd*/ <file.scad>`
+      // We must check that and report an error
+      throw this.errorCollector.reportError(
+        new UnexpectedCharacterLexingError(this.loc.copy(), this.advance())
+      );
+    }
+    if (this.isAtEnd()) {
+      throw this.errorCollector.reportError(
+        new UnterminatedFilenameLexingError(this.loc.copy())
+      );
+    }
+    let filename = "";
+    let didEnd = false;
+    while (!this.isAtEnd()) {
+      const c = this.advance();
+      if (c === ">") {
+        didEnd = true;
+        break;
+      }
+      filename += c;
+    }
+    if (!didEnd) {
+      throw this.errorCollector.reportError(
+        new UnterminatedFilenameLexingError(this.loc.copy())
+      );
+    }
+    this.addToken(TokenType.FilenameInChevrons, filename);
   }
 
   /**

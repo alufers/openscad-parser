@@ -115,39 +115,14 @@ export default class Parser {
     while (!this.isAtEnd()) {
       if (this.matchToken(TokenType.Use)) {
         const useKeyword = this.previous();
-        const startChevron = this.consume(TokenType.Less, "after use");
-        // The openscad parser does not allow putting comments like this: `use /* ddd*/ <file.scad>`
-        // We must check that and report an error
-        if (
-          startChevron.extraTokens.some(
-            (t) =>
-              t instanceof MultiLineComment || t instanceof SingleLineComment
-          )
-        ) {
-          // we don't throw here since this is not a fatal error and it will not mess up the parser, just a openscad quirk
-          this.errorCollector.reportError(
-            new UnexpectedCommentBeforeUseChevron(startChevron.pos)
-          );
-        }
-        while (!this.checkToken(TokenType.Greater) && !this.isAtEnd()) {
-          this.advance();
-        }
-        if (this.isAtEnd()) {
-          throw this.errorCollector.reportError(
-            new UnterminatedUseStatementParsingError(this.getLocation())
-          );
-        }
-        const filename = this.code.code.substring(
-          startChevron.pos.char + 1,
-          this.peek().pos.char // we use  this.peek().pos.char - 1 to include any comments befor the '>' toke
-        );
-
-        const endChevron = this.advance(); // advance the '>' token
+        const filenameToken: LiteralToken<string> = this.consume(
+          TokenType.FilenameInChevrons,
+          "after 'use' keyword"
+        ) as LiteralToken<string>;
         statements.push(
-          new UseStmt(this.getLocation(), filename, {
+          new UseStmt(this.getLocation(), filenameToken.value, {
             useKeyword,
-            startChevron: startChevron,
-            endChevron: endChevron,
+            filename: filenameToken,
           })
         );
       } else {

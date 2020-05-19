@@ -167,7 +167,9 @@ enum TokenType {
   /**
    * The '#' symbol
    */
-  Hash
+  Hash,
+
+  FilenameInChevrons
 }
 
 export default TokenType;

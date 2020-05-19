@@ -407,7 +407,7 @@ export default class ASTPrinter implements ASTVisitor<string> {
     source += this.stringifyExtraTokens(n.tokens.useKeyword);
     source +=
       "use " +
-      this.stringifyExtraTokens(n.tokens.startChevron) +
+      this.stringifyExtraTokens(n.tokens.filename) +
       " <" +
       n.filename;
     ">" + this.newLine();

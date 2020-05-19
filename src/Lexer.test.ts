@@ -258,6 +258,25 @@ describe("Lexer", () => {
       expect(() => testStringLexing(`"aaaa`)).toThrowError(LexingError);
     });
   });
+  describe("use statement lexing", () => {
+    it("does generate a FilenameInChevronsToken", () => {
+      const tokens = lexTokens(`use <ddd/astd.scad>`);
+      expect(tokens[0].type).toEqual(TokenType.Use);
+      expect(tokens[0].lexeme).toEqual("use");
+      expect(tokens[1].type).toEqual(TokenType.FilenameInChevrons);
+      expect(tokens[1].lexeme).toEqual("<ddd/astd.scad>");
+      expect(tokens[1]).toBeInstanceOf(LiteralToken);
+      expect((tokens[1] as LiteralToken<string>).value).toEqual(
+        "ddd/astd.scad"
+      );
+    });
+    it("throws when there is no filename after the use keyword", () => {
+      expect(() => lexTokens(`use ;`)).toThrowError(LexingError);
+    });
+    it("throws when there is an unterminated filename", () => {
+      expect(() => lexTokens(`use <xD`)).toThrowError(LexingError);
+    });
+  });
   it("does not add duplicate extraTokens", () => {
     const tokens = lexTokens(`
       module indented() {

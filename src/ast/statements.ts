@@ -4,6 +4,7 @@ import CodeLocation from "../CodeLocation";
 import { Expression } from "./expressions";
 import ASTVisitor from "./ASTVisitor";
 import Token from "../Token";
+import LiteralToken from "../LiteralToken";
 
 /**
  * @category AST
@@ -24,8 +25,7 @@ export class UseStmt extends Statement {
     public filename: string,
     public tokens: {
       useKeyword: Token;
-      startChevron: Token;
-      endChevron: Token;
+      filename: LiteralToken<string>;
     }
   ) {
     super(pos);

@@ -36,6 +36,7 @@ import Lexer from "./Lexer";
 import Parser from "./Parser";
 import TokenType from "./TokenType";
 import ParsingHelper from "./ParsingHelper";
+import CodeError from "./errors/CodeError";
 
 describe("Parser", () => {
   function doParse(source: string) {
@@ -86,7 +87,7 @@ describe("Parser", () => {
       doParse(`
     use <ty
     `)
-    ).toThrow(ParsingError);
+    ).toThrow(Error);
   });
   it("parses block statements", () => {
     const scadFile = doParse(`

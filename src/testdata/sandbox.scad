@@ -1,7 +1,8 @@
 module asdf() {
-    module kek() {
-        a = a
-        d = b
+    module kek(arg = 10) {
+        a = a;
+        d = b;
+
     }
     
     x = 20;

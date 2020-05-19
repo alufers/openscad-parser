@@ -45,5 +45,6 @@ export default {
   [TokenType.StringLiteral]: "string literal (StringLiteral)",
   [TokenType.True]: "'true' (True)",
   [TokenType.Undef]: "'undef' (Undef)",
-  [TokenType.Use]: "'use' (Use)"
+  [TokenType.Use]: "'use' (Use)",
+  [TokenType.FilenameInChevrons]: "filename (FilenameInChevrons)"
 };

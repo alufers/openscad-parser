@@ -78,3 +78,12 @@ export class InvalidNumberLiteralLexingError extends LexingError {
     super(pos, `Invalid number literal ${lexeme}.`);
   }
 }
+
+/**
+ * @category Error
+ */
+export class UnterminatedFilenameLexingError extends LexingError {
+  constructor(pos: CodeLocation) {
+    super(pos, `Unterminated filename.`);
+  }
+}
