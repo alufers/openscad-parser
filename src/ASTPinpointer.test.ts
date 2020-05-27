@@ -22,7 +22,7 @@ describe("ASTPinpointer", () => {
     ec.throwIfAny();
     class TstClass extends ASTPinpointer {
       testFunc1() {
-        return this.binSearchDispatch([tokens[1], tokens[2]], null);
+        return this.processAssembledNode([tokens[1], tokens[2]], null);
       }
     }
     const p = new TstClass(new CodeLocation(f, 0));
@@ -43,15 +43,15 @@ describe("ASTPinpointer", () => {
     ec.throwIfAny();
     class TstClass extends ASTPinpointer {
       testFunc1() {
-        return this.binSearchDispatch(
+        return this.processAssembledNode(
           [
             () =>
-              this.binSearchDispatch(
+              this.processAssembledNode(
                 [
                   tokens[0],
                   tokens[1],
                   () =>
-                    this.binSearchDispatch(
+                    this.processAssembledNode(
                       [tokens[2]],
                       new (LiteralExpr as any)()
                     ),
@@ -60,12 +60,12 @@ describe("ASTPinpointer", () => {
                 new (AssignmentNode as any)()
               ),
             () =>
-              this.binSearchDispatch(
+              this.processAssembledNode(
                 [
                   tokens[4],
                   tokens[5],
                   () =>
-                    this.binSearchDispatch(
+                    this.processAssembledNode(
                       [tokens[6]],
                       new (LiteralExpr as any)()
                     ),
