@@ -50,6 +50,9 @@ export default class ASTScopePopulator implements ASTVisitor<ASTNode> {
   protected copyWithNewNearestScope(newScope: Scope) {
     return new ASTScopePopulator(newScope);
   }
+  populate(n: ASTNode) {
+    return n.accept(this);
+  }
   visitScadFile(n: ScadFile): ASTNode {
     const sf = new ScadFileWithScope(
       n.pos,

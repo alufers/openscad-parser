@@ -58,9 +58,15 @@ type DispatchTokenMix = (Token | (() => PinpointerRet))[];
  */
 export default class ASTPinpointer extends ASTAssembler<PinpointerRet>
   implements ASTVisitor<PinpointerRet> {
+  /**
+   * Contains all the ancestors of the pinpointed nodes. The pinpointed node is always first.
+   */
+  public bottomUpHierarchy: ASTNode[] = [];
+
   constructor(public pinpointLocation: CodeLocation) {
     super();
   }
+
   /**
    * Returns the node at pinpointLocation and populates bottomUpHierarchy.
    * @param n The AST (or AST fragment) to search through.

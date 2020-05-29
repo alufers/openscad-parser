@@ -52,18 +52,7 @@ export const BinBefore = Symbol("BinBefore");
  * It can be used to search through the AST, or determine
  */
 export default abstract class ASTAssembler<R> implements ASTVisitor<R> {
-  /**
-   * Contains all the ancestors of the pinpointed nodes. The pinpointed node is always first.
-   */
-  public bottomUpHierarchy: ASTNode[] = [];
-  /**
-   * Returns the node at pinpointLocation and populates bottomUpHierarchy.
-   * @param n The AST (or AST fragment) to search through.
-   */
-  doPinpoint(n: ASTNode): R {
-    this.bottomUpHierarchy = [];
-    return n.accept(this);
-  }
+ 
   protected abstract processAssembledNode(
     t: (Token | (() => R))[],
     self: ASTNode

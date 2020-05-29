@@ -1,0 +1,100 @@
+import ASTAssembler from "../ASTAssembler";
+import ASTNode from "../ast/ASTNode";
+import Token from "../Token";
+import Range from "../Range";
+import {
+  FunctionDeclarationStmt,
+  ModuleDeclarationStmt,
+} from "../ast/statements";
+import AssignmentNode, { AssignmentNodeRole } from "../ast/AssignmentNode";
+import LiteralToken from "../LiteralToken";
+
+export enum SymbolKind {
+  MODULE,
+  FUNCTION,
+  VARIABLE,
+}
+
+/**
+ * Generates a symbol tree for the outline view in vscode.
+ * It uses AST assembler to walk down the tree and determine the full range of a symbol.
+ */
+export default class ASTSymbolLister<SymType> extends ASTAssembler<Token[]> {
+  constructor(
+    public makeSymbol: (
+      name: string,
+      kind: SymbolKind,
+      fullRange: Range,
+      nameRange: Range,
+      children: SymType[]
+    ) => SymType
+  ) {
+    super();
+  }
+
+  /**
+   * Returns the node at pinpointLocation and populates bottomUpHierarchy.
+   * @param n The AST (or AST fragment) to search through.
+   */
+  doList(n: ASTNode): SymType[] {
+    n.accept(this);
+    return this.symbolsAtCurrentDepth;
+  }
+
+  private symbolsAtCurrentDepth: SymType[] = [];
+
+  protected processAssembledNode(
+    t: (Token | (() => Token[]))[],
+    self: ASTNode
+  ): Token[] {
+    let currKind: SymbolKind | null = null;
+    let currName: LiteralToken<string> | null = null;
+    if (self instanceof FunctionDeclarationStmt) {
+      currKind = SymbolKind.FUNCTION;
+      currName = self.tokens.name as LiteralToken<string>;
+    } else if (self instanceof ModuleDeclarationStmt) {
+      currKind = SymbolKind.MODULE;
+      currName = self.tokens.name as LiteralToken<string>;
+    } else if (
+      self instanceof AssignmentNode &&
+      self.role === AssignmentNodeRole.VARIABLE_DECLARATION
+    ) {
+      currKind = SymbolKind.VARIABLE;
+      currName = self.tokens.name as LiteralToken<string>;
+    }
+    if (currKind) {
+      let savedSymbols = this.symbolsAtCurrentDepth;
+      this.symbolsAtCurrentDepth = [];
+      const newArr: Token[] = [];
+      for (const m of t) {
+        if (typeof m === "function") {
+          newArr.push(...m());
+        } else {
+          newArr.push(m);
+        }
+      }
+      const childrenSymbols = this.symbolsAtCurrentDepth;
+      this.symbolsAtCurrentDepth = savedSymbols; // restore the symbols
+      this.symbolsAtCurrentDepth.push(
+        this.makeSymbol(
+          currName.value,
+          currKind,
+          new Range(newArr[0].pos, newArr[newArr.length - 1].end),
+          new Range(currName.pos, currName.end),
+          childrenSymbols
+        )
+      );
+      return newArr;
+    } else {
+      const newArr: Token[] = [];
+      for (const m of t) {
+        if (typeof m === "function") {
+          newArr.push(...m());
+        } else {
+          newArr.push(m);
+        }
+      }
+      return newArr;
+    }
+  }
+}
