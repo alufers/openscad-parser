@@ -57,7 +57,7 @@ export default class SolutionManager {
     if (!path.isAbsolute(filePath)) {
       throw new Error("Path must be absolute and normalized.");
     }
-    return this.allFiles.get(path);
+    return this.allFiles.get(filePath);
   }
   notifyNewFileOpened(filePath: string, contents: string) {
     if (!path.isAbsolute(filePath)) {

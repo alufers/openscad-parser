@@ -1,6 +1,7 @@
-import ASTVisitor from "./ast/ASTVisitor";
-import ASTNode from "./ast/ASTNode";
 import AssignmentNode from "./ast/AssignmentNode";
+import ASTNode from "./ast/ASTNode";
+import ASTVisitor from "./ast/ASTVisitor";
+import ErrorNode from "./ast/ErrorNode";
 import {
   ArrayLookupExpr,
   AssertExpr,
@@ -31,28 +32,14 @@ import {
   ModuleInstantiationStmt,
   NoopStmt,
   UseStmt,
-  Statement,
 } from "./ast/statements";
-import {
-  MultiLineComment,
-  NewLineExtraToken,
-  SingleLineComment,
-} from "./extraTokens";
 import Token from "./Token";
-import TokenType from "./TokenType";
-import FormattingConfiguration from "./FormattingConfiguration";
-import ErrorNode from "./ast/ErrorNode";
-import CodeLocation from "./CodeLocation";
-
-export const BinAfter = Symbol("BinAfter");
-export const BinBefore = Symbol("BinBefore");
 
 /**
  * This class walks through the AST and generates arrays of tokens and function, which themselves return the same array.b
  * It can be used to search through the AST, or determine
  */
 export default abstract class ASTAssembler<R> implements ASTVisitor<R> {
- 
   protected abstract processAssembledNode(
     t: (Token | (() => R))[],
     self: ASTNode
