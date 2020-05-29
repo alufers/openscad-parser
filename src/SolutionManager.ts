@@ -79,7 +79,7 @@ export default class SolutionManager {
     sf.codeFile = cFile;
     sf.parseAndProcess();
   }
-  notifyFileClosed(filePath: string, contents: string) {
+  notifyFileClosed(filePath: string) {
     this.openedFiles.delete(filePath);
     this.garbageCollect();
   }

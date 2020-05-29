@@ -62,7 +62,7 @@ export default class ASTSymbolLister<SymType> extends ASTAssembler<Token[]> {
       currKind = SymbolKind.VARIABLE;
       currName = self.tokens.name as LiteralToken<string>;
     }
-    if (currKind) {
+    if (currKind != null) {
       let savedSymbols = this.symbolsAtCurrentDepth;
       this.symbolsAtCurrentDepth = [];
       const newArr: Token[] = [];
