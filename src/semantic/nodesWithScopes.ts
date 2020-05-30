@@ -3,7 +3,7 @@ import {
   FunctionDeclarationStmt,
   ModuleDeclarationStmt,
 } from "../ast/statements";
-import { LetExpr } from "../ast/expressions";
+import { LetExpr, LcLetExpr, LcForExpr, LcForCExpr } from "../ast/expressions";
 import NodeWithScope from "./NodeWithScope";
 import Scope from "./Scope";
 import ScadFile from "../ast/ScadFile";
@@ -26,5 +26,17 @@ export class FunctionDeclarationStmtWithScope extends FunctionDeclarationStmt
 
 export class ModuleDeclarationStmtWithScope extends ModuleDeclarationStmt
   implements NodeWithScope {
+  scope: Scope;
+}
+
+export class LcLetExprWithScope extends LcLetExpr implements NodeWithScope {
+  scope: Scope;
+}
+
+export class LcForExprWithScope extends LcForExpr implements NodeWithScope {
+  scope: Scope;
+}
+
+export class LcForCExprWithScope extends LcForCExpr implements NodeWithScope {
   scope: Scope;
 }

@@ -36,8 +36,8 @@ import {
 import Token from "./Token";
 
 /**
- * This class walks through the AST and generates arrays of tokens and function, which themselves return the same array.b
- * It can be used to search through the AST, or determine
+ * This class walks through the AST and generates arrays of tokens and function, which themselves return the same array.
+ * It can be used to search through the AST, or determine the ranges of AST nodes.
  */
 export default abstract class ASTAssembler<R> implements ASTVisitor<R> {
   protected abstract processAssembledNode(

@@ -40,6 +40,10 @@ import {
   ScadFileWithScope,
   FunctionDeclarationStmtWithScope,
   ModuleDeclarationStmtWithScope,
+  LetExprWithScope,
+  LcLetExprWithScope,
+  LcForExprWithScope,
+  LcForCExprWithScope,
 } from "./nodesWithScopes";
 
 export default class ASTScopePopulator implements ASTVisitor<ASTNode> {
@@ -138,12 +142,15 @@ export default class ASTScopePopulator implements ASTVisitor<ASTNode> {
     );
   }
   visitLetExpr(n: LetExpr): ASTNode {
-    return new LetExpr(
-      n.pos,
-      n.args.map((a) => a.accept(this)) as AssignmentNode[],
-      n.expr.accept(this),
-      n.tokens
-    );
+    const letExprWithScope = new LetExprWithScope(n.pos, null, null, n.tokens);
+    letExprWithScope.scope = new Scope();
+    letExprWithScope.scope.parent = this.nearestScope;
+    const copy = this.copyWithNewNearestScope(letExprWithScope.scope);
+    letExprWithScope.args = n.args.map((a) =>
+      a.accept(copy)
+    ) as AssignmentNode[];
+    letExprWithScope.expr = n.expr.accept(copy);
+    return letExprWithScope;
   }
   visitAssertExpr(n: AssertExpr): ASTNode {
     return new AssertExpr(
@@ -174,30 +181,49 @@ export default class ASTScopePopulator implements ASTVisitor<ASTNode> {
     return new LcEachExpr(n.pos, n.expr.accept(this), n.tokens);
   }
   visitLcForExpr(n: LcForExpr): ASTNode {
-    return new LcForExpr(
-      n.pos,
-      n.args.map((a) => a.accept(this)) as AssignmentNode[],
-      n.expr.accept(this),
-      n.tokens
-    );
+    const newNode = new LcForExprWithScope(n.pos, null, null, n.tokens);
+    newNode.scope = new Scope();
+    newNode.scope.parent = this.nearestScope;
+    const copy = this.copyWithNewNearestScope(newNode.scope);
+    newNode.args = n.args.map((a) => a.accept(copy)) as AssignmentNode[];
+    newNode.expr = n.expr.accept(copy);
+    return newNode;
   }
   visitLcForCExpr(n: LcForCExpr): ASTNode {
-    return new LcForCExpr(
+    const newNode = new LcForCExprWithScope(
       n.pos,
-      n.args.map((a) => a.accept(this)) as AssignmentNode[],
-      n.incrArgs.map((a) => a.accept(this)) as AssignmentNode[],
-      n.cond.accept(this),
-      n.expr.accept(this),
+      null,
+      null,
+      null,
+      null,
       n.tokens
     );
+    newNode.scope = new Scope();
+    newNode.scope.parent = this.nearestScope;
+    const copy = this.copyWithNewNearestScope(newNode.scope);
+    newNode.args = n.args.map((a) => a.accept(copy)) as AssignmentNode[];
+    newNode.incrArgs = n.incrArgs.map((a) =>
+      a.accept(copy)
+    ) as AssignmentNode[];
+    newNode.cond = n.cond.accept(copy);
+    newNode.expr = n.expr.accept(copy);
+    return newNode;
   }
   visitLcLetExpr(n: LcLetExpr): ASTNode {
-    return new LcLetExpr(
+    const lcLetWithScopeExpr = new LcLetExprWithScope(
       n.pos,
-      n.args.map((a) => a.accept(this)) as AssignmentNode[],
-      n.expr.accept(this),
+      null,
+      null,
       n.tokens
     );
+    lcLetWithScopeExpr.scope = new Scope();
+    lcLetWithScopeExpr.scope.parent = this.nearestScope;
+    const copy = this.copyWithNewNearestScope(lcLetWithScopeExpr.scope);
+    lcLetWithScopeExpr.args = n.args.map((a) =>
+      a.accept(copy)
+    ) as AssignmentNode[];
+    lcLetWithScopeExpr.expr = n.expr.accept(copy);
+    return lcLetWithScopeExpr;
   }
   visitGroupingExpr(n: GroupingExpr): ASTNode {
     return new GroupingExpr(n.pos, n.inner.accept(this), n.tokens);
