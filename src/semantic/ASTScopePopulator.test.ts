@@ -7,6 +7,7 @@ import ASTAssembler from "../ASTAssembler";
 import Token from "../Token";
 import ASTNode from "../ast/ASTNode";
 import { LcForExprWithScope } from "./nodesWithScopes";
+import { ModuleInstantiationStmt } from "../ast/statements";
 
 describe("ASTScopePopulator", () => {
   it("does not crash when populating code containing range expressions", () => {
@@ -27,9 +28,10 @@ describe("ASTScopePopulator", () => {
     ast.accept(pop);
     // console.log(scope);
   });
-  function checkIfExistsInTree(
+  function checkIfExistsInTree<T>(
     source: string,
-    Ctor: { new (...args: any[]): any }
+    Ctor: { new (...args: any[]): T },
+    chkFunc?: (elem: T) => void
   ) {
     const [ast, ec] = ParsingHelper.parseFile(new CodeFile("<test>", source));
     ec.throwIfAny();
@@ -42,6 +44,9 @@ describe("ASTScopePopulator", () => {
         self: ASTNode
       ): void {
         if (self instanceof Ctor) {
+          if (chkFunc) {
+            chkFunc(self);
+          }
           ok();
         }
         for (const a of t) {
@@ -58,5 +63,13 @@ describe("ASTScopePopulator", () => {
 
   it("creates LcForExprWithScope nodes", () => {
     checkIfExistsInTree(`x = [for(xD = [2,5]) xD];`, LcForExprWithScope);
+  });
+  it("preserves tags in module instantations", () => {
+    checkIfExistsInTree(`% * theMod();`, ModuleInstantiationStmt, (mod) => {
+      expect(mod.tagBackground).toBeTruthy();
+      expect(mod.tagDisabled).toBeTruthy();
+      expect(mod.tagRoot).toBeFalsy();
+      expect(mod.tagHighlight).toBeFalsy();
+    });
   });
 });

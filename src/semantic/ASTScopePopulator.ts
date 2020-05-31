@@ -232,13 +232,18 @@ export default class ASTScopePopulator implements ASTVisitor<ASTNode> {
     return n;
   }
   visitModuleInstantiationStmt(n: ModuleInstantiationStmt): ASTNode {
-    return new ModuleInstantiationStmt(
+    const inst = new ModuleInstantiationStmt(
       n.pos,
       n.name,
       n.args.map((a) => a.accept(this)) as AssignmentNode[],
       n.child.accept(this),
       n.tokens
     );
+    inst.tagRoot = n.tagRoot;
+    inst.tagHighlight = n.tagHighlight;
+    inst.tagBackground = n.tagBackground;
+    inst.tagDisabled = n.tagDisabled;
+    return inst;
   }
   visitModuleDeclarationStmt(n: ModuleDeclarationStmt): ASTNode {
     const md = new ModuleDeclarationStmtWithScope(

@@ -65,9 +65,25 @@ interface TaggableStatement {
  */
 export class ModuleInstantiationStmt extends Statement
   implements TaggableStatement {
+
+  /**
+   * !
+   */
   public tagRoot: boolean = false;
+
+  /**
+   * #
+   */
   public tagHighlight: boolean = false;
+
+  /**
+   * %
+   */
   public tagBackground: boolean = false;
+  
+  /**
+   * *
+   */
   public tagDisabled: boolean = false;
 
   constructor(

@@ -8,13 +8,17 @@ import TokenType from "./TokenType";
 import AssignmentNode from "./ast/AssignmentNode";
 import { VectorExpr } from "./ast/expressions";
 import { resolve } from "path";
+import ASTScopePopulator from "./semantic/ASTScopePopulator";
+import Scope from "./semantic/Scope";
+import ScadFile from "./ast/ScadFile";
 
 describe("ASTPrinter", () => {
   function doFormat(source: string) {
-    const [ast, errorCollector] = ParsingHelper.parseFile(
+    let [ast, errorCollector] = ParsingHelper.parseFile(
       new CodeFile("<test>", source)
     );
     errorCollector.throwIfAny();
+    ast = new ASTScopePopulator(new Scope()).populate(ast) as ScadFile; // populating the scopes should not change anything
     return new ASTPrinter(new FormattingConfiguration()).visitScadFile(ast);
   }
   function injectCommentsBetweenTokens(source: string): [string, string[]] {
@@ -141,7 +145,7 @@ describe("ASTPrinter", () => {
       translate([0, -100, -50]) 
       %  import("relay_din_mount.stl");
     `);
-    console.log(f)
+    console.log(f);
     expect(f).toStrictEqual(expect.stringContaining("%"));
   });
 });
