@@ -128,9 +128,20 @@ describe("ASTPrinter", () => {
 
     expect(f).not.toStrictEqual(expect.stringContaining(") ;"));
   });
-  test("does not cutt off end chevron of an use statement", () => {
+  test("does not cut off end chevron of an use statement", () => {
     const f = doFormat(`use <xD>`);
 
     expect(f).toStrictEqual(expect.stringContaining("<xD>"));
+  });
+
+  test("does not cut off modifiers in module instantations", () => {
+    const f = doFormat(`
+    
+    
+      translate([0, -100, -50]) 
+      %  import("relay_din_mount.stl");
+    `);
+    console.log(f)
+    expect(f).toStrictEqual(expect.stringContaining("%"));
   });
 });
