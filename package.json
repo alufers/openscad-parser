@@ -1,6 +1,6 @@
 {
   "name": "openscad-parser",
-  "version": "0.0.28",
+  "version": "0.0.29",
   "devDependencies": {
     "@types/jest": "^25.2.2",
     "@types/node": "^14.0.1",
