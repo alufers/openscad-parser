@@ -1,9 +1,5 @@
-import CodeFile from "./CodeFile";
-import ErrorCollector from "./ErrorCollector";
-import Lexer from "./Lexer";
-import Parser from "./Parser";
 import ASTPrinter from "./ASTPrinter";
-import Token from "./Token";
+import CodeFile from "./CodeFile";
 import FormattingConfiguration from "./FormattingConfiguration";
 import ParsingHelper from "./ParsingHelper";
 

@@ -24,29 +24,32 @@ import Token from "./Token";
 import TokenType from "./TokenType";
 
 export default class Lexer {
-  protected loc: CodeLocation;
   protected start: CodeLocation;
   protected startWithWhitespace: CodeLocation;
   public tokens: Token[] = [];
   protected currentExtraTokens: ExtraToken[] = [];
+
+  protected charOffset = 0;
+  protected lineOffset = 0;
+  protected colOffset = 0;
+  protected _currLocCache: CodeLocation = null;
+
   constructor(
     public codeFile: CodeFile,
     public errorCollector: ErrorCollector
-  ) {
-    this.loc = new CodeLocation(codeFile, 0, 0, 0);
-  }
+  ) {}
   /**
    * Scans the whole CodeFile and splits it into tokens.
    * @throws LexingError
    */
   scan(): Token[] {
-    this.start = this.loc.copy();
-    this.startWithWhitespace = this.loc.copy();
+    this.start = this.getLoc();
+    this.startWithWhitespace = this.getLoc();
     while (!this.isAtEnd()) {
-      this.start = this.loc.copy();
+      this.start = this.getLoc();
       this.scanToken();
     }
-    this.start = this.loc.copy();
+    this.start = this.getLoc();
     this.addToken(TokenType.Eot);
     return this.tokens;
   }
@@ -86,14 +89,14 @@ export default class Lexer {
         break;
       case "/":
         if (this.match("/")) {
-          const comment = new SingleLineComment(this.loc.copy(), "");
+          const comment = new SingleLineComment(this.getLoc(), "");
           // consume a comment
           while (this.peek() != "\n" && !this.isAtEnd()) {
             comment.contents += this.advance();
           }
           this.currentExtraTokens.push(comment);
         } else if (this.match("*")) {
-          const comment = new MultiLineComment(this.loc.copy(), "");
+          const comment = new MultiLineComment(this.getLoc(), "");
 
           // multiline comment
           while (
@@ -104,7 +107,7 @@ export default class Lexer {
           }
           if (this.isAtEnd()) {
             throw this.errorCollector.reportError(
-              new UnterminatedMultilineCommentLexingError(this.loc.copy())
+              new UnterminatedMultilineCommentLexingError(this.getLoc())
             );
           }
           this.currentExtraTokens.push(comment);
@@ -170,7 +173,7 @@ export default class Lexer {
           this.addToken(TokenType.AND);
         } else {
           throw this.errorCollector.reportError(
-            new SingleCharacterNotAllowedLexingError(this.loc.copy(), "&")
+            new SingleCharacterNotAllowedLexingError(this.getLoc(), "&")
           );
         }
         break;
@@ -179,12 +182,12 @@ export default class Lexer {
           this.addToken(TokenType.OR);
         } else {
           throw this.errorCollector.reportError(
-            new SingleCharacterNotAllowedLexingError(this.loc.copy(), "&")
+            new SingleCharacterNotAllowedLexingError(this.getLoc(), "&")
           );
         }
         break;
       case "\n":
-        this.currentExtraTokens.push(new NewLineExtraToken(this.loc.copy()));
+        this.currentExtraTokens.push(new NewLineExtraToken(this.getLoc()));
         break;
       case "\r":
       case " ":
@@ -200,7 +203,7 @@ export default class Lexer {
           this.consumeIdentifierOrKeyword();
         } else {
           throw this.errorCollector.reportError(
-            new UnexpectedCharacterLexingError(this.loc.copy(), c)
+            new UnexpectedCharacterLexingError(this.getLoc(), c)
           );
         }
     }
@@ -223,10 +226,7 @@ export default class Lexer {
           str += "\r";
         } else {
           throw this.errorCollector.reportError(
-            new IllegalStringEscapeSequenceLexingError(
-              this.loc.copy(),
-              `\\${c}`
-            )
+            new IllegalStringEscapeSequenceLexingError(this.getLoc(), `\\${c}`)
           );
         }
         //TODO: Add unicode escape sequences handling
@@ -236,7 +236,7 @@ export default class Lexer {
     }
     if (this.isAtEnd()) {
       throw this.errorCollector.reportError(
-        new UnterminatedStringLiteralLexingError(this.loc.copy())
+        new UnterminatedStringLiteralLexingError(this.getLoc())
       );
     }
     this.advance();
@@ -251,21 +251,24 @@ export default class Lexer {
     ) {
       this.advance();
     }
-    const lexeme = this.codeFile.code.substring(this.start.char, this.loc.char);
+    const lexeme = this.codeFile.code.substring(
+      this.start.char,
+      this.charOffset
+    );
     if ((lexeme.match(/\./g) || []).length > 1) {
       throw this.errorCollector.reportError(
-        new TooManyDotsInNumberLiteralLexingError(this.loc.copy(), lexeme)
+        new TooManyDotsInNumberLiteralLexingError(this.getLoc(), lexeme)
       );
     }
     if ((lexeme.match(/e/g) || []).length > 1) {
       throw this.errorCollector.reportError(
-        new TooManyEInNumberLiteralLexingError(this.loc.copy(), lexeme)
+        new TooManyEInNumberLiteralLexingError(this.getLoc(), lexeme)
       );
     }
     const value = parseFloat(lexeme);
     if (isNaN(value) || !isFinite(value)) {
       throw this.errorCollector.reportError(
-        new InvalidNumberLiteralLexingError(this.loc.copy(), lexeme)
+        new InvalidNumberLiteralLexingError(this.getLoc(), lexeme)
       );
     }
     this.addToken(TokenType.NumberLiteral, value);
@@ -274,7 +277,10 @@ export default class Lexer {
     while (/[A-Za-z0-9_\$]/.test(this.peek()) && !this.isAtEnd()) {
       this.advance();
     }
-    const lexeme = this.codeFile.code.substring(this.start.char, this.loc.char);
+    const lexeme = this.codeFile.code.substring(
+      this.start.char,
+      this.charOffset
+    );
     if (lexeme in keywords) {
       const keywordType = keywords[lexeme];
       this.addToken(keywordType);
@@ -288,9 +294,9 @@ export default class Lexer {
   }
 
   protected consumeFileNameInChevrons() {
-    this.startWithWhitespace = this.loc.copy();
+    this.startWithWhitespace = this.getLoc();
     while (!this.isAtEnd()) {
-      this.start = this.loc.copy();
+      this.start = this.getLoc();
       if (
         this.match("\n") ||
         this.match("\t") ||
@@ -303,12 +309,12 @@ export default class Lexer {
       // The openscad parser does not allow putting comments like this: `use /* ddd*/ <file.scad>`
       // We must check that and report an error
       throw this.errorCollector.reportError(
-        new UnexpectedCharacterLexingError(this.loc.copy(), this.advance())
+        new UnexpectedCharacterLexingError(this.getLoc(), this.advance())
       );
     }
     if (this.isAtEnd()) {
       throw this.errorCollector.reportError(
-        new UnterminatedFilenameLexingError(this.loc.copy())
+        new UnterminatedFilenameLexingError(this.getLoc())
       );
     }
     let filename = "";
@@ -323,7 +329,7 @@ export default class Lexer {
     }
     if (!didEnd) {
       throw this.errorCollector.reportError(
-        new UnterminatedFilenameLexingError(this.loc.copy())
+        new UnterminatedFilenameLexingError(this.getLoc())
       );
     }
     this.addToken(TokenType.FilenameInChevrons, filename);
@@ -335,50 +341,68 @@ export default class Lexer {
    * Additionally it handles clearing and attaching the extra tokens.
    */
   protected addToken<TValue = any>(tokenType: TokenType, value: TValue = null) {
-    const lexeme = this.codeFile.code.substring(this.start.char, this.loc.char);
+    const lexeme = this.codeFile.code.substring(
+      this.start.char,
+      this.charOffset
+    );
     let token;
     if (value != null) {
       token = new LiteralToken(
         tokenType,
-        this.start.copy(),
-        this.loc.copy(),
+        this.start,
+        this.getLoc(),
         lexeme,
         value
       );
     } else {
-      token = new Token(tokenType, this.start.copy(), this.loc.copy(), lexeme);
+      token = new Token(tokenType, this.start, this.getLoc(), lexeme);
     }
     token.extraTokens = this.currentExtraTokens;
-    token.startWithWhitespace = this.startWithWhitespace.copy();
-    this.startWithWhitespace = this.loc.copy();
+    token.startWithWhitespace = this.startWithWhitespace;
+    this.startWithWhitespace = this.getLoc();
     this.currentExtraTokens = [];
     this.tokens.push(token);
   }
   protected isAtEnd() {
-    return this.loc.char >= this.codeFile.code.length;
+    return this.charOffset >= this.codeFile.code.length;
   }
   protected match(expected: string) {
     if (this.isAtEnd()) return false;
-    if (this.codeFile.code[this.loc.char] !== expected) return false;
+    if (this.codeFile.code[this.charOffset] !== expected) return false;
     this.advance();
     return true;
   }
   protected advance() {
-    this.loc.char++;
-    this.loc.col++;
-    const c = this.codeFile.code[this.loc.char - 1];
+    const c = this.codeFile.code[this.charOffset];
+    this.charOffset++;
     if (c === "\n") {
-      this.loc.line++;
-      this.loc.col = 0;
+      this.lineOffset++;
+      this.colOffset = 0;
+    } else {
+      this.colOffset++;
     }
+    this._currLocCache = null;
     return c;
   }
+
+  protected getLoc() {
+    if (!this._currLocCache) {
+      this._currLocCache = new CodeLocation(
+        this.codeFile,
+        this.charOffset,
+        this.lineOffset,
+        this.colOffset
+      );
+    }
+    return this._currLocCache;
+  }
+
   protected peek() {
     if (this.isAtEnd()) return "\0";
-    return this.codeFile.code[this.loc.char];
+    return this.codeFile.code[this.charOffset];
   }
   protected peekNext() {
-    if (this.loc.char + 1 >= this.codeFile.code.length) return "\0";
-    return this.codeFile.code[this.loc.char + 1];
+    if (this.charOffset + 1 >= this.codeFile.code.length) return "\0";
+    return this.codeFile.code[this.charOffset + 1];
   }
 }

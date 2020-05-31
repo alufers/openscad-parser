@@ -21,33 +21,27 @@ export default class CodeLocation {
   /**
    * THe file to which this location points.
    */
-  file: CodeFile;
+  readonly file: CodeFile;
 
   /**
    * The character offset in the file contents.
    */
-  char = 0;
+  readonly char: number = 0;
 
   /**
    * The line number of this location. Zero-indexed.
    */
-  line = 0;
+  readonly line: number = 0;
 
   /**
    * The column number of this location. Zero-indexed.
    */
-  col = 0;
+  readonly col: number = 0;
 
   toString(): string {
-    return `file '${this.file.filename}' line ${this.line + 1} column ${this
-      .col + 1}'`;
-  }
-
-  /**
-   * Copies this object.
-   */
-  copy() {
-    return new CodeLocation(this.file, this.char, this.line, this.col);
+    return `file '${this.file.filename}' line ${this.line + 1} column ${
+      this.col + 1
+    }'`;
   }
 
   formatWithContext() {

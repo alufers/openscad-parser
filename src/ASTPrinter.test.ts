@@ -145,7 +145,6 @@ describe("ASTPrinter", () => {
       translate([0, -100, -50]) 
       %  import("relay_din_mount.stl");
     `);
-    console.log(f);
     expect(f).toStrictEqual(expect.stringContaining("%"));
   });
 });
