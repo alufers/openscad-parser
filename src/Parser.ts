@@ -32,6 +32,7 @@ import {
   NoopStmt,
   Statement,
   UseStmt,
+  IncludeStmt,
 } from "./ast/statements";
 import CodeFile from "./CodeFile";
 import CodeLocation from "./CodeLocation";
@@ -113,21 +114,7 @@ export default class Parser {
   parse(): ScadFile {
     const statements: Statement[] = [];
     while (!this.isAtEnd()) {
-      if (this.matchToken(TokenType.Use)) {
-        const useKeyword = this.previous();
-        const filenameToken: LiteralToken<string> = this.consume(
-          TokenType.FilenameInChevrons,
-          "after 'use' keyword"
-        ) as LiteralToken<string>;
-        statements.push(
-          new UseStmt(this.getLocation(), filenameToken.value, {
-            useKeyword,
-            filename: filenameToken,
-          })
-        );
-      } else {
-        statements.push(this.statement());
-      }
+      statements.push(this.statement());
     }
     const eot = this.peek();
     return new ScadFile(new CodeLocation(this.code), statements, { eot });
@@ -167,6 +154,30 @@ export default class Parser {
     const syncStartToken = this.currentToken;
     const syncStartLocation = this.getLocation();
     try {
+      if (this.matchToken(TokenType.Use)) {
+        const useKeyword = this.previous();
+        const filenameToken: LiteralToken<string> = this.consume(
+          TokenType.FilenameInChevrons,
+          "after 'use' keyword"
+        ) as LiteralToken<string>;
+
+        return new UseStmt(this.getLocation(), filenameToken.value, {
+          useKeyword,
+          filename: filenameToken,
+        });
+      }
+      if (this.matchToken(TokenType.Include)) {
+        const includeKeyword = this.previous();
+        const filenameToken: LiteralToken<string> = this.consume(
+          TokenType.FilenameInChevrons,
+          "after 'include' keyword"
+        ) as LiteralToken<string>;
+
+        return new IncludeStmt(this.getLocation(), filenameToken.value, {
+          includeKeyword,
+          filename: filenameToken,
+        });
+      }
       if (this.matchToken(TokenType.Semicolon)) {
         const semicolon = this.previous();
         return new NoopStmt(this.getLocation(), { semicolon });

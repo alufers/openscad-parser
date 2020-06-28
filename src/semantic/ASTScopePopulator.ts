@@ -31,6 +31,7 @@ import {
   NoopStmt,
   UseStmt,
   Statement,
+  IncludeStmt,
 } from "../ast/statements";
 import AssignmentNode, { AssignmentNodeRole } from "../ast/AssignmentNode";
 import Scope from "./Scope";
@@ -51,6 +52,7 @@ export default class ASTScopePopulator implements ASTVisitor<ASTNode> {
   constructor(rootScope: Scope) {
     this.nearestScope = rootScope;
   }
+
   protected copyWithNewNearestScope(newScope: Scope) {
     return new ASTScopePopulator(newScope);
   }
@@ -229,6 +231,9 @@ export default class ASTScopePopulator implements ASTVisitor<ASTNode> {
     return new GroupingExpr(n.pos, n.inner.accept(this), n.tokens);
   }
   visitUseStmt(n: UseStmt): ASTNode {
+    return n;
+  }
+  visitIncludeStmt(n: IncludeStmt): ASTNode {
     return n;
   }
   visitModuleInstantiationStmt(n: ModuleInstantiationStmt): ASTNode {

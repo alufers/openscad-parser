@@ -31,6 +31,7 @@ import {
   NoopStmt,
   UseStmt,
   Statement,
+  IncludeStmt,
 } from "./ast/statements";
 import {
   MultiLineComment,
@@ -55,6 +56,7 @@ export default class ASTPrinter implements ASTVisitor<string> {
   };
 
   constructor(public config: FormattingConfiguration) {}
+
   visitErrorNode(n: ErrorNode): string {
     throw new Error("Cannot pretty print ast with an error node.");
   }
@@ -414,6 +416,20 @@ export default class ASTPrinter implements ASTVisitor<string> {
       this.newLine();
     return source;
   }
+
+  visitIncludeStmt(n: IncludeStmt): string {
+    let source = "";
+    source += this.stringifyExtraTokens(n.tokens.includeKeyword);
+    source +=
+      "include " +
+      this.stringifyExtraTokens(n.tokens.filename) +
+      " <" +
+      n.filename +
+      ">" +
+      this.newLine();
+    return source;
+  }
+
   visitModuleInstantiationStmt(n: ModuleInstantiationStmt): string {
     let source = "";
     if (n.tagHighlight) {

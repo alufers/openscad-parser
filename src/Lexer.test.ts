@@ -270,6 +270,14 @@ describe("Lexer", () => {
         "ddd/astd.scad"
       );
     });
+    it("does lex an include<...> statement", () => {
+      const tokens = lexTokens(`include <ddd/astd.scad>`);
+      expect(tokens[0].type).toEqual(TokenType.Include);
+      expect(tokens[0].lexeme).toEqual("include");
+      expect(tokens[1].type).toEqual(TokenType.FilenameInChevrons);
+      expect(tokens[1].lexeme).toEqual("<ddd/astd.scad>");
+      expect(tokens[1]).toBeInstanceOf(LiteralToken);
+    });
     it("throws when there is no filename after the use keyword", () => {
       expect(() => lexTokens(`use ;`)).toThrowError(LexingError);
     });

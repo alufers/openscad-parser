@@ -37,7 +37,9 @@ describe("ASTPrinter", () => {
       // do not inject comments around the use statement since it is illegal
       if (
         tok.type === TokenType.Use ||
-        (i != 0 && tokens[i - 1].type === TokenType.Use)
+        (i != 0 && tokens[i - 1].type === TokenType.Use) ||
+        tok.type === TokenType.Include ||
+        (i != 0 && tokens[i - 1].type === TokenType.Include)
       ) {
         shouldInject = false;
       }
@@ -85,6 +87,7 @@ describe("ASTPrinter", () => {
   test("it preserves all comments in a file with all the syntactical elements", () => {
     doPreserveTest(`
     use <ddd>
+    include <gfff>
     function ddd(argv = 10, second = !true) = (10 + 20) * 10;
     ybyby = x > 10 ? let(v = 200) doSomething() : assert(x = 20) echo("nothing") 5;
     arr = [20, if(true) each [20:50:30] else [808][0].x];

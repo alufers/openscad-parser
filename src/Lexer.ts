@@ -285,7 +285,7 @@ export default class Lexer {
       const keywordType = keywords[lexeme];
       this.addToken(keywordType);
       // check if we need to lex a filename
-      if (keywordType === TokenType.Use) {
+      if (keywordType === TokenType.Use || keywordType === TokenType.Include) {
         this.consumeFileNameInChevrons();
       }
       return;

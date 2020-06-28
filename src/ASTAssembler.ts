@@ -32,6 +32,7 @@ import {
   ModuleInstantiationStmt,
   NoopStmt,
   UseStmt,
+  IncludeStmt,
 } from "./ast/statements";
 import Token from "./Token";
 
@@ -273,6 +274,10 @@ export default abstract class ASTAssembler<R> implements ASTVisitor<R> {
       [n.tokens.useKeyword, n.tokens.useKeyword],
       n
     );
+  }
+
+  visitIncludeStmt(n: IncludeStmt): R {
+    throw n;
   }
   visitModuleInstantiationStmt(n: ModuleInstantiationStmt): R {
     const arr = [];

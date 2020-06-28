@@ -20,7 +20,7 @@ import {
   LcForCExpr,
   LcLetExpr,
   GroupingExpr,
-  MemberLookupExpr
+  MemberLookupExpr,
 } from "./expressions";
 import {
   UseStmt,
@@ -29,7 +29,8 @@ import {
   FunctionDeclarationStmt,
   BlockStmt,
   IfElseStatement,
-  NoopStmt
+  NoopStmt,
+  IncludeStmt,
 } from "./statements";
 import ErrorNode from "./ErrorNode";
 
@@ -56,6 +57,7 @@ export default interface ASTVisitor<R = void> {
   visitLcLetExpr(n: LcLetExpr): R;
   visitGroupingExpr(n: GroupingExpr): R;
   visitUseStmt(n: UseStmt): R;
+  visitIncludeStmt(n: IncludeStmt): R;
   visitModuleInstantiationStmt(n: ModuleInstantiationStmt): R;
   visitModuleDeclarationStmt(n: ModuleDeclarationStmt): R;
   visitFunctionDeclarationStmt(n: FunctionDeclarationStmt): R;

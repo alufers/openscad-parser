@@ -32,7 +32,8 @@ import {
   ModuleDeclarationStmt,
   ModuleInstantiationStmt,
   NoopStmt,
-  UseStmt
+  UseStmt,
+  IncludeStmt
 } from "./statements";
 import ErrorCollector from "../ErrorCollector";
 
@@ -75,6 +76,7 @@ describe("ASTVisitor", () => {
     const visitBlockStmt = jest.fn();
     const visitNoopStmt = jest.fn();
     const visitIfElseStatement = jest.fn();
+    const visitIncludeStmt = jest.fn();
     class SampleVisitor implements ASTVisitor<void> {
       visitErrorNode(n: import("./ErrorNode").default): void {
         throw new Error("Method not implemented.");
@@ -213,6 +215,10 @@ describe("ASTVisitor", () => {
         visitUseStmt(); // call the mocked function so that jest knows it has been called
         expect(n).toBeInstanceOf(UseStmt);
       }
+      visitIncludeStmt(n: IncludeStmt) {
+        visitUseStmt(); // call the mocked function so that jest knows it has been called
+        expect(n).toBeInstanceOf(IncludeStmt);
+      }
       visitModuleInstantiationStmt(n: ModuleInstantiationStmt) {
         visitModuleInstantiationStmt(); // call the mocked function so that jest knows it has been called
         expect(n).toBeInstanceOf(ModuleInstantiationStmt);
@@ -254,6 +260,7 @@ describe("ASTVisitor", () => {
     const v = new SampleVisitor();
     const file = doParse(`
         use <ddd>
+        include <xD>
         function ddd(argv = 10, second = !true) = (10 + 20) * 10;
         ybyby = x > 10 ? let(v = 200) doSomething() : assert(x = 20) echo("nothing") 5;
         arr = [20, if(true) each [20:50:30] else [808][0].x];

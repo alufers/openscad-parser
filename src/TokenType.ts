@@ -169,7 +169,12 @@ enum TokenType {
    */
   Hash,
 
-  FilenameInChevrons
+  FilenameInChevrons,
+
+  /**
+   * The include keyword.
+   */
+  Include,
 }
 
 export default TokenType;

@@ -38,6 +38,30 @@ export class UseStmt extends Statement {
 /**
  * @category AST
  */
+export class IncludeStmt extends Statement {
+  /**
+   *
+   * @param pos
+   * @param filename The used filename
+   */
+  constructor(
+    pos: CodeLocation,
+    public filename: string,
+    public tokens: {
+      includeKeyword: Token;
+      filename: LiteralToken<string>;
+    }
+  ) {
+    super(pos);
+  }
+  accept<R>(visitor: ASTVisitor<R>): R {
+    return visitor.visitIncludeStmt(this);
+  }
+}
+
+/**
+ * @category AST
+ */
 interface TaggableStatement {
   /**
    * Set to true if this module instantation has been tagged with a '!' symbol.
@@ -65,7 +89,6 @@ interface TaggableStatement {
  */
 export class ModuleInstantiationStmt extends Statement
   implements TaggableStatement {
-
   /**
    * !
    */
@@ -80,7 +103,7 @@ export class ModuleInstantiationStmt extends Statement
    * %
    */
   public tagBackground: boolean = false;
-  
+
   /**
    * *
    */

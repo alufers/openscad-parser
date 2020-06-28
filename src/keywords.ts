@@ -1,4 +1,5 @@
 import TokenType from "./TokenType";
+import { Token } from ".";
 
 /**
  * A dictionary which maps keyword string values to their TokenType.
@@ -16,7 +17,8 @@ const keywords: { [x: string]: TokenType } = {
   each: TokenType.Each,
   echo: TokenType.Echo,
   use: TokenType.Use,
-  let: TokenType.Let
+  let: TokenType.Let,
+  include: TokenType.Include,
 };
 
 export default keywords;
