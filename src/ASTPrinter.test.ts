@@ -119,7 +119,16 @@ describe("ASTPrinter", () => {
   });
   test("it preserves all comments nearby list comprehensions with a for", () => {
     doPreserveTest(`
-    compre = [for(a = [rang1, 2, 3]) x ];
+      compre = [for(a = [rang1, 2, 3]) x ];
+    `);
+  });
+
+  test("it preserves all comments nearby module modifiers", () => {
+    doPreserveTest(`
+     % asdf();
+     * ffff();
+     # xD();
+     ! bangbang();
     `);
   });
 

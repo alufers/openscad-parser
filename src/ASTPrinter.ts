@@ -431,18 +431,9 @@ export default class ASTPrinter implements ASTVisitor<string> {
 
   visitModuleInstantiationStmt(n: ModuleInstantiationStmt): string {
     let source = "";
-    if (n.tagHighlight) {
-      source += "#";
-    }
-    if (n.tagDisabled) {
-      source += "*";
-    }
-    if (n.tagBackground) {
-      source += "%";
-    }
-    if (n.tagRoot) {
-      source += "!";
-    }
+    source += n.tokens.modifiersInOrder
+      .map((tk) => this.stringifyExtraTokens(tk) + tk.lexeme)
+      .join(" ");
     if (source != "") {
       source += " ";
     }
@@ -598,7 +589,7 @@ export default class ASTPrinter implements ASTVisitor<string> {
       const line = stmt.accept(this);
       const firstRealLine = line
         .split("\n")
-        .find(l => !!l.split("//")[0].trim());
+        .find((l) => !!l.split("//")[0].trim());
       if (firstRealLine.length > this.config.moduleInstantiationBreakLength) {
         this.restoreDeepGlobals(saved);
         return stmt.accept(this.copyWithBreakBetweenModuleInstantations());
@@ -611,7 +602,7 @@ export default class ASTPrinter implements ASTVisitor<string> {
 
   protected stringifyExtraTokens(token: Token) {
     const source = token.extraTokens
-      .map(et => {
+      .map((et) => {
         if (et instanceof NewLineExtraToken) {
           if (this.deepGlobals.didAddNewline) {
             this.deepGlobals.didAddNewline = false;
