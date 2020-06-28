@@ -1,16 +1,15 @@
+import AssignmentNode from "./ast/AssignmentNode";
+import { GroupingExpr, LiteralExpr, LookupExpr } from "./ast/expressions";
+import ScadFile from "./ast/ScadFile";
+import { BlockStmt } from "./ast/statements";
+import ASTPinpointer, { BinAfter, BinBefore } from "./ASTPinpointer";
 import CodeFile from "./CodeFile";
-import ASTPinpointer, { BinBefore, BinAfter } from "./ASTPinpointer";
 import CodeLocation from "./CodeLocation";
-import { LiteralExpr, LookupExpr, GroupingExpr } from "./ast/expressions";
 import ErrorCollector from "./ErrorCollector";
 import Lexer from "./Lexer";
-import AssignmentNode from "./ast/AssignmentNode";
 import ParsingHelper from "./ParsingHelper";
-import Token from "./Token";
-import ScadFile from "./ast/ScadFile";
 import ASTScopePopulator from "./semantic/ASTScopePopulator";
 import Scope from "./semantic/Scope";
-import { BlockStmt } from "./ast/statements";
 
 describe("ASTPinpointer", () => {
   it("the internal binsearch dispatch works with simple tokens", () => {

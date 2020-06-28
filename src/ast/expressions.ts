@@ -1,10 +1,10 @@
-import ASTNode from "./ASTNode";
-import TokenType from "../TokenType";
 import CodeLocation from "../CodeLocation";
-import AssignmentNode from "./AssignmentNode";
-import ASTVisitor from "./ASTVisitor";
-import Token from "../Token";
 import LiteralToken from "../LiteralToken";
+import Token from "../Token";
+import TokenType from "../TokenType";
+import AssignmentNode from "./AssignmentNode";
+import ASTNode from "./ASTNode";
+import ASTVisitor from "./ASTVisitor";
 
 export abstract class Expression extends ASTNode {}
 

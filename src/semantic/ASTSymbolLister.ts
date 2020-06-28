@@ -1,13 +1,13 @@
-import ASTAssembler from "../ASTAssembler";
+import AssignmentNode, { AssignmentNodeRole } from "../ast/AssignmentNode";
 import ASTNode from "../ast/ASTNode";
-import Token from "../Token";
-import Range from "../Range";
 import {
   FunctionDeclarationStmt,
   ModuleDeclarationStmt,
 } from "../ast/statements";
-import AssignmentNode, { AssignmentNodeRole } from "../ast/AssignmentNode";
+import ASTAssembler from "../ASTAssembler";
 import LiteralToken from "../LiteralToken";
+import Range from "../Range";
+import Token from "../Token";
 
 export enum SymbolKind {
   MODULE,

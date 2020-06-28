@@ -1,11 +1,10 @@
+import ScadFile from "../ast/ScadFile";
+import CodeFile from "../CodeFile";
+import CodeLocation from "../CodeLocation";
 import ParsingHelper from "../ParsingHelper";
 import ASTScopePopulator from "./ASTScopePopulator";
-import Scope from "./Scope";
-import ASTPrinter from "../ASTPrinter";
 import CompletionUtil from "./CompletionUtil";
-import ScadFile from "../ast/ScadFile";
-import CodeLocation from "../CodeLocation";
-import CodeFile from "../CodeFile";
+import Scope from "./Scope";
 
 describe("CompletionUtil", () => {
   function doComplete(source: string, charOffset: number) {
@@ -26,6 +25,6 @@ describe("CompletionUtil", () => {
     `;
     const results = doComplete(s, s.length - 1);
     expect(results.length).toBeGreaterThan(0);
-    expect(results.find((r) => r.name === "the_var")).toBeTruthy();
+    expect(results.find(r => r.name === "the_var")).toBeTruthy();
   });
 });

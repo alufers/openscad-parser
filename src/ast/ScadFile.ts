@@ -1,14 +1,14 @@
-import ASTNode from "./ASTNode";
 import CodeLocation from "../CodeLocation";
-import { Statement } from "./statements";
-import ASTVisitor from "./ASTVisitor";
 import Token from "../Token";
+import ASTNode from "./ASTNode";
+import ASTVisitor from "./ASTVisitor";
+import { Statement } from "./statements";
 
 /**
- * The root node of any AST tree. 
- * 
+ * The root node of any AST tree.
+ *
  * Contains top-level statements including the use statements.
- * 
+ *
  * @category AST
  */
 export default class ScadFile extends ASTNode {

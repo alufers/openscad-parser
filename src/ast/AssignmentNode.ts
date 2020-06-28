@@ -1,8 +1,8 @@
-import ASTNode from "./ASTNode";
-import { Expression } from "./expressions";
 import CodeLocation from "../CodeLocation";
-import ASTVisitor from "./ASTVisitor";
 import Token from "../Token";
+import ASTNode from "./ASTNode";
+import ASTVisitor from "./ASTVisitor";
+import { Expression } from "./expressions";
 
 export enum AssignmentNodeRole {
   VARIABLE_DECLARATION,

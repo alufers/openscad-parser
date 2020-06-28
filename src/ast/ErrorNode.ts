@@ -1,8 +1,7 @@
-import ASTNode from "./ASTNode";
-import { Expression } from "./expressions";
 import CodeLocation from "../CodeLocation";
-import ASTVisitor from "./ASTVisitor";
 import Token from "../Token";
+import ASTNode from "./ASTNode";
+import ASTVisitor from "./ASTVisitor";
 
 /**
  * Is put into the AST after it failed to parse something. Such an AST is invalid, and an error must have been generated.

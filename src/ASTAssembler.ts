@@ -28,11 +28,11 @@ import {
   BlockStmt,
   FunctionDeclarationStmt,
   IfElseStatement,
+  IncludeStmt,
   ModuleDeclarationStmt,
   ModuleInstantiationStmt,
   NoopStmt,
   UseStmt,
-  IncludeStmt,
 } from "./ast/statements";
 import Token from "./Token";
 
@@ -47,7 +47,7 @@ export default abstract class ASTAssembler<R> implements ASTVisitor<R> {
   ): R;
   visitScadFile(n: ScadFile): R {
     return this.processAssembledNode(
-      [...n.statements.map((stmt) => () => stmt.accept(this)), n.tokens.eot],
+      [...n.statements.map(stmt => () => stmt.accept(this)), n.tokens.eot],
       n
     );
   }
@@ -161,7 +161,7 @@ export default abstract class ASTAssembler<R> implements ASTVisitor<R> {
       [
         n.tokens.name,
         n.tokens.firstParen,
-        ...n.args.map((a) => () => a.accept(this)),
+        ...n.args.map(a => () => a.accept(this)),
         n.tokens.secondParen,
       ],
       n
@@ -172,7 +172,7 @@ export default abstract class ASTAssembler<R> implements ASTVisitor<R> {
       [
         n.tokens.name,
         n.tokens.firstParen,
-        ...n.args.map((a) => () => a.accept(this)),
+        ...n.args.map(a => () => a.accept(this)),
         n.tokens.secondParen,
       ],
       n
@@ -183,7 +183,7 @@ export default abstract class ASTAssembler<R> implements ASTVisitor<R> {
       [
         n.tokens.name,
         n.tokens.firstParen,
-        ...n.args.map((a) => () => a.accept(this)),
+        ...n.args.map(a => () => a.accept(this)),
         n.tokens.secondParen,
       ],
       n
@@ -194,7 +194,7 @@ export default abstract class ASTAssembler<R> implements ASTVisitor<R> {
       [
         n.tokens.name,
         n.tokens.firstParen,
-        ...n.args.map((a) => () => a.accept(this)),
+        ...n.args.map(a => () => a.accept(this)),
         n.tokens.secondParen,
       ],
       n
@@ -228,7 +228,7 @@ export default abstract class ASTAssembler<R> implements ASTVisitor<R> {
       [
         n.tokens.forKeyword,
         n.tokens.firstParen,
-        ...n.args.map((a) => () => a.accept(this)),
+        ...n.args.map(a => () => a.accept(this)),
         n.tokens.secondParen,
         () => n.expr.accept(this),
       ],
@@ -240,11 +240,11 @@ export default abstract class ASTAssembler<R> implements ASTVisitor<R> {
       [
         n.tokens.forKeyword,
         n.tokens.firstParen,
-        ...n.args.map((a) => () => a.accept(this)),
+        ...n.args.map(a => () => a.accept(this)),
         n.tokens.firstSemicolon,
         () => n.cond.accept(this),
         n.tokens.secondSemicolon,
-        ...n.incrArgs.map((a) => () => a.accept(this)),
+        ...n.incrArgs.map(a => () => a.accept(this)),
         n.tokens.secondParen,
         () => n.expr.accept(this),
       ],
@@ -256,7 +256,7 @@ export default abstract class ASTAssembler<R> implements ASTVisitor<R> {
       [
         n.tokens.letKeyword,
         n.tokens.firstParen,
-        ...n.args.map((a) => () => a.accept(this)),
+        ...n.args.map(a => () => a.accept(this)),
         n.tokens.secondParen,
         () => n.expr.accept(this),
       ],
@@ -284,7 +284,7 @@ export default abstract class ASTAssembler<R> implements ASTVisitor<R> {
     arr.push(...n.tokens.modifiersInOrder);
     arr.push(n.tokens.name);
     arr.push(n.tokens.firstParen);
-    arr.push(...n.args.map((a) => () => a.accept(this)));
+    arr.push(...n.args.map(a => () => a.accept(this)));
     arr.push(n.tokens.secondParen);
     if (n.child) {
       arr.push(() => n.child.accept(this));
@@ -300,7 +300,7 @@ export default abstract class ASTAssembler<R> implements ASTVisitor<R> {
         n.tokens.moduleKeyword,
         n.tokens.name,
         n.tokens.firstParen,
-        ...n.definitionArgs.map((a) => () => a.accept(this)),
+        ...n.definitionArgs.map(a => () => a.accept(this)),
         n.tokens.secondParen,
         () => n.stmt.accept(this),
       ],
@@ -313,7 +313,7 @@ export default abstract class ASTAssembler<R> implements ASTVisitor<R> {
         n.tokens.functionKeyword,
         n.tokens.name,
         n.tokens.firstParen,
-        ...n.definitionArgs.map((a) => () => a.accept(this)),
+        ...n.definitionArgs.map(a => () => a.accept(this)),
         n.tokens.secondParen,
         () => n.expr.accept(this),
         n.tokens.semicolon,
@@ -325,7 +325,7 @@ export default abstract class ASTAssembler<R> implements ASTVisitor<R> {
     return this.processAssembledNode(
       [
         n.tokens.firstBrace,
-        ...n.children.map((a) => () => a.accept(this)),
+        ...n.children.map(a => () => a.accept(this)),
         n.tokens.secondBrace,
       ],
       n

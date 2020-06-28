@@ -1,6 +1,6 @@
-import ParsingHelper from "./ParsingHelper";
-import CodeFile from "./CodeFile";
 import AssignmentNode from "./ast/AssignmentNode";
+import CodeFile from "./CodeFile";
+import ParsingHelper from "./ParsingHelper";
 
 describe("parser - tests when the code is incomplete", () => {
   function doParse(source: string) {

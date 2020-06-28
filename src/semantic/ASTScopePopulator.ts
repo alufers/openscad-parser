@@ -1,5 +1,7 @@
+import AssignmentNode, { AssignmentNodeRole } from "../ast/AssignmentNode";
 import ASTNode from "../ast/ASTNode";
 import ASTVisitor from "../ast/ASTVisitor";
+import ErrorNode from "../ast/ErrorNode";
 import {
   ArrayLookupExpr,
   AssertExpr,
@@ -26,26 +28,24 @@ import {
   BlockStmt,
   FunctionDeclarationStmt,
   IfElseStatement,
+  IncludeStmt,
   ModuleDeclarationStmt,
   ModuleInstantiationStmt,
   NoopStmt,
-  UseStmt,
   Statement,
-  IncludeStmt,
+  UseStmt,
 } from "../ast/statements";
-import AssignmentNode, { AssignmentNodeRole } from "../ast/AssignmentNode";
-import Scope from "./Scope";
-import ErrorNode from "../ast/ErrorNode";
 import {
   BlockStmtWithScope,
-  ScadFileWithScope,
   FunctionDeclarationStmtWithScope,
-  ModuleDeclarationStmtWithScope,
-  LetExprWithScope,
-  LcLetExprWithScope,
-  LcForExprWithScope,
   LcForCExprWithScope,
+  LcForExprWithScope,
+  LcLetExprWithScope,
+  LetExprWithScope,
+  ModuleDeclarationStmtWithScope,
+  ScadFileWithScope,
 } from "./nodesWithScopes";
+import Scope from "./Scope";
 
 export default class ASTScopePopulator implements ASTVisitor<ASTNode> {
   nearestScope: Scope;
@@ -62,7 +62,7 @@ export default class ASTScopePopulator implements ASTVisitor<ASTNode> {
   visitScadFile(n: ScadFile): ASTNode {
     const sf = new ScadFileWithScope(
       n.pos,
-      n.statements.map((stmt) => stmt.accept(this)),
+      n.statements.map(stmt => stmt.accept(this)),
       n.tokens
     );
     sf.scope = this.nearestScope; // we assume the nearest scope is the root scope, since we are processing the scad file
@@ -125,7 +125,7 @@ export default class ASTScopePopulator implements ASTVisitor<ASTNode> {
   visitVectorExpr(n: VectorExpr): ASTNode {
     return new VectorExpr(
       n.pos,
-      n.children.map((c) => c.accept(this)),
+      n.children.map(c => c.accept(this)),
       n.tokens
     );
   }
@@ -139,7 +139,7 @@ export default class ASTScopePopulator implements ASTVisitor<ASTNode> {
     return new FunctionCallExpr(
       n.pos,
       n.name,
-      n.args.map((a) => a.accept(this)) as AssignmentNode[],
+      n.args.map(a => a.accept(this)) as AssignmentNode[],
       n.tokens
     );
   }
@@ -148,16 +148,14 @@ export default class ASTScopePopulator implements ASTVisitor<ASTNode> {
     letExprWithScope.scope = new Scope();
     letExprWithScope.scope.parent = this.nearestScope;
     const copy = this.copyWithNewNearestScope(letExprWithScope.scope);
-    letExprWithScope.args = n.args.map((a) =>
-      a.accept(copy)
-    ) as AssignmentNode[];
+    letExprWithScope.args = n.args.map(a => a.accept(copy)) as AssignmentNode[];
     letExprWithScope.expr = n.expr.accept(copy);
     return letExprWithScope;
   }
   visitAssertExpr(n: AssertExpr): ASTNode {
     return new AssertExpr(
       n.pos,
-      n.args.map((a) => a.accept(this)) as AssignmentNode[],
+      n.args.map(a => a.accept(this)) as AssignmentNode[],
       n.expr.accept(this),
       n.tokens
     );
@@ -165,7 +163,7 @@ export default class ASTScopePopulator implements ASTVisitor<ASTNode> {
   visitEchoExpr(n: EchoExpr): ASTNode {
     return new EchoExpr(
       n.pos,
-      n.args.map((a) => a.accept(this)) as AssignmentNode[],
+      n.args.map(a => a.accept(this)) as AssignmentNode[],
       n.expr.accept(this),
       n.tokens
     );
@@ -187,7 +185,7 @@ export default class ASTScopePopulator implements ASTVisitor<ASTNode> {
     newNode.scope = new Scope();
     newNode.scope.parent = this.nearestScope;
     const copy = this.copyWithNewNearestScope(newNode.scope);
-    newNode.args = n.args.map((a) => a.accept(copy)) as AssignmentNode[];
+    newNode.args = n.args.map(a => a.accept(copy)) as AssignmentNode[];
     newNode.expr = n.expr.accept(copy);
     return newNode;
   }
@@ -203,10 +201,8 @@ export default class ASTScopePopulator implements ASTVisitor<ASTNode> {
     newNode.scope = new Scope();
     newNode.scope.parent = this.nearestScope;
     const copy = this.copyWithNewNearestScope(newNode.scope);
-    newNode.args = n.args.map((a) => a.accept(copy)) as AssignmentNode[];
-    newNode.incrArgs = n.incrArgs.map((a) =>
-      a.accept(copy)
-    ) as AssignmentNode[];
+    newNode.args = n.args.map(a => a.accept(copy)) as AssignmentNode[];
+    newNode.incrArgs = n.incrArgs.map(a => a.accept(copy)) as AssignmentNode[];
     newNode.cond = n.cond.accept(copy);
     newNode.expr = n.expr.accept(copy);
     return newNode;
@@ -221,7 +217,7 @@ export default class ASTScopePopulator implements ASTVisitor<ASTNode> {
     lcLetWithScopeExpr.scope = new Scope();
     lcLetWithScopeExpr.scope.parent = this.nearestScope;
     const copy = this.copyWithNewNearestScope(lcLetWithScopeExpr.scope);
-    lcLetWithScopeExpr.args = n.args.map((a) =>
+    lcLetWithScopeExpr.args = n.args.map(a =>
       a.accept(copy)
     ) as AssignmentNode[];
     lcLetWithScopeExpr.expr = n.expr.accept(copy);
@@ -240,7 +236,7 @@ export default class ASTScopePopulator implements ASTVisitor<ASTNode> {
     const inst = new ModuleInstantiationStmt(
       n.pos,
       n.name,
-      n.args.map((a) => a.accept(this)) as AssignmentNode[],
+      n.args.map(a => a.accept(this)) as AssignmentNode[],
       n.child.accept(this),
       n.tokens
     );
@@ -262,7 +258,7 @@ export default class ASTScopePopulator implements ASTVisitor<ASTNode> {
     md.scope = new Scope();
     md.scope.parent = this.nearestScope;
     const copy = this.copyWithNewNearestScope(md.scope);
-    md.definitionArgs = n.definitionArgs.map((a) =>
+    md.definitionArgs = n.definitionArgs.map(a =>
       a.accept(copy)
     ) as AssignmentNode[];
     md.stmt = n.stmt.accept(copy);
@@ -280,7 +276,7 @@ export default class ASTScopePopulator implements ASTVisitor<ASTNode> {
     fDecl.scope = new Scope();
     fDecl.scope.parent = this.nearestScope;
     const newPopulator = this.copyWithNewNearestScope(fDecl.scope);
-    fDecl.definitionArgs = n.definitionArgs.map((a) =>
+    fDecl.definitionArgs = n.definitionArgs.map(a =>
       a.accept(newPopulator)
     ) as AssignmentNode[];
     fDecl.expr = n.expr.accept(newPopulator);
@@ -290,7 +286,7 @@ export default class ASTScopePopulator implements ASTVisitor<ASTNode> {
     const blk = new BlockStmtWithScope(n.pos, null, n.tokens);
     blk.scope = new Scope();
     blk.scope.parent = this.nearestScope;
-    blk.children = n.children.map((c) =>
+    blk.children = n.children.map(c =>
       c.accept(this.copyWithNewNearestScope(blk.scope))
     ) as Statement[];
     return blk;

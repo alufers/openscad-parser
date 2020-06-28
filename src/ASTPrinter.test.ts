@@ -1,16 +1,14 @@
-import CodeFile from "./CodeFile";
+import { resolve } from "path";
+import ScadFile from "./ast/ScadFile";
 import ASTPrinter from "./ASTPrinter";
-import ParsingHelper from "./ParsingHelper";
+import CodeFile from "./CodeFile";
+import ErrorCollector from "./ErrorCollector";
 import FormattingConfiguration from "./FormattingConfiguration";
 import Lexer from "./Lexer";
-import ErrorCollector from "./ErrorCollector";
-import TokenType from "./TokenType";
-import AssignmentNode from "./ast/AssignmentNode";
-import { VectorExpr } from "./ast/expressions";
-import { resolve } from "path";
+import ParsingHelper from "./ParsingHelper";
 import ASTScopePopulator from "./semantic/ASTScopePopulator";
 import Scope from "./semantic/Scope";
-import ScadFile from "./ast/ScadFile";
+import TokenType from "./TokenType";
 
 describe("ASTPrinter", () => {
   function doFormat(source: string) {

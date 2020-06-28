@@ -1,5 +1,4 @@
 import TokenType from "./TokenType";
-import { Token } from ".";
 
 /**
  * A dictionary which maps keyword string values to their TokenType.

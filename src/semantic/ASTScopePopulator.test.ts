@@ -1,13 +1,13 @@
-import ParsingHelper from "../ParsingHelper";
-import CodeFile from "../CodeFile";
-import ASTScopePopulator from "./ASTScopePopulator";
-import Scope from "./Scope";
 import * as path from "path";
-import ASTAssembler from "../ASTAssembler";
-import Token from "../Token";
 import ASTNode from "../ast/ASTNode";
-import { LcForExprWithScope } from "./nodesWithScopes";
 import { ModuleInstantiationStmt } from "../ast/statements";
+import ASTAssembler from "../ASTAssembler";
+import CodeFile from "../CodeFile";
+import ParsingHelper from "../ParsingHelper";
+import Token from "../Token";
+import ASTScopePopulator from "./ASTScopePopulator";
+import { LcForExprWithScope } from "./nodesWithScopes";
+import Scope from "./Scope";
 
 describe("ASTScopePopulator", () => {
   it("does not crash when populating code containing range expressions", () => {
@@ -65,7 +65,7 @@ describe("ASTScopePopulator", () => {
     checkIfExistsInTree(`x = [for(xD = [2,5]) xD];`, LcForExprWithScope);
   });
   it("preserves tags in module instantations", () => {
-    checkIfExistsInTree(`% * theMod();`, ModuleInstantiationStmt, (mod) => {
+    checkIfExistsInTree(`% * theMod();`, ModuleInstantiationStmt, mod => {
       expect(mod.tagBackground).toBeTruthy();
       expect(mod.tagDisabled).toBeTruthy();
       expect(mod.tagRoot).toBeFalsy();

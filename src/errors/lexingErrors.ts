@@ -1,5 +1,5 @@
-import LexingError from "./LexingError";
 import CodeLocation from "../CodeLocation";
+import LexingError from "./LexingError";
 
 /**
  * @category Error

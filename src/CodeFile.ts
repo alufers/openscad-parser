@@ -17,7 +17,7 @@ export default class CodeFile {
       fs.readFile(
         pathToLoad,
         {
-          encoding: "utf8"
+          encoding: "utf8",
         },
         (err, data) => {
           if (err) {

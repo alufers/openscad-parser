@@ -1,8 +1,8 @@
 import ASTNode from "../ast/ASTNode";
-import CodeLocation from "../CodeLocation";
 import ASTPinpointer from "../ASTPinpointer";
-import Scope from "./Scope";
+import CodeLocation from "../CodeLocation";
 import NodeWithScope from "./NodeWithScope";
+import Scope from "./Scope";
 
 export enum CompletionType {
   VARIABLE,

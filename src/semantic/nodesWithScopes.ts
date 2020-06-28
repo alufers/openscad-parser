@@ -1,12 +1,12 @@
+import { LcForCExpr, LcForExpr, LcLetExpr, LetExpr } from "../ast/expressions";
+import ScadFile from "../ast/ScadFile";
 import {
   BlockStmt,
   FunctionDeclarationStmt,
   ModuleDeclarationStmt,
 } from "../ast/statements";
-import { LetExpr, LcLetExpr, LcForExpr, LcForCExpr } from "../ast/expressions";
 import NodeWithScope from "./NodeWithScope";
 import Scope from "./Scope";
-import ScadFile from "../ast/ScadFile";
 
 export class BlockStmtWithScope extends BlockStmt implements NodeWithScope {
   scope: Scope;

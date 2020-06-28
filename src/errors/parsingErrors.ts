@@ -1,7 +1,7 @@
-import ParsingError from "./ParsingError";
 import CodeLocation from "../CodeLocation";
-import TokenType from "../TokenType";
 import friendlyTokenNames from "../friendlyTokenNames";
+import TokenType from "../TokenType";
+import ParsingError from "./ParsingError";
 
 /**
  * @category Error

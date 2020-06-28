@@ -1,10 +1,10 @@
-import ASTNode from "./ASTNode";
-import AssignmentNode from "./AssignmentNode";
 import CodeLocation from "../CodeLocation";
-import { Expression } from "./expressions";
-import ASTVisitor from "./ASTVisitor";
-import Token from "../Token";
 import LiteralToken from "../LiteralToken";
+import Token from "../Token";
+import AssignmentNode from "./AssignmentNode";
+import ASTNode from "./ASTNode";
+import ASTVisitor from "./ASTVisitor";
+import { Expression } from "./expressions";
 
 /**
  * @category AST

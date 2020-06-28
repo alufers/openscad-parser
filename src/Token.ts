@@ -20,6 +20,6 @@ export default class Token {
   }
 
   hasNewlineInExtraTokens() {
-    return this.extraTokens.some((t) => t instanceof NewLineExtraToken);
+    return this.extraTokens.some(t => t instanceof NewLineExtraToken);
   }
 }

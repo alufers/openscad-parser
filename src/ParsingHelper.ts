@@ -1,9 +1,9 @@
-import CodeFile from "./CodeFile";
 import ScadFile from "./ast/ScadFile";
+import CodeFile from "./CodeFile";
 import ErrorCollector from "./ErrorCollector";
 import Lexer from "./Lexer";
-import Token from "./Token";
 import Parser from "./Parser";
+import Token from "./Token";
 
 export default class ParsingHelper {
   static parseFile(f: CodeFile): [ScadFile | null, ErrorCollector] {

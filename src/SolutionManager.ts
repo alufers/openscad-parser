@@ -1,18 +1,16 @@
-import CodeFile from "./CodeFile";
-import ASTNode from "./ast/ASTNode";
 import * as path from "path";
-import ParsingHelper from "./ParsingHelper";
-import ASTScopePopulator from "./semantic/ASTScopePopulator";
-import Scope from "./semantic/Scope";
-import CompletionUtil from "./semantic/CompletionUtil";
-
-import ASTSymbolLister, { SymbolKind } from "./semantic/ASTSymbolLister";
-import Range from "./Range";
-import ASTPrinter from "./ASTPrinter";
-import CodeLocation from "./CodeLocation";
+import ASTNode from "./ast/ASTNode";
 import ScadFile from "./ast/ScadFile";
+import ASTPrinter from "./ASTPrinter";
+import CodeFile from "./CodeFile";
+import CodeLocation from "./CodeLocation";
 import FormattingConfiguration from "./FormattingConfiguration";
-
+import ParsingHelper from "./ParsingHelper";
+import Range from "./Range";
+import ASTScopePopulator from "./semantic/ASTScopePopulator";
+import ASTSymbolLister, { SymbolKind } from "./semantic/ASTSymbolLister";
+import CompletionUtil from "./semantic/CompletionUtil";
+import Scope from "./semantic/Scope";
 
 export class SolutionFile {
   fullPath: string;

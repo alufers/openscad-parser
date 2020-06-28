@@ -1,5 +1,6 @@
 import AssignmentNode from "./ast/AssignmentNode";
 import ASTVisitor from "./ast/ASTVisitor";
+import ErrorNode from "./ast/ErrorNode";
 import {
   ArrayLookupExpr,
   AssertExpr,
@@ -26,23 +27,21 @@ import {
   BlockStmt,
   FunctionDeclarationStmt,
   IfElseStatement,
+  IncludeStmt,
   ModuleDeclarationStmt,
   ModuleInstantiationStmt,
   NoopStmt,
-  UseStmt,
   Statement,
-  IncludeStmt,
+  UseStmt,
 } from "./ast/statements";
 import {
   MultiLineComment,
   NewLineExtraToken,
   SingleLineComment,
 } from "./extraTokens";
+import FormattingConfiguration from "./FormattingConfiguration";
 import Token from "./Token";
 import TokenType from "./TokenType";
-import { statement } from "@babel/template";
-import FormattingConfiguration from "./FormattingConfiguration";
-import ErrorNode from "./ast/ErrorNode";
 
 export default class ASTPrinter implements ASTVisitor<string> {
   indentLevel = 0;
@@ -599,7 +598,7 @@ export default class ASTPrinter implements ASTVisitor<string> {
       const line = stmt.accept(this);
       const firstRealLine = line
         .split("\n")
-        .find((l) => !!l.split("//")[0].trim());
+        .find(l => !!l.split("//")[0].trim());
       if (firstRealLine.length > this.config.moduleInstantiationBreakLength) {
         this.restoreDeepGlobals(saved);
         return stmt.accept(this.copyWithBreakBetweenModuleInstantations());
@@ -612,7 +611,7 @@ export default class ASTPrinter implements ASTVisitor<string> {
 
   protected stringifyExtraTokens(token: Token) {
     const source = token.extraTokens
-      .map((et) => {
+      .map(et => {
         if (et instanceof NewLineExtraToken) {
           if (this.deepGlobals.didAddNewline) {
             this.deepGlobals.didAddNewline = false;

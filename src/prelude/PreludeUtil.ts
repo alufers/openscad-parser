@@ -1,10 +1,10 @@
-import Scope from "../semantic/Scope";
-import ParsingHelper from "../ParsingHelper";
-import CodeFile from "../CodeFile";
-import { join } from "path";
 import { readFileSync } from "fs";
-import ASTScopePopulator from "../semantic/ASTScopePopulator";
+import { join } from "path";
 import ScadFile from "../ast/ScadFile";
+import CodeFile from "../CodeFile";
+import ParsingHelper from "../ParsingHelper";
+import ASTScopePopulator from "../semantic/ASTScopePopulator";
+import Scope from "../semantic/Scope";
 
 export default class PreludeUtil {
   private static _cachedPreludeScope: Scope = null;

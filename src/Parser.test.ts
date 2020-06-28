@@ -34,9 +34,8 @@ import ErrorCollector from "./ErrorCollector";
 import ParsingError from "./errors/ParsingError";
 import Lexer from "./Lexer";
 import Parser from "./Parser";
-import TokenType from "./TokenType";
 import ParsingHelper from "./ParsingHelper";
-import CodeError from "./errors/CodeError";
+import TokenType from "./TokenType";
 
 describe("Parser", () => {
   function doParse(source: string) {
@@ -954,6 +953,6 @@ describe("Parser", () => {
       `//single-line`,
     ]
       .map(doParse)
-      .forEach((f) => expect(f.tokens.eot.type).toEqual(TokenType.Eot));
+      .forEach(f => expect(f.tokens.eot.type).toEqual(TokenType.Eot));
   });
 });

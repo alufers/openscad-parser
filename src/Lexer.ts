@@ -8,9 +8,9 @@ import {
   TooManyDotsInNumberLiteralLexingError,
   TooManyEInNumberLiteralLexingError,
   UnexpectedCharacterLexingError,
+  UnterminatedFilenameLexingError,
   UnterminatedMultilineCommentLexingError,
   UnterminatedStringLiteralLexingError,
-  UnterminatedFilenameLexingError,
 } from "./errors/lexingErrors";
 import {
   ExtraToken,

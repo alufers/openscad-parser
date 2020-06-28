@@ -1,4 +1,5 @@
 import AssignmentNode, { AssignmentNodeRole } from "./ast/AssignmentNode";
+import ErrorNode from "./ast/ErrorNode";
 import {
   ArrayLookupExpr,
   AssertExpr,
@@ -27,12 +28,12 @@ import {
   BlockStmt,
   FunctionDeclarationStmt,
   IfElseStatement,
+  IncludeStmt,
   ModuleDeclarationStmt,
   ModuleInstantiationStmt,
   NoopStmt,
   Statement,
   UseStmt,
-  IncludeStmt,
 } from "./ast/statements";
 import CodeFile from "./CodeFile";
 import CodeLocation from "./CodeLocation";
@@ -48,16 +49,12 @@ import {
   UnexpectedTokenWhenStatementParsingError,
   UnterminatedForLoopParamsParsingError,
   UnterminatedParametersListParsingError,
-  UnterminatedUseStatementParsingError,
   UnterminatedVectorExpressionParsingError,
-  UnexpectedCommentBeforeUseChevron,
 } from "./errors/parsingErrors";
 import keywords from "./keywords";
 import LiteralToken from "./LiteralToken";
 import Token from "./Token";
 import TokenType from "./TokenType";
-import ErrorNode from "./ast/ErrorNode";
-import { MultiLineComment, SingleLineComment } from "./extraTokens";
 
 const moduleInstantiationTagTokens = [
   TokenType.Bang,

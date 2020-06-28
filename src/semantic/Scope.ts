@@ -1,8 +1,8 @@
+import AssignmentNode from "../ast/AssignmentNode";
 import {
   FunctionDeclarationStmt,
   ModuleDeclarationStmt,
 } from "../ast/statements";
-import AssignmentNode from "../ast/AssignmentNode";
 
 export default class Scope {
   siblingScopes: Scope[] = [];

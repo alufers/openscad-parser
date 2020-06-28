@@ -1,4 +1,5 @@
 import CodeFile from "../CodeFile";
+import ErrorCollector from "../ErrorCollector";
 import Lexer from "../Lexer";
 import Parser from "../Parser";
 import AssignmentNode from "./AssignmentNode";
@@ -22,20 +23,19 @@ import {
   RangeExpr,
   TernaryExpr,
   UnaryOpExpr,
-  VectorExpr
+  VectorExpr,
 } from "./expressions";
 import ScadFile from "./ScadFile";
 import {
   BlockStmt,
   FunctionDeclarationStmt,
   IfElseStatement,
+  IncludeStmt,
   ModuleDeclarationStmt,
   ModuleInstantiationStmt,
   NoopStmt,
   UseStmt,
-  IncludeStmt
 } from "./statements";
-import ErrorCollector from "../ErrorCollector";
 
 describe("ASTVisitor", () => {
   function doParse(source: string) {

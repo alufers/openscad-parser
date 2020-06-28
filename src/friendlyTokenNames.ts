@@ -47,5 +47,5 @@ export default {
   [TokenType.Undef]: "'undef' (Undef)",
   [TokenType.Use]: "'use' (Use)",
   [TokenType.FilenameInChevrons]: "filename (FilenameInChevrons)",
-  [TokenType.Include]: "'include' (Include)"
+  [TokenType.Include]: "'include' (Include)",
 };

@@ -1,5 +1,5 @@
-import ParsingHelper from "../ParsingHelper";
 import CodeFile from "../CodeFile";
+import ParsingHelper from "../ParsingHelper";
 import ASTSymbolLister, { SymbolKind } from "./ASTSymbolLister";
 
 describe("ASTSymbolLister", () => {

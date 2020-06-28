@@ -13,7 +13,8 @@ export default class ErrorCollector {
         e.codeLocation.formatWithContext() +
         Object.getPrototypeOf(e).constructor.name +
         ": " +
-        e.message + "\n"
+        e.message +
+        "\n"
       );
     }, "");
     console.log(msgs);
