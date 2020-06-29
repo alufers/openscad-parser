@@ -89,6 +89,15 @@ export default class SolutionManager {
     return solutionFile;
   }
   /**
+   * Checks whether a file is already in the solution, and if not it loads it from disk.
+   * @param filePath The dependent-upon file.
+   */
+  async provideScadFile(filePath: string) {
+    let f = this.getFile(filePath);
+    if (f) return f; // the file is already opened or refrenced by antoher
+    return this.attachSolutionFile(await CodeFile.load(filePath));
+  }
+  /**
    * Removes dependencies that aren't directly or indirectly referenced in any of the open files to free memory.
    */
   protected garbageCollect() {
