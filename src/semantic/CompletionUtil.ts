@@ -3,11 +3,13 @@ import ASTPinpointer from "../ASTPinpointer";
 import CodeLocation from "../CodeLocation";
 import NodeWithScope from "./NodeWithScope";
 import Scope from "./Scope";
+import keywords from "../keywords";
 
 export enum CompletionType {
   VARIABLE,
   FUNCTION,
   MODULE,
+  KEYWORD,
 }
 
 export class CompletionSymbol {
@@ -38,6 +40,11 @@ export default class CompletionUtil {
         symbols.push(new CompletionSymbol(CompletionType.MODULE, m[1].name));
       }
     }
+    symbols.push(
+      ...Object.keys(keywords).map(
+        (kwrd) => new CompletionSymbol(CompletionType.KEYWORD, kwrd)
+      )
+    );
     return symbols;
   }
 }
