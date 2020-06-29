@@ -953,6 +953,24 @@ describe("Parser", () => {
       `//single-line`,
     ]
       .map(doParse)
-      .forEach(f => expect(f.tokens.eot.type).toEqual(TokenType.Eot));
+      .forEach((f) => expect(f.tokens.eot.type).toEqual(TokenType.Eot));
+  });
+  it("throws an error when the use statement is not at the root of the file", () => {
+    expect(() =>
+      doParse(`
+      module test() {
+        use <error>;
+      }
+    `)
+    ).toThrow(ParsingError);
+  });
+  it("throws an error when the include statement is not at the root of the file", () => {
+    expect(() =>
+      doParse(`
+      module test() {
+        include <error>;
+      }
+    `)
+    ).toThrow(ParsingError);
   });
 });

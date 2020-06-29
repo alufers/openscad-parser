@@ -129,8 +129,32 @@ export class ConsumptionParsingError extends UnexpectedTokenParsingError {
 /**
  * @category Error
  */
-export class UnexpectedCommentBeforeUseChevron extends ParsingError {
+export class UnexpectedCommentBeforeUseChevronParsingError extends ParsingError {
   constructor(pos: CodeLocation) {
     super(pos, `Comments are illegal before '<' in the use statement.`);
+  }
+}
+
+/**
+ * @category Error
+ */
+export class UnexpectedUseStatementParsingError extends ParsingError {
+  constructor(pos: CodeLocation) {
+    super(
+      pos,
+      `Use ('use <...>') statements are only allowed at the root scope of the file, not inside of blocks.`
+    );
+  }
+}
+
+/**
+ * @category Error
+ */
+export class UnexpectedIncludeStatementParsingError extends ParsingError {
+  constructor(pos: CodeLocation) {
+    super(
+      pos,
+      `Include ('include <...>') statements are only allowed at the root scope of the file, not inside of blocks.`
+    );
   }
 }

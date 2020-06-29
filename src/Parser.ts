@@ -43,10 +43,12 @@ import {
   ConsumptionParsingError,
   FailedToMatchPrimaryExpressionParsingError,
   UnexpectedEndOfFileBeforeModuleInstantiationParsingError,
+  UnexpectedIncludeStatementParsingError,
   UnexpectedTokenAfterIdentifierInStatementParsingError,
   UnexpectedTokenInForLoopParamsListParsingError,
   UnexpectedTokenInNamedArgumentsListParsingError,
   UnexpectedTokenWhenStatementParsingError,
+  UnexpectedUseStatementParsingError,
   UnterminatedForLoopParamsParsingError,
   UnterminatedParametersListParsingError,
   UnterminatedVectorExpressionParsingError,
@@ -111,7 +113,7 @@ export default class Parser {
   parse(): ScadFile {
     const statements: Statement[] = [];
     while (!this.isAtEnd()) {
-      statements.push(this.statement());
+      statements.push(this.statement(true));
     }
     const eot = this.peek();
     return new ScadFile(new CodeLocation(this.code), statements, { eot });
@@ -147,11 +149,20 @@ export default class Parser {
     }
   }
 
-  protected statement() {
+  /**
+   * Parses a statement, including `use` and `include` when isAtRoot is set to true.
+   * @param isAtRoot whther we are parsing a statement in the root of the file, set to false inside blocks or modules.
+   */
+  protected statement(isAtRoot = false) {
     const syncStartToken = this.currentToken;
     const syncStartLocation = this.getLocation();
     try {
       if (this.matchToken(TokenType.Use)) {
+        if (!isAtRoot) {
+          throw this.errorCollector.reportError(
+            new UnexpectedUseStatementParsingError(this.getLocation())
+          );
+        }
         const useKeyword = this.previous();
         const filenameToken: LiteralToken<string> = this.consume(
           TokenType.FilenameInChevrons,
@@ -164,6 +175,11 @@ export default class Parser {
         });
       }
       if (this.matchToken(TokenType.Include)) {
+        if (!isAtRoot) {
+          throw this.errorCollector.reportError(
+            new UnexpectedIncludeStatementParsingError(this.getLocation())
+          );
+        }
         const includeKeyword = this.previous();
         const filenameToken: LiteralToken<string> = this.consume(
           TokenType.FilenameInChevrons,
