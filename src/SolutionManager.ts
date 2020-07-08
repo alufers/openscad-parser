@@ -11,8 +11,12 @@ import ASTScopePopulator from "./semantic/ASTScopePopulator";
 import ASTSymbolLister, { SymbolKind } from "./semantic/ASTSymbolLister";
 import CompletionUtil from "./semantic/CompletionUtil";
 import Scope from "./semantic/Scope";
+import ScadFileProvider, {
+  WithExportedScopes,
+} from "./semantic/ScadFileProvider";
+import { ScadFileWithScope } from "./semantic/nodesWithScopes";
 
-export class SolutionFile {
+export class SolutionFile implements WithExportedScopes {
   fullPath: string;
   codeFile: CodeFile;
   ast: ASTNode = null;
@@ -46,9 +50,12 @@ export class SolutionFile {
       this.ast as ScadFile
     );
   }
+  getExportedScopes(): Scope[] {
+    return [(this.ast as ScadFileWithScope).scope];
+  }
 }
 
-export default class SolutionManager {
+export default class SolutionManager implements ScadFileProvider {
   openedFiles: Map<string, SolutionFile> = new Map();
   allFiles: Map<string, SolutionFile> = new Map();
   getFile(filePath: string) {
