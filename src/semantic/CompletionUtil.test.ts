@@ -25,6 +25,19 @@ describe("CompletionUtil", () => {
     `;
     const results = doComplete(s, s.length - 1);
     expect(results.length).toBeGreaterThan(0);
-    expect(results.find(r => r.name === "the_var")).toBeTruthy();
+    expect(results.find((r) => r.name === "the_var")).toBeTruthy();
+  });
+
+  it("does not crash when completing inside an incomplete module instantation", () => {
+    let [ast, errorCollector] = ParsingHelper.parseFile(
+      new CodeFile("<test>", `circle(d )`)
+    );
+    ast = new ASTScopePopulator(new Scope()).populate(ast) as ScadFile; // populating the scopes should not change anything
+    expect(() => {
+      CompletionUtil.getSymbolsAtLocation(
+        ast,
+        new CodeLocation(ast.pos.file, 9)
+      );
+    }).not.toThrow();
   });
 });

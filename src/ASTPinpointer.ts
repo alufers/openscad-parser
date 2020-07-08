@@ -40,6 +40,7 @@ export default class ASTPinpointer extends ASTAssembler<PinpointerRet>
   ): PinpointerRet {
     let l = 0,
       r = t.length - 1;
+      // perform a binary search on the tokens
     while (l <= r) {
       let pivot = Math.floor((r + l) / 2);
       if (t[pivot] instanceof Token) {
@@ -88,6 +89,6 @@ export default class ASTPinpointer extends ASTAssembler<PinpointerRet>
     if (typeof firstThing === "function") {
       return firstThing.call(this);
     }
-    throw new Error("Bad element in first token mix element");
+    throw new Error(`Bad element in first token mix element. Recieved ${firstThing}, expected a function or a Token.`);
   }
 }
