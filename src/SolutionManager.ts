@@ -15,6 +15,7 @@ import ScadFileProvider, {
   WithExportedScopes,
 } from "./semantic/ScadFileProvider";
 import { ScadFileWithScope } from "./semantic/nodesWithScopes";
+import IncludeResolver from "./semantic/IncludeResolver";
 
 export class SolutionFile implements WithExportedScopes {
   fullPath: string;
@@ -22,6 +23,11 @@ export class SolutionFile implements WithExportedScopes {
   ast: ASTNode = null;
   dependencies: SolutionFile[];
   errors: Error[];
+  includeResolver: IncludeResolver;
+  
+  constructor(public solutionManager: SolutionManager) {
+    this.includeResolver = new IncludeResolver(this.solutionManager);
+  }
 
   parseAndProcess() {
     let [ast, errors] = ParsingHelper.parseFile(this.codeFile);

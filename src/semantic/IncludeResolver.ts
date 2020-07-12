@@ -4,6 +4,21 @@ import { UseStmt, IncludeStmt } from "../ast/statements";
 import fs from "fs/promises";
 import os from "os";
 import * as path from "path";
+import ErrorCollector from "../ErrorCollector";
+import CodeError from "../errors/CodeError";
+import CodeLocation from "../CodeLocation";
+
+export class IncludedFileNotFoundError extends CodeError {
+  constructor(pos: CodeLocation, filename: string) {
+    super(pos, `Included file '${filename} not found.'`);
+  }
+}
+
+export class UsedFileNotFoundError extends CodeError {
+  constructor(pos: CodeLocation, filename: string) {
+    super(pos, `Used file '${filename} not found.'`);
+  }
+}
 
 export default class IncludeResolver {
   constructor(private provider: ScadFileProvider) {}
@@ -11,32 +26,56 @@ export default class IncludeResolver {
    * Finds all file includes and returns paths to them
    * @param f
    */
-  async resolveIncludes(f: ScadFile) {
+  async resolveIncludes(f: ScadFile, ec: ErrorCollector) {
     const includes: string[] = [];
     for (const stmt of f.statements) {
       if (stmt instanceof IncludeStmt) {
-        includes.push(
-          await this.locateScadFile(f.pos.file.path, stmt.filename)
+        const filePath = await this.locateScadFile(
+          f.pos.file.path,
+          stmt.filename
         );
+        if (!filePath) {
+          ec.reportError(
+            new IncludedFileNotFoundError(
+              stmt.tokens.filename.pos,
+              stmt.filename
+            )
+          );
+          continue;
+        }
+        includes.push(filePath);
       }
     }
-    return Promise.all(includes.map(incl => this.provider.provideScadFile(incl)));
+    return Promise.all(
+      includes.map((incl) => this.provider.provideScadFile(incl))
+    );
   }
 
   /**
    * Finds all file uses and returns paths to them
    * @param f
    */
-  async resolveUses(f: ScadFile) {
+  async resolveUses(f: ScadFile, ec: ErrorCollector) {
     const uses: string[] = [];
     for (const stmt of f.statements) {
       if (stmt instanceof UseStmt) {
-        uses.push(
-          await this.locateScadFile(f.pos.file.path, stmt.filename)
+        const filePath = await this.locateScadFile(
+          f.pos.file.path,
+          stmt.filename
         );
+        if (!filePath) {
+          ec.reportError(
+            new UsedFileNotFoundError(
+              stmt.tokens.filename.pos,
+              stmt.filename
+            )
+          );
+          continue;
+        }
+        uses.push(filePath);
       }
     }
-    return Promise.all(uses.map(incl => this.provider.provideScadFile(incl)));
+    return Promise.all(uses.map((incl) => this.provider.provideScadFile(incl)));
   }
 
   async locateScadFile(parent: string, relativePath: string) {
@@ -49,6 +88,7 @@ export default class IncludeResolver {
         }
       } catch (e) {}
     }
+    return null;
   }
 
   private static _includeDirsCache: string[] = null;
