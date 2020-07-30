@@ -36,7 +36,7 @@ export class SolutionFile implements WithExportedScopes {
 
   async parseAndProcess() {
     let [ast, errors] = ParsingHelper.parseFile(this.codeFile);
-    if (this.ast) {
+    if (ast) {
       this.ast = new ASTScopePopulator(new Scope()).populate(ast);
       this.includedFiles = await this.includeResolver.resolveIncludes(
         this.ast as ScadFile,
