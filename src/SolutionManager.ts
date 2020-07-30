@@ -23,16 +23,35 @@ export class SolutionFile implements WithExportedScopes {
   ast: ASTNode = null;
   dependencies: SolutionFile[];
   errors: Error[];
-  includeResolver: IncludeResolver;
-  
+  includeResolver: IncludeResolver<SolutionFile>;
+
+  includedFiles: SolutionFile[];
+
+  onlyOwnScope: Scope;
+
   constructor(public solutionManager: SolutionManager) {
     this.includeResolver = new IncludeResolver(this.solutionManager);
   }
 
-  parseAndProcess() {
+  async parseAndProcess() {
     let [ast, errors] = ParsingHelper.parseFile(this.codeFile);
-    this.errors = errors.errors;
     this.ast = new ASTScopePopulator(new Scope()).populate(ast);
+    this.includedFiles = await this.includeResolver.resolveIncludes(
+      this.ast as ScadFile,
+      errors
+    );
+    const usedFiles = await this.includeResolver.resolveIncludes(
+      this.ast as ScadFile,
+      errors
+    );
+    this.dependencies = [...this.includedFiles, ...usedFiles];
+    this.onlyOwnScope = (this.ast as ScadFileWithScope).scope.copy();
+    (this.ast as ScadFileWithScope).scope.siblingScopes = [
+      ...this.includedFiles.map((f) => f.getExportedScopes()).flat(),
+      ...usedFiles.map((f) => f.getExportedScopes()).flat(),
+    ];
+
+    this.errors = errors.errors;
   }
   getCompletionsAtLocation(loc: CodeLocation) {
     return CompletionUtil.getSymbolsAtLocation(this.ast, loc);
@@ -57,11 +76,14 @@ export class SolutionFile implements WithExportedScopes {
     );
   }
   getExportedScopes(): Scope[] {
-    return [(this.ast as ScadFileWithScope).scope];
+    return [
+      this.onlyOwnScope,
+      ...this.includedFiles.map((f) => f.getExportedScopes()).flat(),
+    ];
   }
 }
 
-export default class SolutionManager implements ScadFileProvider {
+export default class SolutionManager implements ScadFileProvider<SolutionFile> {
   openedFiles: Map<string, SolutionFile> = new Map();
   allFiles: Map<string, SolutionFile> = new Map();
   getFile(filePath: string) {
@@ -70,15 +92,15 @@ export default class SolutionManager implements ScadFileProvider {
     }
     return this.allFiles.get(filePath);
   }
-  notifyNewFileOpened(filePath: string, contents: string) {
+  async notifyNewFileOpened(filePath: string, contents: string) {
     if (!path.isAbsolute(filePath)) {
       throw new Error("Path must be absolute and normalized.");
     }
     const cFile = new CodeFile(filePath, contents);
 
-    this.openedFiles.set(filePath, this.attachSolutionFile(cFile));
+    this.openedFiles.set(filePath, await this.attachSolutionFile(cFile));
   }
-  notifyFileChanged(filePath: string, contents: string) {
+  async notifyFileChanged(filePath: string, contents: string) {
     if (!path.isAbsolute(filePath)) {
       throw new Error("Path must be absolute and normalized.");
     }
@@ -88,16 +110,16 @@ export default class SolutionManager implements ScadFileProvider {
       throw new Error("No such file");
     }
     sf.codeFile = cFile;
-    sf.parseAndProcess();
+    await sf.parseAndProcess();
   }
   notifyFileClosed(filePath: string) {
     this.openedFiles.delete(filePath);
     this.garbageCollect();
   }
-  protected attachSolutionFile(codeFile: CodeFile) {
-    const solutionFile = new SolutionFile();
+  protected async attachSolutionFile(codeFile: CodeFile) {
+    const solutionFile = new SolutionFile(this);
     solutionFile.codeFile = codeFile;
-    solutionFile.parseAndProcess();
+    await solutionFile.parseAndProcess();
     this.allFiles.set(codeFile.path, solutionFile);
     return solutionFile;
   }
@@ -108,7 +130,7 @@ export default class SolutionManager implements ScadFileProvider {
   async provideScadFile(filePath: string) {
     let f = this.getFile(filePath);
     if (f) return f; // the file is already opened or refrenced by antoher
-    return this.attachSolutionFile(await CodeFile.load(filePath));
+    return await this.attachSolutionFile(await CodeFile.load(filePath));
   }
   /**
    * Removes dependencies that aren't directly or indirectly referenced in any of the open files to free memory.

@@ -1,4 +1,4 @@
-import ScadFileProvider from "./ScadFileProvider";
+import ScadFileProvider, { WithExportedScopes } from "./ScadFileProvider";
 import ScadFile from "../ast/ScadFile";
 import { UseStmt, IncludeStmt } from "../ast/statements";
 import fs from "fs/promises";
@@ -20,8 +20,8 @@ export class UsedFileNotFoundError extends CodeError {
   }
 }
 
-export default class IncludeResolver {
-  constructor(private provider: ScadFileProvider) {}
+export default class IncludeResolver<T extends WithExportedScopes> {
+  constructor(private provider: ScadFileProvider<T>) {}
   /**
    * Finds all file includes and returns paths to them
    * @param f
@@ -52,7 +52,8 @@ export default class IncludeResolver {
   }
 
   /**
-   * Finds all file uses and returns paths to them
+   * Finds all file uses and returns paths to them.
+   * Uses do not export to parent scopes and do not execute statements inside of the used files.
    * @param f
    */
   async resolveUses(f: ScadFile, ec: ErrorCollector) {

@@ -5,6 +5,6 @@ export interface WithExportedScopes {
     getExportedScopes(): Scope[];
 }
 
-export default interface ScadFileProvider {
-  provideScadFile(filePath: string): Promise<WithExportedScopes>;
+export default interface ScadFileProvider<T extends WithExportedScopes> {
+  provideScadFile(filePath: string): Promise<T>;
 }
