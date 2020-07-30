@@ -1,7 +1,7 @@
 import ScadFileProvider, { WithExportedScopes } from "./ScadFileProvider";
 import ScadFile from "../ast/ScadFile";
 import { UseStmt, IncludeStmt } from "../ast/statements";
-import fs from "fs/promises";
+import { promises as fs } from "fs";
 import os from "os";
 import * as path from "path";
 import ErrorCollector from "../ErrorCollector";
@@ -66,10 +66,7 @@ export default class IncludeResolver<T extends WithExportedScopes> {
         );
         if (!filePath) {
           ec.reportError(
-            new UsedFileNotFoundError(
-              stmt.tokens.filename.pos,
-              stmt.filename
-            )
+            new UsedFileNotFoundError(stmt.tokens.filename.pos, stmt.filename)
           );
           continue;
         }
