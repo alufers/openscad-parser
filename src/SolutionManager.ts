@@ -36,23 +36,24 @@ export class SolutionFile implements WithExportedScopes {
 
   async parseAndProcess() {
     let [ast, errors] = ParsingHelper.parseFile(this.codeFile);
-    this.ast = new ASTScopePopulator(new Scope()).populate(ast);
-    this.includedFiles = await this.includeResolver.resolveIncludes(
-      this.ast as ScadFile,
-      errors
-    );
-    const usedFiles = await this.includeResolver.resolveIncludes(
-      this.ast as ScadFile,
-      errors
-    );
-    this.dependencies = [...this.includedFiles, ...usedFiles];
-    this.onlyOwnScope = (this.ast as ScadFileWithScope).scope.copy();
-    (this.ast as ScadFileWithScope).scope.siblingScopes = [
-      ...this.includedFiles.map((f) => f.getExportedScopes()).flat(),
-      ...usedFiles.map((f) => f.getExportedScopes()).flat(),
-      PreludeUtil.preludeScope,
-    ];
-
+    if (this.ast) {
+      this.ast = new ASTScopePopulator(new Scope()).populate(ast);
+      this.includedFiles = await this.includeResolver.resolveIncludes(
+        this.ast as ScadFile,
+        errors
+      );
+      const usedFiles = await this.includeResolver.resolveIncludes(
+        this.ast as ScadFile,
+        errors
+      );
+      this.dependencies = [...this.includedFiles, ...usedFiles];
+      this.onlyOwnScope = (this.ast as ScadFileWithScope).scope.copy();
+      (this.ast as ScadFileWithScope).scope.siblingScopes = [
+        ...this.includedFiles.map((f) => f.getExportedScopes()).flat(),
+        ...usedFiles.map((f) => f.getExportedScopes()).flat(),
+        PreludeUtil.preludeScope,
+      ];
+    }
     this.errors = errors.errors;
   }
   getCompletionsAtLocation(loc: CodeLocation) {
