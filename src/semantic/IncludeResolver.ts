@@ -2,7 +2,7 @@ import ScadFileProvider, { WithExportedScopes } from "./ScadFileProvider";
 import ScadFile from "../ast/ScadFile";
 import { UseStmt, IncludeStmt } from "../ast/statements";
 import { promises as fs } from "fs";
-import os from "os";
+import * as os from "os";
 import * as path from "path";
 import ErrorCollector from "../ErrorCollector";
 import CodeError from "../errors/CodeError";
