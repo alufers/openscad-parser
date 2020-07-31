@@ -271,13 +271,16 @@ export default abstract class ASTAssembler<R> implements ASTVisitor<R> {
   }
   visitUseStmt(n: UseStmt): R {
     return this.processAssembledNode(
-      [n.tokens.useKeyword, n.tokens.useKeyword],
+      [n.tokens.useKeyword, n.tokens.filename],
       n
     );
   }
 
   visitIncludeStmt(n: IncludeStmt): R {
-    throw n;
+    return this.processAssembledNode(
+      [n.tokens.includeKeyword, n.tokens.filename],
+      n
+    );
   }
   visitModuleInstantiationStmt(n: ModuleInstantiationStmt): R {
     const arr = [];
