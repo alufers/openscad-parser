@@ -154,7 +154,7 @@ export default class SolutionManager implements ScadFileProvider<SolutionFile> {
    * @param filePath The dependent-upon file.
    */
   async provideScadFile(filePath: string) {
-    let f = this.getFile(filePath);
+    let f: SolutionFile = await this.getFile(filePath);
     if (f) return f; // the file is already opened or refrenced by antoher
     return await this.attachSolutionFile(await CodeFile.load(filePath));
   }
