@@ -119,7 +119,7 @@ export default class SolutionManager implements ScadFileProvider<SolutionFile> {
     const cFile = new CodeFile(filePath, contents);
     let sf = this.openedFiles.get(filePath);
     if (!sf) {
-      if (!this.notReadyFiles.has(filePath)) {
+      if (this.notReadyFiles.has(filePath)) {
         sf = await this.notReadyFiles.get(filePath);
       } else {
         throw new Error("No such file");
