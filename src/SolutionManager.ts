@@ -89,11 +89,20 @@ export class SolutionFile implements WithExportedScopes {
 export default class SolutionManager implements ScadFileProvider<SolutionFile> {
   openedFiles: Map<string, SolutionFile> = new Map();
   allFiles: Map<string, SolutionFile> = new Map();
-  getFile(filePath: string) {
+  notReadyFiles: Map<string, Promise<SolutionFile>> = new Map();
+  /**
+   * Returns a registered solution file for a given path. It supports getting files which have not been fully processed yet.
+   * @param filePath
+   */
+  async getFile(filePath: string) {
     if (!path.isAbsolute(filePath)) {
       throw new Error("Path must be absolute and normalized.");
     }
-    return this.allFiles.get(filePath);
+    let file = this.allFiles.get(filePath);
+    if (file) {
+      return file;
+    }
+    return await this.notReadyFiles.get(filePath);
   }
   async notifyNewFileOpened(filePath: string, contents: string) {
     if (!path.isAbsolute(filePath)) {
@@ -108,9 +117,13 @@ export default class SolutionManager implements ScadFileProvider<SolutionFile> {
       throw new Error("Path must be absolute and normalized.");
     }
     const cFile = new CodeFile(filePath, contents);
-    const sf = this.openedFiles.get(filePath);
+    let sf = this.openedFiles.get(filePath);
     if (!sf) {
-      throw new Error("No such file");
+      if (!this.notReadyFiles.has(filePath)) {
+        sf = await this.notReadyFiles.get(filePath);
+      } else {
+        throw new Error("No such file");
+      }
     }
     sf.codeFile = cFile;
     await sf.parseAndProcess();
@@ -122,9 +135,19 @@ export default class SolutionManager implements ScadFileProvider<SolutionFile> {
   protected async attachSolutionFile(codeFile: CodeFile) {
     const solutionFile = new SolutionFile(this);
     solutionFile.codeFile = codeFile;
-    await solutionFile.parseAndProcess();
-    this.allFiles.set(codeFile.path, solutionFile);
-    return solutionFile;
+    try {
+      let resolve: (s: SolutionFile) => void;
+      this.notReadyFiles.set(
+        codeFile.path,
+        new Promise<SolutionFile>((r) => (resolve = r))
+      );
+      await solutionFile.parseAndProcess();
+      resolve(solutionFile);
+      this.allFiles.set(codeFile.path, solutionFile);
+      return solutionFile;
+    } finally {
+      this.notReadyFiles.delete(codeFile.path);
+    }
   }
   /**
    * Checks whether a file is already in the solution, and if not it loads it from disk.
