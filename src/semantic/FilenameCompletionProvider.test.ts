@@ -28,11 +28,26 @@ describe("FilenameCompletionProvider.test", () => {
     it("does activate when not inside of a filename", () => {
       expect(isInFilename(`use <theFIle`, 7)).toBeTruthy();
       expect(isInFilename(`use <theFIle>`, 7)).toBeTruthy();
-      expect(isInFilename(`use 
+      expect(
+        isInFilename(
+          `use 
       
-      <theFIle>`, 23)).toBeTruthy();
+      <theFIle>`,
+          23
+        )
+      ).toBeTruthy();
       expect(isInFilename(`include <theFIle>`, 8)).toBeTruthy();
       expect(isInFilename(`a+b+c;include <theFIle>`, 16)).toBeTruthy();
     });
+  });
+
+  it("does list files when provided an absolute path", async () => {
+    const cf = new CodeFile("/test/ddd", "use </");
+    const [ast, ec] = ParsingHelper.parseFile(cf);
+
+    const fcp = new FilenameCompletionProvider();
+    expect(
+      await fcp.getSymbolsAtLocation(ast, new CodeLocation(cf, 5, 0, 0))
+    ).not.toHaveLength(0);
   });
 });

@@ -3,6 +3,8 @@ enum CompletionType {
   FUNCTION,
   MODULE,
   KEYWORD,
+  FILE,
+  DIRECTORY,
 }
 
 export default CompletionType;

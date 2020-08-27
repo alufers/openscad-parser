@@ -7,34 +7,34 @@ import CompletionUtil from "./CompletionUtil";
 import Scope from "./Scope";
 
 describe("CompletionUtil", () => {
-  function doComplete(source: string, charOffset: number) {
+  async function doComplete(source: string, charOffset: number) {
     let [ast, errorCollector] = ParsingHelper.parseFile(
       new CodeFile("<test>", source)
     );
     errorCollector.throwIfAny();
     ast = new ASTScopePopulator(new Scope()).populate(ast) as ScadFile; // populating the scopes should not change anything
-    return CompletionUtil.getSymbolsAtLocation(
+    return await CompletionUtil.getSymbolsAtLocation(
       ast,
       new CodeLocation(ast.pos.file, charOffset)
     );
   }
-  it("provides completions in the global scope, at the end of the file", () => {
+  it("provides completions in the global scope, at the end of the file", async () => {
     const s = `
       the_var = 10;
 
     `;
-    const results = doComplete(s, s.length - 1);
+    const results = await doComplete(s, s.length - 1);
     expect(results.length).toBeGreaterThan(0);
     expect(results.find((r) => r.name === "the_var")).toBeTruthy();
   });
 
-  it("does not crash when completing inside an incomplete module instantation", () => {
+  it("does not crash when completing inside an incomplete module instantation", async () => {
     let [ast, errorCollector] = ParsingHelper.parseFile(
       new CodeFile("<test>", `circle(d )`)
     );
     ast = new ASTScopePopulator(new Scope()).populate(ast) as ScadFile; // populating the scopes should not change anything
-    expect(() => {
-      CompletionUtil.getSymbolsAtLocation(
+    expect(async () => {
+      await CompletionUtil.getSymbolsAtLocation(
         ast,
         new CodeLocation(ast.pos.file, 9)
       );

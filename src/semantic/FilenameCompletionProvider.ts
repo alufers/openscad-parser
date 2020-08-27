@@ -1,7 +1,10 @@
 import CompletionProvider from "./CompletionProvider";
 import { ASTNode, CodeLocation } from "..";
 import CompletionSymbol from "./CompletionSymbol";
-
+import * as path from "path";
+import { promises as fs } from "fs";
+import CompletionType from "./CompletionType";
+import IncludeResolver from "./IncludeResolver";
 export default class FilenameCompletionProvider implements CompletionProvider {
   textOnly = true;
   exclusive = true;
@@ -11,22 +14,69 @@ export default class FilenameCompletionProvider implements CompletionProvider {
    * @param loc
    */
   shouldActivate(ast: ASTNode, loc: CodeLocation): boolean {
+    return this.getExistingPath(ast, loc) != null;
+  }
+
+  async getSymbolsAtLocation(
+    ast: ASTNode,
+    loc: CodeLocation
+  ): Promise<CompletionSymbol[]> {
+    const existingPath = this.getExistingPath(ast, loc);
+    let searchDirs: string[] = [];
+    if (path.isAbsolute(existingPath)) {
+      searchDirs = [path.dirname(existingPath)];
+    } else {
+      searchDirs = IncludeResolver.includeDirs.map((id) =>
+        path.join(id, path.dirname(existingPath))
+      );
+    }
+    let output: CompletionSymbol[] = [];
+    for (const sd of searchDirs) {
+      const filenames = (await fs.readdir(sd)).filter((p) =>
+        p.startsWith(path.basename(existingPath))
+      );
+
+      output = [
+        ...output,
+        ...(
+          await Promise.all(
+            filenames.map(async (f) => {
+              const stat = await fs.stat(path.join(sd, f));
+              if (stat.isDirectory()) {
+                return new CompletionSymbol(CompletionType.DIRECTORY, f);
+              }
+              if (stat.isFile() && f.endsWith(".scad")) {
+                return new CompletionSymbol(CompletionType.FILE, f);
+              }
+              return null;
+            })
+          )
+        ).filter((s) => !!s),
+      ];
+    }
+
+    return output;
+  }
+
+   getExistingPath(ast: ASTNode, loc: CodeLocation): string {
     let charPos = loc.char;
     let linesLimit = 5;
     let stage = 0;
+    let existingFilename = "";
     while (true) {
       if (charPos <= 0 || linesLimit <= 0) {
-        return false;
+        return null;
       }
       const char = loc.file.code[charPos];
       if (char === "\n") {
         linesLimit--;
       }
       if (char === ">") {
-        return false;
+        return null;
       }
       if (stage === 0 && char === "<") {
         stage++;
+        existingFilename = loc.file.code.substring(charPos + 1, loc.char + 1);
       } else if (
         stage === 1 &&
         char !== " " &&
@@ -38,7 +88,7 @@ export default class FilenameCompletionProvider implements CompletionProvider {
           loc.file.code.substring(charPos - "use".length + 1, charPos + 1) ===
           "use"
         ) {
-          return true;
+          return existingFilename;
         }
         if (
           loc.file.code.substring(
@@ -46,15 +96,13 @@ export default class FilenameCompletionProvider implements CompletionProvider {
             charPos + 1
           ) === "include"
         ) {
-          return true;
+          return existingFilename;
         }
-        return false;
+        return null;
       }
 
       charPos--;
     }
-  }
-  getSymbolsAtLocation(ast: ASTNode, loc: CodeLocation): CompletionSymbol {
-    throw new Error("Method not implemented.");
+    return null;
   }
 }

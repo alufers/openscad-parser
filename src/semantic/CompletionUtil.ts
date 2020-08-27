@@ -1,41 +1,31 @@
 import ASTNode from "../ast/ASTNode";
-import ASTPinpointer from "../ASTPinpointer";
 import CodeLocation from "../CodeLocation";
-import keywords from "../keywords";
+import CompletionProvider from "./CompletionProvider";
+import FilenameCompletionProvider from "./FilenameCompletionProvider";
+import KewordsCompletionProvider from "./KewordsCompletionProvider";
+import ScopeSymbolCompletionProvider from "./ScopeSymbolCompletionProvider";
 import CompletionSymbol from "./CompletionSymbol";
-import CompletionType from "./CompletionType";
-import NodeWithScope from "./NodeWithScope";
-import Scope from "./Scope";
 
 export default class CompletionUtil {
-  static getSymbolsAtLocation(ast: ASTNode, loc: CodeLocation) {
-    const pp = new ASTPinpointer(loc);
-    pp.doPinpoint(ast);
+  static completionProviders: CompletionProvider[] = [
+    new FilenameCompletionProvider(),
+    new KewordsCompletionProvider(),
+    new ScopeSymbolCompletionProvider(),
+  ];
+  static async getSymbolsAtLocation(
+    ast: ASTNode,
+    loc: CodeLocation
+  ): Promise<CompletionSymbol[]> {
     let symbols: CompletionSymbol[] = [];
-    const scopesToShow: Scope[] = [];
-    for (const h of pp.bottomUpHierarchy) {
-      const hh: NodeWithScope = h as NodeWithScope;
-      if ("scope" in hh && hh.scope instanceof Scope) {
-        scopesToShow.push(hh.scope);
-        scopesToShow.push(...hh.scope.siblingScopes);
+    for (const cp of this.completionProviders) {
+      if (!cp.textOnly && !ast) continue;
+      if (cp.shouldActivate(ast, loc)) {
+        symbols = [...symbols, ...(await cp.getSymbolsAtLocation(ast, loc))];
+        if (cp.exclusive) {
+          break;
+        }
       }
     }
-    for (const scope of scopesToShow) {
-      for (const v of scope.variables) {
-        symbols.push(new CompletionSymbol(CompletionType.VARIABLE, v[1].name));
-      }
-      for (const f of scope.functions) {
-        symbols.push(new CompletionSymbol(CompletionType.FUNCTION, f[1].name));
-      }
-      for (const m of scope.modules) {
-        symbols.push(new CompletionSymbol(CompletionType.MODULE, m[1].name));
-      }
-    }
-    symbols.push(
-      ...Object.keys(keywords).map(
-        (kwrd) => new CompletionSymbol(CompletionType.KEYWORD, kwrd)
-      )
-    );
     return symbols;
   }
 }
