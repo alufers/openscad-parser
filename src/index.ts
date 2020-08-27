@@ -59,6 +59,8 @@ export * from "./semantic/ASTSymbolLister";
 export { default as ASTSymbolLister } from "./semantic/ASTSymbolLister";
 export * from "./semantic/CompletionUtil";
 export { default as CompletionUtil } from "./semantic/CompletionUtil";
+export { default as CompletionSymbol } from "./semantic/CompletionSymbol";
+export { default as CompletionType } from "./semantic/CompletionType";
 export * from "./semantic/nodesWithScopes";
 export * from "./semantic/NodeWithScope";
 export { default as NodeWithScope } from "./semantic/NodeWithScope";
