@@ -1,20 +1,11 @@
 import ASTNode from "../ast/ASTNode";
 import ASTPinpointer from "../ASTPinpointer";
 import CodeLocation from "../CodeLocation";
+import keywords from "../keywords";
+import CompletionSymbol from "./CompletionSymbol";
+import CompletionType from "./CompletionType";
 import NodeWithScope from "./NodeWithScope";
 import Scope from "./Scope";
-import keywords from "../keywords";
-
-export enum CompletionType {
-  VARIABLE,
-  FUNCTION,
-  MODULE,
-  KEYWORD,
-}
-
-export class CompletionSymbol {
-  constructor(public type: CompletionType, public name: string) {}
-}
 
 export default class CompletionUtil {
   static getSymbolsAtLocation(ast: ASTNode, loc: CodeLocation) {
