@@ -14,30 +14,16 @@ describe("FilenameCompletionProvider.test", () => {
       return fcp.shouldActivate(ast, new CodeLocation(cf, offset, 0, 0));
     };
     it("does not activate when not inside of a filename", () => {
-      expect(isInFilename(`a = 10`, 3)).toBeFalsy();
-      expect(isInFilename(`<a = 10>`, 3)).toBeFalsy();
-      expect(
-        isInFilename(
-          `use <dupa>
-      a = b
-      `,
-          14
-        )
-      ).toBeFalsy();
+      expect(isInFilename(`include <MCAD/hardware.scad>`, 8)).toBeFalsy();
+      expect(isInFilename(`include <MCAD/hardware.scad>`, 28)).toBeFalsy();
     });
-    it("does activate when not inside of a filename", () => {
-      expect(isInFilename(`use <theFIle`, 7)).toBeTruthy();
-      expect(isInFilename(`use <theFIle>`, 7)).toBeTruthy();
-      expect(
-        isInFilename(
-          `use 
-      
-      <theFIle>`,
-          23
-        )
-      ).toBeTruthy();
-      expect(isInFilename(`include <theFIle>`, 8)).toBeTruthy();
-      expect(isInFilename(`a+b+c;include <theFIle>`, 16)).toBeTruthy();
+    it("does activate when inside of a filename", () => {
+      for (let i = 9; i < 28; i++) {
+        expect(isInFilename(`include <MCAD/hardware.scad>`, i)).toBeTruthy();
+      }
+      for (let i = 5; i < 23; i++) {
+        expect(isInFilename(`use <MCAD/hardware.scad>`, i)).toBeTruthy();
+      }
     });
   });
 

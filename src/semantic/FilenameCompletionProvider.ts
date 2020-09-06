@@ -1,10 +1,11 @@
 import CompletionProvider from "./CompletionProvider";
-import { ASTNode, CodeLocation } from "..";
 import CompletionSymbol from "./CompletionSymbol";
 import * as path from "path";
 import { promises as fs } from "fs";
 import CompletionType from "./CompletionType";
 import IncludeResolver from "./IncludeResolver";
+import ASTNode from "../ast/ASTNode";
+import CodeLocation from "../CodeLocation";
 export default class FilenameCompletionProvider implements CompletionProvider {
   textOnly = true;
   exclusive = true;
@@ -19,8 +20,9 @@ export default class FilenameCompletionProvider implements CompletionProvider {
 
   async getSymbolsAtLocation(
     ast: ASTNode,
-    loc: CodeLocation
+    locM: CodeLocation
   ): Promise<CompletionSymbol[]> {
+    const loc = new CodeLocation(locM.file, locM.char, locM.line, locM.col);
     const existingPath = this.getExistingPath(ast, loc);
     let searchDirs: string[] = [];
     if (path.isAbsolute(existingPath)) {
@@ -32,37 +34,42 @@ export default class FilenameCompletionProvider implements CompletionProvider {
     }
     let output: CompletionSymbol[] = [];
     for (const sd of searchDirs) {
-      const filenames = (await fs.readdir(sd)).filter((p) =>
-        p.startsWith(path.basename(existingPath))
-      );
+      try {
+        const filenames = (await fs.readdir(sd)).filter((p) =>
+          p.startsWith(path.basename(existingPath))
+        );
 
-      output = [
-        ...output,
-        ...(
-          await Promise.all(
-            filenames.map(async (f) => {
-              const stat = await fs.stat(path.join(sd, f));
-              if (stat.isDirectory()) {
-                return new CompletionSymbol(CompletionType.DIRECTORY, f);
-              }
-              if (stat.isFile() && f.endsWith(".scad")) {
-                return new CompletionSymbol(CompletionType.FILE, f);
-              }
-              return null;
-            })
-          )
-        ).filter((s) => !!s),
-      ];
+        output = [
+          ...output,
+          ...(
+            await Promise.all(
+              filenames.map(async (f) => {
+                const stat = await fs.stat(path.join(sd, f));
+                if (stat.isDirectory()) {
+                  return new CompletionSymbol(CompletionType.DIRECTORY, f);
+                }
+                if (stat.isFile() && f.endsWith(".scad")) {
+                  return new CompletionSymbol(CompletionType.FILE, f);
+                }
+                return null;
+              })
+            )
+          ).filter((s) => !!s),
+        ];
+      } catch (e) {
+        console.error("filed to find in dir", sd, e);
+      }
     }
 
     return output;
   }
 
-   getExistingPath(ast: ASTNode, loc: CodeLocation): string {
+  getExistingPath(ast: ASTNode, loc: CodeLocation): string {
     let charPos = loc.char;
     let linesLimit = 5;
     let stage = 0;
     let existingFilename = "";
+    let isFirst = true;
     while (true) {
       if (charPos <= 0 || linesLimit <= 0) {
         return null;
@@ -71,10 +78,11 @@ export default class FilenameCompletionProvider implements CompletionProvider {
       if (char === "\n") {
         linesLimit--;
       }
-      if (char === ">") {
+      if (!isFirst && char === ">") {
         return null;
       }
-      if (stage === 0 && char === "<") {
+
+      if (!isFirst && stage === 0 && char === "<") {
         stage++;
         existingFilename = loc.file.code.substring(charPos + 1, loc.char + 1);
       } else if (
@@ -100,7 +108,7 @@ export default class FilenameCompletionProvider implements CompletionProvider {
         }
         return null;
       }
-
+      isFirst = false;
       charPos--;
     }
     return null;
