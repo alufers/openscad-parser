@@ -36,4 +36,19 @@ describe("FilenameCompletionProvider.test", () => {
       await fcp.getSymbolsAtLocation(ast, new CodeLocation(cf, 5, 0, 0))
     ).not.toHaveLength(0);
   });
+  it("extracts the correct existing filename from the include statement", async () => {
+    const cf = new CodeFile("/test/ddd", "include <MCAD/hardware.scad>");
+    const [ast, ec] = ParsingHelper.parseFile(cf);
+
+    const fcp = new FilenameCompletionProvider();
+    expect(
+      await fcp.getExistingPath(ast, new CodeLocation(cf, 26, 0, 0))
+    ).toEqual("MCAD/hardware.scad");
+    expect(
+      await fcp.getExistingPath(ast, new CodeLocation(cf, 27, 0, 0))
+    ).toEqual("MCAD/hardware.scad");
+    expect(
+      await fcp.getExistingPath(ast, new CodeLocation(cf, 25, 0, 0))
+    ).toEqual("MCAD/hardware.sca");
+  });
 });

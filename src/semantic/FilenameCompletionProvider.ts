@@ -96,6 +96,9 @@ export default class FilenameCompletionProvider implements CompletionProvider {
           loc.file.code.substring(charPos - "use".length + 1, charPos + 1) ===
           "use"
         ) {
+          if (existingFilename.endsWith(">")) {
+            return existingFilename.slice(0, -1);
+          }
           return existingFilename;
         }
         if (
@@ -104,6 +107,9 @@ export default class FilenameCompletionProvider implements CompletionProvider {
             charPos + 1
           ) === "include"
         ) {
+          if (existingFilename.endsWith(">")) {
+            return existingFilename.slice(0, -1);
+          }
           return existingFilename;
         }
         return null;
