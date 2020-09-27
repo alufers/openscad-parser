@@ -62,17 +62,18 @@ export default class ASTSymbolLister<SymType> extends ASTAssembler<Token[]> {
       currKind = SymbolKind.VARIABLE;
       currName = self.tokens.name as LiteralToken<string>;
     }
+    const newArr: Token[] = [];
+    for (const m of t) {
+      if (typeof m === "function") {
+        newArr.push(...m());
+      } else {
+        newArr.push(m);
+      }
+    }
     if (currKind != null) {
       let savedSymbols = this.symbolsAtCurrentDepth;
       this.symbolsAtCurrentDepth = [];
-      const newArr: Token[] = [];
-      for (const m of t) {
-        if (typeof m === "function") {
-          newArr.push(...m());
-        } else {
-          newArr.push(m);
-        }
-      }
+     
       const childrenSymbols = this.symbolsAtCurrentDepth;
       this.symbolsAtCurrentDepth = savedSymbols; // restore the symbols
       this.symbolsAtCurrentDepth.push(
@@ -86,14 +87,6 @@ export default class ASTSymbolLister<SymType> extends ASTAssembler<Token[]> {
       );
       return newArr;
     } else {
-      const newArr: Token[] = [];
-      for (const m of t) {
-        if (typeof m === "function") {
-          newArr.push(...m());
-        } else {
-          newArr.push(m);
-        }
-      }
       return newArr;
     }
   }
