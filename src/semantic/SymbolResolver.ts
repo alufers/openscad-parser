@@ -90,13 +90,15 @@ export default class SymbolResolver extends ASTMutator {
     return new SymbolResolver(this.errorCollector, s);
   }
   visitBlockStmt(n: BlockStmt): ASTNode {
-    return n.accept(
-      this.copyWithNextScope(((n as unknown) as NodeWithScope).scope)
+    return super.visitBlockStmt.call(
+      this.copyWithNextScope(((n as unknown) as NodeWithScope).scope),
+      n
     );
   }
   visitLetExpr(n: LetExpr): ASTNode {
-    return n.accept(
-      this.copyWithNextScope(((n as unknown) as NodeWithScope).scope)
+    return super.visitLetExpr.call(
+      this.copyWithNextScope(((n as unknown) as NodeWithScope).scope),
+      n
     );
   }
   visitScadFile(n: ScadFile): ASTNode {
@@ -106,28 +108,33 @@ export default class SymbolResolver extends ASTMutator {
     );
   }
   visitFunctionDeclarationStmt(n: FunctionDeclarationStmt): ASTNode {
-    return n.accept(
-      this.copyWithNextScope(((n as unknown) as NodeWithScope).scope)
+    return super.visitFunctionDeclarationStmt.call(
+      this.copyWithNextScope(((n as unknown) as NodeWithScope).scope),
+      n
     );
   }
   visitModuleDeclarationStmt(n: ModuleDeclarationStmt): ASTNode {
-    return n.accept(
-      this.copyWithNextScope(((n as unknown) as NodeWithScope).scope)
+    return super.visitModuleDeclarationStmt.call(
+      this.copyWithNextScope(((n as unknown) as NodeWithScope).scope),
+      n
     );
   }
   visitLcLetExpr(n: LcLetExpr): ASTNode {
-    return n.accept(
-      this.copyWithNextScope(((n as unknown) as NodeWithScope).scope)
+    return super.visitLcLetExpr.call(
+      this.copyWithNextScope(((n as unknown) as NodeWithScope).scope),
+      n
     );
   }
   visitLcForExpr(n: LcForExpr): ASTNode {
-    return n.accept(
-      this.copyWithNextScope(((n as unknown) as NodeWithScope).scope)
+    return super.visitLcForExpr.call(
+      this.copyWithNextScope(((n as unknown) as NodeWithScope).scope),
+      n
     );
   }
   visitLcForCExpr(n: LcForCExpr): ASTNode {
-    return n.accept(
-      this.copyWithNextScope(((n as unknown) as NodeWithScope).scope)
+    return super.visitLcForCExpr.call(
+      this.copyWithNextScope(((n as unknown) as NodeWithScope).scope),
+      n
     );
   }
 }

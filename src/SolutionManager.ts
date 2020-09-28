@@ -17,6 +17,7 @@ import ScadFileProvider, {
 import { ScadFileWithScope } from "./semantic/nodesWithScopes";
 import IncludeResolver from "./semantic/IncludeResolver";
 import PreludeUtil from "./prelude/PreludeUtil";
+import SymbolResolver from "./semantic/SymbolResolver";
 
 export class SolutionFile implements WithExportedScopes {
   fullPath: string;
@@ -53,6 +54,7 @@ export class SolutionFile implements WithExportedScopes {
         ...usedFiles.map((f) => f.getExportedScopes()).flat(),
         PreludeUtil.preludeScope,
       ];
+      this.ast = this.ast.accept(new SymbolResolver(errors));
     }
     this.errors = errors.errors;
   }
