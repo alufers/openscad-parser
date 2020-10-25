@@ -9,9 +9,7 @@ import DocAnnotationClass from "./DocAnnotationClass";
 export default class DocComment {
   static possibleAnnotations: {
     [x: string]: DocAnnotationClass;
-  } = {
-    ""
-  };
+  } = {};
   constructor(
     public documentationContent: string,
     public annotations: Object[]
