@@ -4,6 +4,7 @@ import ASTMutator from "../ASTMutator";
 import CodeFile from "../CodeFile";
 import ParsingHelper from "../ParsingHelper";
 import ASTScopePopulator from "./ASTScopePopulator";
+import { ScadFileWithScope } from "./nodesWithScopes";
 import { ResolvedLookupExpr } from "./resolvedNodes";
 import Scope from "./Scope";
 import SymbolResolver from "./SymbolResolver";
@@ -73,5 +74,26 @@ describe("SymbolResolver", () => {
     }
     ast.accept(new A());
     expect(confirmFn).toHaveBeenCalled(); // make sure we have called the method which verifies this test
+  });
+  it("preservers nodes with scopes in the returned AST so that code completion still works", () => {
+    let [ast, ec] = ParsingHelper.parseFile(
+      new CodeFile(
+        "<test>",
+        `x = [10:20];
+         {
+           x = "correct";
+           cincoman = assert(1==1) x;
+         }
+    `
+      )
+    );
+    ec.throwIfAny();
+    const pop = new ASTScopePopulator(new Scope());
+    ast = ast.accept(pop) as ScadFile;
+    expect(ast).toBeInstanceOf(ScadFileWithScope);
+    const resolver = new SymbolResolver(ec);
+    ast = ast.accept(resolver) as ScadFile;
+    ec.throwIfAny();
+    expect(ast).toBeInstanceOf(ScadFileWithScope);
   });
 });

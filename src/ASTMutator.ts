@@ -31,8 +31,20 @@ import {
   NoopStmt,
   IfElseStatement,
 } from "./ast/statements";
+import {
+  ASTVisitorForNodesWithScopes,
+  BlockStmtWithScope,
+  LetExprWithScope,
+  ScadFileWithScope,
+  FunctionDeclarationStmtWithScope,
+  ModuleDeclarationStmtWithScope,
+  LcLetExprWithScope,
+  LcForExprWithScope,
+  LcForCExprWithScope,
+} from "./semantic/nodesWithScopes";
 
-export default class ASTMutator implements ASTVisitor<ASTNode> {
+export default class ASTMutator
+  implements ASTVisitorForNodesWithScopes<ASTNode> {
   visitScadFile(n: ScadFile): ASTNode {
     const stmts = n.statements.map((s) => s.accept(this));
     if (stmts.length === n.statements.length) {
@@ -157,12 +169,7 @@ export default class ASTMutator implements ASTVisitor<ASTNode> {
       if (!modified) return n;
     }
 
-    return new LetExpr(
-      n.pos,
-      newArgs,
-      newExpr,
-      n.tokens
-    );
+    return new LetExpr(n.pos, newArgs, newExpr, n.tokens);
   }
   visitAssertExpr(n: AssertExpr): ASTNode {
     const newExpr = n.expr.accept(this);
@@ -177,14 +184,8 @@ export default class ASTMutator implements ASTVisitor<ASTNode> {
       }
       if (!modified) return n;
     }
-  
 
-    return new AssertExpr(
-      n.pos,
-      newArgs,
-      newExpr,
-      n.tokens
-    );
+    return new AssertExpr(n.pos, newArgs, newExpr, n.tokens);
   }
   visitEchoExpr(n: EchoExpr): ASTNode {
     const newExpr = n.expr.accept(this);
@@ -200,12 +201,7 @@ export default class ASTMutator implements ASTVisitor<ASTNode> {
       if (!modified) return n;
     }
 
-    return new EchoExpr(
-      n.pos,
-      newArgs,
-      newExpr,
-      n.tokens
-    );
+    return new EchoExpr(n.pos, newArgs, newExpr, n.tokens);
   }
   visitLcIfExpr(n: LcIfExpr): ASTNode {
     const newCond = n.cond.accept(this);
@@ -243,8 +239,10 @@ export default class ASTMutator implements ASTVisitor<ASTNode> {
     return new LcForExpr(n.pos, newArgs, newExpr, n.tokens);
   }
   visitLcForCExpr(n: LcForCExpr): ASTNode {
-    const newArgs = n.args.map((a) => a.accept(this));
-    const newIncrArgs = n.incrArgs.map((a) => a.accept(this));
+    const newArgs = n.args.map((a) => a.accept(this)) as AssignmentNode[];
+    const newIncrArgs = n.incrArgs.map((a) =>
+      a.accept(this)
+    ) as AssignmentNode[];
     const newExpr = n.expr.accept(this);
     const newCond = n.cond.accept(this);
     if (
@@ -268,6 +266,14 @@ export default class ASTMutator implements ASTVisitor<ASTNode> {
       }
       if (!modified) return n;
     }
+    return new LcForCExpr(
+      n.pos,
+      newArgs,
+      newIncrArgs,
+      newCond,
+      newExpr,
+      n.tokens
+    );
   }
   visitLcLetExpr(n: LcLetExpr): ASTNode {
     const newExpr = n.expr.accept(this);
@@ -405,5 +411,102 @@ export default class ASTMutator implements ASTVisitor<ASTNode> {
   }
   visitErrorNode(n: ErrorNode): ASTNode {
     return n;
+  }
+
+  visitBlockStmtWithScope(n: BlockStmtWithScope): ASTNode {
+    const oldNode = this.visitBlockStmt(n) as BlockStmt;
+    const newNode = new BlockStmtWithScope(
+      oldNode.pos,
+      oldNode.children,
+      oldNode.tokens
+    );
+    newNode.scope = n.scope;
+    return newNode;
+  }
+  visitLetExprWithScope(n: LetExprWithScope): ASTNode {
+    const oldNode = this.visitLetExpr(n) as LetExpr;
+    const newNode = new LetExprWithScope(
+      oldNode.pos,
+      oldNode.args,
+      oldNode.expr,
+      oldNode.tokens
+    );
+    newNode.scope = n.scope;
+    return newNode;
+  }
+  visitScadFileWithScope(n: ScadFileWithScope): ASTNode {
+    const oldNode = this.visitScadFile(n) as ScadFile;
+    const newNode = new ScadFileWithScope(
+      oldNode.pos,
+      oldNode.statements,
+      oldNode.tokens
+    );
+    newNode.scope = n.scope;
+    return newNode;
+  }
+  visitFunctionDeclarationStmtWithScope(
+    n: FunctionDeclarationStmtWithScope
+  ): ASTNode {
+    const oldNode = this.visitFunctionDeclarationStmt(
+      n
+    ) as FunctionDeclarationStmt;
+    const newNode = new FunctionDeclarationStmtWithScope(
+      oldNode.pos,
+      oldNode.name,
+      oldNode.definitionArgs,
+      oldNode.expr,
+      oldNode.tokens
+    );
+    newNode.scope = n.scope;
+    return newNode;
+  }
+  visitModuleDeclarationStmtWithScope(
+    n: ModuleDeclarationStmtWithScope
+  ): ASTNode {
+    const oldNode = this.visitModuleDeclarationStmt(n) as ModuleDeclarationStmt;
+    const newNode = new ModuleDeclarationStmtWithScope(
+      oldNode.pos,
+      oldNode.name,
+      oldNode.definitionArgs,
+      oldNode.stmt,
+      oldNode.tokens
+    );
+    newNode.scope = n.scope;
+    return newNode;
+  }
+  visitLcLetExprWithScope(n: LcLetExprWithScope): ASTNode {
+    const oldNode = this.visitLcLetExpr(n) as LcLetExpr;
+    const newNode = new LcLetExprWithScope(
+      oldNode.pos,
+      oldNode.args,
+      oldNode.expr,
+      oldNode.tokens
+    );
+    newNode.scope = n.scope;
+    return newNode;
+  }
+  visitLcForExprWithScope(n: LcForExprWithScope): ASTNode {
+    const oldNode = this.visitLcForExpr(n) as LcForExpr;
+    const newNode = new LcForExprWithScope(
+      oldNode.pos,
+      oldNode.args,
+      oldNode.expr,
+      oldNode.tokens
+    );
+    newNode.scope = n.scope;
+    return newNode;
+  }
+  visitLcForCExprWithScope(n: LcForCExprWithScope): ASTNode {
+    const oldNode = this.visitLcForCExpr(n) as LcForCExpr;
+    const newNode = new LcForCExprWithScope(
+      oldNode.pos,
+      oldNode.args,
+      oldNode.incrArgs,
+      oldNode.cond,
+      oldNode.expr,
+      oldNode.tokens
+    );
+    newNode.scope = n.scope;
+    return newNode;
   }
 }
