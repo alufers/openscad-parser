@@ -7,7 +7,11 @@ export default class Token {
    * All the newlines and comments that appear before this token and should be preserved when printing the AST.
    */
   public extraTokens: ExtraToken[] = [];
+  /**
+   * Start of this token, including all the whitespace before it.
+   */
   public startWithWhitespace: CodeLocation;
+  
   constructor(
     public type: TokenType,
     public pos: CodeLocation,

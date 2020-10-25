@@ -1,5 +1,16 @@
 // Prelude contains all the buit-in modules, functions and variables
 
+//
+// Control flow
+//
+
+// @intrinsic controlFlow
+// @intrinsicRename for
+module _for();
+
+// @intrinsic controlFlow
+module intersection_for();
+
 // 
 // 2D
 // 
