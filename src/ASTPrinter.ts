@@ -47,6 +47,7 @@ export default class ASTPrinter implements ASTVisitor<string> {
   indentLevel = 0;
   breakBetweenModuleInstantations = false;
   firstModuleInstantation = true;
+  doNotAddNewlineAfterBlockStatement = false;
   /**
    * We store data that is global between all the copies of the ASTPrinter in an object so that it is passed by reference.
    */
@@ -207,7 +208,7 @@ export default class ASTPrinter implements ASTVisitor<string> {
     let commaI = 0;
     for (let i = 0; i < n.children.length; i++) {
       const child = n.children[i];
-      source += child.accept(this);
+      source += child.accept(this.copyWithIndent());
       if (i < n.children.length - 1) {
         source += this.stringifyExtraTokens(n.tokens.commas[commaI]);
         commaI++;
@@ -532,8 +533,11 @@ export default class ASTPrinter implements ASTVisitor<string> {
   visitBlockStmt(n: BlockStmt): string {
     let source = "";
     source += this.stringifyExtraTokens(n.tokens.firstBrace);
-    const withIndent = this.copyWithIndent();
+    let withIndent = this.copyWithIndent();
     source += "{" + withIndent.newLine(false, "beforeBlockStmt");
+    if (this.doNotAddNewlineAfterBlockStatement) {
+      withIndent.doNotAddNewlineAfterBlockStatement = false;
+    }
     for (const stmt of n.children) {
       source += withIndent.processStatementWithBreakIfNeeded(stmt);
     }
@@ -546,7 +550,10 @@ export default class ASTPrinter implements ASTVisitor<string> {
     ) {
       source = source.substring(0, source.length - this.config.indentCount);
     }
-    source += "}" + this.newLine(false, "afterBlockStmt");
+    source += "}";
+    if (!this.doNotAddNewlineAfterBlockStatement) {
+      source += this.newLine(false, "afterBlockStmt");
+    }
     return source;
   }
   visitNoopStmt(n: NoopStmt): string {
@@ -567,10 +574,14 @@ export default class ASTPrinter implements ASTVisitor<string> {
     if (!(n.thenBranch instanceof NoopStmt)) {
       source += " ";
     }
-    source += n.thenBranch.accept(this);
+    source += n.thenBranch.accept(
+      n.tokens.elseKeyword
+        ? this.copyWithDoNotAddNewlineAfterBlockStatement()
+        : this
+    );
     if (n.tokens.elseKeyword) {
       source += this.stringifyExtraTokens(n.tokens.elseKeyword);
-      source += "else";
+      source += " else";
       if (!(n.elseBranch instanceof NoopStmt)) {
         source += " ";
       }
@@ -651,6 +662,11 @@ export default class ASTPrinter implements ASTVisitor<string> {
   protected copyWithBreakBetweenModuleInstantations(doBreak = true) {
     const next = this.copy();
     next.breakBetweenModuleInstantations = doBreak;
+    return next;
+  }
+  protected copyWithDoNotAddNewlineAfterBlockStatement(val = true) {
+    const next = this.copy();
+    next.doNotAddNewlineAfterBlockStatement = val;
     return next;
   }
   protected saveDeepGlobals() {

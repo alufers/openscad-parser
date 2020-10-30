@@ -157,4 +157,29 @@ describe("ASTPrinter", () => {
     `);
     expect(f).toStrictEqual(expect.stringContaining("%"));
   });
+
+
+  test("does not introduce newlines before else branches", () => {
+    const f = doFormat(`
+    
+      if(true) {
+        doSomething();
+      } else {
+        doSomethingElse();
+      }
+    `);
+    expect(f).toStrictEqual(expect.stringContaining("} else {"));
+  });
+
+  test("does not introduce newlines before else if branches", () => {
+    const f = doFormat(`
+    
+      if(true) {
+        doSomething();
+      } else if(false) {
+        doSomethingElse();
+      }
+    `);
+    expect(f).toStrictEqual(expect.stringContaining("} else if(false) {"));
+  });
 });
