@@ -339,7 +339,7 @@ export default class Parser {
     const expr = this.expression();
     this.consume(TokenType.Semicolon, "after assignment statement");
     const semicolon = this.previous();
-    return new AssignmentNode(
+    const node = new AssignmentNode(
       pos,
       name.value,
       expr,
@@ -351,6 +351,8 @@ export default class Parser {
         semicolon,
       }
     );
+    node.docComment = DocComment.fromExtraTokens(name.extraTokens);
+    return node;
   }
   protected moduleInstantiationStatement():
     | ModuleInstantiationStmt

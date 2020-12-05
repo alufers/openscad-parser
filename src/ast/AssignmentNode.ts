@@ -1,4 +1,5 @@
 import CodeLocation from "../CodeLocation";
+import DocComment from "../comments/DocComment";
 import Token from "../Token";
 import ASTNode from "./ASTNode";
 import ASTVisitor from "./ASTVisitor";
@@ -21,10 +22,17 @@ export default class AssignmentNode extends ASTNode {
    * The name field may be empty when it represents a positional argument in a call.
    */
   name: string;
+
   /**
    * THe value of the name being assigned.
    */
   value: Expression;
+  
+  /**
+   * The documentation and annotations connected with this variable.
+   */
+  docComment: DocComment;
+
   constructor(
     pos: CodeLocation,
     name: string,

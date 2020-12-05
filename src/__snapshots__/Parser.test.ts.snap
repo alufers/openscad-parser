@@ -305,6 +305,11 @@ Object {
   "statements": Array [
     Object {
       "__c": "AssignmentNode",
+      "docComment": Object {
+        "__c": "DocComment",
+        "annotations": Array [],
+        "documentationContent": "",
+      },
       "name": "x",
       "pos": null,
       "role": 0,
@@ -1421,6 +1426,11 @@ polyhedron [[i1,i2,i3],[i2,i3,i4],...]",
     },
     Object {
       "__c": "AssignmentNode",
+      "docComment": Object {
+        "__c": "DocComment",
+        "annotations": Array [],
+        "documentationContent": "",
+      },
       "name": "epsilon",
       "pos": null,
       "role": 0,
@@ -30803,6 +30813,11 @@ polyhedron [[i1,i2,i3],[i2,i3,i4],...]",
     },
     Object {
       "__c": "AssignmentNode",
+      "docComment": Object {
+        "__c": "DocComment",
+        "annotations": Array [],
+        "documentationContent": "/ TESTCODE",
+      },
       "name": "phi",
       "pos": null,
       "role": 0,
@@ -30889,6 +30904,11 @@ polyhedron [[i1,i2,i3],[i2,i3,i4],...]",
     },
     Object {
       "__c": "AssignmentNode",
+      "docComment": Object {
+        "__c": "DocComment",
+        "annotations": Array [],
+        "documentationContent": "",
+      },
       "name": "testpoints_on_sphere",
       "pos": null,
       "role": 0,
@@ -32678,6 +32698,11 @@ polyhedron [[i1,i2,i3],[i2,i3,i4],...]",
     },
     Object {
       "__c": "AssignmentNode",
+      "docComment": Object {
+        "__c": "DocComment",
+        "annotations": Array [],
+        "documentationContent": "",
+      },
       "name": "testpoints_spherical",
       "pos": null,
       "role": 0,
@@ -32906,6 +32931,11 @@ polyhedron [[i1,i2,i3],[i2,i3,i4],...]",
     },
     Object {
       "__c": "AssignmentNode",
+      "docComment": Object {
+        "__c": "DocComment",
+        "annotations": Array [],
+        "documentationContent": "",
+      },
       "name": "testpoints_circular",
       "pos": null,
       "role": 0,
@@ -33351,6 +33381,11 @@ polyhedron [[i1,i2,i3],[i2,i3,i4],...]",
     },
     Object {
       "__c": "AssignmentNode",
+      "docComment": Object {
+        "__c": "DocComment",
+        "annotations": Array [],
+        "documentationContent": "",
+      },
       "name": "testpoints_coplanar",
       "pos": null,
       "role": 0,
@@ -34517,6 +34552,11 @@ polyhedron [[i1,i2,i3],[i2,i3,i4],...]",
     },
     Object {
       "__c": "AssignmentNode",
+      "docComment": Object {
+        "__c": "DocComment",
+        "annotations": Array [],
+        "documentationContent": "",
+      },
       "name": "testpoints_collinear_2d",
       "pos": null,
       "role": 0,
@@ -35167,6 +35207,11 @@ polyhedron [[i1,i2,i3],[i2,i3,i4],...]",
     },
     Object {
       "__c": "AssignmentNode",
+      "docComment": Object {
+        "__c": "DocComment",
+        "annotations": Array [],
+        "documentationContent": "",
+      },
       "name": "testpoints_collinear_3d",
       "pos": null,
       "role": 0,
@@ -35857,6 +35902,11 @@ polyhedron [[i1,i2,i3],[i2,i3,i4],...]",
     },
     Object {
       "__c": "AssignmentNode",
+      "docComment": Object {
+        "__c": "DocComment",
+        "annotations": Array [],
+        "documentationContent": "",
+      },
       "name": "testpoints2d",
       "pos": null,
       "role": 0,
@@ -36324,6 +36374,11 @@ polyhedron [[i1,i2,i3],[i2,i3,i4],...]",
     },
     Object {
       "__c": "AssignmentNode",
+      "docComment": Object {
+        "__c": "DocComment",
+        "annotations": Array [],
+        "documentationContent": "",
+      },
       "name": "testpoints3d",
       "pos": null,
       "role": 0,
@@ -38586,6 +38641,11 @@ polyhedron [[i1,i2,i3],[i2,i3,i4],...]",
         "children": Array [
           Object {
             "__c": "AssignmentNode",
+            "docComment": Object {
+              "__c": "DocComment",
+              "annotations": Array [],
+              "documentationContent": "",
+            },
             "name": "hull",
             "pos": null,
             "role": 0,
@@ -42208,6 +42268,11 @@ Object {
   "statements": Array [
     Object {
       "__c": "AssignmentNode",
+      "docComment": Object {
+        "__c": "DocComment",
+        "annotations": Array [],
+        "documentationContent": "",
+      },
       "name": "x",
       "pos": null,
       "role": 0,
@@ -42614,6 +42679,11 @@ Object {
   "statements": Array [
     Object {
       "__c": "AssignmentNode",
+      "docComment": Object {
+        "__c": "DocComment",
+        "annotations": Array [],
+        "documentationContent": "",
+      },
       "name": "x",
       "pos": null,
       "role": 0,
@@ -43141,6 +43211,11 @@ Object {
   "statements": Array [
     Object {
       "__c": "AssignmentNode",
+      "docComment": Object {
+        "__c": "DocComment",
+        "annotations": Array [],
+        "documentationContent": "",
+      },
       "name": "x",
       "pos": null,
       "role": 0,
@@ -43789,6 +43864,10 @@ ScadFile {
   },
   "statements": Array [
     AssignmentNode {
+      "docComment": DocComment {
+        "annotations": Array [],
+        "documentationContent": "",
+      },
       "name": "x",
       "pos": CodeLocation {
         "char": 7,
