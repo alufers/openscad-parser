@@ -515,6 +515,15 @@ Object {
           "value": null,
         },
       ],
+      "docComment": Object {
+        "__c": "DocComment",
+        "annotations": Array [],
+        "documentationContent": "Calculates the convex hull of a set of points.
+The result is expressed in point indices.
+If the points are collinear (or 2d), the result is a convex
+polygon [i1,i2,i3,...], otherwise a triangular
+polyhedron [[i1,i2,i3],[i2,i3,i4],...]",
+      },
       "expr": Object {
         "__c": "TernaryExpr",
         "cond": Object {
@@ -1502,6 +1511,11 @@ Object {
           "value": null,
         },
       ],
+      "docComment": Object {
+        "__c": "DocComment",
+        "annotations": Array [],
+        "documentationContent": "2d version",
+      },
       "expr": Object {
         "__c": "TernaryExpr",
         "cond": Object {
@@ -3688,6 +3702,11 @@ Object {
           },
         },
       ],
+      "docComment": Object {
+        "__c": "DocComment",
+        "annotations": Array [],
+        "documentationContent": "Adds the remaining points one by one to the convex hull",
+      },
       "expr": Object {
         "__c": "TernaryExpr",
         "cond": Object {
@@ -5284,6 +5303,11 @@ Object {
           "value": null,
         },
       ],
+      "docComment": Object {
+        "__c": "DocComment",
+        "annotations": Array [],
+        "documentationContent": "",
+      },
       "expr": Object {
         "__c": "VectorExpr",
         "children": Array [
@@ -6361,6 +6385,11 @@ Object {
           "value": null,
         },
       ],
+      "docComment": Object {
+        "__c": "DocComment",
+        "annotations": Array [],
+        "documentationContent": "remove the conflicting segments from the polygon",
+      },
       "expr": Object {
         "__c": "TernaryExpr",
         "cond": Object {
@@ -8922,6 +8951,11 @@ Object {
           "value": null,
         },
       ],
+      "docComment": Object {
+        "__c": "DocComment",
+        "annotations": Array [],
+        "documentationContent": "3d version",
+      },
       "expr": Object {
         "__c": "TernaryExpr",
         "cond": Object {
@@ -13281,6 +13315,11 @@ Object {
           "value": null,
         },
       ],
+      "docComment": Object {
+        "__c": "DocComment",
+        "annotations": Array [],
+        "documentationContent": "A plane equation (normal, offset)",
+      },
       "expr": Object {
         "__c": "LetExpr",
         "args": Array [
@@ -14190,6 +14229,11 @@ Object {
           },
         },
       ],
+      "docComment": Object {
+        "__c": "DocComment",
+        "annotations": Array [],
+        "documentationContent": "Adds the remaining points one by one to the convex hull",
+      },
       "expr": Object {
         "__c": "TernaryExpr",
         "cond": Object {
@@ -17135,6 +17179,11 @@ Object {
           "value": null,
         },
       ],
+      "docComment": Object {
+        "__c": "DocComment",
+        "annotations": Array [],
+        "documentationContent": "",
+      },
       "expr": Object {
         "__c": "LetExpr",
         "args": Array [
@@ -18224,6 +18273,11 @@ Object {
           "value": null,
         },
       ],
+      "docComment": Object {
+        "__c": "DocComment",
+        "annotations": Array [],
+        "documentationContent": "",
+      },
       "expr": Object {
         "__c": "TernaryExpr",
         "cond": Object {
@@ -19517,6 +19571,11 @@ Object {
           "value": null,
         },
       ],
+      "docComment": Object {
+        "__c": "DocComment",
+        "annotations": Array [],
+        "documentationContent": "",
+      },
       "expr": Object {
         "__c": "TernaryExpr",
         "cond": Object {
@@ -20744,6 +20803,11 @@ Object {
           "value": null,
         },
       ],
+      "docComment": Object {
+        "__c": "DocComment",
+        "annotations": Array [],
+        "documentationContent": "",
+      },
       "expr": Object {
         "__c": "VectorExpr",
         "children": Array [
@@ -21337,6 +21401,11 @@ Object {
           "value": null,
         },
       ],
+      "docComment": Object {
+        "__c": "DocComment",
+        "annotations": Array [],
+        "documentationContent": "",
+      },
       "expr": Object {
         "__c": "VectorExpr",
         "children": Array [
@@ -21897,6 +21966,11 @@ Object {
           "value": null,
         },
       ],
+      "docComment": Object {
+        "__c": "DocComment",
+        "annotations": Array [],
+        "documentationContent": "",
+      },
       "expr": Object {
         "__c": "LetExpr",
         "args": Array [
@@ -22872,6 +22946,11 @@ Object {
           "value": null,
         },
       ],
+      "docComment": Object {
+        "__c": "DocComment",
+        "annotations": Array [],
+        "documentationContent": "",
+      },
       "expr": Object {
         "__c": "LetExpr",
         "args": Array [
@@ -23750,6 +23829,11 @@ Object {
           "value": null,
         },
       ],
+      "docComment": Object {
+        "__c": "DocComment",
+        "annotations": Array [],
+        "documentationContent": "",
+      },
       "expr": Object {
         "__c": "VectorExpr",
         "children": Array [
@@ -24235,6 +24319,11 @@ Object {
           "value": null,
         },
       ],
+      "docComment": Object {
+        "__c": "DocComment",
+        "annotations": Array [],
+        "documentationContent": "",
+      },
       "expr": Object {
         "__c": "TernaryExpr",
         "cond": Object {
@@ -24649,6 +24738,11 @@ Object {
           "value": null,
         },
       ],
+      "docComment": Object {
+        "__c": "DocComment",
+        "annotations": Array [],
+        "documentationContent": "",
+      },
       "expr": Object {
         "__c": "VectorExpr",
         "children": Array [
@@ -25291,6 +25385,11 @@ Object {
           "value": null,
         },
       ],
+      "docComment": Object {
+        "__c": "DocComment",
+        "annotations": Array [],
+        "documentationContent": "",
+      },
       "expr": Object {
         "__c": "TernaryExpr",
         "cond": Object {
@@ -26272,6 +26371,11 @@ Object {
           "value": null,
         },
       ],
+      "docComment": Object {
+        "__c": "DocComment",
+        "annotations": Array [],
+        "documentationContent": "",
+      },
       "expr": Object {
         "__c": "TernaryExpr",
         "cond": Object {
@@ -26997,6 +27101,11 @@ Object {
           "value": null,
         },
       ],
+      "docComment": Object {
+        "__c": "DocComment",
+        "annotations": Array [],
+        "documentationContent": "",
+      },
       "expr": Object {
         "__c": "BinaryOpExpr",
         "left": Object {
@@ -27301,6 +27410,11 @@ Object {
           "value": null,
         },
       ],
+      "docComment": Object {
+        "__c": "DocComment",
+        "annotations": Array [],
+        "documentationContent": "",
+      },
       "expr": Object {
         "__c": "BinaryOpExpr",
         "left": Object {
@@ -27576,6 +27690,11 @@ Object {
           "value": null,
         },
       ],
+      "docComment": Object {
+        "__c": "DocComment",
+        "annotations": Array [],
+        "documentationContent": "",
+      },
       "expr": Object {
         "__c": "BinaryOpExpr",
         "left": Object {
@@ -27869,6 +27988,11 @@ Object {
           "value": null,
         },
       ],
+      "docComment": Object {
+        "__c": "DocComment",
+        "annotations": Array [],
+        "documentationContent": "",
+      },
       "expr": Object {
         "__c": "BinaryOpExpr",
         "left": Object {
@@ -28136,6 +28260,11 @@ Object {
           "value": null,
         },
       ],
+      "docComment": Object {
+        "__c": "DocComment",
+        "annotations": Array [],
+        "documentationContent": "",
+      },
       "expr": Object {
         "__c": "BinaryOpExpr",
         "left": Object {
@@ -29134,6 +29263,11 @@ Object {
           "value": null,
         },
       ],
+      "docComment": Object {
+        "__c": "DocComment",
+        "annotations": Array [],
+        "documentationContent": "",
+      },
       "expr": Object {
         "__c": "BinaryOpExpr",
         "left": Object {
@@ -29468,6 +29602,11 @@ Object {
           "value": null,
         },
       ],
+      "docComment": Object {
+        "__c": "DocComment",
+        "annotations": Array [],
+        "documentationContent": "",
+      },
       "expr": Object {
         "__c": "VectorExpr",
         "children": Array [
@@ -29926,6 +30065,11 @@ Object {
           "value": null,
         },
       ],
+      "docComment": Object {
+        "__c": "DocComment",
+        "annotations": Array [],
+        "documentationContent": "",
+      },
       "expr": Object {
         "__c": "VectorExpr",
         "children": Array [
@@ -38430,6 +38574,11 @@ Object {
           "value": null,
         },
       ],
+      "docComment": Object {
+        "__c": "DocComment",
+        "annotations": Array [],
+        "documentationContent": "",
+      },
       "name": "visualize_hull",
       "pos": null,
       "stmt": Object {
@@ -40458,6 +40607,11 @@ Object {
                 "value": null,
               },
             ],
+            "docComment": Object {
+              "__c": "DocComment",
+              "annotations": Array [],
+              "documentationContent": "",
+            },
             "expr": Object {
               "__c": "BinaryOpExpr",
               "left": Object {

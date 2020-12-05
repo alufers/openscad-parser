@@ -37,6 +37,8 @@ import {
 } from "./ast/statements";
 import CodeFile from "./CodeFile";
 import CodeLocation from "./CodeLocation";
+import { IntrinsicRenameAnnotation } from "./comments/annotations";
+import DocComment from "./comments/DocComment";
 import ErrorCollector from "./ErrorCollector";
 import ParsingError from "./errors/ParsingError";
 import {
@@ -273,9 +275,20 @@ export default class Parser {
     const args: AssignmentNode[] = this.args();
     const secondParen = this.previous();
     const body = this.statement();
+    const doc = DocComment.fromExtraTokens(moduleKeyword.extraTokens);
+    let name = (nameToken as LiteralToken<string>).value;
+
+    // handle renaming of the symbol via annotations in documentation comments
+    // used by the prelude
+    const renameAnnotation = doc.annotations.find(
+      (a) => a instanceof IntrinsicRenameAnnotation
+    ) as IntrinsicRenameAnnotation;
+    if (renameAnnotation) {
+      name = renameAnnotation.newName;
+    }
     return new ModuleDeclarationStmt(
       this.getLocation(),
-      (nameToken as LiteralToken<string>).value,
+      name,
       args,
       body,
       {
@@ -283,7 +296,8 @@ export default class Parser {
         name: nameToken,
         firstParen,
         secondParen,
-      }
+      },
+      doc
     );
   }
   protected functionDeclarationStatement(): FunctionDeclarationStmt {
@@ -313,7 +327,8 @@ export default class Parser {
         name: nameToken,
         secondParen,
         semicolon,
-      }
+      },
+      DocComment.fromExtraTokens(functionKeyword.extraTokens)
     );
   }
   protected assignmentStatement() {

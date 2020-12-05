@@ -1,3 +1,4 @@
+import { LiteralToken } from ".";
 import AssignmentNode from "./ast/AssignmentNode";
 import ASTVisitor from "./ast/ASTVisitor";
 import ErrorNode from "./ast/ErrorNode";
@@ -491,7 +492,7 @@ export default class ASTPrinter implements ASTVisitor<string> {
     source += this.stringifyExtraTokens(n.tokens.moduleKeyword);
     source += "module ";
     source += this.stringifyExtraTokens(n.tokens.name);
-    source += n.name;
+    source += (n.tokens.name as LiteralToken<string>).value;
     source += this.stringifyExtraTokens(n.tokens.firstParen);
     source += "(";
     for (let i = 0; i < n.definitionArgs.length; i++) {

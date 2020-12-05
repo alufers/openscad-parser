@@ -1,4 +1,5 @@
 import CodeLocation from "../CodeLocation";
+import DocComment from "../comments/DocComment";
 import LiteralToken from "../LiteralToken";
 import Token from "../Token";
 import AssignmentNode from "./AssignmentNode";
@@ -142,7 +143,8 @@ export class ModuleDeclarationStmt extends Statement {
       name: Token;
       firstParen: Token;
       secondParen: Token;
-    }
+    },
+    public docComment: DocComment
   ) {
     super(pos);
   }
@@ -167,7 +169,8 @@ export class FunctionDeclarationStmt extends Statement {
       secondParen: Token;
       equals: Token;
       semicolon: Token;
-    }
+    },
+    public docComment: DocComment
   ) {
     super(pos);
   }

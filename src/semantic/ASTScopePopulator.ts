@@ -252,7 +252,8 @@ export default class ASTScopePopulator implements ASTVisitor<ASTNode> {
       n.name,
       null,
       null,
-      n.tokens
+      n.tokens,
+      n.docComment
     );
     this.nearestScope.modules.set(md.name, md);
     md.scope = new Scope();
@@ -270,7 +271,8 @@ export default class ASTScopePopulator implements ASTVisitor<ASTNode> {
       n.name,
       null,
       null,
-      n.tokens
+      n.tokens,
+      n.docComment
     );
     this.nearestScope.functions.set(n.name, fDecl);
     fDecl.scope = new Scope();

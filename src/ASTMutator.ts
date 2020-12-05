@@ -31,6 +31,7 @@ import {
   NoopStmt,
   IfElseStatement,
 } from "./ast/statements";
+import DocComment from "./comments/DocComment";
 import {
   ASTVisitorForNodesWithScopes,
   BlockStmtWithScope,
@@ -341,7 +342,8 @@ export default class ASTMutator
       n.name,
       newDefinitionArgs,
       newStmt,
-      n.tokens
+      n.tokens,
+      n.docComment
     );
   }
   visitFunctionDeclarationStmt(n: FunctionDeclarationStmt): ASTNode {
@@ -367,7 +369,8 @@ export default class ASTMutator
       n.name,
       newDefinitionArgs,
       newExpr,
-      n.tokens
+      n.tokens,
+      n.docComment
     );
   }
   visitBlockStmt(n: BlockStmt): ASTNode {
@@ -455,7 +458,8 @@ export default class ASTMutator
       oldNode.name,
       oldNode.definitionArgs,
       oldNode.expr,
-      oldNode.tokens
+      oldNode.tokens,
+      oldNode.docComment
     );
     newNode.scope = n.scope;
     return newNode;
@@ -469,7 +473,8 @@ export default class ASTMutator
       oldNode.name,
       oldNode.definitionArgs,
       oldNode.stmt,
-      oldNode.tokens
+      oldNode.tokens,
+      n.docComment
     );
     newNode.scope = n.scope;
     return newNode;
