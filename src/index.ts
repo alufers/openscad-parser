@@ -39,7 +39,6 @@ export { default as friendlyTokenNames } from "./friendlyTokenNames";
 export * from "./friendlyTokenNames";
 export { default as keywords } from "./keywords";
 export * from "./keywords";
-export * from "./scadfmt";
 export { default as ASTNode } from "./ast/ASTNode";
 export * from "./ast/ASTNode";
 export { default as ASTVisitor } from "./ast/ASTVisitor";

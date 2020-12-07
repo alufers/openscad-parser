@@ -1,4 +1,5 @@
-import { AssignmentNode, ASTNode, ErrorNode, ScadFile } from ".";
+import ScadFile from "./ast/ScadFile";
+
 import ASTVisitor from "./ast/ASTVisitor";
 import {
   UnaryOpExpr,
@@ -42,7 +43,11 @@ import {
   LcLetExprWithScope,
   LcForExprWithScope,
   LcForCExprWithScope,
+  ModuleInstantiationStmtWithScope,
 } from "./semantic/nodesWithScopes";
+import AssignmentNode from "./ast/AssignmentNode";
+import ASTNode from "./ast/ASTNode";
+import ErrorNode from "./ast/ErrorNode";
 
 export default class ASTMutator
   implements ASTVisitorForNodesWithScopes<ASTNode> {
@@ -475,6 +480,20 @@ export default class ASTMutator
       oldNode.stmt,
       oldNode.tokens,
       n.docComment
+    );
+    newNode.scope = n.scope;
+    return newNode;
+  }
+  visitModuleInstantiationStmtWithScope(n: ModuleInstantiationStmtWithScope) {
+    const oldNode = this.visitModuleInstantiationStmt(
+      n
+    ) as ModuleInstantiationStmt;
+    const newNode = new ModuleInstantiationStmtWithScope(
+      oldNode.pos,
+      oldNode.name,
+      oldNode.args,
+      oldNode.child,
+      oldNode.tokens
     );
     newNode.scope = n.scope;
     return newNode;

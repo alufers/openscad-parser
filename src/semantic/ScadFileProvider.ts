@@ -1,8 +1,6 @@
-import ScadFile from "../ast/ScadFile";
-import { Scope } from "..";
-
+import Scope from "./Scope";
 export interface WithExportedScopes {
-    getExportedScopes(): Scope[];
+  getExportedScopes(): Scope[];
 }
 
 export default interface ScadFileProvider<T extends WithExportedScopes> {

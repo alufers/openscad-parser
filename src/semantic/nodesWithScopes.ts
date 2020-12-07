@@ -5,6 +5,7 @@ import {
   BlockStmt,
   FunctionDeclarationStmt,
   ModuleDeclarationStmt,
+  ModuleInstantiationStmt,
 } from "../ast/statements";
 import NodeWithScope from "./NodeWithScope";
 import Scope from "./Scope";
@@ -18,6 +19,7 @@ export interface ASTVisitorForNodesWithScopes<R> extends ASTVisitor<R> {
   visitLcLetExprWithScope(n: LcLetExprWithScope): R;
   visitLcForExprWithScope(n: LcForExprWithScope): R;
   visitLcForCExprWithScope(n: LcForCExprWithScope): R;
+  visitModuleInstantiationStmtWithScope(n: ModuleInstantiationStmtWithScope): R;
 }
 
 export class BlockStmtWithScope extends BlockStmt implements NodeWithScope {
@@ -49,7 +51,8 @@ export class ScadFileWithScope extends ScadFile implements NodeWithScope {
   }
 }
 
-export class FunctionDeclarationStmtWithScope extends FunctionDeclarationStmt
+export class FunctionDeclarationStmtWithScope
+  extends FunctionDeclarationStmt
   implements NodeWithScope {
   scope: Scope;
   accept<R>(visitor: ASTVisitorForNodesWithScopes<R>): R {
@@ -60,7 +63,8 @@ export class FunctionDeclarationStmtWithScope extends FunctionDeclarationStmt
   }
 }
 
-export class ModuleDeclarationStmtWithScope extends ModuleDeclarationStmt
+export class ModuleDeclarationStmtWithScope
+  extends ModuleDeclarationStmt
   implements NodeWithScope {
   scope: Scope;
   accept<R>(visitor: ASTVisitorForNodesWithScopes<R>): R {
@@ -68,6 +72,18 @@ export class ModuleDeclarationStmtWithScope extends ModuleDeclarationStmt
       return visitor.visitModuleDeclarationStmtWithScope(this);
     }
     return visitor.visitModuleDeclarationStmt(this);
+  }
+}
+
+export class ModuleInstantiationStmtWithScope
+  extends ModuleInstantiationStmt
+  implements NodeWithScope {
+  scope: Scope;
+  accept<R>(visitor: ASTVisitorForNodesWithScopes<R>): R {
+    if (visitor.visitModuleInstantiationStmtWithScope) {
+      return visitor.visitModuleInstantiationStmtWithScope(this);
+    }
+    return visitor.visitModuleInstantiationStmt(this);
   }
 }
 

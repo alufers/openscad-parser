@@ -1,5 +1,6 @@
-import { AssignmentNode, ScadFile } from "..";
+import AssignmentNode from "../ast/AssignmentNode";
 import { AssertExpr, LiteralExpr } from "../ast/expressions";
+import ScadFile from "../ast/ScadFile";
 import ASTMutator from "../ASTMutator";
 import CodeFile from "../CodeFile";
 import ParsingHelper from "../ParsingHelper";
