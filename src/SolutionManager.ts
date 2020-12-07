@@ -18,6 +18,12 @@ import { ScadFileWithScope } from "./semantic/nodesWithScopes";
 import IncludeResolver from "./semantic/IncludeResolver";
 import PreludeUtil from "./prelude/PreludeUtil";
 import SymbolResolver from "./semantic/SymbolResolver";
+import ASTPinpointer from "./ASTPinpointer";
+import {
+  ResolvedFunctionCallExpr,
+  ResolvedLookupExpr,
+  ResolvedModuleInstantiationStmt,
+} from "./semantic/resolvedNodes";
 
 export class SolutionFile implements WithExportedScopes {
   fullPath: string;
@@ -80,11 +86,24 @@ export class SolutionFile implements WithExportedScopes {
       this.ast as ScadFile
     );
   }
+
   getExportedScopes(): Scope[] {
     return [
       this.onlyOwnScope,
       ...this.includedFiles.map((f) => f.getExportedScopes()).flat(),
     ];
+  }
+
+  getSymbolDefinition(loc: CodeLocation): CodeLocation {
+    const pp = new ASTPinpointer(loc).doPinpoint(this.ast);
+    if (
+      pp instanceof ResolvedFunctionCallExpr ||
+      pp instanceof ResolvedLookupExpr ||
+      pp instanceof ResolvedModuleInstantiationStmt
+    ) {
+      return pp.resolvedDeclaration.tokens.name.pos;
+    }
+    return null;
   }
 }
 
