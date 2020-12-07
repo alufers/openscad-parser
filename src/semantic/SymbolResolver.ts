@@ -1,3 +1,4 @@
+import AssignmentNode from "../ast/AssignmentNode";
 import ASTNode from "../ast/ASTNode";
 import {
   FunctionCallExpr,
@@ -53,8 +54,8 @@ export default class SymbolResolver extends ASTMutator {
     const resolved = new ResolvedModuleInstantiationStmt(
       n.pos,
       n.name,
-      n.args,
-      n.child,
+      n.args.map((a) => a.accept(this)) as AssignmentNode[],
+      n.child.accept(this),
       n.tokens
     );
     resolved.resolvedDeclaration = this.currentScope.lookupModule(n.name);
@@ -69,7 +70,7 @@ export default class SymbolResolver extends ASTMutator {
     const resolved = new ResolvedFunctionCallExpr(
       n.pos,
       n.name,
-      n.args,
+      n.args.map((a) => a.accept(this)) as AssignmentNode[],
       n.tokens
     );
     resolved.resolvedDeclaration = this.currentScope.lookupFunction(n.name);

@@ -75,7 +75,49 @@ describe("SymbolResolver", () => {
     ast.accept(new A());
     expect(confirmFn).toHaveBeenCalled(); // make sure we have called the method which verifies this test
   });
-  it("preservers nodes with scopes in the returned AST so that code completion still works", () => {
+  it("resolves local symbols inside of module children", () => {
+    let [ast, ec] = ParsingHelper.parseFile(
+      new CodeFile(
+        "<test>",
+        `x = [10:20];
+        module mod();
+         mod() {
+           x = "correct";
+           cincoman = assert(1==1) x;
+         };
+    `
+      )
+    );
+    ec.throwIfAny();
+    const pop = new ASTScopePopulator(new Scope());
+    ast = ast.accept(pop) as ScadFile;
+    const resolver = new SymbolResolver(ec);
+    ast = ast.accept(resolver) as ScadFile;
+    ec.throwIfAny();
+
+    const confirmFn = jest.fn();
+
+    class A extends ASTMutator {
+      visitAssertExpr(n: AssertExpr) {
+        confirmFn();
+        expect(n.expr).toBeInstanceOf(ResolvedLookupExpr);
+        expect(
+          (n.expr as ResolvedLookupExpr).resolvedDeclaration
+        ).toBeInstanceOf(AssignmentNode);
+        expect(
+          (n.expr as ResolvedLookupExpr).resolvedDeclaration.value
+        ).toBeInstanceOf(LiteralExpr);
+        expect(
+          ((n.expr as ResolvedLookupExpr).resolvedDeclaration
+            .value as LiteralExpr<string>).value
+        ).toEqual("correct");
+        return n;
+      }
+    }
+    ast.accept(new A());
+    expect(confirmFn).toHaveBeenCalled(); // make sure we have called the method which verifies this test
+  });
+  it("preserves nodes with scopes in the returned AST so that code completion still works", () => {
     let [ast, ec] = ParsingHelper.parseFile(
       new CodeFile(
         "<test>",
