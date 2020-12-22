@@ -14,11 +14,31 @@ module intersection_for();
 // 
 // 2D
 // 
+
+
+
+/**
+ * Generates a circle at the origin.
+ *
+ * @param r [positional] [type=number] the radius of the circle
+ * @param d [named] [conflictsWith=r] [type=number] the diameter of the circle
+ * @see https://en.wikibooks.org/wiki/OpenSCAD_User_Manual/Using_the_2D_Subsystem#circle
+ **/
 module circle(r = radius, d = diameter);
-module square();
-module square(width, height, center);
+
+/**
+ *  Generates a square or a rectangle.
+ *  If center is `false` it is placed in the first quadrant (positive XY), if center is set to `true` it is centered at the origin.
+ *
+ * @param size [positional] [type=number,vector] The size of the square. Can be a two-dimensional vector [x, y] for a rectangle, or a number for a square.
+ * @param center [positional] [type=bool] When set to true the rectangle is placed with the center at the origin of the coordinate system.
+ **/
+module square(size = [x, y], center = true/false);
+
 module polygon(points);
+
 module text(t, size, font, halign, valign, spacing, direction, language, script);
+
 module projection(cut);
 
 // 
@@ -26,11 +46,17 @@ module projection(cut);
 // 
 
 module sphere($fn = 0, $fa = 12, $fs = 2, r = 1);
+
 module cube(size = [1, 1, 1], center = false);
+
 module cylinder($fn = 0, $fa = 12, $fs = 2, h = 1, r1 = 1, r2 = 1, center = false);
+
 module polyhedron(points = undef, faces = undef, convexity = 1);
+
 module import(file = "");
+
 module linear_extrude(height, center, convexity, twist, slices);
+
 module rotate_extrude(angle, convexity);
 
 //
@@ -38,12 +64,19 @@ module rotate_extrude(angle, convexity);
 //
 
 module translate(pos = [x, y, z]);
+
 module rotate(a = 0, v = [x, y, z]);
+
 module scale(pos = [x, y, z]);
+
 module resize(pos = [x, y, z], auto) 
+
 module mirror(pos = [x, y, z]);
+
 module multmatrix(m);
+
 module color(c = [1, 1, 1, 1]);
+
 module hull();
 
 // Offset generates a new 2d interior or exterior outline from an existing outline. 
@@ -65,15 +98,20 @@ PI = 3.141592653589793;
 //
 
 module union();
+
 module difference();
+
 module intersection();
+
 
 //
 // Type test functions
 // 
 
 function is_undef(var) = undef;
+
 function is_bool(var) = undef;
+
 function is_num(var) = undef;
 function is_string(var) = undef;
 function is_list(var) = undef;

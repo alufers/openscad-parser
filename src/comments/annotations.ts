@@ -16,9 +16,53 @@ export class IntrinsicAnnotation {
  * Used by the prelude to define `for` and `intersection_for` so that they can be resolved without errors.
  */
 export class IntrinsicRenameAnnotation {
-    static annotationTag = "intrinsicRename";
+  static annotationTag = "intrinsicRename";
   newName: string;
   constructor(contents: string[]) {
     this.newName = contents[0] || "";
+  }
+}
+
+/**
+ * An annotation with a link to online documentation.
+ * @todo Add links to other source-code locations
+ */
+export class SeeAnnotation {
+  static annotationTag = "see";
+  link: string;
+  constructor(contents: string[]) {
+    this.link = contents[0] || "";
+  }
+}
+
+/**
+ * Describes a module or function paramater.
+ */
+export class ParamAnnotation {
+  static annotationTag = "param";
+  link: string;
+  description: string;
+  tags: {
+    [x: string]: any;
+    positional: boolean;
+    named: boolean;
+    type: string[];
+    conflictsWith: string[];
+  };
+  constructor(contents: string[]) {
+    this.link = contents[0] || "";
+    this.description = contents
+      .slice(1)
+      .filter((c) => {
+        let m = c.match(/^\[(.*?)(=(.*))?\]$/);
+        if (!m) return true;
+        if (!m[3]) {
+          this.tags[m[1]] = true;
+        } else {
+          this.tags[m[1]] = m[3].split(",");
+        }
+        return false;
+      })
+      .join(" ");
   }
 }
