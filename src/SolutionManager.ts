@@ -93,15 +93,21 @@ export class SolutionFile implements WithExportedScopes {
       ...this.includedFiles.map((f) => f.getExportedScopes()).flat(),
     ];
   }
-
-  getSymbolDefinition(loc: CodeLocation): CodeLocation {
+  getSymbolDeclaration(loc: CodeLocation) {
     const pp = new ASTPinpointer(loc).doPinpoint(this.ast);
     if (
       pp instanceof ResolvedFunctionCallExpr ||
       pp instanceof ResolvedLookupExpr ||
       pp instanceof ResolvedModuleInstantiationStmt
     ) {
-      return pp.resolvedDeclaration.tokens.name.pos;
+      return pp.resolvedDeclaration;
+    }
+    return null;
+  }
+  getSymbolDeclarationLocation(loc: CodeLocation): CodeLocation {
+    const decl = this.getSymbolDeclaration(loc);
+    if (decl) {
+      return decl.tokens.name.pos;
     }
     return null;
   }
