@@ -36,7 +36,9 @@ export class SeeAnnotation {
 }
 
 /**
- * Describes a module or function paramater.
+ * Describes a module or function parameter annotation.
+ * It has the form of `@param name [... optional tags] description`
+ * The tags either contain a name (`[positional]`) for binary tags or a name and a value (`[conflictsWith=abc,cba]`)
  */
 export class ParamAnnotation {
   static annotationTag = "param";
