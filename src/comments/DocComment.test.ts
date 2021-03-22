@@ -48,4 +48,22 @@ describe("DocComment", () => {
     expect(dc.annotations[0]).toBeInstanceOf(IntrinsicAnnotation);
     expect((dc.annotations[0] as IntrinsicAnnotation).intrinsicType).toEqual("controlFlow");
   });
+  it("does not leave param annotations in the doc description", () => {
+    const ast = doParse(`
+        /**
+         * Hello 
+         * I am a documentation comment.
+         * @param d [named] [conflictsWith=r] [type=number] the diameter of the circle
+         **/
+        module asdf() {
+
+        }
+      `);
+    const dc = DocComment.fromExtraTokens(
+      (ast.statements[0] as ModuleDeclarationStmt).tokens.moduleKeyword
+        .extraTokens
+    );
+    expect(dc.documentationContent).not.toContain("@param");
+   
+  });
 });

@@ -50,7 +50,7 @@ export class ParamAnnotation {
     named: boolean;
     type: string[];
     conflictsWith: string[];
-  };
+  } = { positional: false, named: false, type: [], conflictsWith: [] };
   constructor(contents: string[]) {
     this.link = contents[0] || "";
     this.description = contents
