@@ -39,8 +39,9 @@ export default class CodeLocation {
   readonly col: number = 0;
 
   toString(): string {
-    return `file '${this.file.filename}' line ${this.line + 1} column ${this
-      .col + 1}'`;
+    return `file '${this.file.filename}' line ${this.line + 1} column ${
+      this.col + 1
+    }'`;
   }
 
   formatWithContext() {

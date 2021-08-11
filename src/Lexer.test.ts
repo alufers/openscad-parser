@@ -14,7 +14,7 @@ import TokenType from "./TokenType";
 
 function lexToTTStream(code: string) {
   const lexer = new Lexer(new CodeFile("<test>", code), new ErrorCollector());
-  return lexer.scan().map(token => token.type);
+  return lexer.scan().map((token) => token.type);
 }
 
 function lexTokens(code: string) {
@@ -23,7 +23,7 @@ function lexTokens(code: string) {
 }
 
 function simplifyTokens(tokens: Token[]) {
-  return tokens.map(token => {
+  return tokens.map((token) => {
     if (token instanceof LiteralToken) {
       return {
         val: token.value,
@@ -292,7 +292,7 @@ describe("Lexer", () => {
         // comment
       }
     `);
-    expect(tokens.map(t => t.type)).toEqual([
+    expect(tokens.map((t) => t.type)).toEqual([
       /*  0 */ TokenType.Module,
       /*  1 */ TokenType.Identifier,
       /*  2 */ TokenType.LeftParen,

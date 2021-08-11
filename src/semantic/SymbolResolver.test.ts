@@ -1,3 +1,4 @@
+import { PreludeUtil } from "..";
 import AssignmentNode from "../ast/AssignmentNode";
 import { AssertExpr, LiteralExpr } from "../ast/expressions";
 import ScadFile from "../ast/ScadFile";
@@ -67,8 +68,10 @@ describe("SymbolResolver", () => {
           (n.expr as ResolvedLookupExpr).resolvedDeclaration.value
         ).toBeInstanceOf(LiteralExpr);
         expect(
-          ((n.expr as ResolvedLookupExpr).resolvedDeclaration
-            .value as LiteralExpr<string>).value
+          (
+            (n.expr as ResolvedLookupExpr).resolvedDeclaration
+              .value as LiteralExpr<string>
+          ).value
         ).toEqual("correct");
         return n;
       }
@@ -109,8 +112,10 @@ describe("SymbolResolver", () => {
           (n.expr as ResolvedLookupExpr).resolvedDeclaration.value
         ).toBeInstanceOf(LiteralExpr);
         expect(
-          ((n.expr as ResolvedLookupExpr).resolvedDeclaration
-            .value as LiteralExpr<string>).value
+          (
+            (n.expr as ResolvedLookupExpr).resolvedDeclaration
+              .value as LiteralExpr<string>
+          ).value
         ).toEqual("correct");
         return n;
       }
@@ -138,5 +143,38 @@ describe("SymbolResolver", () => {
     ast = ast.accept(resolver) as ScadFile;
     ec.throwIfAny();
     expect(ast).toBeInstanceOf(ScadFileWithScope);
+  });
+  it("resolves variables from for loops", () => {
+    let [ast, ec] = ParsingHelper.parseFile(
+      new CodeFile(
+        "<test>",
+        `
+          for(x = [1 : 5]) {
+            cincoman = assert(1==1) x;
+          }
+          intersection_for(x = [1 : 5]) {
+            cincoman = assert(1==1) x;
+          }
+      `
+      )
+    );
+    ec.throwIfAny();
+    const pop = new ASTScopePopulator(new Scope());
+    let astWithScope = ast.accept(pop) as ScadFileWithScope;
+    astWithScope.scope.siblingScopes = [PreludeUtil.preludeScope];
+    const resolver = new SymbolResolver(ec);
+    astWithScope = astWithScope.accept(resolver) as ScadFileWithScope;
+    ec.throwIfAny();
+    const confirmFn = jest.fn();
+
+    class A extends ASTMutator {
+      visitAssertExpr(n: AssertExpr) {
+        expect(n.expr).toBeInstanceOf(ResolvedLookupExpr);
+        confirmFn();
+        return n;
+      }
+    }
+    astWithScope.accept(new A());
+    expect(confirmFn).toHaveBeenCalled();
   });
 });

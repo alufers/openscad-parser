@@ -50,7 +50,8 @@ import ASTNode from "./ast/ASTNode";
 import ErrorNode from "./ast/ErrorNode";
 
 export default class ASTMutator
-  implements ASTVisitorForNodesWithScopes<ASTNode> {
+  implements ASTVisitorForNodesWithScopes<ASTNode>
+{
   visitScadFile(n: ScadFile): ASTNode {
     const stmts = n.statements.map((s) => s.accept(this));
     if (stmts.length === n.statements.length) {

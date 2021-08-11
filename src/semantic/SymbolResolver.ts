@@ -92,49 +92,49 @@ export default class SymbolResolver extends ASTMutator {
   }
   visitBlockStmt(n: BlockStmt): ASTNode {
     return super.visitBlockStmt.call(
-      this.copyWithNextScope(((n as unknown) as NodeWithScope).scope),
+      this.copyWithNextScope((n as unknown as NodeWithScope).scope),
       n
     );
   }
   visitLetExpr(n: LetExpr): ASTNode {
     return super.visitLetExpr.call(
-      this.copyWithNextScope(((n as unknown) as NodeWithScope).scope),
+      this.copyWithNextScope((n as unknown as NodeWithScope).scope),
       n
     );
   }
   visitScadFile(n: ScadFile): ASTNode {
     return super.visitScadFile.call(
-      this.copyWithNextScope(((n as unknown) as NodeWithScope).scope),
+      this.copyWithNextScope((n as unknown as NodeWithScope).scope),
       n
     );
   }
   visitFunctionDeclarationStmt(n: FunctionDeclarationStmt): ASTNode {
     return super.visitFunctionDeclarationStmt.call(
-      this.copyWithNextScope(((n as unknown) as NodeWithScope).scope),
+      this.copyWithNextScope((n as unknown as NodeWithScope).scope),
       n
     );
   }
   visitModuleDeclarationStmt(n: ModuleDeclarationStmt): ASTNode {
     return super.visitModuleDeclarationStmt.call(
-      this.copyWithNextScope(((n as unknown) as NodeWithScope).scope),
+      this.copyWithNextScope((n as unknown as NodeWithScope).scope),
       n
     );
   }
   visitLcLetExpr(n: LcLetExpr): ASTNode {
     return super.visitLcLetExpr.call(
-      this.copyWithNextScope(((n as unknown) as NodeWithScope).scope),
+      this.copyWithNextScope((n as unknown as NodeWithScope).scope),
       n
     );
   }
   visitLcForExpr(n: LcForExpr): ASTNode {
     return super.visitLcForExpr.call(
-      this.copyWithNextScope(((n as unknown) as NodeWithScope).scope),
+      this.copyWithNextScope((n as unknown as NodeWithScope).scope),
       n
     );
   }
   visitLcForCExpr(n: LcForCExpr): ASTNode {
     return super.visitLcForCExpr.call(
-      this.copyWithNextScope(((n as unknown) as NodeWithScope).scope),
+      this.copyWithNextScope((n as unknown as NodeWithScope).scope),
       n
     );
   }

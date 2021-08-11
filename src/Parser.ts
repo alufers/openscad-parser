@@ -442,7 +442,8 @@ export default class Parser {
         }
       }
     }
-    const args = this.args(true);
+    let isForLoop = name === "for" || name === "intersection_for";
+    const args = this.args(!isForLoop);
     const secondParen = this.previous();
     return new ModuleInstantiationStmt(prev.pos, name, args, null, {
       firstParen,

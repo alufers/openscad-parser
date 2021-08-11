@@ -137,7 +137,7 @@ describe("ASTVisitor", () => {
       visitVectorExpr(n: VectorExpr) {
         visitVectorExpr(); // call the mocked function so that jest knows it has been called
         expect(n).toBeInstanceOf(VectorExpr);
-        n.children.forEach(c => c.accept(this));
+        n.children.forEach((c) => c.accept(this));
       }
       visitLookupExpr(n: LookupExpr) {
         visitLookupExpr(); // call the mocked function so that jest knows it has been called
@@ -151,25 +151,25 @@ describe("ASTVisitor", () => {
       visitFunctionCallExpr(n: FunctionCallExpr) {
         visitFunctionCallExpr(); // call the mocked function so that jest knows it has been called
         expect(n).toBeInstanceOf(FunctionCallExpr);
-        n.args.forEach(a => a.accept(this));
+        n.args.forEach((a) => a.accept(this));
       }
 
       visitLetExpr(n: LetExpr) {
         visitLetExpr(); // call the mocked function so that jest knows it has been called
         expect(n).toBeInstanceOf(LetExpr);
-        n.args.forEach(a => a.accept(this));
+        n.args.forEach((a) => a.accept(this));
         n.expr.accept(this);
       }
       visitAssertExpr(n: AssertExpr) {
         visitAssertExpr(); // call the mocked function so that jest knows it has been called
         expect(n).toBeInstanceOf(AssertExpr);
-        n.args.forEach(a => a.accept(this));
+        n.args.forEach((a) => a.accept(this));
         n.expr.accept(this);
       }
       visitEchoExpr(n: EchoExpr) {
         visitEchoExpr(); // call the mocked function so that jest knows it has been called
         expect(n).toBeInstanceOf(EchoExpr);
-        n.args.forEach(a => a.accept(this));
+        n.args.forEach((a) => a.accept(this));
         n.expr.accept(this);
       }
       visitLcIfExpr(n: LcIfExpr) {
@@ -189,21 +189,21 @@ describe("ASTVisitor", () => {
       visitLcForExpr(n: LcForExpr) {
         visitLcForExpr(); // call the mocked function so that jest knows it has been called
         expect(n).toBeInstanceOf(LcForExpr);
-        n.args.forEach(a => a.accept(this));
+        n.args.forEach((a) => a.accept(this));
         n.expr.accept(this);
       }
       visitLcForCExpr(n: LcForCExpr) {
         visitLcForCExpr(); // call the mocked function so that jest knows it has been called
         expect(n).toBeInstanceOf(LcForCExpr);
-        n.args.forEach(a => a.accept(this));
-        n.incrArgs.forEach(a => a.accept(this));
+        n.args.forEach((a) => a.accept(this));
+        n.incrArgs.forEach((a) => a.accept(this));
         n.cond.accept(this);
         n.expr.accept(this);
       }
       visitLcLetExpr(n: LcLetExpr) {
         visitLcLetExpr(); // call the mocked function so that jest knows it has been called
         expect(n).toBeInstanceOf(LcLetExpr);
-        n.args.forEach(a => a.accept(this));
+        n.args.forEach((a) => a.accept(this));
         n.expr.accept(this);
       }
       visitGroupingExpr(n: GroupingExpr) {
@@ -222,25 +222,25 @@ describe("ASTVisitor", () => {
       visitModuleInstantiationStmt(n: ModuleInstantiationStmt) {
         visitModuleInstantiationStmt(); // call the mocked function so that jest knows it has been called
         expect(n).toBeInstanceOf(ModuleInstantiationStmt);
-        n.args.forEach(a => a.accept(this));
+        n.args.forEach((a) => a.accept(this));
         n.child.accept(this);
       }
       visitModuleDeclarationStmt(n: ModuleDeclarationStmt) {
         visitModuleDeclarationStmt(); // call the mocked function so that jest knows it has been called
         expect(n).toBeInstanceOf(ModuleDeclarationStmt);
-        n.definitionArgs.forEach(a => a.accept(this));
+        n.definitionArgs.forEach((a) => a.accept(this));
         n.stmt.accept(this);
       }
       visitFunctionDeclarationStmt(n: FunctionDeclarationStmt) {
         visitFunctionDeclarationStmt(); // call the mocked function so that jest knows it has been called
         expect(n).toBeInstanceOf(FunctionDeclarationStmt);
         n.expr.accept(this);
-        n.definitionArgs.forEach(a => a.accept(this));
+        n.definitionArgs.forEach((a) => a.accept(this));
       }
       visitBlockStmt(n: BlockStmt) {
         visitBlockStmt(); // call the mocked function so that jest knows it has been called
         expect(n).toBeInstanceOf(BlockStmt);
-        n.children.forEach(c => c.accept(this));
+        n.children.forEach((c) => c.accept(this));
       }
       visitNoopStmt(n: NoopStmt) {
         visitNoopStmt(); // call the mocked function so that jest knows it has been called

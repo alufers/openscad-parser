@@ -4,7 +4,12 @@ import {
   NewLineExtraToken,
   SingleLineComment,
 } from "../extraTokens";
-import { IntrinsicAnnotation, IntrinsicRenameAnnotation, ParamAnnotation, SeeAnnotation } from "./annotations";
+import {
+  IntrinsicAnnotation,
+  IntrinsicRenameAnnotation,
+  ParamAnnotation,
+  SeeAnnotation,
+} from "./annotations";
 import DocAnnotationClass from "./DocAnnotationClass";
 
 export default class DocComment {
@@ -12,7 +17,7 @@ export default class DocComment {
     IntrinsicAnnotation,
     IntrinsicRenameAnnotation,
     ParamAnnotation,
-    SeeAnnotation
+    SeeAnnotation,
   ];
   constructor(
     public documentationContent: string,

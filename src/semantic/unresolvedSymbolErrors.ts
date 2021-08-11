@@ -8,15 +8,13 @@ export class UnresolvedFunctionError extends CodeError {
 }
 
 export class UnresolvedModuleError extends CodeError {
-    constructor(pos: CodeLocation, functionName: string) {
-      super(pos, `Unresolved module '${functionName}'.`);
-    }
+  constructor(pos: CodeLocation, functionName: string) {
+    super(pos, `Unresolved module '${functionName}'.`);
   }
-  
+}
 
-  export class UnresolvedVariableError extends CodeError {
-    constructor(pos: CodeLocation, functionName: string) {
-      super(pos, `Unresolved variable '${functionName}'.`);
-    }
+export class UnresolvedVariableError extends CodeError {
+  constructor(pos: CodeLocation, functionName: string) {
+    super(pos, `Unresolved variable '${functionName}'.`);
   }
-  
+}

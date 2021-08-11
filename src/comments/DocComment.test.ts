@@ -26,7 +26,9 @@ describe("DocComment", () => {
       (ast.statements[0] as ModuleDeclarationStmt).tokens.moduleKeyword
         .extraTokens
     );
-    expect(dc.documentationContent).toEqual("Hello\nI am a documentation comment.")
+    expect(dc.documentationContent).toEqual(
+      "Hello\nI am a documentation comment."
+    );
   });
   it("parses a simple documentation comment with an annotation", () => {
     const ast = doParse(`
@@ -43,10 +45,14 @@ describe("DocComment", () => {
       (ast.statements[0] as ModuleDeclarationStmt).tokens.moduleKeyword
         .extraTokens
     );
-    expect(dc.documentationContent).toEqual("Hello\nI am a documentation comment.");
+    expect(dc.documentationContent).toEqual(
+      "Hello\nI am a documentation comment."
+    );
     expect(dc.annotations).toHaveLength(1);
     expect(dc.annotations[0]).toBeInstanceOf(IntrinsicAnnotation);
-    expect((dc.annotations[0] as IntrinsicAnnotation).intrinsicType).toEqual("controlFlow");
+    expect((dc.annotations[0] as IntrinsicAnnotation).intrinsicType).toEqual(
+      "controlFlow"
+    );
   });
   it("does not leave param annotations in the doc description", () => {
     const ast = doParse(`
@@ -64,6 +70,5 @@ describe("DocComment", () => {
         .extraTokens
     );
     expect(dc.documentationContent).not.toContain("@param");
-   
   });
 });

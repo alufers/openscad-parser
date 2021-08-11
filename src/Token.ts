@@ -11,7 +11,7 @@ export default class Token {
    * Start of this token, including all the whitespace before it.
    */
   public startWithWhitespace: CodeLocation;
-  
+
   constructor(
     public type: TokenType,
     public pos: CodeLocation,
@@ -24,6 +24,6 @@ export default class Token {
   }
 
   hasNewlineInExtraTokens() {
-    return this.extraTokens.some(t => t instanceof NewLineExtraToken);
+    return this.extraTokens.some((t) => t instanceof NewLineExtraToken);
   }
 }

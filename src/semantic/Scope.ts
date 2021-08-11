@@ -36,7 +36,6 @@ export default class Scope {
     return this.lookup("variables", name) as AssignmentNode;
   }
 
-
   lookupModule(name: string) {
     return this.lookup("modules", name) as ModuleDeclarationStmt;
   }
@@ -44,7 +43,6 @@ export default class Scope {
   lookupFunction(name: string) {
     return this.lookup("functions", name) as FunctionDeclarationStmt;
   }
-
 
   private lookup(
     x: KeysOfType<Scope, Map<any, any>>,

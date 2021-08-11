@@ -8,7 +8,8 @@ import NodeWithScope from "./NodeWithScope";
 import Scope from "./Scope";
 
 export default class ScopeSymbolCompletionProvider
-  implements CompletionProvider {
+  implements CompletionProvider
+{
   textOnly = false;
   exclusive = false;
   shouldActivate(ast: ASTNode, loc: CodeLocation): boolean {

@@ -27,7 +27,7 @@ export default class AssignmentNode extends ASTNode {
    * THe value of the name being assigned.
    */
   value: Expression;
-  
+
   /**
    * The documentation and annotations connected with this variable.
    */

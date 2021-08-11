@@ -39475,7 +39475,7 @@ polyhedron [[i1,i2,i3],[i2,i3,i4],...]",
                 "__c": "AssignmentNode",
                 "name": "i",
                 "pos": null,
-                "role": 2,
+                "role": 1,
                 "tokens": Object {
                   "__c": "Object",
                   "equals": Object {
@@ -44072,6 +44072,7 @@ ScadFile {
         "elseExpr": LetExpr {
           "args": Array [
             AssignmentNode {
+              "docComment": undefined,
               "name": "a",
               "pos": CodeLocation {
                 "char": 26,

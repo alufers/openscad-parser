@@ -88,8 +88,10 @@ interface TaggableStatement {
 /**
  * @category AST
  */
-export class ModuleInstantiationStmt extends Statement
-  implements TaggableStatement {
+export class ModuleInstantiationStmt
+  extends Statement
+  implements TaggableStatement
+{
   /**
    * !
    */

@@ -59,9 +59,8 @@ describe("ASTPrinter", () => {
   }
 
   function doPreserveTest(source: string) {
-    const [codeWithInjections, injectedStrings] = injectCommentsBetweenTokens(
-      source
-    );
+    const [codeWithInjections, injectedStrings] =
+      injectCommentsBetweenTokens(source);
 
     // we do two passes, one with all the comments and another one with the problematic ones, this is where we throw errors
     const formatted = doFormat(codeWithInjections);
@@ -157,7 +156,6 @@ describe("ASTPrinter", () => {
     `);
     expect(f).toStrictEqual(expect.stringContaining("%"));
   });
-
 
   test("does not introduce newlines before else branches", () => {
     const f = doFormat(`

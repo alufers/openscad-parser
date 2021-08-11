@@ -53,7 +53,8 @@ export class ScadFileWithScope extends ScadFile implements NodeWithScope {
 
 export class FunctionDeclarationStmtWithScope
   extends FunctionDeclarationStmt
-  implements NodeWithScope {
+  implements NodeWithScope
+{
   scope: Scope;
   accept<R>(visitor: ASTVisitorForNodesWithScopes<R>): R {
     if (visitor.visitFunctionDeclarationStmtWithScope) {
@@ -65,7 +66,8 @@ export class FunctionDeclarationStmtWithScope
 
 export class ModuleDeclarationStmtWithScope
   extends ModuleDeclarationStmt
-  implements NodeWithScope {
+  implements NodeWithScope
+{
   scope: Scope;
   accept<R>(visitor: ASTVisitorForNodesWithScopes<R>): R {
     if (visitor.visitModuleDeclarationStmtWithScope) {
@@ -77,7 +79,8 @@ export class ModuleDeclarationStmtWithScope
 
 export class ModuleInstantiationStmtWithScope
   extends ModuleInstantiationStmt
-  implements NodeWithScope {
+  implements NodeWithScope
+{
   scope: Scope;
   accept<R>(visitor: ASTVisitorForNodesWithScopes<R>): R {
     if (visitor.visitModuleInstantiationStmtWithScope) {

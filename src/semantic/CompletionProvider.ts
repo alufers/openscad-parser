@@ -14,5 +14,8 @@ export default interface CompletionProvider {
   exclusive: boolean;
 
   shouldActivate(ast: ASTNode, loc: CodeLocation): boolean;
-  getSymbolsAtLocation(ast: ASTNode, loc: CodeLocation): Promise<CompletionSymbol[]>;
-}0
+  getSymbolsAtLocation(
+    ast: ASTNode,
+    loc: CodeLocation
+  ): Promise<CompletionSymbol[]>;
+}

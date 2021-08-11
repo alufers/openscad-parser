@@ -15,8 +15,10 @@ type DispatchTokenMix = (Token | (() => PinpointerRet))[];
  * This class searches through the AST to find a node based on its position.
  * It may return BinAfter or BinBefore if the node cannot be found.
  */
-export default class ASTPinpointer extends ASTAssembler<PinpointerRet>
-  implements ASTVisitor<PinpointerRet> {
+export default class ASTPinpointer
+  extends ASTAssembler<PinpointerRet>
+  implements ASTVisitor<PinpointerRet>
+{
   /**
    * Contains all the ancestors of the pinpointed nodes. The pinpointed node is always first.
    */
@@ -40,7 +42,7 @@ export default class ASTPinpointer extends ASTAssembler<PinpointerRet>
   ): PinpointerRet {
     let l = 0,
       r = t.length - 1;
-      // perform a binary search on the tokens
+    // perform a binary search on the tokens
     while (l <= r) {
       let pivot = Math.floor((r + l) / 2);
       if (t[pivot] instanceof Token) {
@@ -89,6 +91,8 @@ export default class ASTPinpointer extends ASTAssembler<PinpointerRet>
     if (typeof firstThing === "function") {
       return firstThing.call(this);
     }
-    throw new Error(`Bad element in first token mix element. Recieved ${firstThing}, expected a function or a Token.`);
+    throw new Error(
+      `Bad element in first token mix element. Recieved ${firstThing}, expected a function or a Token.`
+    );
   }
 }
