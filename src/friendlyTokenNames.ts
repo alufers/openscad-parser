@@ -42,6 +42,7 @@ export default {
   [TokenType.Semicolon]: "';' (Semicolon)",
   [TokenType.Slash]: "'/' (Slash)",
   [TokenType.Star]: "'*' (Star)",
+  [TokenType.Caret]: "'^' (Caret)",
   [TokenType.StringLiteral]: "string literal (StringLiteral)",
   [TokenType.True]: "'true' (True)",
   [TokenType.Undef]: "'undef' (Undef)",

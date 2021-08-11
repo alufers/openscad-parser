@@ -481,6 +481,15 @@ describe("Parser", () => {
     const a = file.statements[0] as AssignmentNode;
     expect(simplifyAst(a.value)).toMatchSnapshot();
   });
+
+  it("it parses the ^ exponetiation operator", () => {
+    const file = doParse(`
+      x = 10 * 2^8;
+    `);
+    expect(file.statements[0]).toBeInstanceOf(AssignmentNode);
+    const a = file.statements[0] as AssignmentNode;
+    expect(simplifyAst(a.value)).toMatchSnapshot();
+  });
   it("parses the '-' unary operator", () => {
     const file = doParse(`
       x = -10;

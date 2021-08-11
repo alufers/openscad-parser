@@ -87,6 +87,9 @@ export default class Lexer {
       case "*":
         this.addToken(TokenType.Star);
         break;
+      case "^":
+        this.addToken(TokenType.Caret);
+        break;
       case "/":
         if (this.match("/")) {
           const comment = new SingleLineComment(this.getLoc(), "");

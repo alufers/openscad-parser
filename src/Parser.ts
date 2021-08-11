@@ -713,10 +713,25 @@ export default class Parser {
     return expr;
   }
   protected multiplication(): Expression {
-    let expr = this.unary();
+    let expr = this.exponentiation();
     while (
       this.matchToken(TokenType.Star, TokenType.Slash, TokenType.Percent)
     ) {
+      const operator = this.previous();
+      const right = this.exponentiation();
+      expr = new BinaryOpExpr(this.getLocation(), expr, operator.type, right, {
+        operator,
+      });
+    }
+    return expr;
+  }
+
+  /**
+   * Parses b ^ e.
+   */
+  protected exponentiation(): Expression {
+    let expr = this.unary();
+    while (this.matchToken(TokenType.Caret)) {
       const operator = this.previous();
       const right = this.unary();
       expr = new BinaryOpExpr(this.getLocation(), expr, operator.type, right, {
@@ -725,6 +740,7 @@ export default class Parser {
     }
     return expr;
   }
+
   /**
    * Parses +expr, -expr and !expr.
    */

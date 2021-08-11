@@ -121,6 +121,8 @@ export default class ASTPrinter implements ASTVisitor<string> {
       source += "*";
     } else if (n.operation === TokenType.Slash) {
       source += "/";
+    } else if (n.operation === TokenType.Caret) {
+      source += "^";
     } else if (n.operation === TokenType.Percent) {
       source += "%";
     } else if (n.operation === TokenType.Less) {

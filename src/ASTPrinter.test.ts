@@ -122,6 +122,12 @@ describe("ASTPrinter", () => {
     `);
   });
 
+  test("it preserves all comments nearby exponentiation operators", () => {
+    doPreserveTest(`
+      expo = 3 * 2 ^ 8;
+    `);
+  });
+
   test("it preserves all comments nearby module modifiers", () => {
     doPreserveTest(`
      % asdf();
@@ -179,5 +185,12 @@ describe("ASTPrinter", () => {
       }
     `);
     expect(f).toStrictEqual(expect.stringContaining("} else if(false) {"));
+  });
+
+  test("preserves exponentiation operators", () => {
+    const f = doFormat(`
+    expo = 3 * 2 ^ 8;
+  `);
+    expect(f).toStrictEqual(expect.stringContaining("^"));
   });
 });

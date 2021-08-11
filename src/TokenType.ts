@@ -116,7 +116,8 @@ enum TokenType {
   Star,
   Slash,
   Percent,
-
+  Caret,
+  
   /**
    * Left parenthesis: (
    */
