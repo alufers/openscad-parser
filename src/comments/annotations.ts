@@ -50,7 +50,14 @@ export class ParamAnnotation {
     named: boolean;
     type: string[];
     conflictsWith: string[];
-  } = { positional: false, named: false, type: [], conflictsWith: [] };
+    possibleValues: string[];
+  } = {
+    positional: false,
+    named: false,
+    type: [],
+    conflictsWith: [],
+    possibleValues: [],
+  };
   constructor(contents: string[]) {
     this.link = contents[0] || "";
     this.description = contents
@@ -59,6 +66,7 @@ export class ParamAnnotation {
         let m = c.match(/^\[(.*?)(=(.*))?\]$/);
         if (!m) return true;
         if (!m[3]) {
+          // boolean tag, no value
           this.tags[m[1]] = true;
         } else {
           this.tags[m[1]] = m[3].split(",");

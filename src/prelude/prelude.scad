@@ -1,14 +1,20 @@
 // Prelude contains all the buit-in modules, functions and variables
 
+// Some texts were copied from the OpenScad wiki and are licensed under the  Creative Commons Attribution-ShareAlike License.
+
 //
 // Control flow
 //
 
+// Evaluate each value in a range or vector, applying it to the following Action. 
 // @intrinsic controlFlow
 // @intrinsicRename for
+// @see https://en.wikibooks.org/wiki/OpenSCAD_User_Manual/Conditional_and_Iterator_Functions#For_loop
 module _for();
 
+// Iterate over the values in a range or vector and create the intersection of objects created by each pass. 
 // @intrinsic controlFlow
+// @see https://en.wikibooks.org/wiki/OpenSCAD_User_Manual/Conditional_and_Iterator_Functions#Intersection_For_Loop
 module intersection_for();
 
 // 
@@ -27,28 +33,89 @@ module intersection_for();
 module circle(r = radius, d = diameter);
 
 /**
- *  Generates a square or a rectangle.
- *  If center is `false` it is placed in the first quadrant (positive XY), if center is set to `true` it is centered at the origin.
+ * Generates a square or a rectangle.
+ * If center is `false` it is placed in the first quadrant (positive XY), if center is set to `true` it is centered at the origin.
  *
  * @param size [positional] [type=number,vector] The size of the square. Can be a two-dimensional vector [x, y] for a rectangle, or a number for a square.
  * @param center [positional] [type=bool] When set to true the rectangle is placed with the center at the origin of the coordinate system.
  **/
 module square(size = [x, y], center = true/false);
 
-module polygon(points);
+/**
+ * Creates a multiple sided shape from a list of x, y coordinates.
+ *
+ * @param points [positional] [type=vector] The list of x, y points of the polygon, a vector of 2 element vectors.
+ * @param paths [positional] [type=vector] The order to traverse the points. Uses indices from 0 to n-1. May be in a different order and use all or part, of the points listed. May be in a different order and use all or part, of the points listed.
+ * @see https://en.wikibooks.org/wiki/OpenSCAD_User_Manual/Using_the_2D_Subsystem#polygon
+ **/
+module polygon(points, paths);
 
-module text(t, size, font, halign, valign, spacing, direction, language, script);
+/**
+ * Creates text as a 2D geometric object, using fonts installed on the local system or provided as separate font file.
+ *
+ * @param text [positional] [type=string] The text to generate.
+ * @param size [named] [type=number] The generated text has an ascent (height above the baseline) of approximately the given value. Default is 10. Different fonts can vary somewhat and may not fill the size specified exactly, typically they render slightly smaller.
+ * @param font [named] [type=string] The name of the font that should be used. This is not the name of the font file, but the logical font name (internally handled by the fontconfig library).
+ * @param halign [named] [type=string] [possibleValues=left,right,center] The horizontal alignment for the text.
+ * @param valign [named] [type=string] [possibleValues=baseline,top,center,bottom] The vertical alignment for the text.
+ * @param spacing [named] [type=number] Factor to increase/decrease the character spacing. The default value of 1 results in the normal spacing for the font, giving a value greater than 1 causes the letters to be spaced further apart.
+ * @param direction [named] [type=string] [possibleValues=ltr,rtl,ttb,btt] Direction of the text flow.
+ * @param language [named] [type=string] The language of the text.
+ * @param script [named] [type=string] The script of the text. Default is "latin".
+ * @param $fn [named] [type=number] Used for subdividing the curved path segments provided by freetype
+ * @see https://en.wikibooks.org/wiki/OpenSCAD_User_Manual/Text
+ **/
+module text(text, size = 10, font, halign = "left", valign = "baseline", spacing = 1, direction = "ltr" , language = "en", script = "latin");
 
-module projection(cut);
+/**
+ * Using the projection() function, you can create 2d drawings from 3d models, and export them to the dxf format. It works by projecting a 3D model to the (x,y) plane, with z at 0. If cut=true, only points with z=0 are considered (effectively cutting the object), with cut=false(the default), points above and below the plane are considered as well (creating a proper projection). 
+ * 
+ * @param cut [positional] [type=boolean] If set to true only points with z=0 are considered.
+ * @see https://en.wikibooks.org/wiki/OpenSCAD_User_Manual/Using_the_2D_Subsystem#3D_to_2D_Projection
+ */
+module projection(cut = false);
 
 // 
 // 3D Solids
 // 
 
+/**
+ * Creates a sphere at the origin of the coordinate system.
+ *
+ * @param r [positional] [type=number] This is the radius of the sphere.
+ * @param d [named] [type=number] This is the diameter of the sphere.
+ * @param $fa [named] [type=number] Fragment angle in degrees
+ * @param $fs [named] [type=number] Fragment size in mm
+ * @param $fn [named] [type=number] Resolution
+ * @see https://en.wikibooks.org/wiki/OpenSCAD_User_Manual/Primitive_Solids#sphere
+ **/
 module sphere($fn = 0, $fa = 12, $fs = 2, r = 1);
 
+/**
+ * Creates a cube in the first octant.
+ *
+ * @param size [positional] [type=vector,number] Three value array [x,y,z], cube with dimensions or single value, cube will be with all sides this length.
+ * @param center [positional] [type=boolean] When center is true, the cube is centered on the origin.
+ * @see https://en.wikibooks.org/wiki/OpenSCAD_User_Manual/Primitive_Solids#cube
+ **/
 module cube(size = [1, 1, 1], center = false);
 
+/**
+ * Creates a cylinder or cone centered about the z axis.
+ *
+ * @param h [positional] [type=number] The height of the cylinder or cone
+ * @param r [positional] [type=number] This is the radius of the cylinder. r2 = r1 = r
+ * @param r1 [positional] [type=number] This is the radius of the bottom of the cone. 
+ * @param r2 [positional] [type=number] This is the radius of the top of the cone. 
+ * @param d [named] [type=number] This is the diameter of the cylinder. 
+ * @param d1 [named] [type=number] This is the diameter of the bottom of the cone. 
+ * @param d2 [named] [type=number] This is the diameter of the top of the cone. 
+ * @param center [positional] [type=boolean]  When center is true, it is also centered vertically along the z axis.
+ * @param $fa [named] [type=number] Minimum angle (in degrees) of each fragment.
+ * @param $fs [named] [type=number] Minimum circumferential length of each fragment.
+ * @param $fn [named] [type=number] Fixed number of fragments in 360 degrees. Values of 3 or more override $fa and $fs 
+ * @see https://en.wikibooks.org/wiki/OpenSCAD_User_Manual/Primitive_Solids#cylinder
+ **/
 module cylinder($fn = 0, $fa = 12, $fs = 2, h = 1, r1 = 1, r2 = 1, center = false);
 
 module polyhedron(points = undef, faces = undef, convexity = 1);
@@ -63,44 +130,126 @@ module rotate_extrude(angle, convexity);
 // Transformation modules
 //
 
-module translate(pos = [x, y, z]);
+/**
+ * Translates (moves) its child elements along the specified vector.
+ *
+ * @param v [positional] [type=vector] The vector used to move the object.
+ * @see https://en.wikibooks.org/wiki/OpenSCAD_User_Manual/Transformations#translate
+ **/
+module translate(v = [x, y, z]);
 
+/**
+ * Rotates its child 'a' degrees about the axis of the coordinate system or around an arbitrary axis.
+ *
+ * @param a [positional] [type=vector,number] When 'a' is a vector specifies multiple axes then the rotation is applied in the following order: x, y, z. When a is a number it specifies one angle.
+ * @param v [positional] [type=vector] The axis to rotate about when 'a' is a number.
+ * @see https://en.wikibooks.org/wiki/OpenSCAD_User_Manual/Transformations#rotate
+ **/
 module rotate(a = 0, v = [x, y, z]);
 
+/**
+ * Scales its child elements using the specified vector.
+ *
+ * @param v [positional] [type=vector] The vector to use.
+ * @see https://en.wikibooks.org/wiki/OpenSCAD_User_Manual/Transformations#scale
+ **/
 module scale(pos = [x, y, z]);
 
-module resize(pos = [x, y, z], auto) 
+/**
+ * Modifies the size of the child object to match the given x, y, and z in newsize.  
+ * It is a CGAL operation, and like others such as render() operates with full geometry, so even in preview this takes time to process. 
+ *
+ * @param newsize [positional] [type=vector] The size of the bounding box.
+ * @param auto [positional] [type=boolean,vector] A boolean or vector of booleans for each axis. If set to true,  it auto-scales any 0-dimensions to match.
+ * @see https://en.wikibooks.org/wiki/OpenSCAD_User_Manual/Transformations#resize
+ **/
+module resize(newsize = [x, y, z], auto = false) 
 
+/**
+ * Mirrors the child element on a plane through the origin.
+ *
+ * @param v [positional] [type=vector] The normal vector of a plane intersecting the origin through which to mirror the object. 
+ * @see https://en.wikibooks.org/wiki/OpenSCAD_User_Manual/Transformations#mirror
+ **/
 module mirror(pos = [x, y, z]);
 
+/**
+ * Multiplies the geometry of all child elements with the given affine transformation matrix, where the matrix is 4×3 - a vector of 3 row vectors with 4 elements each, or a 4×4 matrix with the 4th row always forced to [0,0,0,1]. 
+ *
+ * @param [positional] [type=vector] The matirx to multiply with.
+ * @see https://en.wikibooks.org/wiki/OpenSCAD_User_Manual/Transformations#multmatrix
+ **/
 module multmatrix(m);
 
-module color(c = [1, 1, 1, 1]);
+/**
+ * Displays the child elements using the specified RGB color + alpha value.
+ * This is only used for the F5 preview as CGAL and STL (F6) do not currently support color.
+ *
+ * @param c [positional] [type=vector,string] The color name or hex string or a vector of values limited to floating point values in the range [0,1]
+ * @see https://en.wikibooks.org/wiki/OpenSCAD_User_Manual/Transformations#color
+ **/ 
+module color(c = [1, 1, 1, 1], alpha = 1);
 
+/**
+ * Displays the convex hull of child nodes. 
+ *
+ * @see https://en.wikibooks.org/wiki/OpenSCAD_User_Manual/Transformations#hull
+ **/
 module hull();
 
-// Offset generates a new 2d interior or exterior outline from an existing outline. 
-// There are two modes of operation. radial and offset. 
-// The offset method creates a new outline who's sides are a fixed distance outer (delta > 0) or inner (delta < 0) from the original outline. The radial method creates a new outline as if a circle of some radius is rotated around the exterior (r>0} or interior (r<0) original outline. 
+/**
+ * Offset generates a new 2d interior or exterior outline from an existing outline. 
+ * There are two modes of operation. radial and offset. 
+ * The offset method creates a new outline who's sides are a fixed distance outer (delta > 0) or inner (delta < 0) from the original outline. The radial method creates a new outline as if a circle of some radius is rotated around the exterior (r>0} or interior (r<0) original outline. 
+ *
+ * @see https://en.wikibooks.org/wiki/OpenSCAD_User_Manual/Transformations#offset
+ **/
 module offset(r = 1, delta = 1, chamfer = false);
 
-// Displays the minkowski sum of child nodes. 
+/**
+ *  Displays the minkowski sum of child nodes.
+ *
+ * @see https://en.wikibooks.org/wiki/OpenSCAD_User_Manual/Transformations#minkowski
+ **/
 module minkowski();
 
 // 
 // Constants
 // 
 
+/**
+ * An approximation of the π mathematical constant. It is defined in Euclidean geometry[a] as the ratio of a circle's circumference to its diameter.
+ *
+ * @see https://en.wikipedia.org/wiki/Pi
+ **/
 PI = 3.141592653589793;
 
 //
 // Boolean operations
 //
 
+/**
+ * Creates a union of all its child nodes. This is the sum of all children (logical or).
+ * May be used with either 2D or 3D objects, but don't mix them.
+ *
+ * @see https://en.wikibooks.org/wiki/OpenSCAD_User_Manual/CSG_Modelling#union
+ **/
 module union();
 
+/**
+ * Subtracts the 2nd (and all further) child nodes from the first one (logical and not).
+ * May be used with either 2D or 3D objects, but don't mix them. 
+ *
+ * @see https://en.wikibooks.org/wiki/OpenSCAD_User_Manual/CSG_Modelling#difference
+ **/
 module difference();
 
+/**
+ * Creates the intersection of all child nodes. This keeps the overlapping portion (logical and). 
+ * Only the area which is common or shared by all children is retained.
+ *
+ * @see https://en.wikibooks.org/wiki/OpenSCAD_User_Manual/CSG_Modelling#intersection
+ **/
 module intersection();
 
 
@@ -122,14 +271,20 @@ function is_list(var) = undef;
 
 function concat(a1, a2, a3, a4, a5, a6, a7) = undef;
 
-// Look up value in table, and linearly interpolate if there's no exact match.
-// The first argument is the value to look up. 
-// The second is the lookup table -- a vector of key-value pairs. 
+/**
+ * Look up value in table, and linearly interpolate if there's no exact match.
+ * @param key [positional] The value to look up. 
+ * @param tab [positional] [type=vector] The lookup table -- a vector of key-value pairs.
+ * @see https://en.wikibooks.org/wiki/OpenSCAD_User_Manual/Mathematical_Functions#lookup
+ **/
 function lookup(key, tab) = undef;
 function str(a1, a2, a3, a4, a5, a6, a7) = undef;
 function chr(a) = undef;
 
-// Convert the first character of the given string to a Unicode code point.
+/**
+ * Convert the first character of the given string to a Unicode code point.
+ * @param str [positional] [type=string] The character to take the unicode code point for.
+ **/
 function ord(str) = undef;
 function search() = undef;
 function version() = undef;
@@ -139,8 +294,23 @@ function parent_module(idx) = undef;
 
 // 
 // Mathematical functions
-// 
+//
+
+/**
+ * Mathematical absolute value function. Returns the positive value of a signed decimal number. 
+ *
+ * @param x [positional] [type=number] The value to remove the minus from.
+ * @returns The absolute value.
+ * @see https://en.wikibooks.org/wiki/OpenSCAD_User_Manual/Mathematical_Functions#abs
+ **/
 function abs(x) = undef;
+/**
+ * Mathematical signum function. 
+ *
+ * @param x [positional] [type=number] Value to find the sign of
+ * @returns unit value that extracts the sign of the passed value. It is 1, 0, or -1.
+ * @see https://en.wikibooks.org/wiki/OpenSCAD_User_Manual/Mathematical_Functions#sign
+ **/
 function sign(x) = undef;
 function sin(x) = undef;
 function cos(x) = undef;
