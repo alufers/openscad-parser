@@ -503,10 +503,12 @@ export default class ASTPrinter implements ASTVisitor<string> {
     }
     source += this.stringifyExtraTokens(n.tokens.secondParen);
     source += ")";
-    if (!(n.stmt instanceof NoopStmt)) {
-      source += " ";
+    if (!this.config.definitionsOnly) {
+      if (!(n.stmt instanceof NoopStmt)) {
+        source += " ";
+      }
+      source += n.stmt.accept(this);
     }
-    source += n.stmt.accept(this);
     return source;
   }
   visitFunctionDeclarationStmt(n: FunctionDeclarationStmt): string {
@@ -526,11 +528,13 @@ export default class ASTPrinter implements ASTVisitor<string> {
     }
     source += this.stringifyExtraTokens(n.tokens.secondParen);
     source += ")";
-    source += this.stringifyExtraTokens(n.tokens.equals);
-    source += " = ";
-    source += n.expr.accept(this.copyWithIndent());
-    source += this.stringifyExtraTokens(n.tokens.semicolon);
-    source += ";" + this.newLine(false, "afterFunctionDeclaration");
+    if (!this.config.definitionsOnly) {
+      source += this.stringifyExtraTokens(n.tokens.equals);
+      source += " = ";
+      source += n.expr.accept(this.copyWithIndent());
+      source += this.stringifyExtraTokens(n.tokens.semicolon);
+      source += ";" + this.newLine(false, "afterFunctionDeclaration");
+    }
     return source;
   }
   visitBlockStmt(n: BlockStmt): string {
@@ -623,9 +627,15 @@ export default class ASTPrinter implements ASTVisitor<string> {
             return "";
           }
           return this.newLine(true, "forcedNewlineExtraToken");
-        } else if (et instanceof MultiLineComment) {
+        } else if (
+          et instanceof MultiLineComment &&
+          !this.config.definitionsOnly
+        ) {
           return "/*" + et.contents + "*/";
-        } else if (et instanceof SingleLineComment) {
+        } else if (
+          et instanceof SingleLineComment &&
+          !this.config.definitionsOnly
+        ) {
           return "//" + et.contents + "";
         }
         return "";
