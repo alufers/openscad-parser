@@ -48,12 +48,14 @@ export class ParamAnnotation {
     [x: string]: any;
     positional: boolean;
     named: boolean;
+    required: boolean;
     type: string[];
     conflictsWith: string[];
     possibleValues: string[];
   } = {
     positional: false,
     named: false,
+    required: false,
     type: [],
     conflictsWith: [],
     possibleValues: [],

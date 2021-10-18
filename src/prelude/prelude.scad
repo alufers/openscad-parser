@@ -21,8 +21,6 @@ module intersection_for();
 // 2D
 // 
 
-
-
 /**
  * Generates a circle at the origin.
  *
@@ -53,7 +51,7 @@ module polygon(points, paths);
 /**
  * Creates text as a 2D geometric object, using fonts installed on the local system or provided as separate font file.
  *
- * @param text [positional] [type=string] The text to generate.
+ * @param text [required] [positional] [type=string] The text to generate.
  * @param size [named] [type=number] The generated text has an ascent (height above the baseline) of approximately the given value. Default is 10. Different fonts can vary somewhat and may not fill the size specified exactly, typically they render slightly smaller.
  * @param font [named] [type=string] The name of the font that should be used. This is not the name of the font file, but the logical font name (internally handled by the fontconfig library).
  * @param halign [named] [type=string] [possibleValues=left,right,center] The horizontal alignment for the text.
@@ -120,13 +118,43 @@ module cylinder($fn = 0, $fa = 12, $fs = 2, h = 1, r1 = 1, r2 = 1, center = fals
 
 module polyhedron(points = undef, faces = undef, convexity = 1);
 
+/**
+ * Imports a file for use in the current OpenSCAD model. The file extension is used to determine which type.
+ *
+ * @param file [positional] [required] [type=string] A string containing the path to file. If the give path is not absolute, it is resolved relative to the importing script.
+ * @param convexity [named] [type=number] The convexity parameter specifies the maximum number of front sides (back sides) a ray intersecting the object might penetrate. This parameter is needed only for correctly displaying the object in OpenCSG preview mode.
+ * @param layer [named] [type=string] For DXF import only, specify a specific layer to import.
+ * @see https://en.wikibooks.org/wiki/OpenSCAD_User_Manual/Importing_Geometry#import
+ **/
 module import(file = "");
 
+/**
+ * Extrudes a 2D object along the Z axis. The extrusion is always performed on the projection (shadow) of the 2d object xy plane.
+ *
+ * @param height [type=number] [positional] The height of the extrusion. Must be positive.
+ * @param center [type=boolean] [positional] If set to true, the extrusion Z range is from -height/2 to height/2.
+ * @param convexity [type=number] [positional] Specifies the maximum number of front sides (back sides) a ray intersecting the object might penetrate. 
+ * @param twist [type=number] [positional] Twist is the number of degrees of through which the shape is extruded. Setting the parameter twist = 360 extrudes through one revolution.  The twist direction follows the left hand rule.
+ * @param slices [type=number] [positional] Defines the number of intermediate points along the Z axis of the extrusion. Increases with the value of twist by default.
+ * @param scale [type=number,vector] [positional] Scales the 2D shape by this value over the height of the extrusion.
+ * @param $fa [named] [type=number] Minimum angle (in degrees) of each fragment.
+ * @param $fs [named] [type=number] Minimum circumferential length of each fragment.
+ * @param $fn [named] [type=number] Fixed number of fragments in 360 degrees. Values of 3 or more override $fa and $fs.
+ * @see https://en.wikibooks.org/wiki/OpenSCAD_User_Manual/Using_the_2D_Subsystem#Linear_Extrude
+ **/
 module linear_extrude(height, center, convexity, twist, slices);
 
-module rotate_extrude(angle, convexity);
-
-//
+/**
+ * Spins a 2D shape around the Z-axis to form a solid which has rotational symmetry. 
+ *
+ * @param angle [positional] [type=number]  Specifies the number of degrees to sweep, starting at the positive X axis. The direction of the sweep follows the Right Hand Rule.
+ * @param convexity [type=number] [positional] Specifies the maximum number of front sides (back sides) a ray intersecting the object might penetrate. 
+ * @param $fa [named] [type=number] Minimum angle (in degrees) of each fragment.
+ * @param $fs [named] [type=number] Minimum circumferential length of each fragment.
+ * @param $fn [named] [type=number] Fixed number of fragments in 360 degrees. Values of 3 or more override $fa and $fs 
+ * @see https://en.wikibooks.org/wiki/OpenSCAD_User_Manual/Using_the_2D_Subsystem#Rotate_Extrude'
+ **/
+module rotate_extrude(anglis_bool
 // Transformation modules
 //
 
@@ -257,18 +285,60 @@ module intersection();
 // Type test functions
 // 
 
-function is_undef(var) = undef;
+/**
+ * Checks whether the passed value is undef.
+ *
+ * @param val The value to check
+ * @returns Whether `val` is undef.
+ * @see https://en.wikibooks.org/wiki/OpenSCAD_User_Manual/Type_Test_Functions#is_undef
+ **/
+function is_undef(val) = undef;
 
-function is_bool(var) = undef;
+/**
+ * Checks whether the passed value is a boolean (true, false).
+ *
+ * @param val tthe value to check.
+ * @returns Whether `val` is undef.
+ * @see https://en.wikibooks.org/wiki/OpenSCAD_User_Manual/Type_Test_Functions#is_bool
+ **/
+function is_bool(val) = undef;
 
-function is_num(var) = undef;
-function is_string(var) = undef;
-function is_list(var) = undef;
+/**
+ * Checks whether the passed value is a number (including infinity).
+ *
+ * @param val tthe value to check.
+ * @returns Whether `val` is a number.
+ * @see https://en.wikibooks.org/wiki/OpenSCAD_User_Manual/Type_Test_Functions#is_num
+ **/
+function is_num(val) = undef;
+
+/**
+ * Checks whether the passed value is a string.
+ *
+ * @param val tthe value to check.
+ * @returns Whether `val` is a string.
+ * @see https://en.wikibooks.org/wiki/OpenSCAD_User_Manual/Type_Test_Functions#is_string
+ **/
+function is_string(val) = undef;
+
+/**
+ * Checks whether the passed value is a list (vector).
+ *
+ * @param val tthe value to check.
+ * @returns Whether `val` is a list.
+ * @see https://en.wikibooks.org/wiki/OpenSCAD_User_Manual/Type_Test_Functions#is_list
+ **/
+function is_list(val) = undef;
 
 // 
 // General functions
 // 
 
+/**
+ * Generates a new vector that is the result of appending the elements of the supplied vectors.
+ * @returns a new vector that is the result of appending the elements of the supplied vectors. 
+ * @see https://en.wikibooks.org/wiki/OpenSCAD_User_Manual/Mathematical_Functions#concat
+ **/
 function concat(a1, a2, a3, a4, a5, a6, a7) = undef;
 
 /**
@@ -278,6 +348,13 @@ function concat(a1, a2, a3, a4, a5, a6, a7) = undef;
  * @see https://en.wikibooks.org/wiki/OpenSCAD_User_Manual/Mathematical_Functions#lookup
  **/
 function lookup(key, tab) = undef;
+
+/**
+ * Converts all passed arguments and concatenates them.
+ *
+ * @returns A string created by concatenating the arguments.
+ * @see https://en.wikibooks.org/wiki/OpenSCAD_User_Manual/String_Functions#str
+ **/
 function str(a1, a2, a3, a4, a5, a6, a7) = undef;
 function chr(a) = undef;
 
@@ -304,6 +381,7 @@ function parent_module(idx) = undef;
  * @see https://en.wikibooks.org/wiki/OpenSCAD_User_Manual/Mathematical_Functions#abs
  **/
 function abs(x) = undef;
+
 /**
  * Mathematical signum function. 
  *
@@ -312,7 +390,25 @@ function abs(x) = undef;
  * @see https://en.wikibooks.org/wiki/OpenSCAD_User_Manual/Mathematical_Functions#sign
  **/
 function sign(x) = undef;
+
+/**
+ * Mathematical sine function.
+ * Relates an angle of a right-angled triangle to ratios of the opposite to the hypotenuse.
+ * @param x [positional] [type=number] Angle in degrees.
+ * @returns A number from -1 to 1
+ * @see https://en.wikipedia.org/wiki/Trigonometric_functions#Right-angled_triangle_definitions
+ * @see https://en.wikibooks.org/wiki/OpenSCAD_User_Manual/Mathematical_Functions#sin
+ **/
 function sin(x) = undef;
+
+/**
+ * Mathematical cosine function.
+ * Relates an angle of a right-angled triangle to ratios of the adjacent to the hypotenuse.
+ * @param x [positional] [type=number] Angle in degrees.
+ * @returns A number from -1 to 1
+ * @see https://en.wikipedia.org/wiki/Trigonometric_functions#Right-angled_triangle_definitions
+ * @see https://en.wikibooks.org/wiki/OpenSCAD_User_Manual/Mathematical_Functions#sin
+ **/
 function cos(x) = undef;
 function tan(x) = undef;
 function acos(x) = undef;
@@ -321,8 +417,25 @@ function atan(x) = undef;
 function atan2(x, y) = undef;
 function floor(x) = undef;
 function round(x) = undef;
+/**
+ * Mathematical ceiling function.
+ * Returns the next highest integer value by rounding up value if necessary.
+ * @param x [positional] [type=number] The number to round.
+ * @returns The next highest integer value by rounding up `x` if necessary.
+ * @see https://en.wikibooks.org/wiki/OpenSCAD_User_Manual/Mathematical_Functions#ceil
+ **/
 function ceil(x) = undef;
+
+/**
+ * Mathematical natural logarithm (logarithm of base e).
+ *
+ * @param x [positional] [type=number] The number to calculate the logarithm from. 
+ * @returns The logarithm.
+ * @see https://en.wikipedia.org/wiki/Natural_logarithm
+ * @see https://en.wikibooks.org/wiki/OpenSCAD_User_Manual/Mathematical_Functions#ln
+ **/
 function ln(x) = undef;
+
 function len(x) = undef;
 function log(x) = undef;
 function pow(b, e) = undef;
@@ -332,4 +445,16 @@ function rands(x) = undef;
 function min(x) = undef;
 function max(x) = undef;
 function norm(x) = undef;
-function cross(x) = undef;
+
+/**
+ * Calculates the cross product of two vectors in 3D or 2D space.
+ * If both vectors are in the 3D, the result is a vector that is perpendicular to both of the input vectors.
+ * If both vectors are in 2D space, their cross product has the form [0,0,z] and the cross function returns just the z value of the cross product.
+ *
+ *  Using any other types, vectors with lengths different from 2 or 3, or vectors not of the same length produces 'undef'. 
+ * @param a [positional] [type=vector] The first vector of the cross product.
+ * @param b [positional] [type=vector] The second vector of the cross product.
+ * @returns The cross product or undef (if the arguments are wrong).
+ * @see https://en.wikibooks.org/wiki/OpenSCAD_User_Manual/Mathematical_Functions#cross
+ **/
+function cross(a, b) = undef;
