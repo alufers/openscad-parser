@@ -117,6 +117,7 @@ export default class SolutionManager implements ScadFileProvider<SolutionFile> {
   openedFiles: Map<string, SolutionFile> = new Map();
   allFiles: Map<string, SolutionFile> = new Map();
   notReadyFiles: Map<string, Promise<SolutionFile>> = new Map();
+  
   /**
    * Returns a registered solution file for a given path. It supports getting files which have not been fully processed yet.
    * @param filePath
@@ -131,6 +132,7 @@ export default class SolutionManager implements ScadFileProvider<SolutionFile> {
     }
     return await this.notReadyFiles.get(filePath);
   }
+
   async notifyNewFileOpened(filePath: string, contents: string) {
     if (!path.isAbsolute(filePath)) {
       throw new Error("Path must be absolute and normalized.");
@@ -139,6 +141,7 @@ export default class SolutionManager implements ScadFileProvider<SolutionFile> {
 
     this.openedFiles.set(filePath, await this.attachSolutionFile(cFile));
   }
+
   async notifyFileChanged(filePath: string, contents: string) {
     if (!path.isAbsolute(filePath)) {
       throw new Error("Path must be absolute and normalized.");
@@ -155,10 +158,12 @@ export default class SolutionManager implements ScadFileProvider<SolutionFile> {
     sf.codeFile = cFile;
     await sf.parseAndProcess();
   }
+
   notifyFileClosed(filePath: string) {
     this.openedFiles.delete(filePath);
     this.garbageCollect();
   }
+
   protected async attachSolutionFile(codeFile: CodeFile) {
     const solutionFile = new SolutionFile(this);
     solutionFile.codeFile = codeFile;
@@ -176,6 +181,7 @@ export default class SolutionManager implements ScadFileProvider<SolutionFile> {
       this.notReadyFiles.delete(codeFile.path);
     }
   }
+
   /**
    * Checks whether a file is already in the solution, and if not it loads it from disk.
    * @param filePath The dependent-upon file.
@@ -185,6 +191,7 @@ export default class SolutionManager implements ScadFileProvider<SolutionFile> {
     if (f) return f; // the file is already opened or refrenced by antoher
     return await this.attachSolutionFile(await CodeFile.load(filePath));
   }
+
   /**
    * Removes dependencies that aren't directly or indirectly referenced in any of the open files to free memory.
    */
