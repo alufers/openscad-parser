@@ -51,6 +51,7 @@ export default class SymbolResolver extends ASTMutator {
   }
 
   visitModuleInstantiationStmt(n: ModuleInstantiationStmt): ASTNode {
+   
     const resolved = new ResolvedModuleInstantiationStmt(
       n.pos,
       n.name,

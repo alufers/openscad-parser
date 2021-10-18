@@ -154,7 +154,7 @@ module linear_extrude(height, center, convexity, twist, slices);
  * @param $fn [named] [type=number] Fixed number of fragments in 360 degrees. Values of 3 or more override $fa and $fs 
  * @see https://en.wikibooks.org/wiki/OpenSCAD_User_Manual/Using_the_2D_Subsystem#Rotate_Extrude'
  **/
-module rotate_extrude(anglis_bool
+module rotate_extrude(angle, convexity);
 // Transformation modules
 //
 
