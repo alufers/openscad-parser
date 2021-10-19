@@ -33,25 +33,17 @@ export default class ScopeSymbolCompletionProvider
     for (const scope of scopesToShow) {
       for (const v of scope.variables) {
         symbols.push(
-          new CompletionSymbol(
-            CompletionType.VARIABLE,
-            v[1].name,
-            v[1].docComment
-          )
+          new CompletionSymbol(CompletionType.VARIABLE, v[1].name, v[1])
         );
       }
       for (const f of scope.functions) {
         symbols.push(
-          new CompletionSymbol(
-            CompletionType.FUNCTION,
-            f[1].name,
-            f[1].docComment
-          )
+          new CompletionSymbol(CompletionType.FUNCTION, f[1].name, f[1])
         );
       }
       for (const m of scope.modules) {
         symbols.push(
-          new CompletionSymbol(CompletionType.MODULE, m[1].name, m[1].docComment)
+          new CompletionSymbol(CompletionType.MODULE, m[1].name, m[1])
         );
       }
     }

@@ -6,10 +6,13 @@
 // Control flow
 //
 
-// Evaluate each value in a range or vector, applying it to the following Action. 
-// @intrinsic controlFlow
-// @intrinsicRename for
-// @see https://en.wikibooks.org/wiki/OpenSCAD_User_Manual/Conditional_and_Iterator_Functions#For_loop
+/**
+ * Evaluate each value in a range or vector, applying it to the following Action.
+ *
+ * @intrinsic controlFlow
+ * @intrinsicRename for
+ * @see https://en.wikibooks.org/wiki/OpenSCAD_User_Manual/Conditional_and_Iterator_Functions#For_loop
+ **/
 module _for();
 
 // Iterate over the values in a range or vector and create the intersection of objects created by each pass. 
@@ -81,7 +84,7 @@ module projection(cut = false);
  * Creates a sphere at the origin of the coordinate system.
  *
  * @param r [positional] [type=number] This is the radius of the sphere.
- * @param d [named] [type=number] This is the diameter of the sphere.
+ * @param d [named] [type=number] [conflictsWith=r] This is the diameter of the sphere.
  * @param $fa [named] [type=number] Fragment angle in degrees
  * @param $fs [named] [type=number] Fragment size in mm
  * @param $fn [named] [type=number] Resolution
@@ -103,9 +106,9 @@ module cube(size = [1, 1, 1], center = false);
  *
  * @param h [positional] [type=number] The height of the cylinder or cone
  * @param r [positional] [type=number] This is the radius of the cylinder. r2 = r1 = r
- * @param r1 [positional] [type=number] This is the radius of the bottom of the cone. 
- * @param r2 [positional] [type=number] This is the radius of the top of the cone. 
- * @param d [named] [type=number] This is the diameter of the cylinder. 
+ * @param r1 [positional] [type=number] [conflictsWith=r] This is the radius of the bottom of the cone. 
+ * @param r2 [positional] [type=number] [conflictsWith=r] This is the radius of the top of the cone. 
+ * @param d [named] [type=number] [conflictsWith=r] This is the diameter of the cylinder. 
  * @param d1 [named] [type=number] This is the diameter of the bottom of the cone. 
  * @param d2 [named] [type=number] This is the diameter of the top of the cone. 
  * @param center [positional] [type=boolean]  When center is true, it is also centered vertically along the z axis.
@@ -436,14 +439,57 @@ function ceil(x) = undef;
  **/
 function ln(x) = undef;
 
+/**
+ * Calculates the length of an array, a vector or a string parameter. 
+ * @param x [positional] [type=vector,string] The vector or string
+ * @returns the length of an array, a vector or a string parameter.
+ * @see https://en.wikibooks.org/wiki/OpenSCAD_User_Manual/Mathematical_Functions#len
+ **/
 function len(x) = undef;
+
+/**
+ * Mathematical logarithm function to the base 10. It is the inverse function to exponentiation.
+ *
+ * @param x [positional] [type=number] The number to calculate the base 10 logarithm of
+ * @returns The logarithm
+ * @see https://en.wikipedia.org/wiki/Logarithm
+ * @see https://en.wikibooks.org/wiki/OpenSCAD_User_Manual/Mathematical_Functions#log
+ **/
 function log(x) = undef;
+
+/**
+ * Mathematical power function. Exponentiates `b` to the power of `e`.
+ * As of version 2021.01 you can use the exponentiation operator ^ instead.
+ * 
+ * @param b [positional] [type=nunber] The base
+ * @param e [positional] [type=number] The exponent
+ * @returns b^e
+ * @see https://en.wikibooks.org/wiki/OpenSCAD_User_Manual/Mathematical_Functions#pow
+ **/
 function pow(b, e) = undef;
+
+/**
+ * Mathematical square root function.
+ *
+ * @param x [positional] [type=number] The number to calculate the suqare root of.
+ * @returns the square root of x
+ * @see https://en.wikipedia.org/wiki/Square_root
+ * @see https://en.wikibooks.org/wiki/OpenSCAD_User_Manual/Mathematical_Functions#sqrt
+ **/
 function sqrt(x) = undef;
 function exp(x) = undef;
 function rands(x) = undef;
 function min(x) = undef;
 function max(x) = undef;
+
+/**
+ * Calculates the numeric length of a vector (length in space).
+ *
+ * @param x [positional] [type=vector] The vector to calculate the length
+ * @returns the euclidean norm of a vector
+ * @see https://en.wikipedia.org/wiki/Norm_(mathematics)#Euclidean_norm
+ * @see https://en.wikibooks.org/wiki/OpenSCAD_User_Manual/Mathematical_Functions#norm
+ **/
 function norm(x) = undef;
 
 /**
