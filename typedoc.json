@@ -1,5 +1,6 @@
 {
   "name": "openscad-parser",
   "entryPoints": ["./src/index.ts"],
-  "out": "docs/"
+  "out": "docs/",
+  "exclude": "**/*+(index|.spec|.e2e).ts"
 }
