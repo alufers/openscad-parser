@@ -6,7 +6,18 @@
 
 This package facilitates parsing, formatting and validating the OpenSCAD language using TypeScript and JavaScript.
 
-# Installation
+# Installation (formatter)
+
+```sh
+$ npm i -g openscad-parser
+```
+
+Usage:
+```sh
+$ scadfmt <file> # outputs the formatted OpenSCAD code to stdout
+```
+
+# Installation (as a node module)
 
 ```sh
 npm install openscad-parser
