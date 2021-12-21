@@ -1,3 +1,5 @@
+#!/bin/env node
+
 import ASTPrinter from "./ASTPrinter";
 import CodeFile from "./CodeFile";
 import FormattingConfiguration from "./FormattingConfiguration";
