@@ -1,7 +1,5 @@
 {
   "name": "openscad-parser",
-  "mode": "file",
-  "out": "docs/",
-  "excludeNotExported": true,
-  "inputFiles": ["./src"]
+  "entryPoints": ["./src/index.ts"],
+  "out": "docs/"
 }
