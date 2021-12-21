@@ -54,6 +54,8 @@ export default class ASTPrinter implements ASTVisitor<string> {
    */
   deepGlobals = {
     didAddNewline: false,
+    shouldAddNewlineAfterNextComment: false,
+    newlineAfterNextCommentReason: "",
   };
 
   constructor(public config: FormattingConfiguration) {}
@@ -94,7 +96,8 @@ export default class ASTPrinter implements ASTVisitor<string> {
 
     if (n.tokens.semicolon) {
       source += this.stringifyExtraTokens(n.tokens.semicolon);
-      source += ";" + this.newLine(false, "afterAssignment");
+      source += ";";
+      this.newLineAfterNextComment("after assignment");
     }
 
     return source;
@@ -626,22 +629,50 @@ export default class ASTPrinter implements ASTVisitor<string> {
             this.deepGlobals.didAddNewline = false;
             return "";
           }
+          this.deepGlobals.shouldAddNewlineAfterNextComment = false;
           return this.newLine(true, "forcedNewlineExtraToken");
-        } else if (
-          et instanceof MultiLineComment &&
-          !this.config.definitionsOnly
+        }
+
+        if (
+          !this.config.definitionsOnly &&
+          (et instanceof MultiLineComment || et instanceof SingleLineComment)
         ) {
-          return "/*" + et.contents + "*/";
-        } else if (
-          et instanceof SingleLineComment &&
-          !this.config.definitionsOnly
-        ) {
-          return "//" + et.contents + "";
+          let commentText = "";
+          if(this.deepGlobals.shouldAddNewlineAfterNextComment) {
+            commentText += " "; // add a spece since we are in the same line as the previous token
+          }
+          if (et instanceof MultiLineComment) {
+            commentText += "/*" + et.contents + "*/";
+          } else if (et instanceof SingleLineComment) {
+            commentText += "//" + et.contents;
+          }
+
+          // here we execute some logic to make sure that a newline is inserted after the comment if needed
+          // since the information about the comments and newlines is stored in the next token, we need to do this weird stuff
+          if (this.deepGlobals.shouldAddNewlineAfterNextComment) {
+            this.deepGlobals.shouldAddNewlineAfterNextComment = false;
+            return (
+              commentText +
+              this.newLine(
+                false,
+                this.deepGlobals.newlineAfterNextCommentReason
+              )
+            );
+          }
+
+          return commentText;
         }
         return "";
       })
       .reduce((prev, curr) => prev + curr, "");
     this.deepGlobals.didAddNewline = false;
+    if (source === "" && this.deepGlobals.shouldAddNewlineAfterNextComment) {
+      this.deepGlobals.shouldAddNewlineAfterNextComment = false;
+      return this.newLine(
+        false,
+        this.deepGlobals.newlineAfterNextCommentReason
+      );
+    }
     return source;
   }
   protected newLine(forced = false, newlineReason = "no reason") {
@@ -653,6 +684,16 @@ export default class ASTPrinter implements ASTVisitor<string> {
     }
     return "\n" + this.makeIndent();
   }
+
+  /**
+   * Schedules a newline to be added after the next comment, if present.
+   * Otherwise it will be inserted immediately.
+   */
+  protected newLineAfterNextComment(reason: string) {
+    this.deepGlobals.shouldAddNewlineAfterNextComment = true;
+    this.deepGlobals.newlineAfterNextCommentReason = reason;
+  }
+
   protected makeIndent() {
     let ind = "";
     for (let i = 0; i < this.indentLevel * this.config.indentCount; i++) {
@@ -660,6 +701,7 @@ export default class ASTPrinter implements ASTVisitor<string> {
     }
     return ind;
   }
+
   protected copy() {
     const next = new ASTPrinter(this.config);
     next.indentLevel = this.indentLevel;
@@ -667,24 +709,29 @@ export default class ASTPrinter implements ASTVisitor<string> {
     next.breakBetweenModuleInstantations = this.breakBetweenModuleInstantations;
     return next;
   }
+
   protected copyWithIndent() {
     const next = this.copy();
     next.indentLevel++;
     return next;
   }
+
   protected copyWithBreakBetweenModuleInstantations(doBreak = true) {
     const next = this.copy();
     next.breakBetweenModuleInstantations = doBreak;
     return next;
   }
+
   protected copyWithDoNotAddNewlineAfterBlockStatement(val = true) {
     const next = this.copy();
     next.doNotAddNewlineAfterBlockStatement = val;
     return next;
   }
+
   protected saveDeepGlobals() {
     return JSON.parse(JSON.stringify(this.deepGlobals));
   }
+
   protected restoreDeepGlobals(dat: any) {
     for (const k of Object.keys(dat)) {
       (this.deepGlobals as any)[k] = dat[k];

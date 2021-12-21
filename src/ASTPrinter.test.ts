@@ -85,6 +85,7 @@ describe("ASTPrinter", () => {
     doPreserveTest(`
     use <ddd>
     include <gfff>
+    assignment = 123; the_same_line = 8;
     function ddd(argv = 10, second = !true) = (10 + 20) * 10;
     ybyby = x > 10 ? let(v = 200) doSomething() : assert(x = 20) echo("nothing") 5;
     arr = [20, if(true) each [20:50:30] else [808][0].x];
@@ -192,5 +193,26 @@ describe("ASTPrinter", () => {
     expo = 3 * 2 ^ 8;
   `);
     expect(f).toStrictEqual(expect.stringContaining("^"));
+  });
+
+  test("does not add a newline after a semicolon in an assignment if a comment follows it", () => {
+    const f = doFormat(`
+enum_value="a"; // [a:ayyyy, b:beee, c:seeee]
+  `);
+    expect(f).toStrictEqual(`
+enum_value = "a"; // [a:ayyyy, b:beee, c:seeee]
+`);
+  });
+  test("does keep a newline after a semi-colon in an assignment if the user wants it", () => {
+    const f = doFormat(
+      `
+enum_value="a";
+// [a:ayyyy, b:beee, c:seeee]
+  `,
+    );
+    expect(f).toStrictEqual(`
+enum_value = "a";
+// [a:ayyyy, b:beee, c:seeee]
+`);
   });
 });

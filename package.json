@@ -20,5 +20,8 @@
     "test": "jest",
     "generate-barrels": "barrelsby -c barrelsby.json",
     "build": "tsc --module commonjs && cp src/prelude/prelude.scad dist/prelude/prelude.scad"
+  },
+  "bin": {
+    "scadfmt": "./dist/scadfmt.js"
   }
 }
