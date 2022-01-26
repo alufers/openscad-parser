@@ -16,14 +16,11 @@ export default class ParsingHelper {
     if (errorCollector.hasErrors()) {
       return [null, errorCollector];
     }
-    let parser = new Parser(f, tokens, errorCollector);
+    const parser = new Parser(f, tokens, errorCollector);
     let ast: ScadFile = null;
     try {
       ast = parser.parse();
     } catch (e) {}
-    if (errorCollector.hasErrors()) {
-      return [ast, errorCollector];
-    }
     return [ast, errorCollector];
   }
 }
