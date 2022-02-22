@@ -302,9 +302,9 @@ export default class Parser {
   }
   protected functionDeclarationStatement(): FunctionDeclarationStmt {
     const functionKeyword = this.previous();
-    const anonymousFunction = this.peek().type === TokenType.LeftParen;
+    const isAnonymous = this.peek().type === TokenType.LeftParen;
     let nameToken;
-    if (!anonymousFunction) {
+    if (!isAnonymous) {
       nameToken = this.consume(
         TokenType.Identifier,
         "after 'function' keyword"
@@ -315,19 +315,19 @@ export default class Parser {
     const args = this.args();
     const secondParen = this.previous();
     let equals;
-    if (!anonymousFunction) {
+    if (!isAnonymous) {
       this.consume(TokenType.Equal, "after function parameters");
       equals = this.previous();
     }
     const body = this.expression();
     let semicolon;
-    if (!anonymousFunction) {
+    if (!isAnonymous) {
       this.consume(TokenType.Semicolon, "after function declaration");
       semicolon = this.previous();
     }
     return new FunctionDeclarationStmt(
       this.getLocation(),
-      anonymousFunction ? "" : (nameToken as LiteralToken<string>).value,
+      isAnonymous ? "" : (nameToken as LiteralToken<string>).value,
       args,
       body,
       {
