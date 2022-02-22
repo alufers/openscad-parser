@@ -103,6 +103,53 @@ describe("Lexer", () => {
       TokenType.Eot,
     ]);
   });
+  it("scans identifiers starting with a digit", () => {
+    const expectNumberSemi = (str: string) => {
+      // console.log("for ", str);
+      expect(lexToTTStream(str)).toEqual([
+        TokenType.NumberLiteral,
+        TokenType.Semicolon,
+        TokenType.Eot,
+      ]);
+    };
+
+    expectNumberSemi("1e3;");
+    expectNumberSemi(".3e3;");
+
+    const expectIdentifierSemi = (str: string) =>
+      expect(lexToTTStream(str)).toEqual([
+        TokenType.Identifier,
+        TokenType.Semicolon,
+        TokenType.Eot,
+      ]);
+
+    expectIdentifierSemi("0z;");
+    expectIdentifierSemi("0ea;");
+
+    expectIdentifierSemi("999e9e9999;");
+    expect(lexToTTStream("999e9e9999")).toEqual([
+      TokenType.NumberLiteral,
+      TokenType.Eot,
+    ]);
+
+    expect(lexToTTStream("7_")).toEqual([TokenType.Identifier, TokenType.Eot]);
+    expect(lexToTTStream("7_1")).toEqual([TokenType.Identifier, TokenType.Eot]);
+    expect(lexToTTStream("0a1")).toEqual([TokenType.Identifier, TokenType.Eot]);
+
+    expect(lexToTTStream("0e.x")).toEqual([
+      TokenType.Identifier,
+      TokenType.Dot,
+      TokenType.Identifier,
+      TokenType.Eot,
+    ]);
+
+    expect(lexToTTStream("7_segDisplay.x")).toEqual([
+      TokenType.Identifier,
+      TokenType.Dot,
+      TokenType.Identifier,
+      TokenType.Eot,
+    ]);
+  });
   it("scans string literals", () => {
     const tts = lexToTTStream(`"abc";`);
     expect(tts).toEqual([
@@ -217,7 +264,6 @@ describe("Lexer", () => {
     it("throws LexingError when an invalid number is given", () => {
       expect(() => testNumberLexing("2.2.2")).toThrowError(LexingError);
       expect(() => testNumberLexing("999e99999")).toThrowError(LexingError);
-      expect(() => testNumberLexing("999e9e9999")).toThrowError(LexingError);
     });
     it("lexes numbers starting with a dot", () => {
       expect(testNumberLexing(".9")).toEqual(0.9);
