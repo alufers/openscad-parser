@@ -105,7 +105,6 @@ describe("Lexer", () => {
   });
   it("scans identifiers starting with a digit", () => {
     const expectNumberSemi = (str: string) => {
-      // console.log("for ", str);
       expect(lexToTTStream(str)).toEqual([
         TokenType.NumberLiteral,
         TokenType.Semicolon,
