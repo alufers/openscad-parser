@@ -303,12 +303,12 @@ export default class Lexer {
     // it seems like a number is chosen unless an identifier is a longer match.
     // That would be consistent with how lex/flex generated lexers work.
 
-    let maxWordLength = 1;
+    let wordLength = 1;
     while (
-      this.start.char + maxWordLength < this.codeFile.code.length &&
-      /[0-9a-zA-Z_\$]/.test(this.codeFile.code[this.start.char + maxWordLength])
+      this.start.char + wordLength < this.codeFile.code.length &&
+      /[0-9a-zA-Z_\$]/.test(this.codeFile.code[this.start.char + wordLength])
     ) {
-      maxWordLength++;
+      wordLength++;
     }
 
     const possibleNumberStarts = [
@@ -319,7 +319,7 @@ export default class Lexer {
     const numberLength = Math.max(...possibleNumberStarts.map((x) => x.length));
 
     // If number is longer or same length as an indentifier - number wins.
-    if (numberLength >= maxWordLength) {
+    if (numberLength >= wordLength) {
       return this.consumeNumberLiteral();
     } else {
       return this.consumeIdentifierOrKeyword();

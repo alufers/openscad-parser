@@ -127,7 +127,7 @@ describe("Lexer", () => {
 
     expectIdentifierSemi("999e9e9999;");
     expect(lexToTTStream("999e9e9999")).toEqual([
-      TokenType.NumberLiteral,
+      TokenType.Identifier,
       TokenType.Eot,
     ]);
 
