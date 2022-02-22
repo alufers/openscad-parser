@@ -302,22 +302,32 @@ export default class Parser {
   }
   protected functionDeclarationStatement(): FunctionDeclarationStmt {
     const functionKeyword = this.previous();
-    const nameToken = this.consume(
-      TokenType.Identifier,
-      "after 'function' keyword"
-    );
+    const anonymousFunction = this.peek().type === TokenType.LeftParen;
+    let nameToken;
+    if (!anonymousFunction) {
+      nameToken = this.consume(
+        TokenType.Identifier,
+        "after 'function' keyword"
+      );
+    }
     this.consume(TokenType.LeftParen, "after function name");
     const firstParen = this.previous();
     const args = this.args();
     const secondParen = this.previous();
-    this.consume(TokenType.Equal, "after function parameters");
-    const equals = this.previous();
+    let equals;
+    if (!anonymousFunction) {
+      this.consume(TokenType.Equal, "after function parameters");
+      equals = this.previous();
+    }
     const body = this.expression();
-    this.consume(TokenType.Semicolon, "after function declaration");
-    const semicolon = this.previous();
+    let semicolon;
+    if (!anonymousFunction) {
+      this.consume(TokenType.Semicolon, "after function declaration");
+      semicolon = this.previous();
+    }
     return new FunctionDeclarationStmt(
       this.getLocation(),
-      (nameToken as LiteralToken<string>).value,
+      anonymousFunction ? "" : (nameToken as LiteralToken<string>).value,
       args,
       body,
       {
@@ -861,6 +871,9 @@ export default class Parser {
         secondParen,
         name: keyword,
       });
+    }
+    if (this.matchToken(TokenType.Function)) {
+      return this.functionDeclarationStatement();
     }
     if (this.matchToken(TokenType.Echo)) {
       const keyword = this.previous();
