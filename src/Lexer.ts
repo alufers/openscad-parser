@@ -201,7 +201,7 @@ export default class Lexer {
         break;
       default:
         if (/[0-9]/.test(c)) {
-          this.consumeNumberLiteral();
+          this.consumeNumberOrIdentifierOrKeyword();
         } else if (/[A-Za-z\$_]/.test(c)) {
           this.consumeIdentifierOrKeyword();
         } else {
@@ -294,6 +294,36 @@ export default class Lexer {
       return;
     }
     this.addToken(TokenType.Identifier, lexeme);
+  }
+
+  protected consumeNumberOrIdentifierOrKeyword() {
+    // OpenSCAD does accept identifiers starting with a digit.
+    // `9e9e9=1;echo(9e9e9);` is a valid code, `9e9=1;` produces a syntax error.
+    // Docs don't specify how conflicts are resolved, but from experiments
+    // it seems like a number is chosen unless an identifier is a longer match.
+    // That would be consistent with how lex/flex generated lexers work.
+
+    let wordLength = 1;
+    while (
+      this.start.char + wordLength < this.codeFile.code.length &&
+      /[0-9a-zA-Z_\$]/.test(this.codeFile.code[this.start.char + wordLength])
+    ) {
+      wordLength++;
+    }
+
+    const possibleNumberStarts = [
+      this.peekRegex(/[0-9]+/),
+      this.peekRegex(/[0-9]+[.]/),
+      this.peekRegex(/[0-9]+[eE][+-]?[0-9]+/),
+    ];
+    const numberLength = Math.max(...possibleNumberStarts.map((x) => x.length));
+
+    // If number is longer or same length as an indentifier - number wins.
+    if (numberLength >= wordLength) {
+      return this.consumeNumberLiteral();
+    } else {
+      return this.consumeIdentifierOrKeyword();
+    }
   }
 
   protected consumeFileNameInChevrons() {
@@ -407,5 +437,11 @@ export default class Lexer {
   protected peekNext() {
     if (this.charOffset + 1 >= this.codeFile.code.length) return "\0";
     return this.codeFile.code[this.charOffset + 1];
+  }
+
+  protected peekRegex(regex: RegExp) {
+    const text = this.codeFile.code.slice(this.start.char);
+    const match = regex.exec(text);
+    return !match || match.index !== 0 ? "" : match[0];
   }
 }
