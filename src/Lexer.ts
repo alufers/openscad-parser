@@ -246,12 +246,22 @@ export default class Lexer {
     this.addToken(TokenType.StringLiteral, str);
   }
   protected consumeNumberLiteral() {
+    let ateDigit = /[0-9]/.test(this.codeFile.code[this.start.char]);
+    let ateDot = "." === this.codeFile.code[this.start.char];
+    let justAteExp = false;
+
     while (
       /[0-9]/.test(this.peek()) ||
       (this.peek() == "." && /[0-9]/.test(this.peekNext())) ||
-      (this.peek() == "e" && /[0-9\-]/.test(this.peekNext())) ||
-      (this.peek() == "-" && /[0-9]/.test(this.peekNext()))
+      ((this.peek() == "e" || this.peek() == "E") &&
+        /[0-9\-+]/.test(this.peekNext())) ||
+      (this.peek() == "-" && /[0-9]/.test(this.peekNext()) && justAteExp) ||
+      (this.peek() == "+" && /[0-9]/.test(this.peekNext()) && justAteExp) ||
+      (this.peek() == "." && ateDigit && !ateDot)
     ) {
+      ateDigit = ateDigit || /[0-9]/.test(this.peek());
+      ateDot = ateDot || this.peek() == ".";
+      justAteExp = this.peek() == "e" || this.peek() == "E";
       this.advance();
     }
     const lexeme = this.codeFile.code.substring(

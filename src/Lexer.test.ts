@@ -260,6 +260,12 @@ describe("Lexer", () => {
     it("lexes exponential numbers with commas", () => {
       expect(testNumberLexing("2.787272e10")).toEqual(2.787272e10);
     });
+    it("lexes exponents with a sign", () => {
+      expect(testNumberLexing("1.25e+6")).toEqual(1.25e6);
+      expect(testNumberLexing("0.25e-2")).toEqual(0.25e-2);
+      expect(testNumberLexing("1.E-2")).toEqual(1e-2);
+    });
+
     it("throws LexingError when an invalid number is given", () => {
       expect(() => testNumberLexing("2.2.2")).toThrowError(LexingError);
       expect(() => testNumberLexing("999e99999")).toThrowError(LexingError);
@@ -270,7 +276,47 @@ describe("Lexer", () => {
     it("parses an unfinished decimal even when it may cause problems with lookahead", () => {
       expect(lexToTTStream(`1.`)).toEqual([
         TokenType.NumberLiteral,
-        TokenType.Dot,
+        TokenType.Eot,
+      ]);
+    });
+    it("accepts unfinished decimal before rparen", () => {
+      expect(lexToTTStream(`linear_extrude(scale=1.)`)).toEqual([
+        TokenType.Identifier,
+        TokenType.LeftParen,
+        TokenType.Identifier,
+        TokenType.Equal,
+        TokenType.NumberLiteral,
+        TokenType.RightParen,
+        TokenType.Eot,
+      ]);
+    });
+    it("parses a minus correctly", () => {
+      expect(lexToTTStream(`1.e-4`)).toEqual([
+        TokenType.NumberLiteral,
+        TokenType.Eot,
+      ]);
+
+      expect(lexToTTStream(`1.27-1.0`)).toEqual([
+        TokenType.NumberLiteral,
+        TokenType.Minus,
+        TokenType.NumberLiteral,
+        TokenType.Eot,
+      ]);
+
+      expect(lexToTTStream(`1.27+1.0`)).toEqual([
+        TokenType.NumberLiteral,
+        TokenType.Plus,
+        TokenType.NumberLiteral,
+        TokenType.Eot,
+      ]);
+
+      expect(lexToTTStream(`1.27e+4`)).toEqual([
+        TokenType.NumberLiteral,
+        TokenType.Eot,
+      ]);
+
+      expect(lexToTTStream(`1.27e-4`)).toEqual([
+        TokenType.NumberLiteral,
         TokenType.Eot,
       ]);
     });
