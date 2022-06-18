@@ -534,3 +534,25 @@ export class GroupingExpr extends Expression {
     return visitor.visitGroupingExpr(this);
   }
 }
+
+/**
+ * AnonymousFunctionExpr represents a function expression. 'function(x) x * x'
+ * @category AST
+ */
+ export class AnonymousFunctionExpr extends Expression {
+  constructor(
+    pos: CodeLocation,
+    public definitionArgs: AssignmentNode[],
+    public expr: Expression,
+    public tokens: {
+      functionKeyword: Token;
+      firstParen: Token;
+      secondParen: Token;
+    }
+  ) {
+    super(pos);
+  }
+  accept<R>(visitor: ASTVisitor<R>): R {
+    return visitor.visitAnonymousFunctionExpr(this);
+  }
+}

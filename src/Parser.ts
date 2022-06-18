@@ -1,6 +1,7 @@
 import AssignmentNode, { AssignmentNodeRole } from "./ast/AssignmentNode";
 import ErrorNode from "./ast/ErrorNode";
 import {
+  AnonymousFunctionExpr,
   ArrayLookupExpr,
   AssertExpr,
   BinaryOpExpr,
@@ -331,6 +332,7 @@ export default class Parser {
       DocComment.fromExtraTokens(functionKeyword.extraTokens)
     );
   }
+
   protected assignmentStatement() {
     const pos = this.getLocation();
     const name = this.previous() as LiteralToken<string>;
@@ -875,6 +877,9 @@ export default class Parser {
         name: keyword,
       });
     }
+    if(this.matchToken(TokenType.Function)) {
+      return this.anonymousFunction();
+    }
     if (this.matchToken(TokenType.LeftParen)) {
       const firstParen = this.previous();
       const expr = this.expression();
@@ -1009,6 +1014,26 @@ export default class Parser {
 
     return vectorLiteral;
   }
+
+  protected anonymousFunction(): AnonymousFunctionExpr {
+    const functionKeyword = this.previous();
+    const firstParen = this.consume(TokenType.LeftParen, "after function keyword in anonymous function");
+    const args = this.args();
+    const secondParen = this.previous();
+    const body = this.expression();
+    return new AnonymousFunctionExpr(
+      this.getLocation(),
+      args,
+      body,
+      {
+        functionKeyword,
+        firstParen,
+        secondParen,
+      }
+    );
+  }
+  
+
   protected listComprehensionElements(): Expression {
     if (this.matchToken(TokenType.Let)) {
       const letKwrd = this.previous();

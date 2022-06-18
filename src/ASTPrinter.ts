@@ -3,6 +3,7 @@ import AssignmentNode from "./ast/AssignmentNode";
 import ASTVisitor from "./ast/ASTVisitor";
 import ErrorNode from "./ast/ErrorNode";
 import {
+  AnonymousFunctionExpr,
   ArrayLookupExpr,
   AssertExpr,
   BinaryOpExpr,
@@ -596,6 +597,24 @@ export default class ASTPrinter implements ASTVisitor<string> {
         source += " ";
       }
       source += n.elseBranch.accept(this);
+    }
+    return source;
+  }
+  visitAnonymousFunctionExpr(n: AnonymousFunctionExpr): string {
+    let source = "";
+    source += this.stringifyExtraTokens(n.tokens.functionKeyword);
+    source += "function";
+    source += this.stringifyExtraTokens(n.tokens.firstParen);
+    source += "(";
+    for (let i = 0; i < n.definitionArgs.length; i++) {
+      const arg = n.definitionArgs[i];
+      source += arg.accept(this);
+    }
+    source += this.stringifyExtraTokens(n.tokens.secondParen);
+    source += ")";
+    if (!this.config.definitionsOnly) {
+    
+      source += n.expr.accept(this.copyWithIndent());
     }
     return source;
   }

@@ -9,7 +9,7 @@ enum TokenType {
    */
   Module,
   /**
-   * The function keyword/
+   * The function keyword.
    */
   Function,
   /**
@@ -170,6 +170,9 @@ enum TokenType {
    */
   Hash,
 
+  /**
+   * The filename of an imported file e.g. '<file.scad>'
+   */
   FilenameInChevrons,
 
   /**

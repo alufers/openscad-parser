@@ -156,6 +156,7 @@ export class ModuleDeclarationStmt extends Statement {
 }
 
 /**
+ * FunctionDeclarationStmt reperesents a named function declaration statement.
  * @category AST
  */
 export class FunctionDeclarationStmt extends Statement {

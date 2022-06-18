@@ -5,6 +5,7 @@ import Parser from "../Parser";
 import AssignmentNode from "./AssignmentNode";
 import ASTVisitor from "./ASTVisitor";
 import {
+  AnonymousFunctionExpr,
   ArrayLookupExpr,
   AssertExpr,
   BinaryOpExpr,
@@ -77,6 +78,8 @@ describe("ASTVisitor", () => {
     const visitNoopStmt = jest.fn();
     const visitIfElseStatement = jest.fn();
     const visitIncludeStmt = jest.fn();
+    const visitAnonymousFunctionExpr = jest.fn();
+
     class SampleVisitor implements ASTVisitor<void> {
       visitErrorNode(n: import("./ErrorNode").default): void {
         throw new Error("Method not implemented.");
@@ -91,7 +94,7 @@ describe("ASTVisitor", () => {
       visitAssignmentNode(n: AssignmentNode) {
         visitAssignmentNode(); // call the mocked function so that jest knows it has been called
         expect(n).toBeInstanceOf(AssignmentNode);
-        n.value.accept(this);
+        n.value && n.value.accept(this);
       }
       visitUnaryOpExpr(n: UnaryOpExpr) {
         visitUnaryOpExpr(); // call the mocked function so that jest knows it has been called
@@ -255,6 +258,13 @@ describe("ASTVisitor", () => {
           n.elseBranch.accept(this);
         }
       }
+      visitAnonymousFunctionExpr(n: AnonymousFunctionExpr) {
+        visitAnonymousFunctionExpr(); // call the mocked function so that jest knows it has been called
+        expect(n).toBeInstanceOf(AnonymousFunctionExpr);
+        n.definitionArgs.forEach((a) => a.accept(this));
+        n.expr.accept(this);
+      }
+
     }
 
     const v = new SampleVisitor();
@@ -265,6 +275,7 @@ describe("ASTVisitor", () => {
         ybyby = x > 10 ? let(v = 200) doSomething() : assert(x = 20) echo("nothing") 5;
         arr = [20, if(true) each [20:50:30] else [808][0].x];
         compre = [for(a = [rang1, 2, 3]) let(x = a + 1) [sin(a)],];
+        anon = function(x) x * x;
         module the_mod() {
             echo( [for (a = 0, b = 1;a < 5;a = a + 1, b = b + 2) [ a, b * b ] ] );
             if(yeah == true) {
@@ -304,5 +315,6 @@ describe("ASTVisitor", () => {
     expect(visitBlockStmt).toHaveBeenCalled();
     expect(visitNoopStmt).toHaveBeenCalled();
     expect(visitIfElseStatement).toHaveBeenCalled();
+    expect(visitAnonymousFunctionExpr).toHaveBeenCalled();
   });
 });

@@ -982,4 +982,10 @@ describe("Parser", () => {
     `)
     ).toThrow(ParsingError);
   });
+  it("parses function literal expressions", () => {
+    doParse(`
+        func = function (x) x * x;
+        echo(func(5)); // ECHO: 25
+    `)
+  })
 });

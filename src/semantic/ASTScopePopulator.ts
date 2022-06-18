@@ -4,6 +4,7 @@ import ASTNode from "../ast/ASTNode";
 import ASTVisitor from "../ast/ASTVisitor";
 import ErrorNode from "../ast/ErrorNode";
 import {
+  AnonymousFunctionExpr,
   ArrayLookupExpr,
   AssertExpr,
   BinaryOpExpr,
@@ -37,6 +38,7 @@ import {
   UseStmt,
 } from "../ast/statements";
 import {
+  AnonymousFunctionExprWithScope,
   BlockStmtWithScope,
   FunctionDeclarationStmtWithScope,
   LcForCExprWithScope,
@@ -300,6 +302,22 @@ export default class ASTScopePopulator implements ASTVisitor<ASTNode> {
       n.docComment
     );
     this.nearestScope.functions.set(n.name, fDecl);
+    fDecl.scope = new Scope();
+    fDecl.scope.parent = this.nearestScope;
+    const newPopulator = this.copyWithNewNearestScope(fDecl.scope);
+    fDecl.definitionArgs = n.definitionArgs.map((a) =>
+      a.accept(newPopulator)
+    ) as AssignmentNode[];
+    fDecl.expr = n.expr.accept(newPopulator);
+    return fDecl;
+  }
+  visitAnonymousFunctionExpr(n: AnonymousFunctionExpr): ASTNode {
+    const fDecl = new AnonymousFunctionExprWithScope(
+      n.pos,
+      null,
+      null,
+      n.tokens,
+    );
     fDecl.scope = new Scope();
     fDecl.scope.parent = this.nearestScope;
     const newPopulator = this.copyWithNewNearestScope(fDecl.scope);

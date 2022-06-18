@@ -3,6 +3,7 @@ import ASTNode from "./ast/ASTNode";
 import ASTVisitor from "./ast/ASTVisitor";
 import ErrorNode from "./ast/ErrorNode";
 import {
+  AnonymousFunctionExpr,
   ArrayLookupExpr,
   AssertExpr,
   BinaryOpExpr,
@@ -350,6 +351,18 @@ export default abstract class ASTAssembler<R> implements ASTVisitor<R> {
       arr.push(n.tokens.elseKeyword, () => n.elseBranch.accept(this));
     }
     return this.processAssembledNode(arr, n);
+  }
+  visitAnonymousFunctionExpr(n: AnonymousFunctionExpr): R {
+    return this.processAssembledNode(
+      [
+        n.tokens.functionKeyword,
+        n.tokens.firstParen,
+        ...n.definitionArgs.map((a) => () => a.accept(this)),
+        n.tokens.secondParen,
+        () => n.expr.accept(this),
+      ],
+      n
+    );
   }
   visitErrorNode(n: ErrorNode): R {
     return this.processAssembledNode([...n.tokens.tokens], n);

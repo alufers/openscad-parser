@@ -1,5 +1,5 @@
 import ASTVisitor from "../ast/ASTVisitor";
-import { LcForCExpr, LcForExpr, LcLetExpr, LetExpr } from "../ast/expressions";
+import { AnonymousFunctionExpr, LcForCExpr, LcForExpr, LcLetExpr, LetExpr } from "../ast/expressions";
 import ScadFile from "../ast/ScadFile";
 import {
   BlockStmt,
@@ -20,6 +20,7 @@ export interface ASTVisitorForNodesWithScopes<R> extends ASTVisitor<R> {
   visitLcForExprWithScope(n: LcForExprWithScope): R;
   visitLcForCExprWithScope(n: LcForCExprWithScope): R;
   visitModuleInstantiationStmtWithScope(n: ModuleInstantiationStmtWithScope): R;
+  visitAnonymousFunctionExprWithScope(n: AnonymousFunctionExprWithScope): R;
 }
 
 export class BlockStmtWithScope extends BlockStmt implements NodeWithScope {
@@ -117,5 +118,15 @@ export class LcForCExprWithScope extends LcForCExpr implements NodeWithScope {
       return visitor.visitLcForCExprWithScope(this);
     }
     return visitor.visitLcForCExpr(this);
+  }
+}
+
+export class AnonymousFunctionExprWithScope extends AnonymousFunctionExpr implements NodeWithScope {
+  scope: Scope;
+  accept<R>(visitor: ASTVisitorForNodesWithScopes<R>): R {
+    if (visitor.visitAnonymousFunctionExprWithScope) {
+      return visitor.visitAnonymousFunctionExprWithScope(this);
+    }
+    return visitor.visitAnonymousFunctionExpr(this);
   }
 }

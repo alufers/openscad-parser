@@ -1,6 +1,7 @@
 import AssignmentNode from "./AssignmentNode";
 import ErrorNode from "./ErrorNode";
 import {
+  AnonymousFunctionExpr,
   ArrayLookupExpr,
   AssertExpr,
   BinaryOpExpr,
@@ -55,6 +56,7 @@ export default interface ASTVisitor<R = void> {
   visitLcForCExpr(n: LcForCExpr): R;
   visitLcLetExpr(n: LcLetExpr): R;
   visitGroupingExpr(n: GroupingExpr): R;
+  visitAnonymousFunctionExpr(n: AnonymousFunctionExpr): R;
   visitUseStmt(n: UseStmt): R;
   visitIncludeStmt(n: IncludeStmt): R;
   visitModuleInstantiationStmt(n: ModuleInstantiationStmt): R;

@@ -21,6 +21,7 @@ import {
   LcForCExpr,
   LcLetExpr,
   GroupingExpr,
+  AnonymousFunctionExpr,
 } from "./ast/expressions";
 import {
   UseStmt,
@@ -44,6 +45,7 @@ import {
   LcForExprWithScope,
   LcForCExprWithScope,
   ModuleInstantiationStmtWithScope,
+  AnonymousFunctionExprWithScope,
 } from "./semantic/nodesWithScopes";
 import AssignmentNode from "./ast/AssignmentNode";
 import ASTNode from "./ast/ASTNode";
@@ -422,6 +424,27 @@ export default class ASTMutator
     return n;
   }
 
+  visitAnonymousFunctionExpr(n: AnonymousFunctionExpr): ASTNode {
+    const newArgs = n.definitionArgs.map((a) => a.accept(this)) as AssignmentNode[];
+    const newBody = n.expr.accept(this);
+    if (newArgs.length === n.definitionArgs.length && newBody === n.expr) {
+      let modified = false;
+      for (let i = 0; i < newArgs.length; i++) {
+        if (newArgs[i] !== n.definitionArgs[i]) {
+          modified = true;
+          break;
+        }
+      }
+      if (!modified) return n;
+    }
+    return new AnonymousFunctionExpr(
+      n.pos,
+      newArgs,
+      newBody,
+      n.tokens
+    );
+  }
+
   visitBlockStmtWithScope(n: BlockStmtWithScope): ASTNode {
     const oldNode = this.visitBlockStmt(n) as BlockStmt;
     const newNode = new BlockStmtWithScope(
@@ -528,6 +551,18 @@ export default class ASTMutator
       oldNode.args,
       oldNode.incrArgs,
       oldNode.cond,
+      oldNode.expr,
+      oldNode.tokens
+    );
+    newNode.scope = n.scope;
+    return newNode;
+  }
+
+  visitAnonymousFunctionExprWithScope(n: AnonymousFunctionExprWithScope) {
+    const oldNode = this.visitAnonymousFunctionExpr(n) as AnonymousFunctionExpr;
+    const newNode = new AnonymousFunctionExprWithScope(
+      oldNode.pos,
+      oldNode.definitionArgs,
       oldNode.expr,
       oldNode.tokens
     );
