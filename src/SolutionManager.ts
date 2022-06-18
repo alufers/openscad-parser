@@ -1,29 +1,28 @@
 import * as path from "path";
 import ASTNode from "./ast/ASTNode";
 import ScadFile from "./ast/ScadFile";
+import ASTPinpointer from "./ASTPinpointer";
 import ASTPrinter from "./ASTPrinter";
 import CodeFile from "./CodeFile";
 import CodeLocation from "./CodeLocation";
 import FormattingConfiguration from "./FormattingConfiguration";
 import ParsingHelper from "./ParsingHelper";
+import PreludeUtil from "./prelude/PreludeUtil";
 import Range from "./Range";
 import ASTScopePopulator from "./semantic/ASTScopePopulator";
 import ASTSymbolLister, { SymbolKind } from "./semantic/ASTSymbolLister";
 import CompletionUtil from "./semantic/CompletionUtil";
-import Scope from "./semantic/Scope";
-import ScadFileProvider, {
-  WithExportedScopes,
-} from "./semantic/ScadFileProvider";
-import { ScadFileWithScope } from "./semantic/nodesWithScopes";
 import IncludeResolver from "./semantic/IncludeResolver";
-import PreludeUtil from "./prelude/PreludeUtil";
-import SymbolResolver from "./semantic/SymbolResolver";
-import ASTPinpointer from "./ASTPinpointer";
+import { ScadFileWithScope } from "./semantic/nodesWithScopes";
 import {
-  ResolvedFunctionCallExpr,
   ResolvedLookupExpr,
   ResolvedModuleInstantiationStmt,
 } from "./semantic/resolvedNodes";
+import ScadFileProvider, {
+  WithExportedScopes,
+} from "./semantic/ScadFileProvider";
+import Scope from "./semantic/Scope";
+import SymbolResolver from "./semantic/SymbolResolver";
 
 export class SolutionFile implements WithExportedScopes {
   fullPath: string;
@@ -96,7 +95,6 @@ export class SolutionFile implements WithExportedScopes {
   getSymbolDeclaration(loc: CodeLocation) {
     const pp = new ASTPinpointer(loc).doPinpoint(this.ast);
     if (
-      pp instanceof ResolvedFunctionCallExpr ||
       pp instanceof ResolvedLookupExpr ||
       pp instanceof ResolvedModuleInstantiationStmt
     ) {
@@ -117,7 +115,7 @@ export default class SolutionManager implements ScadFileProvider<SolutionFile> {
   openedFiles: Map<string, SolutionFile> = new Map();
   allFiles: Map<string, SolutionFile> = new Map();
   notReadyFiles: Map<string, Promise<SolutionFile>> = new Map();
-  
+
   /**
    * Returns a registered solution file for a given path. It supports getting files which have not been fully processed yet.
    * @param filePath

@@ -20,7 +20,6 @@ import ASTMutator from "../ASTMutator";
 import ErrorCollector from "../ErrorCollector";
 import NodeWithScope from "./NodeWithScope";
 import {
-  ResolvedFunctionCallExpr,
   ResolvedLookupExpr,
   ResolvedModuleInstantiationStmt,
 } from "./resolvedNodes";
@@ -34,7 +33,8 @@ import {
 export default class SymbolResolver extends ASTMutator {
   constructor(
     private errorCollector: ErrorCollector,
-    public currentScope: Scope = null
+    public currentScope: Scope = null,
+    public isInCallee: boolean = false
   ) {
     super();
   }
@@ -42,6 +42,9 @@ export default class SymbolResolver extends ASTMutator {
   visitLookupExpr(n: LookupExpr): ASTNode {
     const resolved = new ResolvedLookupExpr(n.pos, n.name, n.tokens);
     resolved.resolvedDeclaration = this.currentScope.lookupVariable(n.name);
+    if(this.isInCallee && !resolved.resolvedDeclaration) {
+      resolved.resolvedDeclaration = this.currentScope.lookupFunction(n.name);
+    }
     if (!resolved.resolvedDeclaration) {
       this.errorCollector.reportError(
         new UnresolvedVariableError(n.pos, n.name)
@@ -67,32 +70,36 @@ export default class SymbolResolver extends ASTMutator {
     return resolved;
   }
 
-  // resolving functionCall expressions no longer needed, since function calls use lookup expressions
-  
-  // visitFunctionCallExpr(n: FunctionCallExpr): ASTNode {
-  //   const resolved = new ResolvedFunctionCallExpr(
-  //     n.pos,
-  //     n.callee,
-  //     n.args.map((a) => a.accept(this)) as AssignmentNode[],
-  //     n.tokens
-  //   );
-  //   resolved.resolvedDeclaration = this.currentScope.lookupFunction(n.name);
-  //   if (!resolved.resolvedDeclaration) {
-  //     this.errorCollector.reportError(
-  //       new UnresolvedFunctionError(n.pos, n.name)
-  //     );
-  //     return n;
-  //   }
-  //   return resolved;
-  // }
+ 
+  /**
+   * visitFunctionCallExpr switches the SymbolResolver into a special mode where
+   * it falls back to resolving named functions when processing lookup expressions.
+   * This behaviour tries to mimic the behaviour of OpenSCAD's function call resolution,
+   * it is not perfect, since you can abuse this to do things like assign a named function
+   * to a variable which is not allowed in OpenSCAD. So this covers all but the most
+   * pathological cases.
+   * @param n 
+   * @returns 
+   */
+  visitFunctionCallExpr(n: FunctionCallExpr): ASTNode {
+    return super.visitFunctionCallExpr.call(
+      this.copyWithIsInCallee(),
+      n
+    );
+  }
 
   // scope handling
   private copyWithNextScope(s: Scope) {
     if (!s) {
       throw new Error("Scope cannot be falsy");
     }
-    return new SymbolResolver(this.errorCollector, s);
+    return new SymbolResolver(this.errorCollector, s, this.isInCallee);
   }
+
+  private copyWithIsInCallee() {
+    return new SymbolResolver(this.errorCollector, this.currentScope, true);
+  }
+
   visitBlockStmt(n: BlockStmt): ASTNode {
     return super.visitBlockStmt.call(
       this.copyWithNextScope((n as unknown as NodeWithScope).scope),

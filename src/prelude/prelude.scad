@@ -471,7 +471,7 @@ function pow(b, e) = undef;
 /**
  * Mathematical square root function.
  *
- * @param x [positional] [type=number] The number to calculate the suqare root of.
+ * @param x [positional] [type=number] The number to calculate the square root of.
  * @returns the square root of x
  * @see https://en.wikipedia.org/wiki/Square_root
  * @see https://en.wikibooks.org/wiki/OpenSCAD_User_Manual/Mathematical_Functions#sqrt

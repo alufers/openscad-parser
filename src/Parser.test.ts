@@ -1003,4 +1003,10 @@ describe("Parser", () => {
     echo(selector("mul")(5));  // ECHO: 26
     `);
   });
+
+  it("parses calls in assignment expressions", () => {
+    doParse(`
+        x = func(5);
+        `);
+  })
 });

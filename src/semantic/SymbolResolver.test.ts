@@ -65,11 +65,11 @@ describe("SymbolResolver", () => {
           (n.expr as ResolvedLookupExpr).resolvedDeclaration
         ).toBeInstanceOf(AssignmentNode);
         expect(
-          (n.expr as ResolvedLookupExpr).resolvedDeclaration.value
+          ((n.expr as ResolvedLookupExpr).resolvedDeclaration as AssignmentNode).value
         ).toBeInstanceOf(LiteralExpr);
         expect(
           (
-            (n.expr as ResolvedLookupExpr).resolvedDeclaration
+            ((n.expr as ResolvedLookupExpr).resolvedDeclaration as AssignmentNode)
               .value as LiteralExpr<string>
           ).value
         ).toEqual("correct");
@@ -109,11 +109,11 @@ describe("SymbolResolver", () => {
           (n.expr as ResolvedLookupExpr).resolvedDeclaration
         ).toBeInstanceOf(AssignmentNode);
         expect(
-          (n.expr as ResolvedLookupExpr).resolvedDeclaration.value
+          ((n.expr as ResolvedLookupExpr).resolvedDeclaration as AssignmentNode).value
         ).toBeInstanceOf(LiteralExpr);
         expect(
           (
-            (n.expr as ResolvedLookupExpr).resolvedDeclaration
+          (  (n.expr as ResolvedLookupExpr).resolvedDeclaration as AssignmentNode)
               .value as LiteralExpr<string>
           ).value
         ).toEqual("correct");
@@ -177,14 +177,14 @@ describe("SymbolResolver", () => {
     astWithScope.accept(new A());
     expect(confirmFn).toHaveBeenCalled();
   });
-  xit("resolves function calls to anonymous functions", () => {
+   it("resolves function calls to anonymous functions", () => {
     let [ast, ec] = ParsingHelper.parseFile(
       new CodeFile(
         "<test>",
         `
               
               func = function (x) x * x;
-              echo(func(5)); // ECHO: 25
+              a = func(5); // ECHO: 25
       `
       )
     );
@@ -195,5 +195,6 @@ describe("SymbolResolver", () => {
     const resolver = new SymbolResolver(ec);
     astWithScope = astWithScope.accept(resolver) as ScadFileWithScope;
     ec.throwIfAny();
-  })
+  });
+
 });

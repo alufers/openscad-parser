@@ -6,12 +6,12 @@ import {
   ModuleInstantiationStmt,
 } from "../ast/statements";
 
-export class ResolvedFunctionCallExpr extends FunctionCallExpr {
-  resolvedDeclaration: FunctionDeclarationStmt;
-}
-
+/**
+ * Represents a resolved lookup expression. It can either
+ * point to an assignment node, or to a named function declaration.
+ */
 export class ResolvedLookupExpr extends LookupExpr {
-  resolvedDeclaration: AssignmentNode;
+  resolvedDeclaration: AssignmentNode | FunctionDeclarationStmt;
 }
 
 export class ResolvedModuleInstantiationStmt extends ModuleInstantiationStmt {

@@ -20,11 +20,13 @@ describe("ASTPrinter", () => {
     return new ASTPrinter(new FormattingConfiguration()).visitScadFile(ast);
   }
   function injectCommentsBetweenTokens(source: string): [string, string[]] {
+    const ec = new ErrorCollector()
     const lexer = new Lexer(
       new CodeFile("<test>", source),
-      new ErrorCollector()
+      ec
     );
     const tokens = lexer.scan();
+    ec.throwIfAny();
     let injectId = 0;
     const injectedStrings: string[] = [];
     let codeWithInjections = "";
@@ -90,6 +92,7 @@ describe("ASTPrinter", () => {
     ybyby = x > 10 ? let(v = 200) doSomething() : assert(x = 20) echo("nothing") 5;
     arr = [20, if(true) each [20:50:30] else [808][0].x];
     compre = [for(a = [rang1, 2, 3]) let(x = a + 1) [sin(a)],];
+    fun = function(a, b) a * b(13);
     module the_mod() {
         echo( [for (a = 0, b = 1;a < 5;a = a + 1, b = b + 2) [ a, b * b ] ] );
         if(yeah == true) {
