@@ -1,6 +1,7 @@
 import AssignmentNode from "../ast/AssignmentNode";
 import ASTNode from "../ast/ASTNode";
 import {
+  AnonymousFunctionExpr,
   FunctionCallExpr,
   LcForCExpr,
   LcForExpr,
@@ -51,7 +52,6 @@ export default class SymbolResolver extends ASTMutator {
   }
 
   visitModuleInstantiationStmt(n: ModuleInstantiationStmt): ASTNode {
-   
     const resolved = new ResolvedModuleInstantiationStmt(
       n.pos,
       n.name,
@@ -135,6 +135,12 @@ export default class SymbolResolver extends ASTMutator {
   }
   visitLcForCExpr(n: LcForCExpr): ASTNode {
     return super.visitLcForCExpr.call(
+      this.copyWithNextScope((n as unknown as NodeWithScope).scope),
+      n
+    );
+  }
+  visitAnonymousFunctionExpr(n: AnonymousFunctionExpr): ASTNode {
+    return super.visitAnonymousFunctionExpr.call(
       this.copyWithNextScope((n as unknown as NodeWithScope).scope),
       n
     );
