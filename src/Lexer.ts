@@ -23,6 +23,14 @@ import LiteralToken from "./LiteralToken";
 import Token from "./Token";
 import TokenType from "./TokenType";
 
+/**
+ * The lexer is responsible for turning a string of characters into a stream of
+ * tokens. The tokens are then used by the parser to build an abstract syntax
+ * tree. 
+ * 
+ * The lexer handles parsing of string literals, digraphs (e.g. `<=`), and numbers.
+ * It also handles detecting keywords and identifiers.
+ */
 export default class Lexer {
   protected start: CodeLocation;
   protected startWithWhitespace: CodeLocation;
