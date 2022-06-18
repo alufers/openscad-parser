@@ -6,6 +6,9 @@ import CompletionType from "./CompletionType";
 import IncludeResolver from "./IncludeResolver";
 import ASTNode from "../ast/ASTNode";
 import CodeLocation from "../CodeLocation";
+/**
+ * FilenameCompletionProvider provides completions to the include<> and use<> statements.
+ */
 export default class FilenameCompletionProvider implements CompletionProvider {
   textOnly = true;
   exclusive = true;
@@ -33,6 +36,7 @@ export default class FilenameCompletionProvider implements CompletionProvider {
       );
     }
     let output: CompletionSymbol[] = [];
+
     for (const sd of searchDirs) {
       try {
         const filenames = (await fs.readdir(sd)).filter((p) =>
@@ -64,6 +68,12 @@ export default class FilenameCompletionProvider implements CompletionProvider {
     return output;
   }
 
+  /**
+   * Obtains the part of the included path the user has already entered
+   * @param ast the ast to search
+   * @param loc the location where the user is typing
+   * @returns the part of the included path the user has already entered
+   */
   getExistingPath(ast: ASTNode, loc: CodeLocation): string {
     let charPos = loc.char;
     let linesLimit = 5;

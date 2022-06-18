@@ -3,8 +3,17 @@ import FilenameCompletionProvider from "./FilenameCompletionProvider";
 import ParsingHelper from "../ParsingHelper";
 import CodeLocation from "../CodeLocation";
 import { off } from "process";
+import * as mockFs from "mock-fs";
 
 describe("FilenameCompletionProvider.test", () => {
+  beforeEach(() => {
+    mockFs({
+      "/test/ddd": "blah"
+    });
+  });
+  afterEach(() => {
+    mockFs.restore();
+  });
   describe("shouldActivate", () => {
     const isInFilename = (code: string, offset: number) => {
       const cf = new CodeFile("/test/ddd", code);
