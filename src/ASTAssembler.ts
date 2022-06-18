@@ -160,7 +160,7 @@ export default abstract class ASTAssembler<R> implements ASTVisitor<R> {
   visitFunctionCallExpr(n: FunctionCallExpr): R {
     return this.processAssembledNode(
       [
-        n.tokens.name,
+        () => n.callee.accept(this),
         n.tokens.firstParen,
         ...n.args.map((a) => () => a.accept(this)),
         n.tokens.secondParen,

@@ -249,9 +249,7 @@ export default class ASTPrinter implements ASTVisitor<string> {
     return source;
   }
   visitFunctionCallExpr(n: FunctionCallExpr): string {
-    let source = "";
-    source += this.stringifyExtraTokens(n.tokens.name);
-    source += n.name;
+    let source = n.callee.accept(this);
     source += this.stringifyExtraTokens(n.tokens.firstParen);
     source += "(";
     for (let i = 0; i < n.args.length; i++) {

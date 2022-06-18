@@ -778,19 +778,20 @@ export default class Parser {
           firstBracket,
           secondBracket,
         });
+      }  else if(this.matchToken(TokenType.LeftParen)) {
+        expr = this.finishCall(expr);
+
       } else {
         break;
       }
     }
     return expr;
   }
-  protected finishCall(nameToken: LiteralToken<string>): Expression {
-    let name = nameToken.value;
+  protected finishCall(callee: Expression): Expression {
     const firstParen = this.previous();
     const args = this.args(true);
     const secondParen = this.previous();
-    return new FunctionCallExpr(nameToken.pos, name, args, {
-      name: nameToken,
+    return new FunctionCallExpr(firstParen.pos, callee, args, {
       firstParen,
       secondParen,
     });
@@ -831,9 +832,6 @@ export default class Parser {
     }
     if (this.matchToken(TokenType.Identifier)) {
       const tok = this.previous() as LiteralToken<string>;
-      if (this.matchToken(TokenType.LeftParen)) {
-        return this.finishCall(tok);
-      }
       return new LookupExpr(this.getLocation(), tok.value, {
         identifier: tok,
       });

@@ -142,7 +142,7 @@ export default class ASTScopePopulator implements ASTVisitor<ASTNode> {
   visitFunctionCallExpr(n: FunctionCallExpr): ASTNode {
     return new FunctionCallExpr(
       n.pos,
-      n.name,
+      n.callee,
       n.args.map((a) => a.accept(this)) as AssignmentNode[],
       n.tokens
     );

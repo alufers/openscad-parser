@@ -67,22 +67,24 @@ export default class SymbolResolver extends ASTMutator {
     return resolved;
   }
 
-  visitFunctionCallExpr(n: FunctionCallExpr): ASTNode {
-    const resolved = new ResolvedFunctionCallExpr(
-      n.pos,
-      n.name,
-      n.args.map((a) => a.accept(this)) as AssignmentNode[],
-      n.tokens
-    );
-    resolved.resolvedDeclaration = this.currentScope.lookupFunction(n.name);
-    if (!resolved.resolvedDeclaration) {
-      this.errorCollector.reportError(
-        new UnresolvedFunctionError(n.pos, n.name)
-      );
-      return n;
-    }
-    return resolved;
-  }
+  // resolving functionCall expressions no longer needed, since function calls use lookup expressions
+  
+  // visitFunctionCallExpr(n: FunctionCallExpr): ASTNode {
+  //   const resolved = new ResolvedFunctionCallExpr(
+  //     n.pos,
+  //     n.callee,
+  //     n.args.map((a) => a.accept(this)) as AssignmentNode[],
+  //     n.tokens
+  //   );
+  //   resolved.resolvedDeclaration = this.currentScope.lookupFunction(n.name);
+  //   if (!resolved.resolvedDeclaration) {
+  //     this.errorCollector.reportError(
+  //       new UnresolvedFunctionError(n.pos, n.name)
+  //     );
+  //     return n;
+  //   }
+  //   return resolved;
+  // }
 
   // scope handling
   private copyWithNextScope(s: Scope) {

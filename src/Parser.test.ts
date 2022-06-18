@@ -415,7 +415,7 @@ describe("Parser", () => {
     expect(file.statements[0]).toBeInstanceOf(AssignmentNode);
     const a = file.statements[0] as AssignmentNode;
     expect(a.value).toBeInstanceOf(FunctionCallExpr);
-    expect(a.value).toHaveProperty("name", "fun");
+    expect(a.value).toHaveProperty("callee");
     expect(a.value).toHaveProperty("args.length", 0);
   });
   it("parses function call expressions with positional and named arguments", () => {

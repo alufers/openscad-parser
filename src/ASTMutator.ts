@@ -162,7 +162,7 @@ export default class ASTMutator
       }
       if (!modified) return n;
     }
-    return new FunctionCallExpr(n.pos, n.name, newArgs, n.tokens);
+    return new FunctionCallExpr(n.pos, n.callee, newArgs, n.tokens);
   }
   visitLetExpr(n: LetExpr): ASTNode {
     const newExpr = n.expr.accept(this);

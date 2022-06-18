@@ -263,9 +263,9 @@ export class MemberLookupExpr extends Expression {
  */
 export class FunctionCallExpr extends Expression {
   /**
-   * The name of the function to call
+   * The expression that is being called.
    */
-  name: string;
+  callee: Expression;
 
   /**
    * The named arguments of the function call
@@ -273,16 +273,15 @@ export class FunctionCallExpr extends Expression {
   args: AssignmentNode[];
   constructor(
     pos: CodeLocation,
-    name: string,
+    callee: Expression,
     args: AssignmentNode[],
     public tokens: {
-      name: LiteralToken<string>;
       firstParen: Token;
       secondParen: Token;
     }
   ) {
     super(pos);
-    this.name = name;
+    this.callee = callee;
     this.args = args;
   }
   accept<R>(visitor: ASTVisitor<R>): R {
