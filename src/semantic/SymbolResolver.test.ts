@@ -177,4 +177,23 @@ describe("SymbolResolver", () => {
     astWithScope.accept(new A());
     expect(confirmFn).toHaveBeenCalled();
   });
+  xit("resolves function calls to anonymous functions", () => {
+    let [ast, ec] = ParsingHelper.parseFile(
+      new CodeFile(
+        "<test>",
+        `
+              
+              func = function (x) x * x;
+              echo(func(5)); // ECHO: 25
+      `
+      )
+    );
+    ec.throwIfAny();
+    const pop = new ASTScopePopulator(new Scope());
+    let astWithScope = ast.accept(pop) as ScadFileWithScope;
+    astWithScope.scope.siblingScopes = [PreludeUtil.preludeScope];
+    const resolver = new SymbolResolver(ec);
+    astWithScope = astWithScope.accept(resolver) as ScadFileWithScope;
+    ec.throwIfAny();
+  })
 });
