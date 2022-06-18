@@ -1,6 +1,6 @@
 {
   "name": "openscad-parser",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "devDependencies": {
     "@types/jest": "^28.1.2",
     "@types/mock-fs": "^4.13.1",
