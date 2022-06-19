@@ -148,7 +148,7 @@ export default class ASTScopePopulator implements ASTVisitor<ASTNode> {
     );
   }
   visitLetExpr(n: LetExpr): ASTNode {
-    const letExprWithScope = new LetExprWithScope(n.pos, null, null, n.tokens);
+    const letExprWithScope = new LetExprWithScope(n.pos, null as unknown as any, null as unknown as any, n.tokens);
     letExprWithScope.scope = new Scope();
     letExprWithScope.scope.parent = this.nearestScope;
     const copy = this.copyWithNewNearestScope(letExprWithScope.scope);
@@ -192,7 +192,7 @@ export default class ASTScopePopulator implements ASTVisitor<ASTNode> {
     return new LcEachExpr(n.pos, n.expr.accept(this), n.tokens);
   }
   visitLcForExpr(n: LcForExpr): ASTNode {
-    const newNode = new LcForExprWithScope(n.pos, null, null, n.tokens);
+    const newNode = new LcForExprWithScope(n.pos, null as unknown as any, null as unknown as any, n.tokens);
     newNode.scope = new Scope();
     newNode.scope.parent = this.nearestScope;
     const copy = this.copyWithNewNearestScope(newNode.scope);
@@ -203,10 +203,10 @@ export default class ASTScopePopulator implements ASTVisitor<ASTNode> {
   visitLcForCExpr(n: LcForCExpr): ASTNode {
     const newNode = new LcForCExprWithScope(
       n.pos,
-      null,
-      null,
-      null,
-      null,
+      null as unknown as any,
+      null as unknown as any,
+      null as unknown as any,
+      null as unknown as any,
       n.tokens
     );
     newNode.scope = new Scope();
@@ -223,8 +223,8 @@ export default class ASTScopePopulator implements ASTVisitor<ASTNode> {
   visitLcLetExpr(n: LcLetExpr): ASTNode {
     const lcLetWithScopeExpr = new LcLetExprWithScope(
       n.pos,
-      null,
-      null,
+      null as unknown as any,
+      null as unknown as any,
       n.tokens
     );
     lcLetWithScopeExpr.scope = new Scope();
@@ -250,7 +250,7 @@ export default class ASTScopePopulator implements ASTVisitor<ASTNode> {
       const inst = new ModuleInstantiationStmtWithScope(
         n.pos,
         n.name,
-        null,
+        null as unknown as any,
         null,
         n.tokens
       );
@@ -258,13 +258,13 @@ export default class ASTScopePopulator implements ASTVisitor<ASTNode> {
       inst.scope.parent = this.nearestScope;
       const copy = this.copyWithNewNearestScope(inst.scope);
       inst.args = n.args.map((a) => a.accept(copy)) as AssignmentNode[];
-      inst.child = n.child.accept(copy);
+      inst.child = n.child ? n.child.accept(copy) : null;
     }
     const inst = new ModuleInstantiationStmt(
       n.pos,
       n.name,
       n.args.map((a) => a.accept(this)) as AssignmentNode[],
-      n.child.accept(this),
+      n.child ? n.child.accept(this) : null,
       n.tokens
     );
     inst.tagRoot = n.tagRoot;
@@ -277,8 +277,8 @@ export default class ASTScopePopulator implements ASTVisitor<ASTNode> {
     const md = new ModuleDeclarationStmtWithScope(
       n.pos,
       n.name,
-      null,
-      null,
+      null as unknown as any,
+      null as unknown as any,
       n.tokens,
       n.docComment
     );
@@ -296,8 +296,8 @@ export default class ASTScopePopulator implements ASTVisitor<ASTNode> {
     const fDecl = new FunctionDeclarationStmtWithScope(
       n.pos,
       n.name,
-      null,
-      null,
+      null as unknown as any,
+      null as unknown as any,
       n.tokens,
       n.docComment
     );
@@ -314,8 +314,8 @@ export default class ASTScopePopulator implements ASTVisitor<ASTNode> {
   visitAnonymousFunctionExpr(n: AnonymousFunctionExpr): ASTNode {
     const fDecl = new AnonymousFunctionExprWithScope(
       n.pos,
-      null,
-      null,
+      null as unknown as any,
+      null as unknown as any,
       n.tokens,
     );
     fDecl.scope = new Scope();
@@ -328,7 +328,7 @@ export default class ASTScopePopulator implements ASTVisitor<ASTNode> {
     return fDecl;
   }
   visitBlockStmt(n: BlockStmt): ASTNode {
-    const blk = new BlockStmtWithScope(n.pos, null, n.tokens);
+    const blk = new BlockStmtWithScope(n.pos, null as unknown as any, n.tokens);
     blk.scope = new Scope();
     blk.scope.parent = this.nearestScope;
     blk.children = n.children.map((c) =>

@@ -27,6 +27,9 @@ export default class IncludeResolver<T extends WithExportedScopes> {
    * @param f
    */
   async resolveIncludes(f: ScadFile, ec: ErrorCollector) {
+    if (!f.pos.file) {
+      throw new Error("file in pos is null");
+    }
     const includes: string[] = [];
     for (const stmt of f.statements) {
       if (stmt instanceof IncludeStmt) {
@@ -57,6 +60,9 @@ export default class IncludeResolver<T extends WithExportedScopes> {
    * @param f
    */
   async resolveUses(f: ScadFile, ec: ErrorCollector) {
+    if(!f.pos.file) {
+      throw new Error("file in pos is null");
+    }
     const uses: string[] = [];
     for (const stmt of f.statements) {
       if (stmt instanceof UseStmt) {
@@ -89,7 +95,7 @@ export default class IncludeResolver<T extends WithExportedScopes> {
     return null;
   }
 
-  private static _includeDirsCache: string[] = null;
+  private static _includeDirsCache: string[] | null = null;
 
   static get includeDirs() {
     if (!this._includeDirsCache) {

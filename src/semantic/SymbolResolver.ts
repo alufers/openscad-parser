@@ -33,13 +33,21 @@ import {
 export default class SymbolResolver extends ASTMutator {
   constructor(
     private errorCollector: ErrorCollector,
-    public currentScope: Scope = null,
+    /** 
+     * Represents the scope where the resolver has descended.
+     * It initially is null, but the resolver should encounter a NodeWithScope 
+     * and set this to the scope of that node.
+     */
+    public currentScope: Scope | null = null,
     public isInCallee: boolean = false
   ) {
     super();
   }
 
   visitLookupExpr(n: LookupExpr): ASTNode {
+    if(! this.currentScope) {
+      throw new Error("currentScope cannot be null when resolving lookup");
+    }
     const resolved = new ResolvedLookupExpr(n.pos, n.name, n.tokens);
     resolved.resolvedDeclaration = this.currentScope.lookupVariable(n.name);
     if(this.isInCallee && !resolved.resolvedDeclaration) {
@@ -55,11 +63,14 @@ export default class SymbolResolver extends ASTMutator {
   }
 
   visitModuleInstantiationStmt(n: ModuleInstantiationStmt): ASTNode {
+    if(! this.currentScope) {
+      throw new Error("currentScope cannot be null when resolving module");
+    }
     const resolved = new ResolvedModuleInstantiationStmt(
       n.pos,
       n.name,
       n.args.map((a) => a.accept(this)) as AssignmentNode[],
-      n.child.accept(this),
+      n.child ? n.child.accept(this) : null,
       n.tokens
     );
     resolved.resolvedDeclaration = this.currentScope.lookupModule(n.name);

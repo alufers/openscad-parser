@@ -164,17 +164,21 @@ export class LiteralExpr<TValue> extends Expression {
  */
 export class RangeExpr extends Expression {
   begin: Expression;
-  step: Expression;
+  /**
+   * The optional step expression.
+   * It defaults to 1 if not specified.
+   */
+  step: Expression | null;
   end: Expression;
   constructor(
     pos: CodeLocation,
     begin: Expression,
-    step: Expression,
+    step: Expression | null,
     end: Expression,
     public tokens: {
       firstBracket: Token;
       firstColon: Token;
-      secondColon: Token;
+      secondColon: Token | null;
       secondBracket: Token;
     }
   ) {
@@ -355,17 +359,17 @@ export abstract class ListComprehensionExpression extends Expression {}
 export class LcIfExpr extends ListComprehensionExpression {
   cond: Expression;
   ifExpr: Expression;
-  elseExpr: Expression;
+  elseExpr: Expression | null;
   constructor(
     pos: CodeLocation,
     cond: Expression,
     ifExpr: Expression,
-    elseExpr: Expression,
+    elseExpr: Expression | null,
     public tokens: {
       ifKeyword: Token;
       firstParen: Token;
       secondParen: Token;
-      elseKeyword: Token;
+      elseKeyword: Token | null;
     }
   ) {
     super(pos);

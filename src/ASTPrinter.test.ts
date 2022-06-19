@@ -16,6 +16,9 @@ describe("ASTPrinter", () => {
       new CodeFile("<test>", source)
     );
     errorCollector.throwIfAny();
+    if(!ast) {
+      throw new Error("No AST");
+    }
     ast = new ASTScopePopulator(new Scope()).populate(ast) as ScadFile; // populating the scopes should not change anything
     return new ASTPrinter(new FormattingConfiguration()).visitScadFile(ast);
   }

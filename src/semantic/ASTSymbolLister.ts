@@ -70,7 +70,7 @@ export default class ASTSymbolLister<SymType> extends ASTAssembler<Token[]> {
         newArr.push(m);
       }
     }
-    if (currKind != null) {
+    if (currKind != null && currName != null) {
       let savedSymbols = this.symbolsAtCurrentDepth;
       this.symbolsAtCurrentDepth = [];
 

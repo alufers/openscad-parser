@@ -1,3 +1,4 @@
+import ScadFile from "../ast/ScadFile";
 import { ModuleDeclarationStmt } from "../ast/statements";
 import CodeFile from "../CodeFile";
 import ParsingHelper from "../ParsingHelper";
@@ -5,12 +6,12 @@ import { IntrinsicAnnotation } from "./annotations";
 import DocComment from "./DocComment";
 
 describe("DocComment", () => {
-  function doParse(source: string) {
+  function doParse(source: string):ScadFile {
     const [ast, errorCollector] = ParsingHelper.parseFile(
       new CodeFile("<test>", source)
     );
     errorCollector.throwIfAny();
-    return ast;
+    return ast!;
   }
   it("parses a simple documentation comment", () => {
     const ast = doParse(`

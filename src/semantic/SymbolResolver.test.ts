@@ -22,6 +22,9 @@ describe("SymbolResolver", () => {
       )
     );
     ec.throwIfAny();
+    if(!ast) {
+      throw new Error("ast is null");
+    }
     const pop = new ASTScopePopulator(new Scope());
     ast = ast.accept(pop) as ScadFile;
     const resolver = new SymbolResolver(ec);
@@ -50,7 +53,7 @@ describe("SymbolResolver", () => {
     );
     ec.throwIfAny();
     const pop = new ASTScopePopulator(new Scope());
-    ast = ast.accept(pop) as ScadFile;
+    ast = ast!.accept(pop) as ScadFile;
     const resolver = new SymbolResolver(ec);
     ast = ast.accept(resolver) as ScadFile;
     ec.throwIfAny();
@@ -94,7 +97,7 @@ describe("SymbolResolver", () => {
     );
     ec.throwIfAny();
     const pop = new ASTScopePopulator(new Scope());
-    ast = ast.accept(pop) as ScadFile;
+    ast = ast!.accept(pop) as ScadFile;
     const resolver = new SymbolResolver(ec);
     ast = ast.accept(resolver) as ScadFile;
     ec.throwIfAny();
@@ -137,7 +140,7 @@ describe("SymbolResolver", () => {
     );
     ec.throwIfAny();
     const pop = new ASTScopePopulator(new Scope());
-    ast = ast.accept(pop) as ScadFile;
+    ast = ast!.accept(pop) as ScadFile;
     expect(ast).toBeInstanceOf(ScadFileWithScope);
     const resolver = new SymbolResolver(ec);
     ast = ast.accept(resolver) as ScadFile;
@@ -160,7 +163,7 @@ describe("SymbolResolver", () => {
     );
     ec.throwIfAny();
     const pop = new ASTScopePopulator(new Scope());
-    let astWithScope = ast.accept(pop) as ScadFileWithScope;
+    let astWithScope = ast!.accept(pop) as ScadFileWithScope;
     astWithScope.scope.siblingScopes = [PreludeUtil.preludeScope];
     const resolver = new SymbolResolver(ec);
     astWithScope = astWithScope.accept(resolver) as ScadFileWithScope;
@@ -190,7 +193,7 @@ describe("SymbolResolver", () => {
     );
     ec.throwIfAny();
     const pop = new ASTScopePopulator(new Scope());
-    let astWithScope = ast.accept(pop) as ScadFileWithScope;
+    let astWithScope = ast!.accept(pop) as ScadFileWithScope;
     astWithScope.scope.siblingScopes = [PreludeUtil.preludeScope];
     const resolver = new SymbolResolver(ec);
     astWithScope = astWithScope.accept(resolver) as ScadFileWithScope;

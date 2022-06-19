@@ -76,7 +76,7 @@ export default class ASTPrinter implements ASTVisitor<string> {
   visitAssignmentNode(n: AssignmentNode): string {
     let source = "";
     if (n.name) {
-      source += this.stringifyExtraTokens(n.tokens.name);
+      source += this.stringifyExtraTokens(n.tokens.name!);
       source += n.name;
       if (n.tokens.equals) {
         source += this.stringifyExtraTokens(n.tokens.equals);
@@ -198,7 +198,7 @@ export default class ASTPrinter implements ASTVisitor<string> {
     source += n.begin.accept(this);
     source += this.stringifyExtraTokens(n.tokens.firstColon);
     source += " : ";
-    if (n.step) {
+    if (n.step && n.tokens.secondColon) {
       source += n.step.accept(this);
       source += this.stringifyExtraTokens(n.tokens.secondColon);
       source += " : ";
@@ -327,7 +327,7 @@ export default class ASTPrinter implements ASTVisitor<string> {
     source += this.stringifyExtraTokens(n.tokens.secondParen);
     source += ") ";
     source += n.ifExpr.accept(this);
-    if (n.elseExpr) {
+    if (n.elseExpr && n.tokens.elseKeyword) {
       source += this.stringifyExtraTokens(n.tokens.elseKeyword);
       source += " else ";
       source += n.elseExpr.accept(this);
@@ -472,7 +472,7 @@ export default class ASTPrinter implements ASTVisitor<string> {
       } else {
         const c = this.copyWithBreakBetweenModuleInstantations(false);
         c.firstModuleInstantation = true;
-        source += n.child.accept(c);
+        if (n.child) source += n.child.accept(c);
       }
     } else {
       let c: ASTPrinter = this;
@@ -487,7 +487,7 @@ export default class ASTPrinter implements ASTVisitor<string> {
       } else {
         c.firstModuleInstantation = true;
       }
-      source += n.child.accept(c);
+      if (n.child) source += n.child.accept(c);
     }
     return source;
   }
@@ -588,7 +588,7 @@ export default class ASTPrinter implements ASTVisitor<string> {
         ? this.copyWithDoNotAddNewlineAfterBlockStatement()
         : this
     );
-    if (n.tokens.elseKeyword) {
+    if (n.tokens.elseKeyword && n.elseBranch) {
       source += this.stringifyExtraTokens(n.tokens.elseKeyword);
       source += " else";
       if (!(n.elseBranch instanceof NoopStmt)) {
@@ -611,7 +611,6 @@ export default class ASTPrinter implements ASTVisitor<string> {
     source += this.stringifyExtraTokens(n.tokens.secondParen);
     source += ")";
     if (!this.config.definitionsOnly) {
-    
       source += n.expr.accept(this.copyWithIndent());
     }
     return source;
@@ -625,10 +624,16 @@ export default class ASTPrinter implements ASTVisitor<string> {
     if (stmt instanceof ModuleInstantiationStmt) {
       const saved = this.saveDeepGlobals();
       const line = stmt.accept(this);
+
+      // try finding the first line without a comment and break if it is too long
       const firstRealLine = line
         .split("\n")
         .find((l) => !!l.split("//")[0].trim());
-      if (firstRealLine.length > this.config.moduleInstantiationBreakLength) {
+
+      if (
+        firstRealLine &&
+        firstRealLine.length > this.config.moduleInstantiationBreakLength
+      ) {
         this.restoreDeepGlobals(saved);
         return stmt.accept(this.copyWithBreakBetweenModuleInstantations());
       }
@@ -655,7 +660,7 @@ export default class ASTPrinter implements ASTVisitor<string> {
           (et instanceof MultiLineComment || et instanceof SingleLineComment)
         ) {
           let commentText = "";
-          if(this.deepGlobals.shouldAddNewlineAfterNextComment) {
+          if (this.deepGlobals.shouldAddNewlineAfterNextComment) {
             commentText += " "; // add a spece since we are in the same line as the previous token
           }
           if (et instanceof MultiLineComment) {

@@ -25,24 +25,25 @@ export default class AssignmentNode extends ASTNode {
 
   /**
    * THe value of the name being assigned.
+   * It can be null when the AssignmentNode is used as a function parameter without a default value.
    */
-  value: Expression;
+  value: Expression | null;
 
   /**
    * The documentation and annotations connected with this variable.
    */
-  docComment: DocComment;
+  docComment: DocComment | null = null;
 
   constructor(
     pos: CodeLocation,
     name: string,
-    value: Expression,
+    value: Expression | null,
     public role: AssignmentNodeRole,
     public tokens: {
-      name: Token;
-      equals: Token;
-      trailingCommas: Token[];
-      semicolon: Token;
+      name: Token | null;
+      equals: Token | null;
+      trailingCommas: Token[] | null;
+      semicolon: Token | null;
     }
   ) {
     super(pos);

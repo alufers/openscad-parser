@@ -12,7 +12,7 @@ describe("CompletionUtil", () => {
       new CodeFile("<test>", source)
     );
     errorCollector.throwIfAny();
-    ast = new ASTScopePopulator(new Scope()).populate(ast) as ScadFile; // populating the scopes should not change anything
+    ast = new ASTScopePopulator(new Scope()).populate(ast!) as ScadFile; // populating the scopes should not change anything
     return await CompletionUtil.getSymbolsAtLocation(
       ast,
       new CodeLocation(ast.pos.file, charOffset)
@@ -32,11 +32,11 @@ describe("CompletionUtil", () => {
     let [ast, errorCollector] = ParsingHelper.parseFile(
       new CodeFile("<test>", `circle(d )`)
     );
-    ast = new ASTScopePopulator(new Scope()).populate(ast) as ScadFile; // populating the scopes should not change anything
+    ast = new ASTScopePopulator(new Scope()).populate(ast!) as ScadFile; // populating the scopes should not change anything
     expect(async () => {
       await CompletionUtil.getSymbolsAtLocation(
-        ast,
-        new CodeLocation(ast.pos.file, 9)
+        ast!,
+        new CodeLocation(ast!.pos.file, 9)
       );
     }).not.toThrow();
   });

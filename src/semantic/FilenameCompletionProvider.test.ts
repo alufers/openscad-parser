@@ -18,7 +18,10 @@ describe("FilenameCompletionProvider.test", () => {
     const isInFilename = (code: string, offset: number) => {
       const cf = new CodeFile("/test/ddd", code);
       const [ast, ec] = ParsingHelper.parseFile(cf);
-
+      ec.throwIfAny();
+      if(!ast) {
+        throw new Error("no ast");
+      }
       const fcp = new FilenameCompletionProvider();
       return fcp.shouldActivate(ast, new CodeLocation(cf, offset, 0, 0));
     };
@@ -42,7 +45,7 @@ describe("FilenameCompletionProvider.test", () => {
 
     const fcp = new FilenameCompletionProvider();
     expect(
-      await fcp.getSymbolsAtLocation(ast, new CodeLocation(cf, 5, 0, 0))
+      await fcp.getSymbolsAtLocation(ast!, new CodeLocation(cf, 5, 0, 0))
     ).not.toHaveLength(0);
   });
   it("extracts the correct existing filename from the include statement", async () => {
@@ -51,13 +54,13 @@ describe("FilenameCompletionProvider.test", () => {
 
     const fcp = new FilenameCompletionProvider();
     expect(
-      await fcp.getExistingPath(ast, new CodeLocation(cf, 26, 0, 0))
+      await fcp.getExistingPath(ast!, new CodeLocation(cf, 26, 0, 0))
     ).toEqual("MCAD/hardware.scad");
     expect(
-      await fcp.getExistingPath(ast, new CodeLocation(cf, 27, 0, 0))
+      await fcp.getExistingPath(ast!, new CodeLocation(cf, 27, 0, 0))
     ).toEqual("MCAD/hardware.scad");
     expect(
-      await fcp.getExistingPath(ast, new CodeLocation(cf, 25, 0, 0))
+      await fcp.getExistingPath(ast!, new CodeLocation(cf, 25, 0, 0))
     ).toEqual("MCAD/hardware.sca");
   });
 });

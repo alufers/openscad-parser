@@ -26,7 +26,7 @@ export default class FilenameCompletionProvider implements CompletionProvider {
     locM: CodeLocation
   ): Promise<CompletionSymbol[]> {
     const loc = new CodeLocation(locM.file, locM.char, locM.line, locM.col);
-    const existingPath = this.getExistingPath(ast, loc);
+    let existingPath = this.getExistingPath(ast, loc) || "";
     let searchDirs: string[] = [];
     if (path.isAbsolute(existingPath)) {
       searchDirs = [path.dirname(existingPath)];
@@ -45,7 +45,7 @@ export default class FilenameCompletionProvider implements CompletionProvider {
 
         output = [
           ...output,
-          ...(
+          ...((
             await Promise.all(
               filenames.map(async (f) => {
                 const stat = await fs.stat(path.join(sd, f));
@@ -58,7 +58,7 @@ export default class FilenameCompletionProvider implements CompletionProvider {
                 return null;
               })
             )
-          ).filter((s) => !!s),
+          ).filter((s) => !!s) as CompletionSymbol[]),
         ];
       } catch (e) {
         console.error("filed to find in dir", sd, e);
@@ -74,12 +74,15 @@ export default class FilenameCompletionProvider implements CompletionProvider {
    * @param loc the location where the user is typing
    * @returns the part of the included path the user has already entered
    */
-  getExistingPath(ast: ASTNode, loc: CodeLocation): string {
+  getExistingPath(ast: ASTNode, loc: CodeLocation): string | null {
     let charPos = loc.char;
     let linesLimit = 5;
     let stage = 0;
     let existingFilename = "";
     let isFirst = true;
+    if(!loc.file) {
+      throw new Error("No file in CodeLocation");
+    }
     while (true) {
       if (charPos <= 0 || linesLimit <= 0) {
         return null;

@@ -9,11 +9,13 @@ import {
 /**
  * Represents a resolved lookup expression. It can either
  * point to an assignment node, or to a named function declaration.
+ * 
+ * resolvedDeclaration must be set by the instantiating class.
  */
 export class ResolvedLookupExpr extends LookupExpr {
-  resolvedDeclaration: AssignmentNode | FunctionDeclarationStmt;
+  resolvedDeclaration!: AssignmentNode | FunctionDeclarationStmt;
 }
 
 export class ResolvedModuleInstantiationStmt extends ModuleInstantiationStmt {
-  resolvedDeclaration: ModuleDeclarationStmt;
+  resolvedDeclaration!: ModuleDeclarationStmt;
 }

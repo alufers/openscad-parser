@@ -226,7 +226,7 @@ describe("ASTVisitor", () => {
         visitModuleInstantiationStmt(); // call the mocked function so that jest knows it has been called
         expect(n).toBeInstanceOf(ModuleInstantiationStmt);
         n.args.forEach((a) => a.accept(this));
-        n.child.accept(this);
+        n.child?.accept(this);
       }
       visitModuleDeclarationStmt(n: ModuleDeclarationStmt) {
         visitModuleDeclarationStmt(); // call the mocked function so that jest knows it has been called

@@ -18,7 +18,7 @@ export default class Scope {
    * We can use those scopes to resolve types from those files.
    */
   siblingScopes: Scope[] = [];
-  parent: Scope = null;
+  parent: Scope | null = null;
   functions = new Map<string, FunctionDeclarationStmt>();
   variables = new Map<string, AssignmentNode>();
   modules = new Map<string, ModuleDeclarationStmt>();
@@ -48,13 +48,13 @@ export default class Scope {
     x: KeysOfType<Scope, Map<any, any>>,
     name: string,
     visited: WeakMap<Scope, boolean> = new WeakMap()
-  ): FunctionDeclarationStmt | AssignmentNode | ModuleDeclarationStmt {
+  ): FunctionDeclarationStmt | AssignmentNode | ModuleDeclarationStmt | null {
     if (visited.has(this)) {
       return null;
     }
     visited.set(this, true);
     if (this[x].has(name)) {
-      return this[x].get(name);
+      return this[x].get(name) || null;
     }
     if (this.parent) {
       const val = this.parent.lookup(x, name, visited);

@@ -20,6 +20,7 @@ import {
   UnaryOpExpr,
   VectorExpr,
 } from "./ast/expressions";
+import ScadFile from "./ast/ScadFile";
 import {
   BlockStmt,
   IfElseStatement,
@@ -38,12 +39,12 @@ import ParsingHelper from "./ParsingHelper";
 import TokenType from "./TokenType";
 
 describe("Parser", () => {
-  function doParse(source: string) {
+  function doParse(source: string): ScadFile {
     const [ast, errorCollector] = ParsingHelper.parseFile(
       new CodeFile("<test>", source)
     );
     errorCollector.throwIfAny();
-    return ast;
+    return ast!;
   }
   /**
    * Recursively removes codeLocations from the ast tree.
@@ -463,7 +464,7 @@ describe("Parser", () => {
     `);
     expect(file.statements[0]).toBeInstanceOf(AssignmentNode);
     const a = file.statements[0] as AssignmentNode;
-    expect(simplifyAst(a.value)).toMatchSnapshot();
+    expect(simplifyAst(a.value!)).toMatchSnapshot();
   });
   it("parses addition and multiplication with grouping expression", () => {
     const file = doParse(`
@@ -471,7 +472,7 @@ describe("Parser", () => {
     `);
     expect(file.statements[0]).toBeInstanceOf(AssignmentNode);
     const a = file.statements[0] as AssignmentNode;
-    expect(simplifyAst(a.value)).toMatchSnapshot();
+    expect(simplifyAst(a.value!)).toMatchSnapshot();
   });
   it("parses addition and multiplication without grouping expression", () => {
     const file = doParse(`
@@ -479,7 +480,7 @@ describe("Parser", () => {
     `);
     expect(file.statements[0]).toBeInstanceOf(AssignmentNode);
     const a = file.statements[0] as AssignmentNode;
-    expect(simplifyAst(a.value)).toMatchSnapshot();
+    expect(simplifyAst(a.value!)).toMatchSnapshot();
   });
 
   it("it parses the ^ exponetiation operator", () => {
@@ -488,7 +489,7 @@ describe("Parser", () => {
     `);
     expect(file.statements[0]).toBeInstanceOf(AssignmentNode);
     const a = file.statements[0] as AssignmentNode;
-    expect(simplifyAst(a.value)).toMatchSnapshot();
+    expect(simplifyAst(a.value!)).toMatchSnapshot();
   });
   it("parses the '-' unary operator", () => {
     const file = doParse(`
@@ -1008,5 +1009,5 @@ describe("Parser", () => {
     doParse(`
         x = func(5);
         `);
-  })
+  });
 });

@@ -412,7 +412,7 @@ export default class Parser {
     this.consume(TokenType.RightParen, "after the if condition");
     const secondParen = this.previous();
     const thenBranch = this.statement();
-    let elseBranch: Statement = null;
+    let elseBranch: Statement | null = null;
     let elseKeyword = null;
     if (this.matchToken(TokenType.Else)) {
       elseKeyword = this.previous();
@@ -433,7 +433,7 @@ export default class Parser {
     }
     this.consume(TokenType.LeftParen, "after module instantation");
     const firstParen = this.previous();
-    let name: string;
+    let name!: string;
     if (prev instanceof LiteralToken) {
       name = prev.value as string;
     } else {
@@ -472,10 +472,10 @@ export default class Parser {
       if (!allowPositional && this.peek().type !== TokenType.Identifier) {
         break;
       }
-      let value: Expression = null;
+      let value: Expression | null = null;
       let name: string;
-      let nameToken: Token = null;
-      let equals: Token = null;
+      let nameToken: Token | null = null;
+      let equals: Token | null = null;
       if (!allowPositional || this.peekNext().type === TokenType.Equal) {
         // this is a named parameter
         name = (this.advance() as LiteralToken<string>).value;
@@ -508,14 +508,14 @@ export default class Parser {
       args.push(arg);
 
       if (this.matchToken(TokenType.Comma)) {
-        arg.tokens.trailingCommas.push(this.previous());
-        this.consumeUselessCommas(arg.tokens.trailingCommas);
+        arg.tokens.trailingCommas!.push(this.previous());
+        this.consumeUselessCommas(arg.tokens.trailingCommas!);
         if (this.matchToken(TokenType.RightParen)) {
           return args;
         }
         continue;
       }
-      this.consumeUselessCommas(arg.tokens.trailingCommas);
+      this.consumeUselessCommas(arg.tokens.trailingCommas!);
       // end of named arguments
       if (this.matchToken(TokenType.RightParen)) {
         return args;
@@ -577,8 +577,8 @@ export default class Parser {
       args.push(arg);
 
       if (this.matchToken(TokenType.Comma)) {
-        arg.tokens.trailingCommas.push(this.previous());
-        this.consumeUselessCommas(arg.tokens.trailingCommas);
+        arg.tokens.trailingCommas!.push(this.previous());
+        this.consumeUselessCommas(arg.tokens.trailingCommas!);
         if (
           this.checkToken(TokenType.RightParen) ||
           this.checkToken(TokenType.Semicolon)
@@ -587,7 +587,7 @@ export default class Parser {
         }
         continue;
       }
-      this.consumeUselessCommas(arg.tokens.trailingCommas);
+      this.consumeUselessCommas(arg.tokens.trailingCommas!);
       if (
         this.checkToken(TokenType.RightParen) ||
         this.checkToken(TokenType.Semicolon)
@@ -973,7 +973,7 @@ export default class Parser {
     const vectorLiteral = new VectorExpr(startBracket.pos, [first], {
       commas: [],
       firstBracket: startBracket,
-      secondBracket: null,
+      secondBracket: null as unknown as any, // we will add the second bracket later in the parsing, so we allow to have a null here
     });
     if (this.matchToken(TokenType.Comma)) {
       vectorLiteral.tokens.commas.push(this.previous()); // add the comma to the tokens list, because we matchedIt
@@ -1067,7 +1067,7 @@ export default class Parser {
       );
       const secondParen = this.previous();
       const thenBranch = this.listComprehensionElementsOrExpr();
-      let elseBranch = null;
+      let elseBranch: Expression | null = null;
       let elseKeyword = null;
       if (this.matchToken(TokenType.Else)) {
         elseKeyword = this.previous();
@@ -1080,6 +1080,8 @@ export default class Parser {
         secondParen,
       });
     }
+    // we should not get here
+    throw new Error("Unexpected token in list comprehension elements! THIS SHOULD NOT HAPPEN");
   }
   protected listComprehensionFor(): Expression {
     const forKwrd = this.previous();

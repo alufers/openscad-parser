@@ -215,7 +215,7 @@ export default class ASTMutator
   visitLcIfExpr(n: LcIfExpr): ASTNode {
     const newCond = n.cond.accept(this);
     const newIfExpr = n.ifExpr.accept(this);
-    const newElseExpr = n.elseExpr.accept(this);
+    const newElseExpr = n.elseExpr ? n.elseExpr.accept(this) : null;
     if (
       newCond === n.cond &&
       newIfExpr === n.ifExpr &&
@@ -318,7 +318,7 @@ export default class ASTMutator
       n.pos,
       n.name,
       n.args.map((a) => a.accept(this)) as AssignmentNode[],
-      n.child.accept(this),
+      n.child ? n.child.accept(this) : null,
       n.tokens
     );
     inst.tagRoot = n.tagRoot;

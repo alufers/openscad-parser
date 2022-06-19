@@ -25,16 +25,15 @@ import Scope from "./semantic/Scope";
 import SymbolResolver from "./semantic/SymbolResolver";
 
 export class SolutionFile implements WithExportedScopes {
-  fullPath: string;
-  codeFile: CodeFile;
-  ast: ASTNode = null;
-  dependencies: SolutionFile[];
-  errors: Error[];
+  codeFile!: CodeFile;
+  ast: ASTNode|null = null;
+  dependencies!: SolutionFile[];
+  errors!: Error[];
   includeResolver: IncludeResolver<SolutionFile>;
 
-  includedFiles: SolutionFile[];
+  includedFiles!: SolutionFile[];
 
-  onlyOwnScope: Scope;
+  onlyOwnScope!: Scope;
 
   constructor(public solutionManager: SolutionManager) {
     this.includeResolver = new IncludeResolver(this.solutionManager);
@@ -64,7 +63,7 @@ export class SolutionFile implements WithExportedScopes {
     this.errors = errors.errors;
   }
   getCompletionsAtLocation(loc: CodeLocation) {
-    return CompletionUtil.getSymbolsAtLocation(this.ast, loc);
+    return CompletionUtil.getSymbolsAtLocation(this.ast!, loc);
   }
 
   getSymbols<SymType>(
@@ -77,7 +76,7 @@ export class SolutionFile implements WithExportedScopes {
     ) => SymType
   ) {
     const l = new ASTSymbolLister<SymType>(makeSymbol);
-    return l.doList(this.ast);
+    return l.doList(this.ast!);
   }
 
   getFormatted() {
@@ -93,7 +92,7 @@ export class SolutionFile implements WithExportedScopes {
     ];
   }
   getSymbolDeclaration(loc: CodeLocation) {
-    const pp = new ASTPinpointer(loc).doPinpoint(this.ast);
+    const pp = new ASTPinpointer(loc).doPinpoint(this.ast!);
     if (
       pp instanceof ResolvedLookupExpr ||
       pp instanceof ResolvedModuleInstantiationStmt
@@ -102,10 +101,10 @@ export class SolutionFile implements WithExportedScopes {
     }
     return null;
   }
-  getSymbolDeclarationLocation(loc: CodeLocation): CodeLocation {
+  getSymbolDeclarationLocation(loc: CodeLocation): CodeLocation | null {
     const decl = this.getSymbolDeclaration(loc);
     if (decl) {
-      return decl.tokens.name.pos;
+      return decl.tokens.name ? decl.tokens.name.pos : null;
     }
     return null;
   }
@@ -148,7 +147,7 @@ export default class SolutionManager implements ScadFileProvider<SolutionFile> {
     let sf = this.openedFiles.get(filePath);
     if (!sf) {
       if (this.notReadyFiles.has(filePath)) {
-        sf = await this.notReadyFiles.get(filePath);
+        sf = await this.notReadyFiles.get(filePath) as SolutionFile;
       } else {
         throw new Error("No such file");
       }
@@ -166,7 +165,7 @@ export default class SolutionManager implements ScadFileProvider<SolutionFile> {
     const solutionFile = new SolutionFile(this);
     solutionFile.codeFile = codeFile;
     try {
-      let resolve: (s: SolutionFile) => void;
+      let resolve!: (s: SolutionFile) => void;
       this.notReadyFiles.set(
         codeFile.path,
         new Promise<SolutionFile>((r) => (resolve = r))
@@ -185,7 +184,7 @@ export default class SolutionManager implements ScadFileProvider<SolutionFile> {
    * @param filePath The dependent-upon file.
    */
   async provideScadFile(filePath: string) {
-    let f: SolutionFile = await this.getFile(filePath);
+    let f: SolutionFile | undefined = await this.getFile(filePath);
     if (f) return f; // the file is already opened or refrenced by antoher
     return await this.attachSolutionFile(await CodeFile.load(filePath));
   }

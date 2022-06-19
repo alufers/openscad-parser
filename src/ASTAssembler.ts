@@ -61,7 +61,8 @@ export default abstract class ASTAssembler<R> implements ASTVisitor<R> {
       arr.push(n.tokens.equals);
     }
     if (n.value) {
-      arr.push(() => n.value.accept(this));
+      // n.value won't be modified, so we can assert it is not null
+      arr.push(() => n.value!.accept(this));
     }
     if (n.tokens.trailingCommas) {
       arr.push(...n.tokens.trailingCommas);
@@ -114,17 +115,14 @@ export default abstract class ASTAssembler<R> implements ASTVisitor<R> {
     return this.processAssembledNode([n.tokens.literalToken], n);
   }
   visitRangeExpr(n: RangeExpr): R {
-    if (n.step) {
-      return this.processAssembledNode(
-        [
-          () => n.begin.accept(this),
-          n.tokens.firstColon,
-          () => n.step.accept(this),
-          n.tokens.secondColon,
-          () => n.end.accept(this),
-        ],
-        n
-      );
+    if (n.step && n.tokens.secondColon) {
+      let parts = [() => n.begin.accept(this), n.tokens.firstColon];
+      if (n.step) {
+        parts.push(() => n!.step!.accept(this));
+      }
+
+      parts.push(n.tokens.secondColon, () => n.end.accept(this));
+      return this.processAssembledNode(parts, n);
     }
     return this.processAssembledNode(
       [
@@ -202,9 +200,9 @@ export default abstract class ASTAssembler<R> implements ASTVisitor<R> {
     );
   }
   visitLcIfExpr(n: LcIfExpr): R {
-    const elseStuff = [];
-    if (n.elseExpr) {
-      elseStuff.push(n.tokens.elseKeyword, () => n.elseExpr.accept(this));
+    const elseStuff: (Token | (() => R))[] = [];
+    if (n.elseExpr && n.tokens.elseKeyword) {
+      elseStuff.push(n.tokens.elseKeyword, () => n.elseExpr!.accept(this));
     }
     return this.processAssembledNode(
       [
@@ -294,7 +292,7 @@ export default abstract class ASTAssembler<R> implements ASTVisitor<R> {
       n.child &&
       !(n.child instanceof ErrorNode && n.child.tokens.tokens.length === 0) // omit zero-width error nodes since they contribute nothing.
     ) {
-      arr.push(() => n.child.accept(this));
+      arr.push(() => n.child!.accept(this));
     }
 
     return this.processAssembledNode(arr, n);
@@ -348,7 +346,7 @@ export default abstract class ASTAssembler<R> implements ASTVisitor<R> {
     arr.push(n.tokens.secondParen);
     arr.push(() => n.thenBranch.accept(this));
     if (n.elseBranch) {
-      arr.push(n.tokens.elseKeyword, () => n.elseBranch.accept(this));
+      arr.push(n!.tokens!.elseKeyword!, () => n!.elseBranch!.accept(this));
     }
     return this.processAssembledNode(arr, n);
   }

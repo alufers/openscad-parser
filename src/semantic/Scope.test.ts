@@ -5,11 +5,11 @@ import Scope from "./Scope";
 describe("Scope", () => {
   it("resolves local variables", () => {
     const ass = new AssignmentNode(
-      null,
+      null as unknown as any,
       "testVar",
-      new LiteralExpr(null, 20, { literalToken: null }),
+      new LiteralExpr(null as unknown as any, 20, { literalToken: null as unknown as any }),
       AssignmentNodeRole.VARIABLE_DECLARATION,
-      null
+      null as unknown as any
     );
     const scope = new Scope();
     scope.variables.set("testVar", ass);
@@ -17,11 +17,11 @@ describe("Scope", () => {
   });
   it("resolves variables in parent scopes", () => {
     const ass = new AssignmentNode(
-      null,
+      null as unknown as any,
       "testVar",
-      new LiteralExpr(null, 20, { literalToken: null }),
+      new LiteralExpr(null as unknown as any, 20, { literalToken: null as unknown as any }),
       AssignmentNodeRole.VARIABLE_DECLARATION,
-      null
+      null as unknown as any
     );
     const scope = new Scope();
     scope.variables.set("testVar", ass);

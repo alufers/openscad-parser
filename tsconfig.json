@@ -12,6 +12,7 @@
     "allowUnusedLabels": false,
     "forceConsistentCasingInFileNames": true,
     "sourceMap": true,
+    "strict": true,
     "outDir": "dist"
   },
   "include": ["src/**/*.ts"]

@@ -24,7 +24,7 @@ export interface ASTVisitorForNodesWithScopes<R> extends ASTVisitor<R> {
 }
 
 export class BlockStmtWithScope extends BlockStmt implements NodeWithScope {
-  scope: Scope;
+  scope!: Scope;
   accept<R>(visitor: ASTVisitorForNodesWithScopes<R>): R {
     if (visitor.visitBlockStmtWithScope) {
       return visitor.visitBlockStmtWithScope(this);
@@ -33,7 +33,7 @@ export class BlockStmtWithScope extends BlockStmt implements NodeWithScope {
   }
 }
 export class LetExprWithScope extends LetExpr implements NodeWithScope {
-  scope: Scope;
+  scope!: Scope;
   accept<R>(visitor: ASTVisitorForNodesWithScopes<R>): R {
     if (visitor.visitLetExprWithScope) {
       return visitor.visitLetExprWithScope(this);
@@ -43,7 +43,7 @@ export class LetExprWithScope extends LetExpr implements NodeWithScope {
 }
 
 export class ScadFileWithScope extends ScadFile implements NodeWithScope {
-  scope: Scope;
+  scope!: Scope;
   accept<R>(visitor: ASTVisitorForNodesWithScopes<R>): R {
     if (visitor.visitScadFileWithScope) {
       return visitor.visitScadFileWithScope(this);
@@ -56,7 +56,7 @@ export class FunctionDeclarationStmtWithScope
   extends FunctionDeclarationStmt
   implements NodeWithScope
 {
-  scope: Scope;
+  scope!: Scope;
   accept<R>(visitor: ASTVisitorForNodesWithScopes<R>): R {
     if (visitor.visitFunctionDeclarationStmtWithScope) {
       return visitor.visitFunctionDeclarationStmtWithScope(this);
@@ -69,7 +69,7 @@ export class ModuleDeclarationStmtWithScope
   extends ModuleDeclarationStmt
   implements NodeWithScope
 {
-  scope: Scope;
+  scope!: Scope;
   accept<R>(visitor: ASTVisitorForNodesWithScopes<R>): R {
     if (visitor.visitModuleDeclarationStmtWithScope) {
       return visitor.visitModuleDeclarationStmtWithScope(this);
@@ -82,7 +82,7 @@ export class ModuleInstantiationStmtWithScope
   extends ModuleInstantiationStmt
   implements NodeWithScope
 {
-  scope: Scope;
+  scope!: Scope;
   accept<R>(visitor: ASTVisitorForNodesWithScopes<R>): R {
     if (visitor.visitModuleInstantiationStmtWithScope) {
       return visitor.visitModuleInstantiationStmtWithScope(this);
@@ -92,7 +92,7 @@ export class ModuleInstantiationStmtWithScope
 }
 
 export class LcLetExprWithScope extends LcLetExpr implements NodeWithScope {
-  scope: Scope;
+  scope!: Scope;
   accept<R>(visitor: ASTVisitorForNodesWithScopes<R>): R {
     if (visitor.visitLcLetExprWithScope) {
       return visitor.visitLcLetExprWithScope(this);
@@ -102,7 +102,7 @@ export class LcLetExprWithScope extends LcLetExpr implements NodeWithScope {
 }
 
 export class LcForExprWithScope extends LcForExpr implements NodeWithScope {
-  scope: Scope;
+  scope!: Scope;
   accept<R>(visitor: ASTVisitorForNodesWithScopes<R>): R {
     if (visitor.visitLcForExprWithScope) {
       return visitor.visitLcForExprWithScope(this);
@@ -112,7 +112,7 @@ export class LcForExprWithScope extends LcForExpr implements NodeWithScope {
 }
 
 export class LcForCExprWithScope extends LcForCExpr implements NodeWithScope {
-  scope: Scope;
+  scope!: Scope;
   accept<R>(visitor: ASTVisitorForNodesWithScopes<R>): R {
     if (visitor.visitLcForCExprWithScope) {
       return visitor.visitLcForCExprWithScope(this);
@@ -122,7 +122,7 @@ export class LcForCExprWithScope extends LcForCExpr implements NodeWithScope {
 }
 
 export class AnonymousFunctionExprWithScope extends AnonymousFunctionExpr implements NodeWithScope {
-  scope: Scope;
+  scope!: Scope;
   accept<R>(visitor: ASTVisitorForNodesWithScopes<R>): R {
     if (visitor.visitAnonymousFunctionExprWithScope) {
       return visitor.visitAnonymousFunctionExprWithScope(this);

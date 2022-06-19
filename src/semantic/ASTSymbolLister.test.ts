@@ -19,7 +19,7 @@ describe("ASTSymbolLister", () => {
         symCb();
         expect(kind).toEqual(SymbolKind.MODULE);
       }
-    ).doList(ast);
+    ).doList(ast!);
     expect(symCb).toHaveBeenCalled();
   });
   it("returns variable symbols", () => {
@@ -39,7 +39,7 @@ describe("ASTSymbolLister", () => {
         expect(kind).toEqual(SymbolKind.VARIABLE);
         expect(name).toEqual("abrakadabra");
       }
-    ).doList(ast);
+    ).doList(ast!);
     expect(symCb).toHaveBeenCalled();
   });
 });

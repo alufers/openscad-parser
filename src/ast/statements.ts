@@ -116,7 +116,11 @@ export class ModuleInstantiationStmt
     pos: CodeLocation,
     public name: string,
     public args: AssignmentNode[],
-    public child: Statement,
+    /**
+     * The child statement in a module instantiation chain.
+     * Can be null if this is the last statement in the chain.
+     */
+    public child: Statement | null,
     public tokens: {
       name: Token;
       firstParen: Token;
@@ -219,6 +223,8 @@ export class NoopStmt extends Statement {
 }
 
 /**
+ * IfElseStmt represents an if-else statement. elseIfs are represented as
+ * additional IfElseStmt instances in the else branch (simmilar to how C works).
  * @category AST
  */
 export class IfElseStatement extends Statement implements TaggableStatement {
@@ -230,12 +236,16 @@ export class IfElseStatement extends Statement implements TaggableStatement {
     pos: CodeLocation,
     public cond: Expression,
     public thenBranch: Statement,
-    public elseBranch: Statement,
+    /**
+     * The else branch.
+     * It can be null if there is no else branch.
+     */
+    public elseBranch: Statement | null,
     public tokens: {
       ifKeyword: Token;
       firstParen: Token;
       secondParen: Token;
-      elseKeyword: Token;
+      elseKeyword: Token | null;
       modifiersInOrder: Token[];
     }
   ) {

@@ -16,7 +16,7 @@ describe("ASTScopePopulator", () => {
     );
     ec.throwIfAny();
     const pop = new ASTScopePopulator(new Scope());
-    ast.accept(pop);
+    ast!.accept(pop);
   });
   it("populates the scope with prelude functions", async () => {
     const [ast, ec] = ParsingHelper.parseFile(
@@ -25,7 +25,7 @@ describe("ASTScopePopulator", () => {
     ec.throwIfAny();
     const scope = new Scope();
     const pop = new ASTScopePopulator(scope);
-    ast.accept(pop);
+    ast!.accept(pop);
   });
   function checkIfExistsInTree<T>(
     source: string,
@@ -35,7 +35,7 @@ describe("ASTScopePopulator", () => {
     const [ast, ec] = ParsingHelper.parseFile(new CodeFile("<test>", source));
     ec.throwIfAny();
     const pop = new ASTScopePopulator(new Scope());
-    const populated = ast.accept(pop);
+    const populated = ast!.accept(pop);
     const ok = jest.fn();
     class Tmp extends ASTAssembler<void> {
       protected processAssembledNode(

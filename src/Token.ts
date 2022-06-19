@@ -9,8 +9,10 @@ export default class Token {
   public extraTokens: ExtraToken[] = [];
   /**
    * Start of this token, including all the whitespace before it.
+   * 
+   * Set externally in the lexer.
    */
-  public startWithWhitespace: CodeLocation;
+  public startWithWhitespace!: CodeLocation;
 
   constructor(
     public type: TokenType,

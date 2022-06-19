@@ -65,6 +65,9 @@ scadfmt is a part of openscad-parser. https://github.com/alufers/openscad-parser
       errorCollector.printErrors();
       process.exit(1);
     }
+    if (!ast) {
+      throw new Error("No AST");
+    }
     if (flags["--write"]) {
       formattedOutputs[filename] = new ASTPrinter(
         new FormattingConfiguration()

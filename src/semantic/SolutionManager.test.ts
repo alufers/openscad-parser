@@ -32,7 +32,6 @@ describe("SolutionManager", () => {
     );
 
     const file = await sm.getFile(path);
-
     const spy = jest.fn()
     class Walker extends ASTMutator {
       visitModuleInstantiationStmt(node: ModuleInstantiationStmt) {
@@ -41,6 +40,9 @@ describe("SolutionManager", () => {
         spy();
         return node;
       }
+    }
+    if(!file?.ast) {
+      throw new Error("File has no ast");
     }
     file.ast.accept(new Walker());
 

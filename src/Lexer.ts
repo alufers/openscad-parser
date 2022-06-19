@@ -32,15 +32,15 @@ import TokenType from "./TokenType";
  * It also handles detecting keywords and identifiers.
  */
 export default class Lexer {
-  protected start: CodeLocation;
-  protected startWithWhitespace: CodeLocation;
+  protected start!: CodeLocation;
+  protected startWithWhitespace!: CodeLocation;
   public tokens: Token[] = [];
   protected currentExtraTokens: ExtraToken[] = [];
 
   protected charOffset = 0;
   protected lineOffset = 0;
   protected colOffset = 0;
-  protected _currLocCache: CodeLocation = null;
+  protected _currLocCache: CodeLocation | null = null;
 
   constructor(
     public codeFile: CodeFile,
@@ -391,7 +391,7 @@ export default class Lexer {
    *
    * Additionally it handles clearing and attaching the extra tokens.
    */
-  protected addToken<TValue = any>(tokenType: TokenType, value: TValue = null) {
+  protected addToken<TValue = any>(tokenType: TokenType, value: TValue | null= null) {
     const lexeme = this.codeFile.code.substring(
       this.start.char,
       this.charOffset
