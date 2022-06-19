@@ -127,6 +127,5 @@ export default class FilenameCompletionProvider implements CompletionProvider {
       isFirst = false;
       charPos--;
     }
-    return null;
   }
 }
