@@ -7,9 +7,9 @@ import Token from "./Token";
 export const BinAfter = Symbol("BinAfter");
 export const BinBefore = Symbol("BinBefore");
 
-type PinpointerRet = ASTNode | typeof BinAfter | typeof BinBefore;
+export type PinpointerRet = ASTNode | typeof BinAfter | typeof BinBefore;
 
-type DispatchTokenMix = (Token | (() => PinpointerRet))[];
+export type DispatchTokenMix = (Token | (() => PinpointerRet))[];
 
 /**
  * This class searches through the AST to find a node based on its position.

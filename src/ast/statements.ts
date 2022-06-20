@@ -61,9 +61,10 @@ export class IncludeStmt extends Statement {
 }
 
 /**
+ * Represents a statement that can be prefixed with the !%#* symbols to change it's behaviour.
  * @category AST
  */
-interface TaggableStatement {
+export interface TaggableStatement {
   /**
    * Set to true if this module instantation has been tagged with a '!' symbol.
    */
