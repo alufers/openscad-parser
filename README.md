@@ -34,7 +34,7 @@ I will soon release a vscode extension with full OpenSCAD support, it just needs
 
 # Documentation
 
-The API documentation is available [here](https://openscad-parser.albert-koczy.com).
+The API documentation is available [here](https://alufers.github.io/openscad-parser/).
 
 # License
 
