@@ -7,7 +7,6 @@
     "@types/node": "^18.0.0",
     "barrelsby": "^2.3.4",
     "jest": "^28.1.1",
-    "microbundle": "^0.15.0",
     "mock-fs": "^5.1.2",
     "prettier": "^2.7.1",
     "ts-jest": "^28.0.5",
