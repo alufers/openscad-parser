@@ -12,7 +12,7 @@ import ASTScopePopulator from "./semantic/ASTScopePopulator";
 import Scope from "./semantic/Scope";
 
 describe("ASTPinpointer", () => {
-  it.skip("the internal binsearch dispatch works with simple tokens", () => {
+  it("the internal binsearch dispatch works with simple tokens", () => {
     const f = new CodeFile("<test>", "a=5;b=a;");
     const ec = new ErrorCollector();
 
@@ -33,8 +33,8 @@ describe("ASTPinpointer", () => {
     p.pinpointLocation = new CodeLocation(f, 200);
     expect(p.testFunc1()).toEqual(BinAfter);
 
-    p.pinpointLocation = new CodeLocation(f, 2);
-    expect(p.testFunc1()).toEqual(null);
+    p.pinpointLocation = new CodeLocation(f, 4);
+    expect(p.testFunc1()).toEqual(BinAfter);
   });
   it("the internal binsearch dispatch works with function trees", () => {
     const f = new CodeFile("<test>", "a=5;b=a;");
