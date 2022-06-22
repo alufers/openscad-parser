@@ -29,6 +29,7 @@ npm install openscad-parser
 - [x] Symbol tree generation (VSCode "Outline" view)
 - [x] Formatting (fully AST-aware, needs some more work with breaking up large vectors)
 - [x] Semantic code completions (provides code completions for VSCode)
+- [x] Jump to definition (provides a "Go to definition" context menu item)
 
 I will soon release a vscode extension with full OpenSCAD support, it just needs some more work.
 
