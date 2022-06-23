@@ -1,7 +1,12 @@
 import SolutionManager, { SolutionFile } from "../SolutionManager";
 import { promises as fs } from "fs";
 import { join } from "path";
-import { ASTMutator, ModuleInstantiationStmt, ModuleInstantiationStmtWithScope, ResolvedModuleInstantiationStmt } from "..";
+import {
+  ASTMutator,
+  ModuleInstantiationStmt,
+  ModuleInstantiationStmtWithScope,
+  ResolvedModuleInstantiationStmt,
+} from "..";
 describe("SolutionManager", () => {
   it("returns files after they have fully processed when using getFile", async () => {
     const sm = new SolutionManager();
@@ -32,30 +37,36 @@ describe("SolutionManager", () => {
     );
 
     const file = await sm.getFile(path);
-    const spy = jest.fn()
+    const spy = jest.fn();
     class Walker extends ASTMutator {
       visitModuleInstantiationStmt(node: ModuleInstantiationStmt) {
         expect(node).toBeInstanceOf(ResolvedModuleInstantiationStmt);
-     
+
         spy();
         return node;
       }
     }
-    if(!file?.ast) {
+    if (!file?.ast) {
       throw new Error("File has no ast");
     }
     file.ast.accept(new Walker());
 
-    expect(spy).toHaveBeenCalled()
-
+    expect(spy).toHaveBeenCalled();
   });
 
-  it("does not report errors on 'echo' statements", async () => {
+  async function checkNoError(filePath: string) {
     const sm = new SolutionManager();
-    const path = join(__dirname, "../testdata/echo_test.scad");
+    const path = join(__dirname, filePath);
     sm.notifyNewFileOpened(path, await fs.readFile(path, { encoding: "utf8" }));
     const sf = await sm.getFile(path);
     expect(sf).toBeInstanceOf(SolutionFile);
-    expect( sf?.errors).toHaveLength(0);
+    expect(sf?.errors).toHaveLength(0);
+  }
+
+  it("does not report errors on 'echo' statements", async () => {
+    await checkNoError("../testdata/echo_test.scad");
   });
+  it("does not report errors on the 'render()' module", async () => {
+    await checkNoError("../testdata/render_test.scad");
+  })
 });

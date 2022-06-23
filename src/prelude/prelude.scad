@@ -251,6 +251,26 @@ module offset(r = 1, delta = 1, chamfer = false);
  **/
 module minkowski();
 
+/**
+ * Makes OpenScad generate a mesh even in preview mode. 
+ * This is  useful, when the boolean operations become too slow to track.
+ *
+ * @param convexity [type=number] [positional] Specifies the maximum number of front sides (back sides) a ray intersecting the object might penetrate.
+ * @see https://en.wikibooks.org/wiki/OpenSCAD_User_Manual/Other_Language_Features#Render
+ **/
+module render(convexity = 1);
+
+/**
+ * Reads Heightmap information from text or image files.
+ *
+ * @param file [positional] [type=string] The file name to read from. Can be a text file or PNG image.
+ * @param center [positional] [type=boolean] If true, the heightmap is centered on the origin.
+ * @param invert [positional] [type=boolean] Inverts how the color values of imported images are translated into height values. This has no effect when importing text data files.
+ * @param convexity [positional] [type=number] Specifies the maximum number of front sides (back sides) a ray intersecting the object might penetrate.
+ * https://en.wikibooks.org/wiki/OpenSCAD_User_Manual/Other_Language_Features#Surface
+ **/
+module surface(file, center = false, invert = false, convexity = 1);
+ 
 // 
 // Constants
 // 
