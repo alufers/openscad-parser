@@ -49,4 +49,13 @@ describe("SolutionManager", () => {
     expect(spy).toHaveBeenCalled()
 
   });
+
+  it("does not report errors on 'echo' statements", async () => {
+    const sm = new SolutionManager();
+    const path = join(__dirname, "../testdata/echo_test.scad");
+    sm.notifyNewFileOpened(path, await fs.readFile(path, { encoding: "utf8" }));
+    const sf = await sm.getFile(path);
+    expect(sf).toBeInstanceOf(SolutionFile);
+    expect( sf?.errors).toHaveLength(0);
+  });
 });

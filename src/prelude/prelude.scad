@@ -3,7 +3,7 @@
 // Some texts were copied from the OpenScad wiki and are licensed under the  Creative Commons Attribution-ShareAlike License.
 
 //
-// Control flow
+// Control flow and intrinsic modules
 //
 
 /**
@@ -19,6 +19,13 @@ module _for();
 // @intrinsic controlFlow
 // @see https://en.wikibooks.org/wiki/OpenSCAD_User_Manual/Conditional_and_Iterator_Functions#Intersection_For_Loop
 module intersection_for();
+
+/**
+ *  Prints the value of the passed parameters to the console.
+ *
+ *  @intrinsicRename echo
+ **/
+module _echo();
 
 // 
 // 2D
@@ -300,7 +307,7 @@ function is_undef(val) = undef;
 /**
  * Checks whether the passed value is a boolean (true, false).
  *
- * @param val tthe value to check.
+ * @param val the value to check.
  * @returns Whether `val` is undef.
  * @see https://en.wikibooks.org/wiki/OpenSCAD_User_Manual/Type_Test_Functions#is_bool
  **/
@@ -309,7 +316,7 @@ function is_bool(val) = undef;
 /**
  * Checks whether the passed value is a number (including infinity).
  *
- * @param val tthe value to check.
+ * @param val the value to check.
  * @returns Whether `val` is a number.
  * @see https://en.wikibooks.org/wiki/OpenSCAD_User_Manual/Type_Test_Functions#is_num
  **/
@@ -318,7 +325,7 @@ function is_num(val) = undef;
 /**
  * Checks whether the passed value is a string.
  *
- * @param val tthe value to check.
+ * @param val the value to check.
  * @returns Whether `val` is a string.
  * @see https://en.wikibooks.org/wiki/OpenSCAD_User_Manual/Type_Test_Functions#is_string
  **/
@@ -327,7 +334,7 @@ function is_string(val) = undef;
 /**
  * Checks whether the passed value is a list (vector).
  *
- * @param val tthe value to check.
+ * @param val the value to check.
  * @returns Whether `val` is a list.
  * @see https://en.wikibooks.org/wiki/OpenSCAD_User_Manual/Type_Test_Functions#is_list
  **/

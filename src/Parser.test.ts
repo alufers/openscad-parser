@@ -1010,4 +1010,12 @@ describe("Parser", () => {
         x = func(5);
         `);
   });
+  it("does not hang when parsing a declaration of a module called 'echo'", () => {
+    expect(() =>
+      doParse(`
+    module echo() {
+        echo("hello");
+    }`)
+    ).toThrow(ParsingError);
+  });
 });
