@@ -276,7 +276,8 @@ module surface(file, center = false, invert = false, convexity = 1);
 // 
 
 /**
- * An approximation of the π mathematical constant. It is defined in Euclidean geometry[a] as the ratio of a circle's circumference to its diameter.
+ * An approximation of the π mathematical constant. 
+ * It is defined in Euclidean geometry[a] as the ratio of a circle's circumference to its diameter.
  *
  * @see https://en.wikipedia.org/wiki/Pi
  **/
@@ -440,13 +441,78 @@ function sin(x) = undef;
  * @see https://en.wikibooks.org/wiki/OpenSCAD_User_Manual/Mathematical_Functions#sin
  **/
 function cos(x) = undef;
+
+/**
+ * Mathematical tangent function.
+ * Relates an angle of a right-angled triangle to ratios of the opposite to the adjacent.
+ *
+ * @param x [positional] [type=number] Angle in degrees.
+ * @returns A number
+ * @see https://en.wikipedia.org/wiki/Trigonometric_functions#Right-angled_triangle_definitions
+ * @see https://en.wikibooks.org/wiki/OpenSCAD_User_Manual/Mathematical_Functions#tan
+ **/
 function tan(x) = undef;
+
+/**
+ * Mathematical arccosine, or inverse cosine, expressed in degrees.
+ *
+ * @param x [positional] [type=number] Value between -1 and 1.
+ * @returns Angle in degrees.
+ * @see https://en.wikipedia.org/wiki/Inverse_trigonometric_functions
+ * @see https://en.wikibooks.org/wiki/OpenSCAD_User_Manual/Mathematical_Functions#acos
+ **/
 function acos(x) = undef;
+
+/**
+ * Mathematical arcsine, or inverse sine, expressed in degrees.
+ *
+ * @param x [positional] [type=number] Value between -1 and 1.
+ * @returns Angle in degrees.
+ * @see https://en.wikipedia.org/wiki/Inverse_trigonometric_functions
+ * @see https://en.wikibooks.org/wiki/OpenSCAD_User_Manual/Mathematical_Functions#asin
+ **/
 function asin(x) = undef;
+
+/**
+ * Mathematical arctangent, or inverse tangent, expressed in degrees.
+ *
+ * @param x [positional] [type=number] Value between -1 and 1.
+ * @returns Angle in degrees.
+ * @see https://en.wikipedia.org/wiki/Inverse_trigonometric_functions
+ * @see https://en.wikibooks.org/wiki/OpenSCAD_User_Manual/Mathematical_Functions#atan
+ **/
 function atan(x) = undef;
+
+/**
+ * Mathematical two-argument atan function atan2(y,x) that spans the full 360 degrees. 
+ * This function returns the full angle (0-360) made between the x axis and the vector(x,y) expressed in degrees. 
+ *
+ * @param y [positional] [type=number] Y coordinate of the vector.
+ * @param x [positional] [type=number] X coordinate of the vector.
+ * @returns Angle in degrees.
+ * @see https://en.wikipedia.org/wiki/Atan2
+ * @see https://en.wikibooks.org/wiki/OpenSCAD_User_Manual/Mathematical_Functions#atan2
+ **/
 function atan2(x, y) = undef;
+
+/**
+ * Mathematical floor function. 
+ * floor(x) is the largest integer not greater than x
+ *
+ * @param x [positional] [type=number] Value to round down.
+ * @returns The largest integer not greater than x.
+ */
 function floor(x) = undef;
+
+/**
+ * The "round" operator returns the greatest or least integer part, respectively, if the numeric input is positive or negative.
+ *
+ * @param x [positional] [type=number] Value to round.
+ * @returns The greatest or least integer part, respectively, if the numeric input is positive or negative.
+ * @see https://en.wikibooks.org/wiki/OpenSCAD_User_Manual/Mathematical_Functions#round
+ **/
 function round(x) = undef;
+
 /**
  * Mathematical ceiling function.
  * Returns the next highest integer value by rounding up value if necessary.
