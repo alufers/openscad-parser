@@ -69,4 +69,12 @@ describe("SolutionManager", () => {
   it("does not report errors on the 'render()' module", async () => {
     await checkNoError("../testdata/render_test.scad");
   })
+  it('does report error when using an unknwon module', async () => {
+    const sm = new SolutionManager();
+    const path = join(__dirname, "../testdata/unknown_module.scad");
+    sm.notifyNewFileOpened(path, await fs.readFile(path, { encoding: "utf8" }));
+    const sf = await sm.getFile(path);
+    expect(sf).toBeInstanceOf(SolutionFile);
+    expect(sf?.errors).toHaveLength(1);
+  });
 });
