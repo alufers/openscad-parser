@@ -47,7 +47,7 @@ export default class ASTPinpointer
       let pivot = Math.floor((r + l) / 2);
       if (t[pivot] instanceof Token) {
         const tokenAtPiviot = t[pivot] as Token;
-        if (tokenAtPiviot.end.char <= this.pinpointLocation.char) {
+        if (tokenAtPiviot.span.end.char <= this.pinpointLocation.char) {
           l = pivot + 1;
           continue;
         }
@@ -83,7 +83,7 @@ export default class ASTPinpointer
     }
     const firstThing = t[0];
     if (firstThing instanceof Token) {
-      if (firstThing.end.char <= this.pinpointLocation.char) {
+      if (firstThing.span.end.char <= this.pinpointLocation.char) {
         return BinAfter;
       }
       return BinBefore;

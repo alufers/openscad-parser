@@ -13,13 +13,12 @@ import { Statement } from "./statements";
  */
 export default class ScadFile extends ASTNode {
   constructor(
-    pos: CodeLocation,
     public statements: Statement[],
     public tokens: {
       eot: Token;
     }
   ) {
-    super(pos);
+    super();
   }
   accept<R>(visitor: ASTVisitor<R>): R {
     return visitor.visitScadFile(this);

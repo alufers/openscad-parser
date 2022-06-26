@@ -35,7 +35,6 @@ export default class AssignmentNode extends ASTNode {
   docComment: DocComment | null = null;
 
   constructor(
-    pos: CodeLocation,
     name: string,
     value: Expression | null,
     public role: AssignmentNodeRole,
@@ -46,7 +45,7 @@ export default class AssignmentNode extends ASTNode {
       semicolon: Token | null;
     }
   ) {
-    super(pos);
+    super();
     this.name = name;
     this.value = value;
   }

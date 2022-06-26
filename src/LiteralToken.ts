@@ -1,4 +1,4 @@
-import CodeLocation from "./CodeLocation";
+import CodeSpan from "./CodeSpan";
 import Token from "./Token";
 import TokenType from "./TokenType";
 
@@ -8,11 +8,10 @@ import TokenType from "./TokenType";
 export default class LiteralToken<ValueT> extends Token {
   constructor(
     type: TokenType,
-    pos: CodeLocation,
-    end: CodeLocation,
+    span: CodeSpan,
     lexeme: string,
     public value: ValueT
   ) {
-    super(type, pos, end, lexeme);
+    super(type, span, lexeme);
   }
 }

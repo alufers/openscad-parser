@@ -23,7 +23,7 @@ describe("ASTPinpointer", () => {
       testFunc1() {
         return this.processAssembledNode(
           [tokens[1], tokens[2]],
-          new ScadFile(tokens[0].pos, [], { eot: tokens[tokens.length - 1] })
+          new ScadFile([], { eot: tokens[tokens.length - 1] })
         );
       }
     }

@@ -1,5 +1,6 @@
 import CodeFile from "./CodeFile";
 import CodeLocation from "./CodeLocation";
+import CodeSpan from "./CodeSpan";
 import ErrorCollector from "./ErrorCollector";
 import {
   IllegalStringEscapeSequenceLexingError,
@@ -400,13 +401,12 @@ export default class Lexer {
     if (value != null) {
       token = new LiteralToken(
         tokenType,
-        this.start,
-        this.getLoc(),
+        new CodeSpan(this.start, this.getLoc()),
         lexeme,
         value
       );
     } else {
-      token = new Token(tokenType, this.start, this.getLoc(), lexeme);
+      token = new Token(tokenType, new CodeSpan(this.start, this.getLoc()), lexeme);
     }
     token.extraTokens = this.currentExtraTokens;
     token.startWithWhitespace = this.startWithWhitespace;

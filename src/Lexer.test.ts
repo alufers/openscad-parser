@@ -1,3 +1,4 @@
+import * as exp from "constants";
 import { resolve } from "path";
 import CodeFile from "./CodeFile";
 import ErrorCollector from "./ErrorCollector";
@@ -27,13 +28,13 @@ function simplifyTokens(tokens: Token[]) {
     if (token instanceof LiteralToken) {
       return {
         val: token.value,
-        posChar: token.pos.char,
+        posChar: token.span.start.char,
         type: TokenType[token.type],
         l: token.lexeme,
       };
     }
     return {
-      posChar: token.pos.char,
+      posChar: token.span.start.char,
       type: TokenType[token.type], // reverse lookup the token type so that it is easier to read the snaps
       l: token.lexeme,
     };
@@ -401,7 +402,15 @@ describe("Lexer", () => {
   });
   it("sets pos and and end of tokens so that there is no gaps between them", () => {
     const tokens = lexTokens(`{     }{}`); // 5 spaces
-    expect(tokens[0].end.char).toEqual(tokens[1].startWithWhitespace.char);
+    expect(tokens[0].span.end.char).toEqual(tokens[1].startWithWhitespace.char);
+  });
+  it("generates start and and in spans", () => {
+    const tokens = lexTokens(`b();`); // 5 spaces
+    expect(tokens.length).not.toBe(0);
+    tokens.every(t => {
+      expect(t.span.start).toBeTruthy();
+      expect(t.span.end).toBeTruthy();
+    })
   });
   describe.skip("lexing of random files found on the internet", () => {
     async function lexFile(path: string) {

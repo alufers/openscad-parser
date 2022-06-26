@@ -27,20 +27,20 @@ export default class IncludeResolver<T extends WithExportedScopes> {
    * @param f
    */
   async resolveIncludes(f: ScadFile, ec: ErrorCollector) {
-    if (!f.pos.file) {
+    if (!f.span.start.file) {
       throw new Error("file in pos is null");
     }
     const includes: string[] = [];
     for (const stmt of f.statements) {
       if (stmt instanceof IncludeStmt) {
         const filePath = await this.locateScadFile(
-          f.pos.file.path,
+          f.span.start.file.path,
           stmt.filename
         );
         if (!filePath) {
           ec.reportError(
             new IncludedFileNotFoundError(
-              stmt.tokens.filename.pos,
+              stmt.tokens.filename.span.start,
               stmt.filename
             )
           );
@@ -60,19 +60,19 @@ export default class IncludeResolver<T extends WithExportedScopes> {
    * @param f
    */
   async resolveUses(f: ScadFile, ec: ErrorCollector) {
-    if(!f.pos.file) {
+    if(!f.span.start.file) {
       throw new Error("file in pos is null");
     }
     const uses: string[] = [];
     for (const stmt of f.statements) {
       if (stmt instanceof UseStmt) {
         const filePath = await this.locateScadFile(
-          f.pos.file.path,
+          f.span.start.file.path,
           stmt.filename
         );
         if (!filePath) {
           ec.reportError(
-            new UsedFileNotFoundError(stmt.tokens.filename.pos, stmt.filename)
+            new UsedFileNotFoundError(stmt.tokens.filename.span.start, stmt.filename)
           );
           continue;
         }

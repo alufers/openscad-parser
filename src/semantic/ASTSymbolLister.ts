@@ -5,6 +5,7 @@ import {
   ModuleDeclarationStmt,
 } from "../ast/statements";
 import ASTAssembler from "../ASTAssembler";
+import CodeSpan from "../CodeSpan";
 import LiteralToken from "../LiteralToken";
 import Range from "../Range";
 import Token from "../Token";
@@ -24,8 +25,8 @@ export default class ASTSymbolLister<SymType> extends ASTAssembler<Token[]> {
     public makeSymbol: (
       name: string,
       kind: SymbolKind,
-      fullRange: Range,
-      nameRange: Range,
+      fullRange: CodeSpan,
+      nameRange: CodeSpan,
       children: SymType[]
     ) => SymType
   ) {
@@ -80,8 +81,8 @@ export default class ASTSymbolLister<SymType> extends ASTAssembler<Token[]> {
         this.makeSymbol(
           currName.value,
           currKind,
-          new Range(newArr[0].pos, newArr[newArr.length - 1].end),
-          new Range(currName.pos, currName.end),
+          CodeSpan.combine(...newArr.map((t) => t.span)),
+          currName.span,
           childrenSymbols
         )
       );

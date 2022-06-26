@@ -104,7 +104,7 @@ export class SolutionFile implements WithExportedScopes {
   getSymbolDeclarationLocation(loc: CodeLocation): CodeLocation | null {
     const decl = this.getSymbolDeclaration(loc);
     if (decl) {
-      return decl.tokens.name ? decl.tokens.name.pos : null;
+      return decl.tokens.name ? decl.tokens.name.span.start : null;
     }
     return null;
   }

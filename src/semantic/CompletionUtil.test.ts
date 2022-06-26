@@ -15,7 +15,7 @@ describe("CompletionUtil", () => {
     ast = new ASTScopePopulator(new Scope()).populate(ast!) as ScadFile; // populating the scopes should not change anything
     return await CompletionUtil.getSymbolsAtLocation(
       ast,
-      new CodeLocation(ast.pos.file, charOffset)
+      new CodeLocation(ast.span.start.file, charOffset)
     );
   }
   it("provides completions in the global scope, at the end of the file", async () => {
@@ -36,7 +36,7 @@ describe("CompletionUtil", () => {
     expect(async () => {
       await CompletionUtil.getSymbolsAtLocation(
         ast!,
-        new CodeLocation(ast!.pos.file, 9)
+        new CodeLocation(ast!.span.start.file, 9)
       );
     }).not.toThrow();
   });

@@ -22,14 +22,14 @@ export class UseStmt extends Statement {
    * @param filename The used filename
    */
   constructor(
-    pos: CodeLocation,
+    
     public filename: string,
     public tokens: {
       useKeyword: Token;
       filename: LiteralToken<string>;
     }
   ) {
-    super(pos);
+    super();
   }
   accept<R>(visitor: ASTVisitor<R>): R {
     return visitor.visitUseStmt(this);
@@ -46,14 +46,13 @@ export class IncludeStmt extends Statement {
    * @param filename The used filename
    */
   constructor(
-    pos: CodeLocation,
     public filename: string,
     public tokens: {
       includeKeyword: Token;
       filename: LiteralToken<string>;
     }
   ) {
-    super(pos);
+    super();
   }
   accept<R>(visitor: ASTVisitor<R>): R {
     return visitor.visitIncludeStmt(this);
@@ -114,7 +113,7 @@ export class ModuleInstantiationStmt
   public tagDisabled: boolean = false;
 
   constructor(
-    pos: CodeLocation,
+    
     public name: string,
     public args: AssignmentNode[],
     /**
@@ -129,7 +128,7 @@ export class ModuleInstantiationStmt
       modifiersInOrder: Token[];
     }
   ) {
-    super(pos);
+    super();
   }
   accept<R>(visitor: ASTVisitor<R>): R {
     return visitor.visitModuleInstantiationStmt(this);
@@ -141,7 +140,7 @@ export class ModuleInstantiationStmt
  */
 export class ModuleDeclarationStmt extends Statement {
   constructor(
-    pos: CodeLocation,
+    
     public name: string,
     public definitionArgs: AssignmentNode[],
     public stmt: Statement,
@@ -153,7 +152,7 @@ export class ModuleDeclarationStmt extends Statement {
     },
     public docComment: DocComment
   ) {
-    super(pos);
+    super();
   }
   accept<R>(visitor: ASTVisitor<R>): R {
     return visitor.visitModuleDeclarationStmt(this);
@@ -166,7 +165,7 @@ export class ModuleDeclarationStmt extends Statement {
  */
 export class FunctionDeclarationStmt extends Statement {
   constructor(
-    pos: CodeLocation,
+    
     public name: string,
     public definitionArgs: AssignmentNode[],
     public expr: Expression,
@@ -180,7 +179,7 @@ export class FunctionDeclarationStmt extends Statement {
     },
     public docComment: DocComment
   ) {
-    super(pos);
+    super();
   }
   accept<R>(visitor: ASTVisitor<R>): R {
     return visitor.visitFunctionDeclarationStmt(this);
@@ -192,14 +191,14 @@ export class FunctionDeclarationStmt extends Statement {
  */
 export class BlockStmt extends Statement {
   constructor(
-    pos: CodeLocation,
+    
     public children: Statement[],
     public tokens: {
       firstBrace: Token;
       secondBrace: Token;
     }
   ) {
-    super(pos);
+    super();
   }
   accept<R>(visitor: ASTVisitor<R>): R {
     return visitor.visitBlockStmt(this);
@@ -211,12 +210,12 @@ export class BlockStmt extends Statement {
  */
 export class NoopStmt extends Statement {
   constructor(
-    pos: CodeLocation,
+    
     public tokens: {
       semicolon: Token;
     }
   ) {
-    super(pos);
+    super();
   }
   accept<R>(visitor: ASTVisitor<R>): R {
     return visitor.visitNoopStmt(this);
@@ -234,7 +233,7 @@ export class IfElseStatement extends Statement implements TaggableStatement {
   public tagBackground: boolean = false;
   public tagDisabled: boolean = false;
   constructor(
-    pos: CodeLocation,
+    
     public cond: Expression,
     public thenBranch: Statement,
     /**
@@ -250,7 +249,7 @@ export class IfElseStatement extends Statement implements TaggableStatement {
       modifiersInOrder: Token[];
     }
   ) {
-    super(pos);
+    super();
   }
   accept<R>(visitor: ASTVisitor<R>): R {
     return visitor.visitIfElseStatement(this);

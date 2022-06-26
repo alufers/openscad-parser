@@ -5,9 +5,8 @@ import Scope from "./Scope";
 describe("Scope", () => {
   it("resolves local variables", () => {
     const ass = new AssignmentNode(
-      null as unknown as any,
       "testVar",
-      new LiteralExpr(null as unknown as any, 20, { literalToken: null as unknown as any }),
+      new LiteralExpr(20, { literalToken: null as unknown as any }),
       AssignmentNodeRole.VARIABLE_DECLARATION,
       null as unknown as any
     );
@@ -17,9 +16,8 @@ describe("Scope", () => {
   });
   it("resolves variables in parent scopes", () => {
     const ass = new AssignmentNode(
-      null as unknown as any,
       "testVar",
-      new LiteralExpr(null as unknown as any, 20, { literalToken: null as unknown as any }),
+      new LiteralExpr(20, { literalToken: null as unknown as any }),
       AssignmentNodeRole.VARIABLE_DECLARATION,
       null as unknown as any
     );

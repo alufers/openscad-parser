@@ -1,4 +1,5 @@
 import CodeLocation from "./CodeLocation";
+import CodeSpan from "./CodeSpan";
 import { ExtraToken, NewLineExtraToken } from "./extraTokens";
 import TokenType from "./TokenType";
 
@@ -7,6 +8,7 @@ export default class Token {
    * All the newlines and comments that appear before this token and should be preserved when printing the AST.
    */
   public extraTokens: ExtraToken[] = [];
+
   /**
    * Start of this token, including all the whitespace before it.
    * 
@@ -16,13 +18,12 @@ export default class Token {
 
   constructor(
     public type: TokenType,
-    public pos: CodeLocation,
-    public end: CodeLocation,
+    public span: CodeSpan,
     public lexeme: string
   ) {}
 
   toString(): string {
-    return `token ${TokenType[this.type]} ${this.pos.toString()}`;
+    return `token ${TokenType[this.type]} ${this.span.toString()}`;
   }
 
   hasNewlineInExtraTokens() {

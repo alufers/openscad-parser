@@ -119,7 +119,7 @@ export default class Parser {
       statements.push(this.statement(true));
     }
     const eot = this.peek();
-    return new ScadFile(new CodeLocation(this.code), statements, { eot });
+    return new ScadFile(statements, { eot });
   }
   protected synchronize(e: ParsingError) {
     if (e instanceof ConsumptionParsingError) {
@@ -172,7 +172,7 @@ export default class Parser {
           "after 'use' keyword"
         ) as LiteralToken<string>;
 
-        return new UseStmt(this.getLocation(), filenameToken.value, {
+        return new UseStmt(filenameToken.value, {
           useKeyword,
           filename: filenameToken,
         });
@@ -189,14 +189,14 @@ export default class Parser {
           "after 'include' keyword"
         ) as LiteralToken<string>;
 
-        return new IncludeStmt(this.getLocation(), filenameToken.value, {
+        return new IncludeStmt( filenameToken.value, {
           includeKeyword,
           filename: filenameToken,
         });
       }
       if (this.matchToken(TokenType.Semicolon)) {
         const semicolon = this.previous();
-        return new NoopStmt(this.getLocation(), { semicolon });
+        return new NoopStmt( { semicolon });
       }
       if (this.matchToken(TokenType.LeftBrace)) {
         return this.blockStatement();
@@ -220,7 +220,7 @@ export default class Parser {
     } catch (e) {
       if (e instanceof ParsingError) {
         this.synchronize(e);
-        return new ErrorNode(syncStartLocation, {
+        return new ErrorNode({
           tokens: this.tokens.slice(syncStartToken, this.currentToken),
         });
       } else {
@@ -260,7 +260,7 @@ export default class Parser {
     }
     this.consume(TokenType.RightBrace, "after block statement");
     const secondBrace = this.previous();
-    return new BlockStmt(startLocation, innerStatements, {
+    return new BlockStmt(innerStatements, {
       firstBrace,
       secondBrace,
     });
@@ -288,7 +288,7 @@ export default class Parser {
       name = renameAnnotation.newName;
     }
     return new ModuleDeclarationStmt(
-      this.getLocation(),
+      
       name,
       args,
       body,
@@ -317,7 +317,7 @@ export default class Parser {
     this.consume(TokenType.Semicolon, "after function declaration");
     const semicolon = this.previous();
     return new FunctionDeclarationStmt(
-      this.getLocation(),
+      
       (nameToken as LiteralToken<string>).value,
       args,
       body,
@@ -342,7 +342,6 @@ export default class Parser {
     this.consume(TokenType.Semicolon, "after assignment statement");
     const semicolon = this.previous();
     const node = new AssignmentNode(
-      pos,
       name.value,
       expr,
       AssignmentNodeRole.VARIABLE_DECLARATION,
@@ -418,7 +417,7 @@ export default class Parser {
       elseKeyword = this.previous();
       elseBranch = this.statement();
     }
-    return new IfElseStatement(ifKeyword.pos, cond, thenBranch, elseBranch, {
+    return new IfElseStatement(cond, thenBranch, elseBranch, {
       ifKeyword,
       elseKeyword,
       firstParen,
@@ -447,7 +446,7 @@ export default class Parser {
     let isForLoop = name === "for" || name === "intersection_for";
     const args = this.args(!isForLoop);
     const secondParen = this.previous();
-    return new ModuleInstantiationStmt(prev.pos, name, args, null, {
+    return new ModuleInstantiationStmt(name, args, null, {
       firstParen,
       name: prev,
       secondParen,
@@ -492,7 +491,6 @@ export default class Parser {
       }
 
       const arg = new AssignmentNode(
-        this.getLocation(),
         name,
         value,
         allowPositional
@@ -563,7 +561,7 @@ export default class Parser {
       const value = this.expression();
 
       const arg = new AssignmentNode(
-        this.getLocation(),
+        
         name,
         value,
         AssignmentNodeRole.VARIABLE_DECLARATION,
@@ -636,7 +634,7 @@ export default class Parser {
       this.consume(TokenType.Colon, "between ternary expression branches");
       const colon = this.previous();
       const elseBranch = this.ternary();
-      expr = new TernaryExpr(questionMark.pos, expr, thenBranch, elseBranch, {
+      expr = new TernaryExpr(expr, thenBranch, elseBranch, {
         questionMark,
         colon,
       });
@@ -651,7 +649,7 @@ export default class Parser {
     while (this.matchToken(TokenType.OR)) {
       const operator = this.previous();
       const right = this.logicalAnd();
-      expr = new BinaryOpExpr(this.getLocation(), expr, operator.type, right, {
+      expr = new BinaryOpExpr( expr, operator.type, right, {
         operator,
       });
     }
@@ -665,7 +663,7 @@ export default class Parser {
     while (this.matchToken(TokenType.AND)) {
       const operator = this.previous();
       const right = this.equality();
-      expr = new BinaryOpExpr(this.getLocation(), expr, operator.type, right, {
+      expr = new BinaryOpExpr( expr, operator.type, right, {
         operator,
       });
     }
@@ -679,7 +677,7 @@ export default class Parser {
     while (this.matchToken(TokenType.EqualEqual, TokenType.BangEqual)) {
       const operator = this.previous();
       const right = this.comparsion();
-      expr = new BinaryOpExpr(this.getLocation(), expr, operator.type, right, {
+      expr = new BinaryOpExpr( expr, operator.type, right, {
         operator,
       });
     }
@@ -697,7 +695,7 @@ export default class Parser {
     ) {
       const operator = this.previous();
       const right = this.addition();
-      expr = new BinaryOpExpr(this.getLocation(), expr, operator.type, right, {
+      expr = new BinaryOpExpr( expr, operator.type, right, {
         operator,
       });
     }
@@ -708,7 +706,7 @@ export default class Parser {
     while (this.matchToken(TokenType.Plus, TokenType.Minus)) {
       const operator = this.previous();
       const right = this.multiplication();
-      expr = new BinaryOpExpr(this.getLocation(), expr, operator.type, right, {
+      expr = new BinaryOpExpr( expr, operator.type, right, {
         operator,
       });
     }
@@ -721,7 +719,7 @@ export default class Parser {
     ) {
       const operator = this.previous();
       const right = this.exponentiation();
-      expr = new BinaryOpExpr(this.getLocation(), expr, operator.type, right, {
+      expr = new BinaryOpExpr( expr, operator.type, right, {
         operator,
       });
     }
@@ -736,7 +734,7 @@ export default class Parser {
     while (this.matchToken(TokenType.Caret)) {
       const operator = this.previous();
       const right = this.unary();
-      expr = new BinaryOpExpr(this.getLocation(), expr, operator.type, right, {
+      expr = new BinaryOpExpr( expr, operator.type, right, {
         operator,
       });
     }
@@ -750,7 +748,7 @@ export default class Parser {
     if (this.matchToken(TokenType.Plus, TokenType.Minus, TokenType.Bang)) {
       const operator = this.previous();
       const right = this.unary();
-      return new UnaryOpExpr(this.getLocation(), operator.type, right, {
+      return new UnaryOpExpr( operator.type, right, {
         operator,
       });
     }
@@ -765,7 +763,7 @@ export default class Parser {
           TokenType.Identifier,
           "after '.'"
         ) as LiteralToken<string>;
-        expr = new MemberLookupExpr(this.getLocation(), expr, name.value, {
+        expr = new MemberLookupExpr( expr, name.value, {
           dot,
           memberName: name,
         });
@@ -774,7 +772,7 @@ export default class Parser {
         const index = this.expression();
         this.consume(TokenType.RightBracket, "after array index expression");
         const secondBracket = this.previous();
-        expr = new ArrayLookupExpr(this.getLocation(), expr, index, {
+        expr = new ArrayLookupExpr( expr, index, {
           firstBracket,
           secondBracket,
         });
@@ -791,30 +789,30 @@ export default class Parser {
     const firstParen = this.previous();
     const args = this.args(true);
     const secondParen = this.previous();
-    return new FunctionCallExpr(firstParen.pos, callee, args, {
+    return new FunctionCallExpr(callee, args, {
       firstParen,
       secondParen,
     });
   }
   protected primary(): Expression {
     if (this.matchToken(TokenType.True)) {
-      return new LiteralExpr(this.getLocation(), true, {
+      return new LiteralExpr( true, {
         literalToken: this.previous() as LiteralToken<any>,
       });
     }
     if (this.matchToken(TokenType.False)) {
-      return new LiteralExpr(this.getLocation(), false, {
+      return new LiteralExpr( false, {
         literalToken: this.previous() as LiteralToken<any>,
       });
     }
     if (this.matchToken(TokenType.Undef)) {
-      return new LiteralExpr<null>(this.getLocation(), null, {
+      return new LiteralExpr<null>( null, {
         literalToken: this.previous() as LiteralToken<any>,
       });
     }
     if (this.matchToken(TokenType.NumberLiteral)) {
       return new LiteralExpr(
-        this.getLocation(),
+        
         (this.previous() as LiteralToken<number>).value,
         {
           literalToken: this.previous() as LiteralToken<any>,
@@ -823,7 +821,7 @@ export default class Parser {
     }
     if (this.matchToken(TokenType.StringLiteral)) {
       return new LiteralExpr(
-        this.getLocation(),
+        
         (this.previous() as LiteralToken<string>).value,
         {
           literalToken: this.previous() as LiteralToken<any>,
@@ -832,7 +830,7 @@ export default class Parser {
     }
     if (this.matchToken(TokenType.Identifier)) {
       const tok = this.previous() as LiteralToken<string>;
-      return new LookupExpr(this.getLocation(), tok.value, {
+      return new LookupExpr( tok.value, {
         identifier: tok,
       });
     }
@@ -843,7 +841,7 @@ export default class Parser {
       const vars = this.args(true);
       const secondParen = this.previous();
       const innerExpr = this.expression();
-      return new AssertExpr(keyword.pos, vars, innerExpr, {
+      return new AssertExpr(vars, innerExpr, {
         firstParen,
         secondParen,
         name: keyword,
@@ -856,7 +854,7 @@ export default class Parser {
       const vars = this.args(true);
       const secondParen = this.previous();
       const innerExpr = this.expression();
-      return new LetExpr(keyword.pos, vars, innerExpr, {
+      return new LetExpr(vars, innerExpr, {
         firstParen,
         secondParen,
         name: keyword,
@@ -869,7 +867,7 @@ export default class Parser {
       const vars = this.args(true);
       const secondParen = this.previous();
       const innerExpr = this.expression();
-      return new EchoExpr(keyword.pos, vars, innerExpr, {
+      return new EchoExpr(vars, innerExpr, {
         firstParen,
         secondParen,
         name: keyword,
@@ -883,7 +881,7 @@ export default class Parser {
       const expr = this.expression();
       this.consume(TokenType.RightParen, "after grouping expression");
       const secondParen = this.previous();
-      return new GroupingExpr(this.getLocation(), expr, {
+      return new GroupingExpr( expr, {
         firstParen,
         secondParen,
       });
@@ -892,7 +890,7 @@ export default class Parser {
       return this.bracketInsides();
     }
     throw this.errorCollector.reportError(
-      new FailedToMatchPrimaryExpressionParsingError(this.previous().pos)
+      new FailedToMatchPrimaryExpressionParsingError(this.previous().span.start)
     );
   }
   /**
@@ -911,7 +909,7 @@ export default class Parser {
         "after leading commas in a vector literal"
       );
       const secondBracket = this.previous();
-      return new VectorExpr(startBracket.pos, [], {
+      return new VectorExpr( [], {
         firstBracket: startBracket,
         secondBracket,
         commas: uselessCommaTokens,
@@ -920,7 +918,7 @@ export default class Parser {
 
     if (this.matchToken(TokenType.RightBracket)) {
       const secondBracket = this.previous();
-      return new VectorExpr(startBracket.pos, [], {
+      return new VectorExpr([], {
         firstBracket: startBracket,
         commas: [],
         secondBracket,
@@ -948,7 +946,6 @@ export default class Parser {
       const secondBracket = this.previous();
       if (thirdRangeExpr) {
         return new RangeExpr(
-          first.pos,
           first,
           secondRangeExpr,
           thirdRangeExpr,
@@ -960,7 +957,7 @@ export default class Parser {
           }
         );
       } else {
-        return new RangeExpr(first.pos, first, null, secondRangeExpr, {
+        return new RangeExpr(first, null, secondRangeExpr, {
           firstBracket: startBracket,
           firstColon,
           secondColon,
@@ -970,7 +967,7 @@ export default class Parser {
     }
 
     // we are parsing a vector expression
-    const vectorLiteral = new VectorExpr(startBracket.pos, [first], {
+    const vectorLiteral = new VectorExpr([first], {
       commas: [],
       firstBracket: startBracket,
       secondBracket: null as unknown as any, // we will add the second bracket later in the parsing, so we allow to have a null here
@@ -1020,7 +1017,7 @@ export default class Parser {
     const secondParen = this.previous();
     const body = this.expression();
     return new AnonymousFunctionExpr(
-      this.getLocation(),
+      
       args,
       body,
       {
@@ -1040,7 +1037,7 @@ export default class Parser {
       const args = this.args();
       const secondParen = this.previous();
       const next = this.listComprehensionElementsOrExpr();
-      return new LcLetExpr(letKwrd.pos, args, next, {
+      return new LcLetExpr(args, next, {
         letKeyword: letKwrd,
         firstParen,
         secondParen,
@@ -1049,7 +1046,7 @@ export default class Parser {
     if (this.matchToken(TokenType.Each)) {
       const eachKwrd = this.previous();
       const next = this.listComprehensionElementsOrExpr();
-      return new LcEachExpr(eachKwrd.pos, next, {
+      return new LcEachExpr( next, {
         eachKeyword: eachKwrd,
       });
     }
@@ -1073,7 +1070,7 @@ export default class Parser {
         elseKeyword = this.previous();
         elseBranch = this.listComprehensionElementsOrExpr();
       }
-      return new LcIfExpr(ifKwrd.pos, cond, thenBranch, elseBranch, {
+      return new LcIfExpr(cond, thenBranch, elseBranch, {
         ifKeyword: ifKwrd,
         elseKeyword,
         firstParen,
@@ -1094,7 +1091,6 @@ export default class Parser {
     if (this.matchToken(TokenType.RightParen)) {
       const secondParen = this.previous();
       return new LcForExpr(
-        forKwrd.pos,
         firstArgs,
         this.listComprehensionElementsOrExpr(),
         {
@@ -1119,7 +1115,7 @@ export default class Parser {
     );
     const secondParen = this.previous();
     const next = this.listComprehensionElementsOrExpr();
-    return new LcForCExpr(forKwrd.pos, firstArgs, secondArgs, condition, next, {
+    return new LcForCExpr(firstArgs, secondArgs, condition, next, {
       firstParen,
       forKeyword: forKwrd,
       firstSemicolon,
@@ -1198,7 +1194,7 @@ export default class Parser {
     return this.tokens[this.currentToken + 1];
   }
   protected getLocation() {
-    return this.peek().pos;
+    return this.peek().span.start;
   }
   protected previous(): Token {
     return this.tokens[this.currentToken - 1];

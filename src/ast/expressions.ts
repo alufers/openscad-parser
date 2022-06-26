@@ -24,12 +24,11 @@ export class UnaryOpExpr extends Expression {
   right: Expression;
 
   constructor(
-    pos: CodeLocation,
     op: TokenType,
     right: Expression,
     public tokens: { operator: Token }
   ) {
-    super(pos);
+    super();
     this.operation = op;
     this.right = right;
   }
@@ -59,13 +58,12 @@ export class BinaryOpExpr extends Expression {
   right: Expression;
 
   constructor(
-    pos: CodeLocation,
     left: Expression,
     operation: TokenType,
     right: Expression,
     public tokens: { operator: Token }
   ) {
-    super(pos);
+    super();
     this.left = left;
     this.operation = operation;
     this.right = right;
@@ -84,7 +82,6 @@ export class TernaryExpr extends Expression {
   ifExpr: Expression;
   elseExpr: Expression;
   constructor(
-    pos: CodeLocation,
     cond: Expression,
     ifExpr: Expression,
     elseExpr: Expression,
@@ -93,7 +90,7 @@ export class TernaryExpr extends Expression {
       colon: Token;
     }
   ) {
-    super(pos);
+    super();
     this.cond = cond;
     this.ifExpr = ifExpr;
     this.elseExpr = elseExpr;
@@ -119,7 +116,6 @@ export class ArrayLookupExpr extends Expression {
   index: Expression;
 
   constructor(
-    pos: CodeLocation,
     array: Expression,
     index: Expression,
     public tokens: {
@@ -127,7 +123,7 @@ export class ArrayLookupExpr extends Expression {
       secondBracket: Token;
     }
   ) {
-    super(pos);
+    super();
     this.array = array;
     this.index = index;
   }
@@ -144,13 +140,12 @@ export class LiteralExpr<TValue> extends Expression {
   value: TValue;
 
   constructor(
-    pos: CodeLocation,
     value: TValue,
     public tokens: {
       literalToken: LiteralToken<TValue>;
     }
   ) {
-    super(pos);
+    super();
     this.value = value;
   }
   accept<R>(visitor: ASTVisitor<R>): R {
@@ -171,7 +166,6 @@ export class RangeExpr extends Expression {
   step: Expression | null;
   end: Expression;
   constructor(
-    pos: CodeLocation,
     begin: Expression,
     step: Expression | null,
     end: Expression,
@@ -182,7 +176,7 @@ export class RangeExpr extends Expression {
       secondBracket: Token;
     }
   ) {
-    super(pos);
+    super();
     this.begin = begin;
     this.step = step;
     this.end = end;
@@ -199,7 +193,6 @@ export class RangeExpr extends Expression {
 export class VectorExpr extends Expression {
   children: Expression[];
   constructor(
-    pos: CodeLocation,
     children: Expression[],
     public tokens: {
       firstBracket: Token;
@@ -207,7 +200,7 @@ export class VectorExpr extends Expression {
       secondBracket: Token;
     }
   ) {
-    super(pos);
+    super();
     this.children = children;
   }
   accept<R>(visitor: ASTVisitor<R>): R {
@@ -222,12 +215,8 @@ export class VectorExpr extends Expression {
 export class LookupExpr extends Expression {
   name: string;
 
-  constructor(
-    pos: CodeLocation,
-    name: string,
-    public tokens: { identifier: Token }
-  ) {
-    super(pos);
+  constructor(name: string, public tokens: { identifier: Token }) {
+    super();
     this.name = name;
   }
   accept<R>(visitor: ASTVisitor<R>): R {
@@ -244,7 +233,6 @@ export class MemberLookupExpr extends Expression {
   member: string;
 
   constructor(
-    pos: CodeLocation,
     expr: Expression,
     member: string,
     public tokens: {
@@ -252,7 +240,7 @@ export class MemberLookupExpr extends Expression {
       memberName: LiteralToken<string>;
     }
   ) {
-    super(pos);
+    super();
     this.expr = expr;
     this.member = member;
   }
@@ -276,7 +264,6 @@ export class FunctionCallExpr extends Expression {
    */
   args: AssignmentNode[];
   constructor(
-    pos: CodeLocation,
     callee: Expression,
     args: AssignmentNode[],
     public tokens: {
@@ -284,7 +271,7 @@ export class FunctionCallExpr extends Expression {
       secondParen: Token;
     }
   ) {
-    super(pos);
+    super();
     this.callee = callee;
     this.args = args;
   }
@@ -309,12 +296,11 @@ export abstract class FunctionCallLikeExpr extends Expression {
   expr: Expression;
 
   constructor(
-    pos: CodeLocation,
     args: AssignmentNode[],
     expr: Expression,
     public tokens: { name: Token; firstParen: Token; secondParen: Token }
   ) {
-    super(pos);
+    super();
     this.args = args;
     this.expr = expr;
   }
@@ -361,7 +347,6 @@ export class LcIfExpr extends ListComprehensionExpression {
   ifExpr: Expression;
   elseExpr: Expression | null;
   constructor(
-    pos: CodeLocation,
     cond: Expression,
     ifExpr: Expression,
     elseExpr: Expression | null,
@@ -372,7 +357,7 @@ export class LcIfExpr extends ListComprehensionExpression {
       elseKeyword: Token | null;
     }
   ) {
-    super(pos);
+    super();
     this.cond = cond;
     this.ifExpr = ifExpr;
     this.elseExpr = elseExpr;
@@ -392,13 +377,12 @@ export class LcEachExpr extends ListComprehensionExpression {
   expr: Expression;
 
   constructor(
-    pos: CodeLocation,
     expr: Expression,
     public tokens: {
       eachKeyword: Token;
     }
   ) {
-    super(pos);
+    super();
 
     this.expr = expr;
   }
@@ -422,7 +406,6 @@ export class LcForExpr extends ListComprehensionExpression {
   expr: Expression;
 
   constructor(
-    pos: CodeLocation,
     args: AssignmentNode[],
     expr: Expression,
     public tokens: {
@@ -431,7 +414,7 @@ export class LcForExpr extends ListComprehensionExpression {
       secondParen: Token;
     }
   ) {
-    super(pos);
+    super();
     this.args = args;
     this.expr = expr;
   }
@@ -459,7 +442,6 @@ export class LcForCExpr extends ListComprehensionExpression {
   expr: Expression;
 
   constructor(
-    pos: CodeLocation,
     args: AssignmentNode[],
     incrArgs: AssignmentNode[],
     cond: Expression,
@@ -472,7 +454,7 @@ export class LcForCExpr extends ListComprehensionExpression {
       secondParen: Token;
     }
   ) {
-    super(pos);
+    super();
     this.args = args;
     this.incrArgs = incrArgs;
     this.cond = cond;
@@ -498,7 +480,6 @@ export class LcLetExpr extends ListComprehensionExpression {
   expr: Expression;
 
   constructor(
-    pos: CodeLocation,
     args: AssignmentNode[],
     expr: Expression,
     public tokens: {
@@ -507,7 +488,7 @@ export class LcLetExpr extends ListComprehensionExpression {
       secondParen: Token;
     }
   ) {
-    super(pos);
+    super();
     this.args = args;
     this.expr = expr;
   }
@@ -523,14 +504,13 @@ export class LcLetExpr extends ListComprehensionExpression {
 export class GroupingExpr extends Expression {
   inner: Expression;
   constructor(
-    pos: CodeLocation,
     inner: Expression,
     public tokens: {
       firstParen: Token;
       secondParen: Token;
     }
   ) {
-    super(pos);
+    super();
     this.inner = inner;
   }
   accept<R>(visitor: ASTVisitor<R>): R {
@@ -542,9 +522,8 @@ export class GroupingExpr extends Expression {
  * AnonymousFunctionExpr represents a function expression. 'function(x) x * x'
  * @category AST
  */
- export class AnonymousFunctionExpr extends Expression {
+export class AnonymousFunctionExpr extends Expression {
   constructor(
-    pos: CodeLocation,
     public definitionArgs: AssignmentNode[],
     public expr: Expression,
     public tokens: {
@@ -553,7 +532,7 @@ export class GroupingExpr extends Expression {
       secondParen: Token;
     }
   ) {
-    super(pos);
+    super();
   }
   accept<R>(visitor: ASTVisitor<R>): R {
     return visitor.visitAnonymousFunctionExpr(this);

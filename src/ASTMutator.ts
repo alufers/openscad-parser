@@ -69,21 +69,21 @@ export default class ASTMutator
       }
     }
 
-    return new ScadFile(n.pos, stmts, n.tokens);
+    return new ScadFile( stmts, n.tokens);
   }
   visitAssignmentNode(n: AssignmentNode): ASTNode {
     const newValue = n.value ? n.value.accept(this) : null;
     if (newValue === n.value) {
       return n;
     }
-    return new AssignmentNode(n.pos, n.name, newValue, n.role, n.tokens);
+    return new AssignmentNode( n.name, newValue, n.role, n.tokens);
   }
   visitUnaryOpExpr(n: UnaryOpExpr): ASTNode {
     const newRight = n.right.accept(this);
     if (newRight === n.right) {
       return n;
     }
-    return new UnaryOpExpr(n.pos, n.operation, newRight, n.tokens);
+    return new UnaryOpExpr( n.operation, newRight, n.tokens);
   }
   visitBinaryOpExpr(n: BinaryOpExpr): ASTNode {
     const newLeft = n.left.accept(this);
@@ -91,7 +91,7 @@ export default class ASTMutator
     if (newRight === n.right && newLeft === n.left) {
       return n;
     }
-    return new BinaryOpExpr(n.pos, newLeft, n.operation, newRight, n.tokens);
+    return new BinaryOpExpr( newLeft, n.operation, newRight, n.tokens);
   }
   visitTernaryExpr(n: TernaryExpr): ASTNode {
     const newCond = n.cond.accept(this);
@@ -104,7 +104,7 @@ export default class ASTMutator
     ) {
       return n;
     }
-    return new TernaryExpr(n.pos, n.cond, n.ifExpr, n.elseExpr, n.tokens);
+    return new TernaryExpr( n.cond, n.ifExpr, n.elseExpr, n.tokens);
   }
   visitArrayLookupExpr(n: ArrayLookupExpr): ASTNode {
     const newArray = n.array.accept(this);
@@ -112,7 +112,7 @@ export default class ASTMutator
     if (newArray === n.array && newIndex === n.index) {
       return n;
     }
-    return new ArrayLookupExpr(n.pos, newArray, newIndex, n.tokens);
+    return new ArrayLookupExpr( newArray, newIndex, n.tokens);
   }
   visitLiteralExpr(n: LiteralExpr<any>): ASTNode {
     return n;
@@ -124,7 +124,7 @@ export default class ASTMutator
     if (newBegin === n.begin && newStep === n.step && newEnd === n.end) {
       return n;
     }
-    return new RangeExpr(n.pos, newBegin, newStep, newEnd, n.tokens);
+    return new RangeExpr( newBegin, newStep, newEnd, n.tokens);
   }
   visitVectorExpr(n: VectorExpr): ASTNode {
     const newChildren = n.children.map((c) => c.accept(this));
@@ -138,7 +138,7 @@ export default class ASTMutator
       }
       if (!modified) return n;
     }
-    return new VectorExpr(n.pos, newChildren, n.tokens);
+    return new VectorExpr( newChildren, n.tokens);
   }
   visitLookupExpr(n: LookupExpr): ASTNode {
     return n;
@@ -148,7 +148,7 @@ export default class ASTMutator
     if (newExpr === n.expr) {
       return n;
     }
-    return new MemberLookupExpr(n.pos, newExpr, n.member, n.tokens);
+    return new MemberLookupExpr( newExpr, n.member, n.tokens);
   }
   visitFunctionCallExpr(n: FunctionCallExpr): ASTNode {
     const newArgs = n.args.map((a) => a.accept(this)) as AssignmentNode[];
@@ -162,7 +162,7 @@ export default class ASTMutator
       }
       if (!modified) return n;
     }
-    return new FunctionCallExpr(n.pos, n.callee, newArgs, n.tokens);
+    return new FunctionCallExpr( n.callee, newArgs, n.tokens);
   }
   visitLetExpr(n: LetExpr): ASTNode {
     const newExpr = n.expr.accept(this);
@@ -178,7 +178,7 @@ export default class ASTMutator
       if (!modified) return n;
     }
 
-    return new LetExpr(n.pos, newArgs, newExpr, n.tokens);
+    return new LetExpr( newArgs, newExpr, n.tokens);
   }
   visitAssertExpr(n: AssertExpr): ASTNode {
     const newExpr = n.expr.accept(this);
@@ -194,7 +194,7 @@ export default class ASTMutator
       if (!modified) return n;
     }
 
-    return new AssertExpr(n.pos, newArgs, newExpr, n.tokens);
+    return new AssertExpr( newArgs, newExpr, n.tokens);
   }
   visitEchoExpr(n: EchoExpr): ASTNode {
     const newExpr = n.expr.accept(this);
@@ -210,7 +210,7 @@ export default class ASTMutator
       if (!modified) return n;
     }
 
-    return new EchoExpr(n.pos, newArgs, newExpr, n.tokens);
+    return new EchoExpr( newArgs, newExpr, n.tokens);
   }
   visitLcIfExpr(n: LcIfExpr): ASTNode {
     const newCond = n.cond.accept(this);
@@ -223,14 +223,14 @@ export default class ASTMutator
     ) {
       return n;
     }
-    return new LcIfExpr(n.pos, newCond, newIfExpr, newElseExpr, n.tokens);
+    return new LcIfExpr( newCond, newIfExpr, newElseExpr, n.tokens);
   }
   visitLcEachExpr(n: LcEachExpr): ASTNode {
     const newExpr = n.expr.accept(this);
     if (newExpr === n.expr) {
       return n;
     }
-    return new LcEachExpr(n.pos, newExpr, n.tokens);
+    return new LcEachExpr( newExpr, n.tokens);
   }
   visitLcForExpr(n: LcForExpr): ASTNode {
     const newExpr = n.expr.accept(this);
@@ -245,7 +245,7 @@ export default class ASTMutator
       }
       if (!modified) return n;
     }
-    return new LcForExpr(n.pos, newArgs, newExpr, n.tokens);
+    return new LcForExpr( newArgs, newExpr, n.tokens);
   }
   visitLcForCExpr(n: LcForCExpr): ASTNode {
     const newArgs = n.args.map((a) => a.accept(this)) as AssignmentNode[];
@@ -276,7 +276,6 @@ export default class ASTMutator
       if (!modified) return n;
     }
     return new LcForCExpr(
-      n.pos,
       newArgs,
       newIncrArgs,
       newCond,
@@ -297,14 +296,14 @@ export default class ASTMutator
       }
       if (!modified) return n;
     }
-    return new LcLetExpr(n.pos, newArgs, newExpr, n.tokens);
+    return new LcLetExpr( newArgs, newExpr, n.tokens);
   }
   visitGroupingExpr(n: GroupingExpr): ASTNode {
     const newInner = n.inner.accept(this);
     if (newInner === n.inner) {
       return n;
     }
-    return new GroupingExpr(n.pos, n.inner.accept(this), n.tokens);
+    return new GroupingExpr( n.inner.accept(this), n.tokens);
   }
   visitUseStmt(n: UseStmt): ASTNode {
     return n;
@@ -315,7 +314,6 @@ export default class ASTMutator
   visitModuleInstantiationStmt(n: ModuleInstantiationStmt): ASTNode {
     // TODO: add cached check
     const inst = new ModuleInstantiationStmt(
-      n.pos,
       n.name,
       n.args.map((a) => a.accept(this)) as AssignmentNode[],
       n.child ? n.child.accept(this) : null,
@@ -346,7 +344,6 @@ export default class ASTMutator
       if (!modified) return n;
     }
     return new ModuleDeclarationStmt(
-      n.pos,
       n.name,
       newDefinitionArgs,
       newStmt,
@@ -373,7 +370,6 @@ export default class ASTMutator
       if (!modified) return n;
     }
     return new FunctionDeclarationStmt(
-      n.pos,
       n.name,
       newDefinitionArgs,
       newExpr,
@@ -396,7 +392,7 @@ export default class ASTMutator
       }
     }
 
-    return new BlockStmt(n.pos, children, n.tokens);
+    return new BlockStmt( children, n.tokens);
   }
   visitNoopStmt(n: NoopStmt): ASTNode {
     return n;
@@ -413,7 +409,6 @@ export default class ASTMutator
       return n;
     }
     return new IfElseStatement(
-      n.pos,
       newCond,
       newThenBranch,
       newElseBranch,
@@ -438,7 +433,6 @@ export default class ASTMutator
       if (!modified) return n;
     }
     return new AnonymousFunctionExpr(
-      n.pos,
       newArgs,
       newBody,
       n.tokens
@@ -448,7 +442,7 @@ export default class ASTMutator
   visitBlockStmtWithScope(n: BlockStmtWithScope): ASTNode {
     const oldNode = this.visitBlockStmt(n) as BlockStmt;
     const newNode = new BlockStmtWithScope(
-      oldNode.pos,
+      
       oldNode.children,
       oldNode.tokens
     );
@@ -458,7 +452,7 @@ export default class ASTMutator
   visitLetExprWithScope(n: LetExprWithScope): ASTNode {
     const oldNode = this.visitLetExpr(n) as LetExpr;
     const newNode = new LetExprWithScope(
-      oldNode.pos,
+      
       oldNode.args,
       oldNode.expr,
       oldNode.tokens
@@ -469,7 +463,7 @@ export default class ASTMutator
   visitScadFileWithScope(n: ScadFileWithScope): ASTNode {
     const oldNode = this.visitScadFile(n) as ScadFile;
     const newNode = new ScadFileWithScope(
-      oldNode.pos,
+      
       oldNode.statements,
       oldNode.tokens
     );
@@ -483,7 +477,7 @@ export default class ASTMutator
       n
     ) as FunctionDeclarationStmt;
     const newNode = new FunctionDeclarationStmtWithScope(
-      oldNode.pos,
+      
       oldNode.name,
       oldNode.definitionArgs,
       oldNode.expr,
@@ -498,7 +492,7 @@ export default class ASTMutator
   ): ASTNode {
     const oldNode = this.visitModuleDeclarationStmt(n) as ModuleDeclarationStmt;
     const newNode = new ModuleDeclarationStmtWithScope(
-      oldNode.pos,
+      
       oldNode.name,
       oldNode.definitionArgs,
       oldNode.stmt,
@@ -513,7 +507,7 @@ export default class ASTMutator
       n
     ) as ModuleInstantiationStmt;
     const newNode = new ModuleInstantiationStmtWithScope(
-      oldNode.pos,
+      
       oldNode.name,
       oldNode.args,
       oldNode.child,
@@ -525,7 +519,7 @@ export default class ASTMutator
   visitLcLetExprWithScope(n: LcLetExprWithScope): ASTNode {
     const oldNode = this.visitLcLetExpr(n) as LcLetExpr;
     const newNode = new LcLetExprWithScope(
-      oldNode.pos,
+      
       oldNode.args,
       oldNode.expr,
       oldNode.tokens
@@ -536,7 +530,7 @@ export default class ASTMutator
   visitLcForExprWithScope(n: LcForExprWithScope): ASTNode {
     const oldNode = this.visitLcForExpr(n) as LcForExpr;
     const newNode = new LcForExprWithScope(
-      oldNode.pos,
+      
       oldNode.args,
       oldNode.expr,
       oldNode.tokens
@@ -547,7 +541,7 @@ export default class ASTMutator
   visitLcForCExprWithScope(n: LcForCExprWithScope): ASTNode {
     const oldNode = this.visitLcForCExpr(n) as LcForCExpr;
     const newNode = new LcForCExprWithScope(
-      oldNode.pos,
+      
       oldNode.args,
       oldNode.incrArgs,
       oldNode.cond,
@@ -561,7 +555,7 @@ export default class ASTMutator
   visitAnonymousFunctionExprWithScope(n: AnonymousFunctionExprWithScope) {
     const oldNode = this.visitAnonymousFunctionExpr(n) as AnonymousFunctionExpr;
     const newNode = new AnonymousFunctionExprWithScope(
-      oldNode.pos,
+      
       oldNode.definitionArgs,
       oldNode.expr,
       oldNode.tokens

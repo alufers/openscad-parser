@@ -48,14 +48,14 @@ export default class SymbolResolver extends ASTMutator {
     if(! this.currentScope) {
       throw new Error("currentScope cannot be null when resolving lookup");
     }
-    const resolved = new ResolvedLookupExpr(n.pos, n.name, n.tokens);
+    const resolved = new ResolvedLookupExpr(n.name, n.tokens);
     resolved.resolvedDeclaration = this.currentScope.lookupVariable(n.name);
     if(this.isInCallee && !resolved.resolvedDeclaration) {
       resolved.resolvedDeclaration = this.currentScope.lookupFunction(n.name);
     }
     if (!resolved.resolvedDeclaration) {
       this.errorCollector.reportError(
-        new UnresolvedVariableError(n.pos, n.name)
+        new UnresolvedVariableError(n.span.start, n.name)
       );
       return n;
     }
@@ -67,7 +67,6 @@ export default class SymbolResolver extends ASTMutator {
       throw new Error("currentScope cannot be null when resolving module");
     }
     const resolved = new ResolvedModuleInstantiationStmt(
-      n.pos,
       n.name,
       n.args.map((a) => a.accept(this)) as AssignmentNode[],
       n.child ? n.child.accept(this) : null,
@@ -75,7 +74,7 @@ export default class SymbolResolver extends ASTMutator {
     );
     resolved.resolvedDeclaration = this.currentScope.lookupModule(n.name);
     if (!resolved.resolvedDeclaration) {
-      this.errorCollector.reportError(new UnresolvedModuleError(n.pos, n.name));
+      this.errorCollector.reportError(new UnresolvedModuleError(n.span.start, n.name));
       return n;
     }
     return resolved;

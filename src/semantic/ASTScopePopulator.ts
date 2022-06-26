@@ -65,7 +65,6 @@ export default class ASTScopePopulator implements ASTVisitor<ASTNode> {
   }
   visitScadFile(n: ScadFile): ASTNode {
     const sf = new ScadFileWithScope(
-      n.pos,
       n.statements.map((stmt) => stmt.accept(this)),
       n.tokens
     );
@@ -74,7 +73,6 @@ export default class ASTScopePopulator implements ASTVisitor<ASTNode> {
   }
   visitAssignmentNode(n: AssignmentNode): ASTNode {
     const an = new AssignmentNode(
-      n.pos,
       n.name,
       n.value ? n.value.accept(this) : null,
       n.role,
@@ -86,11 +84,10 @@ export default class ASTScopePopulator implements ASTVisitor<ASTNode> {
     return an;
   }
   visitUnaryOpExpr(n: UnaryOpExpr): ASTNode {
-    return new UnaryOpExpr(n.pos, n.operation, n.right.accept(this), n.tokens);
+    return new UnaryOpExpr(n.operation, n.right.accept(this), n.tokens);
   }
   visitBinaryOpExpr(n: BinaryOpExpr): ASTNode {
     return new BinaryOpExpr(
-      n.pos,
       n.left.accept(this),
       n.operation,
       n.right.accept(this),
@@ -99,7 +96,6 @@ export default class ASTScopePopulator implements ASTVisitor<ASTNode> {
   }
   visitTernaryExpr(n: TernaryExpr): ASTNode {
     return new TernaryExpr(
-      n.pos,
       n.cond.accept(this),
       n.ifExpr.accept(this),
       n.elseExpr.accept(this),
@@ -108,18 +104,16 @@ export default class ASTScopePopulator implements ASTVisitor<ASTNode> {
   }
   visitArrayLookupExpr(n: ArrayLookupExpr): ASTNode {
     return new ArrayLookupExpr(
-      n.pos,
       n.array.accept(this),
       n.index.accept(this),
       n.tokens
     );
   }
   visitLiteralExpr(n: LiteralExpr<any>): ASTNode {
-    return new LiteralExpr<any>(n.pos, n.value, n.tokens);
+    return new LiteralExpr<any>(n.value, n.tokens);
   }
   visitRangeExpr(n: RangeExpr): ASTNode {
     return new RangeExpr(
-      n.pos,
       n.begin.accept(this),
       n.step ? n.step.accept(this) : null,
       n.end.accept(this),
@@ -128,27 +122,29 @@ export default class ASTScopePopulator implements ASTVisitor<ASTNode> {
   }
   visitVectorExpr(n: VectorExpr): ASTNode {
     return new VectorExpr(
-      n.pos,
       n.children.map((c) => c.accept(this)),
       n.tokens
     );
   }
   visitLookupExpr(n: LookupExpr): ASTNode {
-    return new LookupExpr(n.pos, n.name, n.tokens);
+    return new LookupExpr(n.name, n.tokens);
   }
   visitMemberLookupExpr(n: MemberLookupExpr): ASTNode {
-    return new MemberLookupExpr(n.pos, n.expr.accept(this), n.member, n.tokens);
+    return new MemberLookupExpr(n.expr.accept(this), n.member, n.tokens);
   }
   visitFunctionCallExpr(n: FunctionCallExpr): ASTNode {
     return new FunctionCallExpr(
-      n.pos,
       n.callee,
       n.args.map((a) => a.accept(this)) as AssignmentNode[],
       n.tokens
     );
   }
   visitLetExpr(n: LetExpr): ASTNode {
-    const letExprWithScope = new LetExprWithScope(n.pos, null as unknown as any, null as unknown as any, n.tokens);
+    const letExprWithScope = new LetExprWithScope(
+      null as unknown as any,
+      null as unknown as any,
+      n.tokens
+    );
     letExprWithScope.scope = new Scope();
     letExprWithScope.scope.parent = this.nearestScope;
     const copy = this.copyWithNewNearestScope(letExprWithScope.scope);
@@ -165,7 +161,6 @@ export default class ASTScopePopulator implements ASTVisitor<ASTNode> {
   }
   visitAssertExpr(n: AssertExpr): ASTNode {
     return new AssertExpr(
-      n.pos,
       n.args.map((a) => a.accept(this)) as AssignmentNode[],
       n.expr.accept(this),
       n.tokens
@@ -173,7 +168,6 @@ export default class ASTScopePopulator implements ASTVisitor<ASTNode> {
   }
   visitEchoExpr(n: EchoExpr): ASTNode {
     return new EchoExpr(
-      n.pos,
       n.args.map((a) => a.accept(this)) as AssignmentNode[],
       n.expr.accept(this),
       n.tokens
@@ -181,7 +175,6 @@ export default class ASTScopePopulator implements ASTVisitor<ASTNode> {
   }
   visitLcIfExpr(n: LcIfExpr): ASTNode {
     return new LcIfExpr(
-      n.pos,
       n.cond.accept(this),
       n.ifExpr.accept(this),
       n.elseExpr ? n.elseExpr.accept(this) : null,
@@ -189,10 +182,14 @@ export default class ASTScopePopulator implements ASTVisitor<ASTNode> {
     );
   }
   visitLcEachExpr(n: LcEachExpr): ASTNode {
-    return new LcEachExpr(n.pos, n.expr.accept(this), n.tokens);
+    return new LcEachExpr(n.expr.accept(this), n.tokens);
   }
   visitLcForExpr(n: LcForExpr): ASTNode {
-    const newNode = new LcForExprWithScope(n.pos, null as unknown as any, null as unknown as any, n.tokens);
+    const newNode = new LcForExprWithScope(
+      null as unknown as any,
+      null as unknown as any,
+      n.tokens
+    );
     newNode.scope = new Scope();
     newNode.scope.parent = this.nearestScope;
     const copy = this.copyWithNewNearestScope(newNode.scope);
@@ -202,7 +199,6 @@ export default class ASTScopePopulator implements ASTVisitor<ASTNode> {
   }
   visitLcForCExpr(n: LcForCExpr): ASTNode {
     const newNode = new LcForCExprWithScope(
-      n.pos,
       null as unknown as any,
       null as unknown as any,
       null as unknown as any,
@@ -222,7 +218,6 @@ export default class ASTScopePopulator implements ASTVisitor<ASTNode> {
   }
   visitLcLetExpr(n: LcLetExpr): ASTNode {
     const lcLetWithScopeExpr = new LcLetExprWithScope(
-      n.pos,
       null as unknown as any,
       null as unknown as any,
       n.tokens
@@ -237,7 +232,7 @@ export default class ASTScopePopulator implements ASTVisitor<ASTNode> {
     return lcLetWithScopeExpr;
   }
   visitGroupingExpr(n: GroupingExpr): ASTNode {
-    return new GroupingExpr(n.pos, n.inner.accept(this), n.tokens);
+    return new GroupingExpr(n.inner.accept(this), n.tokens);
   }
   visitUseStmt(n: UseStmt): ASTNode {
     return n;
@@ -248,7 +243,6 @@ export default class ASTScopePopulator implements ASTVisitor<ASTNode> {
   visitModuleInstantiationStmt(n: ModuleInstantiationStmt): ASTNode {
     if (n.name === "for" || n.name === "intersection_for") {
       const inst = new ModuleInstantiationStmtWithScope(
-        n.pos,
         n.name,
         null as unknown as any,
         null,
@@ -261,7 +255,6 @@ export default class ASTScopePopulator implements ASTVisitor<ASTNode> {
       inst.child = n.child ? n.child.accept(copy) : null;
     }
     const inst = new ModuleInstantiationStmt(
-      n.pos,
       n.name,
       n.args.map((a) => a.accept(this)) as AssignmentNode[],
       n.child ? n.child.accept(this) : null,
@@ -275,7 +268,6 @@ export default class ASTScopePopulator implements ASTVisitor<ASTNode> {
   }
   visitModuleDeclarationStmt(n: ModuleDeclarationStmt): ASTNode {
     const md = new ModuleDeclarationStmtWithScope(
-      n.pos,
       n.name,
       null as unknown as any,
       null as unknown as any,
@@ -294,7 +286,6 @@ export default class ASTScopePopulator implements ASTVisitor<ASTNode> {
   }
   visitFunctionDeclarationStmt(n: FunctionDeclarationStmt): ASTNode {
     const fDecl = new FunctionDeclarationStmtWithScope(
-      n.pos,
       n.name,
       null as unknown as any,
       null as unknown as any,
@@ -313,10 +304,9 @@ export default class ASTScopePopulator implements ASTVisitor<ASTNode> {
   }
   visitAnonymousFunctionExpr(n: AnonymousFunctionExpr): ASTNode {
     const fDecl = new AnonymousFunctionExprWithScope(
-      n.pos,
       null as unknown as any,
       null as unknown as any,
-      n.tokens,
+      n.tokens
     );
     fDecl.scope = new Scope();
     fDecl.scope.parent = this.nearestScope;
@@ -328,7 +318,7 @@ export default class ASTScopePopulator implements ASTVisitor<ASTNode> {
     return fDecl;
   }
   visitBlockStmt(n: BlockStmt): ASTNode {
-    const blk = new BlockStmtWithScope(n.pos, null as unknown as any, n.tokens);
+    const blk = new BlockStmtWithScope(null as unknown as any, n.tokens);
     blk.scope = new Scope();
     blk.scope.parent = this.nearestScope;
     blk.children = n.children.map((c) =>
@@ -337,11 +327,10 @@ export default class ASTScopePopulator implements ASTVisitor<ASTNode> {
     return blk;
   }
   visitNoopStmt(n: NoopStmt): ASTNode {
-    return new NoopStmt(n.pos, n.tokens);
+    return new NoopStmt(n.tokens);
   }
   visitIfElseStatement(n: IfElseStatement): ASTNode {
     return new IfElseStatement(
-      n.pos,
       n.cond.accept(this),
       n.thenBranch.accept(this),
       n.elseBranch ? n.elseBranch.accept(this) : null,
@@ -349,6 +338,6 @@ export default class ASTScopePopulator implements ASTVisitor<ASTNode> {
     );
   }
   visitErrorNode(n: ErrorNode): ASTNode {
-    return new ErrorNode(n.pos, n.tokens);
+    return new ErrorNode(n.tokens);
   }
 }
