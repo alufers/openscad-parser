@@ -5,10 +5,10 @@ import ASTPinpointer from "./ASTPinpointer";
 import ASTPrinter from "./ASTPrinter";
 import CodeFile from "./CodeFile";
 import CodeLocation from "./CodeLocation";
+import CodeSpan from "./CodeSpan";
 import FormattingConfiguration from "./FormattingConfiguration";
 import ParsingHelper from "./ParsingHelper";
 import PreludeUtil from "./prelude/PreludeUtil";
-import Range from "./Range";
 import ASTScopePopulator from "./semantic/ASTScopePopulator";
 import ASTSymbolLister, { SymbolKind } from "./semantic/ASTSymbolLister";
 import CompletionUtil from "./semantic/CompletionUtil";
@@ -16,10 +16,10 @@ import IncludeResolver from "./semantic/IncludeResolver";
 import { ScadFileWithScope } from "./semantic/nodesWithScopes";
 import {
   ResolvedLookupExpr,
-  ResolvedModuleInstantiationStmt,
+  ResolvedModuleInstantiationStmt
 } from "./semantic/resolvedNodes";
 import ScadFileProvider, {
-  WithExportedScopes,
+  WithExportedScopes
 } from "./semantic/ScadFileProvider";
 import Scope from "./semantic/Scope";
 import SymbolResolver from "./semantic/SymbolResolver";
@@ -70,8 +70,8 @@ export class SolutionFile implements WithExportedScopes {
     makeSymbol: (
       name: string,
       kind: SymbolKind,
-      fullRange: Range,
-      nameRange: Range,
+      fullRange: CodeSpan,
+      nameRange: CodeSpan,
       children: SymType[]
     ) => SymType
   ) {

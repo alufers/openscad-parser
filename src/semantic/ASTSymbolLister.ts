@@ -7,7 +7,6 @@ import {
 import ASTAssembler from "../ASTAssembler";
 import CodeSpan from "../CodeSpan";
 import LiteralToken from "../LiteralToken";
-import Range from "../Range";
 import Token from "../Token";
 
 export enum SymbolKind {

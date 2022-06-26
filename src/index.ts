@@ -26,8 +26,6 @@ export { default as Parser } from "./Parser";
 export * from "./Parser";
 export { default as ParsingHelper } from "./ParsingHelper";
 export * from "./ParsingHelper";
-export { default as Range } from "./Range";
-export * from "./Range";
 export { default as SolutionManager } from "./SolutionManager";
 export * from "./SolutionManager";
 export { default as Token } from "./Token";
