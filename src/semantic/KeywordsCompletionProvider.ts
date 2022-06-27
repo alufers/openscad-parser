@@ -5,7 +5,7 @@ import CodeLocation from "../CodeLocation";
 import keywords from "../keywords";
 import CompletionType from "./CompletionType";
 
-export default class KewordsCompletionProvider implements CompletionProvider {
+export default class KeywordsCompletionProvider implements CompletionProvider {
   textOnly = true;
   exclusive = false;
   shouldActivate(ast: ASTNode, loc: CodeLocation): boolean {

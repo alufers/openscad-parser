@@ -80,8 +80,8 @@ export { default as FilenameCompletionProvider } from "./semantic/FilenameComple
 export * from "./semantic/FilenameCompletionProvider";
 export { default as IncludeResolver } from "./semantic/IncludeResolver";
 export * from "./semantic/IncludeResolver";
-export { default as KewordsCompletionProvider } from "./semantic/KewordsCompletionProvider";
-export * from "./semantic/KewordsCompletionProvider";
+export { default as KeywordsCompletionProvider } from "./semantic/KeywordsCompletionProvider";
+export * from "./semantic/KeywordsCompletionProvider";
 export { default as NodeWithScope } from "./semantic/NodeWithScope";
 export * from "./semantic/NodeWithScope";
 export { default as ScadFileProvider } from "./semantic/ScadFileProvider";

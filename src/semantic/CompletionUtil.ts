@@ -2,14 +2,14 @@ import ASTNode from "../ast/ASTNode";
 import CodeLocation from "../CodeLocation";
 import CompletionProvider from "./CompletionProvider";
 import FilenameCompletionProvider from "./FilenameCompletionProvider";
-import KewordsCompletionProvider from "./KewordsCompletionProvider";
+import KeywordsCompletionProvider from "./KeywordsCompletionProvider";
 import ScopeSymbolCompletionProvider from "./ScopeSymbolCompletionProvider";
 import CompletionSymbol from "./CompletionSymbol";
 
 export default class CompletionUtil {
   static completionProviders: CompletionProvider[] = [
     new FilenameCompletionProvider(),
-    new KewordsCompletionProvider(),
+    new KeywordsCompletionProvider(),
     new ScopeSymbolCompletionProvider(),
   ];
   static async getSymbolsAtLocation(
