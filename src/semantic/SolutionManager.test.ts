@@ -2,10 +2,15 @@ import SolutionManager, { SolutionFile } from "../SolutionManager";
 import { promises as fs } from "fs";
 import { join } from "path";
 import {
+  AssignmentNode,
   ASTMutator,
+  FunctionCallExpr,
+  LookupExpr,
   ModuleInstantiationStmt,
   ModuleInstantiationStmtWithScope,
+  ResolvedLookupExpr,
   ResolvedModuleInstantiationStmt,
+  ScadFile
 } from "..";
 describe("SolutionManager", () => {
   it("returns files after they have fully processed when using getFile", async () => {
@@ -76,5 +81,22 @@ describe("SolutionManager", () => {
     const sf = await sm.getFile(path);
     expect(sf).toBeInstanceOf(SolutionFile);
     expect(sf?.errors).toHaveLength(1);
+  });
+
+  it('returns hover info for function calls', async () => {
+    const sm = new SolutionManager();
+    const path = join(__dirname, "../testdata/function_call_test.scad");
+    sm.notifyNewFileOpened(path, await fs.readFile(path, { encoding: "utf8" }));
+    const sf = await sm.getFile(path);
+    expect(sf).toBeInstanceOf(SolutionFile);
+    expect(sf?.errors).toHaveLength(0);
+    const an = ((sf?.ast as ScadFile).statements[0] as AssignmentNode)
+    expect(an).toBeInstanceOf(AssignmentNode);
+    const val = an.value as FunctionCallExpr;
+    expect(val).toBeInstanceOf(FunctionCallExpr);
+    const calee = val.callee as LookupExpr;
+    expect(calee).toBeInstanceOf(ResolvedLookupExpr);
+
+    expect(sf?.getSymbolDeclaration(calee.span.start)).toBeTruthy();
   });
 });
