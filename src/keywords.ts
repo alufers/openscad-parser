@@ -20,7 +20,7 @@ const keywords: { [x: string]: TokenType } = {
   include: TokenType.Include,
 };
 
-const keywordDocumentation: { [x: keyof typeof keywords]: string } = {
+export const keywordDocumentation: { [x: keyof typeof keywords]: string } = {
   true: "Represents the boolean value true.",
   false: "Represents the boolean value false.",
   undef: `Represents the undefined value. 
