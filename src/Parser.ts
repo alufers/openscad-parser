@@ -121,6 +121,7 @@ export default class Parser {
     const eot = this.peek();
     return new ScadFile(statements, { eot });
   }
+
   protected synchronize(e: ParsingError) {
     if (e instanceof ConsumptionParsingError) {
       if (e.expected === TokenType.Semicolon) {
@@ -132,6 +133,11 @@ export default class Parser {
     if (e instanceof FailedToMatchPrimaryExpressionParsingError) {
       if (this.peek().hasNewlineInExtraTokens()) {
         // assume that when there is a newline we want to parse the next statement
+        return;
+      }
+    }
+    if(e instanceof UnexpectedTokenAfterIdentifierInStatementParsingError) {
+      if(this.peek().hasNewlineInExtraTokens()) { 
         return;
       }
     }
