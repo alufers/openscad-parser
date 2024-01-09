@@ -27,8 +27,8 @@ import TokenType from "./TokenType";
 /**
  * The lexer is responsible for turning a string of characters into a stream of
  * tokens. The tokens are then used by the parser to build an abstract syntax
- * tree. 
- * 
+ * tree.
+ *
  * The lexer handles parsing of string literals, digraphs (e.g. `<=`), and numbers.
  * It also handles detecting keywords and identifiers.
  */
@@ -331,9 +331,9 @@ export default class Lexer {
     }
 
     const possibleNumberStarts = [
-      this.peekRegex(/[0-9]+/),
-      this.peekRegex(/[0-9]+[.]/),
-      this.peekRegex(/[0-9]+[eE][+-]?[0-9]+/),
+      this.peekRegex(/^[0-9]+/),
+      this.peekRegex(/^[0-9]+[.]/),
+      this.peekRegex(/^[0-9]+[eE][+-]?[0-9]+/),
     ];
     const numberLength = Math.max(...possibleNumberStarts.map((x) => x.length));
 
@@ -392,7 +392,10 @@ export default class Lexer {
    *
    * Additionally it handles clearing and attaching the extra tokens.
    */
-  protected addToken<TValue = any>(tokenType: TokenType, value: TValue | null= null) {
+  protected addToken<TValue = any>(
+    tokenType: TokenType,
+    value: TValue | null = null
+  ) {
     const lexeme = this.codeFile.code.substring(
       this.start.char,
       this.charOffset
@@ -406,7 +409,11 @@ export default class Lexer {
         value
       );
     } else {
-      token = new Token(tokenType, new CodeSpan(this.start, this.getLoc()), lexeme);
+      token = new Token(
+        tokenType,
+        new CodeSpan(this.start, this.getLoc()),
+        lexeme
+      );
     }
     token.extraTokens = this.currentExtraTokens;
     token.startWithWhitespace = this.startWithWhitespace;

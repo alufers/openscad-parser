@@ -1018,4 +1018,8 @@ describe("Parser", () => {
     }`)
     ).toThrow(ParsingError);
   });
+  it("parses big_poly.scad in reasonable time", async () => {
+    const file = await CodeFile.load(resolve(__dirname, "testdata/big_poly.scad"));
+    ParsingHelper.parseFile(file);
+  });
 });
