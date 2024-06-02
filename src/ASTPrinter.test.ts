@@ -16,18 +16,15 @@ describe("ASTPrinter", () => {
       new CodeFile("<test>", source)
     );
     errorCollector.throwIfAny();
-    if(!ast) {
+    if (!ast) {
       throw new Error("No AST");
     }
     ast = new ASTScopePopulator(new Scope()).populate(ast) as ScadFile; // populating the scopes should not change anything
     return new ASTPrinter(new FormattingConfiguration()).visitScadFile(ast);
   }
   function injectCommentsBetweenTokens(source: string): [string, string[]] {
-    const ec = new ErrorCollector()
-    const lexer = new Lexer(
-      new CodeFile("<test>", source),
-      ec
-    );
+    const ec = new ErrorCollector();
+    const lexer = new Lexer(new CodeFile("<test>", source), ec);
     const tokens = lexer.scan();
     ec.throwIfAny();
     let injectId = 0;
@@ -63,6 +60,11 @@ describe("ASTPrinter", () => {
     return [codeWithInjections, injectedStrings];
   }
 
+  /**
+   * Inserts comments between all tokens and then formats the code,
+   * then checks if the comments are still there
+   * @param source the source code to check
+   */
   function doPreserveTest(source: string) {
     const [codeWithInjections, injectedStrings] =
       injectCommentsBetweenTokens(source);
@@ -221,6 +223,10 @@ echo(selector("mul")(5));  // ECHO: 26
     expect(f).toStrictEqual(expect.stringContaining("^"));
   });
 
+  test.only("formats 'for' comprehensions without variable names", ()=> {
+    expect(doFormat(`x = [for([0:3]) 1];`)).toStrictEqual(`x = [for([0 : 3]) 1];\n`);
+  })
+
   test("does not add a newline after a semicolon in an assignment if a comment follows it", () => {
     const f = doFormat(`
 enum_value="a"; // [a:ayyyy, b:beee, c:seeee]
@@ -234,11 +240,23 @@ enum_value = "a"; // [a:ayyyy, b:beee, c:seeee]
       `
 enum_value="a";
 // [a:ayyyy, b:beee, c:seeee]
-  `,
+  `
     );
     expect(f).toStrictEqual(`
 enum_value = "a";
 // [a:ayyyy, b:beee, c:seeee]
 `);
+  });
+  it("preserves comments in 'for' list comprehensions", () => {
+    doPreserveTest(`
+      x = [for(a = [0:3]) 1];
+    `);
+  });
+  it("preserves comments in 'for' list comprehensions without variable names", () => {
+    doPreserveTest(`
+      x = [for([0:3]) 1];
+      x = [for("abc") 1];
+      x = [for(alpha) 1];
+    `);
   });
 });

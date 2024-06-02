@@ -136,8 +136,8 @@ export default class Parser {
         return;
       }
     }
-    if(e instanceof UnexpectedTokenAfterIdentifierInStatementParsingError) {
-      if(this.peek().hasNewlineInExtraTokens()) { 
+    if (e instanceof UnexpectedTokenAfterIdentifierInStatementParsingError) {
+      if (this.peek().hasNewlineInExtraTokens()) {
         return;
       }
     }
@@ -195,14 +195,14 @@ export default class Parser {
           "after 'include' keyword"
         ) as LiteralToken<string>;
 
-        return new IncludeStmt( filenameToken.value, {
+        return new IncludeStmt(filenameToken.value, {
           includeKeyword,
           filename: filenameToken,
         });
       }
       if (this.matchToken(TokenType.Semicolon)) {
         const semicolon = this.previous();
-        return new NoopStmt( { semicolon });
+        return new NoopStmt({ semicolon });
       }
       if (this.matchToken(TokenType.LeftBrace)) {
         return this.blockStatement();
@@ -294,7 +294,6 @@ export default class Parser {
       name = renameAnnotation.newName;
     }
     return new ModuleDeclarationStmt(
-      
       name,
       args,
       body,
@@ -323,7 +322,6 @@ export default class Parser {
     this.consume(TokenType.Semicolon, "after function declaration");
     const semicolon = this.previous();
     return new FunctionDeclarationStmt(
-      
       (nameToken as LiteralToken<string>).value,
       args,
       body,
@@ -475,6 +473,7 @@ export default class Parser {
         break;
       }
       if (!allowPositional && this.peek().type !== TokenType.Identifier) {
+        // error out when we encounter a positional argument when it is not allowed
         break;
       }
       let value: Expression | null = null;
@@ -554,31 +553,55 @@ export default class Parser {
       if (this.isAtEnd()) {
         break;
       }
-      if (this.peek().type !== TokenType.Identifier) {
-        break;
+
+      let arg;
+
+      if (
+        this.peek().type === TokenType.Identifier &&
+        this.peekNext().type === TokenType.Equal
+      ) {
+        // Named for loop variable
+        const name = (this.advance() as LiteralToken<string>).value;
+        const nameToken = this.previous();
+        // a value is provided for this param
+        this.consume(
+          TokenType.Equal,
+          "after variable name in the 'for' list comprehension"
+        );
+        const equals = this.previous();
+        const value = this.expression();
+
+        arg = new AssignmentNode(
+          name,
+          value,
+          AssignmentNodeRole.VARIABLE_DECLARATION,
+          {
+            equals,
+            semicolon: null,
+            name: nameToken,
+            trailingCommas: [],
+          }
+        );
+        args.push(arg);
+      } else {
+        // This condition handles this a pathological case where the for list comprehension can
+        // have a single expression without any variable declaration.
+        // This can be used to repeat the same element a number of times.
+        // See: https://github.com/alufers/openscad-parser/issues/27
+        const value = this.expression();
+        arg = new AssignmentNode(
+          "",
+          value,
+          AssignmentNodeRole.ARGUMENT_ASSIGNMENT,
+          {
+            equals: null,
+            semicolon: null,
+            name: null,
+            trailingCommas: [],
+          }
+        );
+        args.push(arg);
       }
-
-      // this is a named parameter
-      const name = (this.advance() as LiteralToken<string>).value;
-      const nameToken = this.previous();
-      // a value is provided for this param
-      this.consume(TokenType.Equal, "after for variable name");
-      const equals = this.previous();
-      const value = this.expression();
-
-      const arg = new AssignmentNode(
-        
-        name,
-        value,
-        AssignmentNodeRole.VARIABLE_DECLARATION,
-        {
-          equals,
-          semicolon: null,
-          name: nameToken,
-          trailingCommas: [],
-        }
-      );
-      args.push(arg);
 
       if (this.matchToken(TokenType.Comma)) {
         arg.tokens.trailingCommas!.push(this.previous());
@@ -655,7 +678,7 @@ export default class Parser {
     while (this.matchToken(TokenType.OR)) {
       const operator = this.previous();
       const right = this.logicalAnd();
-      expr = new BinaryOpExpr( expr, operator.type, right, {
+      expr = new BinaryOpExpr(expr, operator.type, right, {
         operator,
       });
     }
@@ -669,7 +692,7 @@ export default class Parser {
     while (this.matchToken(TokenType.AND)) {
       const operator = this.previous();
       const right = this.equality();
-      expr = new BinaryOpExpr( expr, operator.type, right, {
+      expr = new BinaryOpExpr(expr, operator.type, right, {
         operator,
       });
     }
@@ -683,7 +706,7 @@ export default class Parser {
     while (this.matchToken(TokenType.EqualEqual, TokenType.BangEqual)) {
       const operator = this.previous();
       const right = this.comparsion();
-      expr = new BinaryOpExpr( expr, operator.type, right, {
+      expr = new BinaryOpExpr(expr, operator.type, right, {
         operator,
       });
     }
@@ -701,7 +724,7 @@ export default class Parser {
     ) {
       const operator = this.previous();
       const right = this.addition();
-      expr = new BinaryOpExpr( expr, operator.type, right, {
+      expr = new BinaryOpExpr(expr, operator.type, right, {
         operator,
       });
     }
@@ -712,7 +735,7 @@ export default class Parser {
     while (this.matchToken(TokenType.Plus, TokenType.Minus)) {
       const operator = this.previous();
       const right = this.multiplication();
-      expr = new BinaryOpExpr( expr, operator.type, right, {
+      expr = new BinaryOpExpr(expr, operator.type, right, {
         operator,
       });
     }
@@ -725,7 +748,7 @@ export default class Parser {
     ) {
       const operator = this.previous();
       const right = this.exponentiation();
-      expr = new BinaryOpExpr( expr, operator.type, right, {
+      expr = new BinaryOpExpr(expr, operator.type, right, {
         operator,
       });
     }
@@ -740,7 +763,7 @@ export default class Parser {
     while (this.matchToken(TokenType.Caret)) {
       const operator = this.previous();
       const right = this.unary();
-      expr = new BinaryOpExpr( expr, operator.type, right, {
+      expr = new BinaryOpExpr(expr, operator.type, right, {
         operator,
       });
     }
@@ -754,7 +777,7 @@ export default class Parser {
     if (this.matchToken(TokenType.Plus, TokenType.Minus, TokenType.Bang)) {
       const operator = this.previous();
       const right = this.unary();
-      return new UnaryOpExpr( operator.type, right, {
+      return new UnaryOpExpr(operator.type, right, {
         operator,
       });
     }
@@ -769,7 +792,7 @@ export default class Parser {
           TokenType.Identifier,
           "after '.'"
         ) as LiteralToken<string>;
-        expr = new MemberLookupExpr( expr, name.value, {
+        expr = new MemberLookupExpr(expr, name.value, {
           dot,
           memberName: name,
         });
@@ -778,13 +801,12 @@ export default class Parser {
         const index = this.expression();
         this.consume(TokenType.RightBracket, "after array index expression");
         const secondBracket = this.previous();
-        expr = new ArrayLookupExpr( expr, index, {
+        expr = new ArrayLookupExpr(expr, index, {
           firstBracket,
           secondBracket,
         });
-      }  else if(this.matchToken(TokenType.LeftParen)) {
+      } else if (this.matchToken(TokenType.LeftParen)) {
         expr = this.finishCall(expr);
-
       } else {
         break;
       }
@@ -802,41 +824,33 @@ export default class Parser {
   }
   protected primary(): Expression {
     if (this.matchToken(TokenType.True)) {
-      return new LiteralExpr( true, {
+      return new LiteralExpr(true, {
         literalToken: this.previous() as LiteralToken<any>,
       });
     }
     if (this.matchToken(TokenType.False)) {
-      return new LiteralExpr( false, {
+      return new LiteralExpr(false, {
         literalToken: this.previous() as LiteralToken<any>,
       });
     }
     if (this.matchToken(TokenType.Undef)) {
-      return new LiteralExpr<null>( null, {
+      return new LiteralExpr<null>(null, {
         literalToken: this.previous() as LiteralToken<any>,
       });
     }
     if (this.matchToken(TokenType.NumberLiteral)) {
-      return new LiteralExpr(
-        
-        (this.previous() as LiteralToken<number>).value,
-        {
-          literalToken: this.previous() as LiteralToken<any>,
-        }
-      );
+      return new LiteralExpr((this.previous() as LiteralToken<number>).value, {
+        literalToken: this.previous() as LiteralToken<any>,
+      });
     }
     if (this.matchToken(TokenType.StringLiteral)) {
-      return new LiteralExpr(
-        
-        (this.previous() as LiteralToken<string>).value,
-        {
-          literalToken: this.previous() as LiteralToken<any>,
-        }
-      );
+      return new LiteralExpr((this.previous() as LiteralToken<string>).value, {
+        literalToken: this.previous() as LiteralToken<any>,
+      });
     }
     if (this.matchToken(TokenType.Identifier)) {
       const tok = this.previous() as LiteralToken<string>;
-      return new LookupExpr( tok.value, {
+      return new LookupExpr(tok.value, {
         identifier: tok,
       });
     }
@@ -879,7 +893,7 @@ export default class Parser {
         name: keyword,
       });
     }
-    if(this.matchToken(TokenType.Function)) {
+    if (this.matchToken(TokenType.Function)) {
       return this.anonymousFunction();
     }
     if (this.matchToken(TokenType.LeftParen)) {
@@ -887,7 +901,7 @@ export default class Parser {
       const expr = this.expression();
       this.consume(TokenType.RightParen, "after grouping expression");
       const secondParen = this.previous();
-      return new GroupingExpr( expr, {
+      return new GroupingExpr(expr, {
         firstParen,
         secondParen,
       });
@@ -915,7 +929,7 @@ export default class Parser {
         "after leading commas in a vector literal"
       );
       const secondBracket = this.previous();
-      return new VectorExpr( [], {
+      return new VectorExpr([], {
         firstBracket: startBracket,
         secondBracket,
         commas: uselessCommaTokens,
@@ -951,17 +965,12 @@ export default class Parser {
       );
       const secondBracket = this.previous();
       if (thirdRangeExpr) {
-        return new RangeExpr(
-          first,
-          secondRangeExpr,
-          thirdRangeExpr,
-          {
-            firstBracket: startBracket,
-            firstColon,
-            secondColon,
-            secondBracket,
-          }
-        );
+        return new RangeExpr(first, secondRangeExpr, thirdRangeExpr, {
+          firstBracket: startBracket,
+          firstColon,
+          secondColon,
+          secondBracket,
+        });
       } else {
         return new RangeExpr(first, null, secondRangeExpr, {
           firstBracket: startBracket,
@@ -1018,22 +1027,19 @@ export default class Parser {
 
   protected anonymousFunction(): AnonymousFunctionExpr {
     const functionKeyword = this.previous();
-    const firstParen = this.consume(TokenType.LeftParen, "after function keyword in anonymous function");
+    const firstParen = this.consume(
+      TokenType.LeftParen,
+      "after function keyword in anonymous function"
+    );
     const args = this.args();
     const secondParen = this.previous();
     const body = this.expression();
-    return new AnonymousFunctionExpr(
-      
-      args,
-      body,
-      {
-        functionKeyword,
-        firstParen,
-        secondParen,
-      }
-    );
+    return new AnonymousFunctionExpr(args, body, {
+      functionKeyword,
+      firstParen,
+      secondParen,
+    });
   }
-  
 
   protected listComprehensionElements(): Expression {
     if (this.matchToken(TokenType.Let)) {
@@ -1052,7 +1058,7 @@ export default class Parser {
     if (this.matchToken(TokenType.Each)) {
       const eachKwrd = this.previous();
       const next = this.listComprehensionElementsOrExpr();
-      return new LcEachExpr( next, {
+      return new LcEachExpr(next, {
         eachKeyword: eachKwrd,
       });
     }
@@ -1084,7 +1090,9 @@ export default class Parser {
       });
     }
     // we should not get here
-    throw new Error("Unexpected token in list comprehension elements! THIS SHOULD NOT HAPPEN");
+    throw new Error(
+      "Unexpected token in list comprehension elements! THIS SHOULD NOT HAPPEN"
+    );
   }
   protected listComprehensionFor(): Expression {
     const forKwrd = this.previous();
@@ -1096,15 +1104,11 @@ export default class Parser {
     const firstArgs = this.forComprehensionArgs();
     if (this.matchToken(TokenType.RightParen)) {
       const secondParen = this.previous();
-      return new LcForExpr(
-        firstArgs,
-        this.listComprehensionElementsOrExpr(),
-        {
-          forKeyword: forKwrd,
-          firstParen,
-          secondParen,
-        }
-      );
+      return new LcForExpr(firstArgs, this.listComprehensionElementsOrExpr(), {
+        forKeyword: forKwrd,
+        firstParen,
+        secondParen,
+      });
     }
     this.consume(
       TokenType.Semicolon,

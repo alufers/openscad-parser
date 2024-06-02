@@ -63,6 +63,9 @@ describe("ASTScopePopulator", () => {
   it("creates LcForExprWithScope nodes", () => {
     checkIfExistsInTree(`x = [for(xD = [2,5]) xD];`, LcForExprWithScope);
   });
+  it("creates LcForExprWithScope nodes for LcFor's without variable names", () => {
+    checkIfExistsInTree(`x = [for([2,5]) 1];`, LcForExprWithScope);
+  });
   it("preserves tags in module instantations", () => {
     checkIfExistsInTree(`% * theMod();`, ModuleInstantiationStmt, (mod) => {
       expect(mod.tagBackground).toBeTruthy();

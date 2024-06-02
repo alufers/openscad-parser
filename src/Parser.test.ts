@@ -1013,13 +1013,55 @@ describe("Parser", () => {
   it("does not hang when parsing a declaration of a module called 'echo'", () => {
     expect(() =>
       doParse(`
-    module echo() {
-        echo("hello");
-    }`)
+        module echo() {
+            echo("hello");
+        }`)
     ).toThrow(ParsingError);
   });
+
   it("parses big_poly.scad in reasonable time", async () => {
-    const file = await CodeFile.load(resolve(__dirname, "testdata/big_poly.scad"));
+    const file = await CodeFile.load(
+      resolve(__dirname, "testdata/big_poly.scad")
+    );
     ParsingHelper.parseFile(file);
+  });
+
+  it("errors out when an expression is used instead of an argument name in module declaration", () => {
+    expect(() =>
+      doParse(`
+        module t1(good_one, 2+2) {}
+      `)
+    ).toThrow(ParsingError);
+    expect(() =>
+      doParse(`
+        module t1(2+2) {}
+      `)
+    ).toThrow(ParsingError);
+    expect(() =>
+      doParse(`
+        module t1(2+2, good_one) {}
+      `)
+    ).toThrow(ParsingError);
+    expect(() =>
+      doParse(`
+        module t1(good_one+2) {}
+      `)
+    ).toThrow(ParsingError);
+  });
+
+  it("Can parse list comprehensions with unnamed variables", () => {
+    doParse(`
+      x = [for([0:3]) 1];
+      echo(x);
+    `);
+    doParse(`
+      x = [for("abc") 1];
+      echo(x);
+    `);
+    doParse(`
+      alpha = "abc";
+      x = [for(alpha) 1];
+      echo(x);
+    `);
   });
 });
