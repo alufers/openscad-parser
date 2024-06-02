@@ -448,7 +448,7 @@ export default class Parser {
       }
     }
     let isForLoop = name === "for" || name === "intersection_for";
-    const args = this.args(!isForLoop);
+    const args = this.args(true, isForLoop ? AssignmentNodeRole.VARIABLE_DECLARATION : null);
     const secondParen = this.previous();
     return new ModuleInstantiationStmt(name, args, null, {
       firstParen,
@@ -462,7 +462,10 @@ export default class Parser {
    * The initial paren must be consumed.
    * @param allowPositional Set to true when in call mode, positional arguments will be allowed.
    */
-  protected args(allowPositional = false): AssignmentNode[] {
+  protected args(
+    allowPositional = false,
+    forceType: AssignmentNodeRole | null = null
+  ): AssignmentNode[] {
     this.consumeUselessCommas();
     const args: AssignmentNode[] = [];
     if (this.matchToken(TokenType.RightParen)) {
@@ -498,9 +501,11 @@ export default class Parser {
       const arg = new AssignmentNode(
         name,
         value,
-        allowPositional
-          ? AssignmentNodeRole.ARGUMENT_ASSIGNMENT
-          : AssignmentNodeRole.ARGUMENT_DECLARATION,
+        forceType == null
+          ? allowPositional
+            ? AssignmentNodeRole.ARGUMENT_ASSIGNMENT
+            : AssignmentNodeRole.ARGUMENT_DECLARATION
+          : forceType,
         {
           name: nameToken,
           equals,

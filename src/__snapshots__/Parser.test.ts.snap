@@ -46391,7 +46391,7 @@ polyhedron [[i1,i2,i3],[i2,i3,i4],...]",
                 "__c": "AssignmentNode",
                 "docComment": null,
                 "name": "i",
-                "role": 1,
+                "role": 0,
                 "tokens": {
                   "__c": "Object",
                   "equals": {

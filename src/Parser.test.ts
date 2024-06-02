@@ -1064,4 +1064,16 @@ describe("Parser", () => {
       echo(x);
     `);
   });
+
+  it("Can parse for loops with unnamed variables", () => {
+    doParse(`
+      for ([-1, 1]){
+          echo("should print two times");
+      }
+      
+      intersection_for([-1, 1]){
+          echo("this also should print two times");
+      }
+    `)
+  })
 });
