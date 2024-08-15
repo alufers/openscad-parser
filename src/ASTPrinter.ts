@@ -456,7 +456,7 @@ export default class ASTPrinter implements ASTVisitor<string> {
     }
     source += this.stringifyExtraTokens(n.tokens.secondParen);
     source += ")";
-    if (!(n.child instanceof NoopStmt)) {
+    if (!(n.child instanceof NoopStmt) && !this.breakBetweenModuleInstantations) {
       source += " ";
     }
     if (this.breakBetweenModuleInstantations) {
@@ -466,8 +466,8 @@ export default class ASTPrinter implements ASTVisitor<string> {
           c = this.copyWithIndent();
           c.firstModuleInstantation = false;
         }
+        this.newLineAfterNextComment("breakBetweenModuleInstantations");
         source +=
-          c.newLine(false, "breakBetweenModuleInstantations") +
           n.child.accept(c);
       } else {
         const c = this.copyWithBreakBetweenModuleInstantations(false);

@@ -98,7 +98,8 @@ describe("ASTPrinter", () => {
     arr = [20, if(true) each [20:50:30] else [808][0].x];
     compre = [for(a = [rang1, 2, 3]) let(x = a + 1) [sin(a)],];
     fun = function(a, b) a * b(13);
-    module the_mod() {
+    alpha = undef || beta && gamma;
+    module the_mod(arg1, arg2=2-2) {
         echo( [for (a = 0, b = 1;a < 5;a = a + 1, b = b + 2) [ a, b * b ] ] );
         if(yeah == true) {
             ;
@@ -223,9 +224,11 @@ echo(selector("mul")(5));  // ECHO: 26
     expect(f).toStrictEqual(expect.stringContaining("^"));
   });
 
-  test.only("formats 'for' comprehensions without variable names", ()=> {
-    expect(doFormat(`x = [for([0:3]) 1];`)).toStrictEqual(`x = [for([0 : 3]) 1];\n`);
-  })
+  test("formats 'for' comprehensions without variable names", () => {
+    expect(doFormat(`x = [for([0:3]) 1];`)).toStrictEqual(
+      `x = [for([0 : 3]) 1];\n`
+    );
+  });
 
   test("does not add a newline after a semicolon in an assignment if a comment follows it", () => {
     const f = doFormat(`
@@ -257,6 +260,60 @@ enum_value = "a";
       x = [for([0:3]) 1];
       x = [for("abc") 1];
       x = [for(alpha) 1];
+    `);
+  });
+  it("correctly handles comments after chained module instantiations", () => {
+    const formatted = doFormat(`
+$fn=4;// a comment
+translate([-5,-5,-10]) scale([1,1,2]) // another comment
+cube([10,10,10]);
+    `);
+
+    expect(formatted).toStrictEqual(`
+$fn = 4; // a comment
+translate([-5, -5, -10])
+    scale([1, 1, 2]) // another comment
+    cube([10, 10, 10]);
+`);
+  });
+
+  it("it adds spaces between module chained instantiations in one line", () => {
+    const formatted = doFormat(`
+scale()cube();
+    `);
+
+    expect(formatted).toStrictEqual(`
+scale() cube();
+`);
+  });
+
+  it("properly breaks apart long module instantiations", () => {
+    const formatted = doFormat(`
+scale() translate() translate() translate() rotate() cube();
+    `);
+    expect(formatted).toStrictEqual(`
+scale()
+    translate()
+    translate()
+    translate()
+    rotate()
+    cube();
+`);
+  });
+  it("preserves comments in varius module instantiations", () => {
+    doPreserveTest(`
+      scale() translate() translate() translate() rotate() cube();
+      scale()
+        translate()
+        translate()
+        translate()
+        rotate()
+        cube();
+      scale()cube();
+      $fn = 4; // a comment
+translate([-5, -5, -10])
+    scale([1, 1, 2]) // another comment
+    cube([10, 10, 10]);
     `);
   });
 });
