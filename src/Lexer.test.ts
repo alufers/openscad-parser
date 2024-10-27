@@ -377,6 +377,27 @@ describe("Lexer", () => {
       expect(() => lexTokens(`use <xD`)).toThrowError(LexingError);
     });
   });
+  it("lexes braces with comments properly", () => {
+    const tokens = lexTokens(`
+{      
+{                
+ } //end if
+}
+    `);
+    expect(tokens.map((t) => t.type)).toEqual([
+      TokenType.LeftBrace,
+      TokenType.LeftBrace,
+      TokenType.RightBrace,
+      TokenType.RightBrace,
+      TokenType.Eot,
+    ]);
+    expect(tokens[3].extraTokens).toHaveLength(2);
+    expect(tokens[3].extraTokens[0]).toBeInstanceOf(SingleLineComment);
+    expect((tokens[3].extraTokens[0] as SingleLineComment).contents).toEqual(
+      `end if`
+    );
+    expect(tokens[3].extraTokens[1]).toBeInstanceOf(NewLineExtraToken);
+  });
   it("does not add duplicate extraTokens", () => {
     const tokens = lexTokens(`
       module indented() {
@@ -407,10 +428,10 @@ describe("Lexer", () => {
   it("generates start and and in spans", () => {
     const tokens = lexTokens(`b();`); // 5 spaces
     expect(tokens.length).not.toBe(0);
-    tokens.every(t => {
+    tokens.every((t) => {
       expect(t.span.start).toBeTruthy();
       expect(t.span.end).toBeTruthy();
-    })
+    });
   });
   describe.skip("lexing of random files found on the internet", () => {
     async function lexFile(path: string) {

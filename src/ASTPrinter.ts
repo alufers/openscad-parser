@@ -456,7 +456,10 @@ export default class ASTPrinter implements ASTVisitor<string> {
     }
     source += this.stringifyExtraTokens(n.tokens.secondParen);
     source += ")";
-    if (!(n.child instanceof NoopStmt) && !this.breakBetweenModuleInstantations) {
+    if (
+      !(n.child instanceof NoopStmt) &&
+      !this.breakBetweenModuleInstantations
+    ) {
       source += " ";
     }
     if (this.breakBetweenModuleInstantations) {
@@ -467,8 +470,7 @@ export default class ASTPrinter implements ASTVisitor<string> {
           c.firstModuleInstantation = false;
         }
         this.newLineAfterNextComment("breakBetweenModuleInstantations");
-        source +=
-          n.child.accept(c);
+        source += n.child.accept(c);
       } else {
         const c = this.copyWithBreakBetweenModuleInstantations(false);
         c.firstModuleInstantation = true;
@@ -561,7 +563,7 @@ export default class ASTPrinter implements ASTVisitor<string> {
     }
     source += "}";
     if (!this.doNotAddNewlineAfterBlockStatement) {
-      source += this.newLine(false, "afterBlockStmt");
+      this.newLineAfterNextComment("afterBlockStmt");
     }
     return source;
   }

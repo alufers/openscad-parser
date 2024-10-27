@@ -45,14 +45,14 @@ describe("ASTPrinter", () => {
       }
       if (shouldInject) {
         const injectionBefore = `/* INJ_${injectId}_B */`;
-        codeWithInjections += injectionBefore;
+        codeWithInjections += " " + injectionBefore + " ";
         injectedStrings.push(injectionBefore);
         injectId++;
       }
       codeWithInjections += tok.lexeme;
       if (shouldInject) {
         const injectionAfter = `/* INJ_${injectId}_A */`;
-        codeWithInjections += injectionAfter;
+        codeWithInjections += " " + injectionAfter + " ";
         injectedStrings.push(injectionAfter);
         injectId++;
       }
@@ -315,5 +315,55 @@ translate([-5, -5, -10])
     scale([1, 1, 2]) // another comment
     cube([10, 10, 10]);
     `);
+  });
+
+  test("It preserves comments in files doing division (harness test)", async () => {
+    doPreserveTest(`translate([distance1-distance1/2,8.5,0]);`);
+  });
+
+  it("doesn't break code with comment after ending brace", async () => {
+    const formatted = doFormat(`
+{      
+{                
+ } //end if
+}`);
+
+    let [ast, errorCollector] = ParsingHelper.parseFile(
+      new CodeFile("<test>", formatted)
+    );
+    errorCollector.throwIfAny();
+  });
+
+  it("Adds newlines between stacked closing braces", async () => {
+    const formatted = doFormat(`
+{      
+{                
+ }}`);
+    expect(formatted).not.toContain("}}");
+  });
+
+  it("does not add newlines near the else keyword in ifs", async () => {
+    const formatted = doFormat(`
+if(true) {
+} else {
+ 
+}`);
+    expect(formatted).toContain("} else {");
+  });
+
+  it("doesn't break code with comment after ending brace of an else statement", async () => {
+    const formatted = doFormat(`
+if(true) {
+} // hello
+ else
+ // hello
+ {
+ 
+}`);
+
+    let [ast, errorCollector] = ParsingHelper.parseFile(
+      new CodeFile("<test>", formatted)
+    );
+    errorCollector.throwIfAny();
   });
 });
