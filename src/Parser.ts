@@ -528,6 +528,8 @@ export default class Parser {
       if (this.matchToken(TokenType.RightParen)) {
         return args;
       }
+      // neither a comma nor the closing paren followed the argument
+      break;
     }
     if (this.isAtEnd()) {
       throw this.errorCollector.reportError(

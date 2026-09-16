@@ -375,6 +375,27 @@ describe("Parser", () => {
     `)
     ).toThrow(ParsingError);
   });
+  it("throws on a missing comma between positional call arguments", () => {
+    expect(() =>
+      doParse(`
+        echo(1 2);
+      `)
+    ).toThrow(ParsingError);
+  });
+  it("throws on a missing comma between named call arguments", () => {
+    expect(() =>
+      doParse(`
+        echo(a = 1 b = 2);
+      `)
+    ).toThrow(ParsingError);
+  });
+  it("throws on a missing comma between mixed call arguments", () => {
+    expect(() =>
+      doParse(`
+        echo(1 a = 2);
+      `)
+    ).toThrow(ParsingError);
+  });
   it("parses member lookup expressions", () => {
     const file = doParse(`
       x = abc.y;
