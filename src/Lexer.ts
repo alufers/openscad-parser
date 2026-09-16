@@ -295,6 +295,18 @@ export default class Lexer {
     }
     this.addToken(TokenType.NumberLiteral, value);
   }
+  protected consumeHexNumberLiteral() {
+    this.advance(); // 0
+    this.advance(); // x
+    while (/[0-9a-fA-F]/.test(this.peek())) {
+      this.advance();
+    }
+    const lexeme = this.codeFile.code.substring(
+      this.start.char,
+      this.charOffset
+    );
+    this.addToken(TokenType.NumberLiteral, parseInt(lexeme.slice(2), 16));
+  }
   protected consumeIdentifierOrKeyword() {
     while (/[A-Za-z0-9_\$]/.test(this.peek()) && !this.isAtEnd()) {
       this.advance();
@@ -328,6 +340,13 @@ export default class Lexer {
       /[0-9a-zA-Z_\$]/.test(this.codeFile.code[this.start.char + wordLength])
     ) {
       wordLength++;
+    }
+
+    // Only lowercase "0x" is a hex prefix - "0X1A", "0x1g", "0x" fall
+    // through to being lexed as an identifier.
+    const hexMatch = this.peekRegex(/^0x[0-9a-fA-F]+/);
+    if (hexMatch.length >= wordLength) {
+      return this.consumeHexNumberLiteral();
     }
 
     const possibleNumberStarts = [

@@ -321,6 +321,49 @@ describe("Lexer", () => {
         TokenType.Eot,
       ]);
     });
+
+    it("lexes hexadecimal integer literals", () => {
+      expect(testNumberLexing("0x0")).toEqual(0);
+      expect(testNumberLexing("0xff")).toEqual(255);
+      expect(testNumberLexing("0xFF")).toEqual(255);
+      expect(testNumberLexing("0x1A")).toEqual(26);
+      expect(testNumberLexing("0x1F600")).toEqual(0x1f600);
+      expect(testNumberLexing("0x00000001")).toEqual(1);
+    });
+    it("only accepts a lowercase 0x prefix - 0X falls back to an identifier", () => {
+      expect(lexToTTStream("0X1A;")).toEqual([
+        TokenType.Identifier,
+        TokenType.Semicolon,
+        TokenType.Eot,
+      ]);
+    });
+    it("a hex prefix with no valid hex digit after it falls back to an identifier", () => {
+      expect(lexToTTStream("0x;")).toEqual([
+        TokenType.Identifier,
+        TokenType.Semicolon,
+        TokenType.Eot,
+      ]);
+      expect(lexToTTStream("0x1g;")).toEqual([
+        TokenType.Identifier,
+        TokenType.Semicolon,
+        TokenType.Eot,
+      ]);
+    });
+    it("stops at the first non-hex-digit character, same as the identifier-vs-number race for decimals", () => {
+      expect(lexToTTStream("0x1Axyz;")).toEqual([
+        TokenType.Identifier,
+        TokenType.Semicolon,
+        TokenType.Eot,
+      ]);
+    });
+    it("a trailing dot after a hex literal is not a hex float - it starts a new number", () => {
+      expect(lexToTTStream("0x1A.5;")).toEqual([
+        TokenType.NumberLiteral,
+        TokenType.NumberLiteral,
+        TokenType.Semicolon,
+        TokenType.Eot,
+      ]);
+    });
   });
 
   describe("string lexing", () => {
