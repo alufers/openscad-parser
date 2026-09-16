@@ -5,7 +5,6 @@ import ErrorCollector from "./ErrorCollector";
 import {
   IllegalStringEscapeSequenceLexingError,
   InvalidNumberLiteralLexingError,
-  SingleCharacterNotAllowedLexingError,
   TooManyDotsInNumberLiteralLexingError,
   TooManyEInNumberLiteralLexingError,
   UnexpectedCharacterLexingError,
@@ -160,14 +159,18 @@ export default class Lexer {
         }
         break;
       case "<":
-        if (this.match("=")) {
+        if (this.match("<")) {
+          this.addToken(TokenType.ShiftLeft);
+        } else if (this.match("=")) {
           this.addToken(TokenType.LessEqual);
         } else {
           this.addToken(TokenType.Less);
         }
         break;
       case ">":
-        if (this.match("=")) {
+        if (this.match(">")) {
+          this.addToken(TokenType.ShiftRight);
+        } else if (this.match("=")) {
           this.addToken(TokenType.GreaterEqual);
         } else {
           this.addToken(TokenType.Greater);
@@ -184,19 +187,18 @@ export default class Lexer {
         if (this.match("&")) {
           this.addToken(TokenType.AND);
         } else {
-          throw this.errorCollector.reportError(
-            new SingleCharacterNotAllowedLexingError(this.getLoc(), "&")
-          );
+          this.addToken(TokenType.Ampersand);
         }
         break;
       case "|":
         if (this.match("|")) {
           this.addToken(TokenType.OR);
         } else {
-          throw this.errorCollector.reportError(
-            new SingleCharacterNotAllowedLexingError(this.getLoc(), "&")
-          );
+          this.addToken(TokenType.Pipe);
         }
+        break;
+      case "~":
+        this.addToken(TokenType.Tilde);
         break;
       case "\n":
         this.currentExtraTokens.push(new NewLineExtraToken(this.getLoc()));

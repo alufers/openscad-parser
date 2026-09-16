@@ -208,13 +208,8 @@ describe("Lexer", () => {
   it("throws LexingError on unterminated multiline comments", () => {
     expect(() => lexToTTStream(`/* ahdsh`)).toThrowError(LexingError);
   });
-  it("throws LexingError on single & and single |", () => {
-    expect(() => lexToTTStream(`&`)).toThrowError(LexingError);
-    expect(() => lexToTTStream(`|`)).toThrowError(LexingError);
-  });
-
   it("throws LexingError on unexpected characters", () => {
-    expect(() => lexToTTStream(`~~~~~~`)).toThrowError(LexingError);
+    expect(() => lexToTTStream(`@@@@@@`)).toThrowError(LexingError);
   });
 
   it("adds extraTokens when scanning comments", () => {
@@ -360,6 +355,94 @@ describe("Lexer", () => {
       expect(lexToTTStream("0x1A.5;")).toEqual([
         TokenType.NumberLiteral,
         TokenType.NumberLiteral,
+        TokenType.Semicolon,
+        TokenType.Eot,
+      ]);
+    });
+  });
+
+  describe("bitwise and shift operator lexing", () => {
+    it("lexes single & and | as their own tokens", () => {
+      expect(lexToTTStream(`a & b | c;`)).toEqual([
+        TokenType.Identifier,
+        TokenType.Ampersand,
+        TokenType.Identifier,
+        TokenType.Pipe,
+        TokenType.Identifier,
+        TokenType.Semicolon,
+        TokenType.Eot,
+      ]);
+    });
+    it("still lexes && and || as AND/OR, not two Ampersand/Pipe tokens", () => {
+      expect(lexToTTStream(`a && b || c;`)).toEqual([
+        TokenType.Identifier,
+        TokenType.AND,
+        TokenType.Identifier,
+        TokenType.OR,
+        TokenType.Identifier,
+        TokenType.Semicolon,
+        TokenType.Eot,
+      ]);
+    });
+    it("lexes ~ as its own token", () => {
+      expect(lexToTTStream(`~a;`)).toEqual([
+        TokenType.Tilde,
+        TokenType.Identifier,
+        TokenType.Semicolon,
+        TokenType.Eot,
+      ]);
+    });
+    it("lexes << and >> as their own tokens, distinct from repeated < or >", () => {
+      expect(lexToTTStream(`a << b >> c;`)).toEqual([
+        TokenType.Identifier,
+        TokenType.ShiftLeft,
+        TokenType.Identifier,
+        TokenType.ShiftRight,
+        TokenType.Identifier,
+        TokenType.Semicolon,
+        TokenType.Eot,
+      ]);
+    });
+    it("disambiguates <</>> from <=/>= and </>", () => {
+      expect(lexToTTStream(`a<b;`)).toEqual([
+        TokenType.Identifier,
+        TokenType.Less,
+        TokenType.Identifier,
+        TokenType.Semicolon,
+        TokenType.Eot,
+      ]);
+      expect(lexToTTStream(`a<=b;`)).toEqual([
+        TokenType.Identifier,
+        TokenType.LessEqual,
+        TokenType.Identifier,
+        TokenType.Semicolon,
+        TokenType.Eot,
+      ]);
+      expect(lexToTTStream(`a<<b;`)).toEqual([
+        TokenType.Identifier,
+        TokenType.ShiftLeft,
+        TokenType.Identifier,
+        TokenType.Semicolon,
+        TokenType.Eot,
+      ]);
+      expect(lexToTTStream(`a>b;`)).toEqual([
+        TokenType.Identifier,
+        TokenType.Greater,
+        TokenType.Identifier,
+        TokenType.Semicolon,
+        TokenType.Eot,
+      ]);
+      expect(lexToTTStream(`a>=b;`)).toEqual([
+        TokenType.Identifier,
+        TokenType.GreaterEqual,
+        TokenType.Identifier,
+        TokenType.Semicolon,
+        TokenType.Eot,
+      ]);
+      expect(lexToTTStream(`a>>b;`)).toEqual([
+        TokenType.Identifier,
+        TokenType.ShiftRight,
+        TokenType.Identifier,
         TokenType.Semicolon,
         TokenType.Eot,
       ]);

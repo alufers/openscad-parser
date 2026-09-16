@@ -524,6 +524,193 @@ describe("Parser", () => {
     expect(unary.operation).toEqual(TokenType.Plus);
     expect(unary).toHaveProperty("right.value", 32);
   });
+  it("parses the '~' unary operator", () => {
+    const file = doParse(`
+      x = ~5;
+    `);
+    expect(file.statements[0]).toBeInstanceOf(AssignmentNode);
+    const a = file.statements[0] as AssignmentNode;
+    expect(a.value).toBeInstanceOf(UnaryOpExpr);
+    const unary = a.value as UnaryOpExpr;
+    expect(unary.operation).toEqual(TokenType.Tilde);
+    expect(unary).toHaveProperty("right.value", 5);
+  });
+  it("parses the '&' and '|' binary operators", () => {
+    const file = doParse(`
+      x = 5 & 3;
+      y = 5 | 2;
+    `);
+    expect(file.statements[0]).toBeInstanceOf(AssignmentNode);
+    expect(file.statements).toHaveProperty(
+      [0, "value", "operation"],
+      TokenType.Ampersand
+    );
+    expect(file.statements).toHaveProperty([0, "value", "left", "value"], 5);
+    expect(file.statements).toHaveProperty([0, "value", "right", "value"], 3);
+    expect(file.statements).toHaveProperty(
+      [1, "value", "operation"],
+      TokenType.Pipe
+    );
+  });
+  it("parses the '<<' and '>>' shift operators", () => {
+    const file = doParse(`
+      x = 1 << 4;
+      y = 256 >> 4;
+    `);
+    expect(file.statements).toHaveProperty(
+      [0, "value", "operation"],
+      TokenType.ShiftLeft
+    );
+    expect(file.statements).toHaveProperty([0, "value", "left", "value"], 1);
+    expect(file.statements).toHaveProperty([0, "value", "right", "value"], 4);
+    expect(file.statements).toHaveProperty(
+      [1, "value", "operation"],
+      TokenType.ShiftRight
+    );
+  });
+  it("'<<' and '>>' are left-associative", () => {
+    const file = doParse(`
+      x = 1 << 2 << 3;
+    `);
+    const a = file.statements[0] as AssignmentNode;
+    expect(a.value).toHaveProperty("operation", TokenType.ShiftLeft);
+    expect(a.value).toHaveProperty("left.operation", TokenType.ShiftLeft);
+    expect(a.value).toHaveProperty("left.left.value", 1);
+    expect(a.value).toHaveProperty("left.right.value", 2);
+    expect(a.value).toHaveProperty("right.value", 3);
+  });
+  it("parses '&', '|', '<<', '>>' with the correct relative precedence", () => {
+    // Grammar (tightest to loosest of this family): shift (<< >>) > binaryand
+    // (&) > binaryor (|). Each case picks operators where the wrong
+    // precedence would nest the tree differently.
+    const file = doParse(`
+      a = 1 | 2 & 6;
+      b = 4 << 1 & 3;
+      c = 1 | 2 << 1;
+    `);
+    expect(file.statements).toHaveProperty(
+      [0, "value", "operation"],
+      TokenType.Pipe
+    );
+    expect(file.statements).toHaveProperty([0, "value", "left", "value"], 1);
+    expect(file.statements).toHaveProperty(
+      [0, "value", "right", "operation"],
+      TokenType.Ampersand
+    );
+
+    expect(file.statements).toHaveProperty(
+      [1, "value", "operation"],
+      TokenType.Ampersand
+    );
+    expect(file.statements).toHaveProperty(
+      [1, "value", "left", "operation"],
+      TokenType.ShiftLeft
+    );
+    expect(file.statements).toHaveProperty([1, "value", "right", "value"], 3);
+
+    expect(file.statements).toHaveProperty(
+      [2, "value", "operation"],
+      TokenType.Pipe
+    );
+    expect(file.statements).toHaveProperty(
+      [2, "value", "right", "operation"],
+      TokenType.ShiftLeft
+    );
+  });
+  it("'+'/'-' bind tighter than '<<'/'>>', which binds tighter than '&', which binds tighter than '|' and comparison", () => {
+    const file = doParse(`
+      a = 4 << 1 + 1;
+      b = 1 & 1 == 1;
+    `);
+    expect(file.statements).toHaveProperty(
+      [0, "value", "operation"],
+      TokenType.ShiftLeft
+    );
+    expect(file.statements).toHaveProperty(
+      [0, "value", "right", "operation"],
+      TokenType.Plus
+    );
+
+    expect(file.statements).toHaveProperty(
+      [1, "value", "operation"],
+      TokenType.EqualEqual
+    );
+    expect(file.statements).toHaveProperty(
+      [1, "value", "left", "operation"],
+      TokenType.Ampersand
+    );
+  });
+  it("unary '~' binds tighter than '<<', '&', and '|'", () => {
+    const file = doParse(`
+      a = ~1 + 1;
+    `);
+    expect(file.statements).toHaveProperty(
+      [0, "value", "operation"],
+      TokenType.Plus
+    );
+    expect(file.statements).toHaveProperty(
+      [0, "value", "left", "operation"],
+      TokenType.Tilde
+    );
+  });
+  it("unary '~' composes correctly as either operand of '<<', '&', and '|'", () => {
+    const file = doParse(`
+      a = ~4 << 1;
+      b = 1 << ~4;
+      c = ~4 & 1;
+      d = 1 & ~4;
+      e = ~4 | 1;
+      f = 1 | ~4;
+    `);
+    expect(file.statements).toHaveProperty(
+      [0, "value", "operation"],
+      TokenType.ShiftLeft
+    );
+    expect(file.statements).toHaveProperty(
+      [0, "value", "left", "operation"],
+      TokenType.Tilde
+    );
+    expect(file.statements).toHaveProperty(
+      [1, "value", "operation"],
+      TokenType.ShiftLeft
+    );
+    expect(file.statements).toHaveProperty(
+      [1, "value", "right", "operation"],
+      TokenType.Tilde
+    );
+    expect(file.statements).toHaveProperty(
+      [2, "value", "operation"],
+      TokenType.Ampersand
+    );
+    expect(file.statements).toHaveProperty(
+      [2, "value", "left", "operation"],
+      TokenType.Tilde
+    );
+    expect(file.statements).toHaveProperty(
+      [3, "value", "operation"],
+      TokenType.Ampersand
+    );
+    expect(file.statements).toHaveProperty(
+      [3, "value", "right", "operation"],
+      TokenType.Tilde
+    );
+    expect(file.statements).toHaveProperty(
+      [4, "value", "operation"],
+      TokenType.Pipe
+    );
+    expect(file.statements).toHaveProperty(
+      [4, "value", "left", "operation"],
+      TokenType.Tilde
+    );
+    expect(file.statements).toHaveProperty(
+      [5, "value", "operation"],
+      TokenType.Pipe
+    );
+    expect(file.statements).toHaveProperty(
+      [5, "value", "right", "operation"],
+      TokenType.Tilde
+    );
+  });
   it("parses comparsion operators", () => {
     const file = doParse(`
       if(x > 2) {

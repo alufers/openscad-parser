@@ -49,4 +49,9 @@ export default {
   [TokenType.Use]: "'use' (Use)",
   [TokenType.FilenameInChevrons]: "filename (FilenameInChevrons)",
   [TokenType.Include]: "'include' (Include)",
+  [TokenType.Ampersand]: "'&' (Ampersand)",
+  [TokenType.Pipe]: "'|' (Pipe)",
+  [TokenType.Tilde]: "'~' (Tilde)",
+  [TokenType.ShiftLeft]: "'<<' (ShiftLeft)",
+  [TokenType.ShiftRight]: "'>>' (ShiftRight)",
 };

@@ -718,7 +718,7 @@ export default class Parser {
     return expr;
   }
   protected comparsion(): Expression {
-    let expr = this.addition();
+    let expr = this.binaryOr();
     while (
       this.matchToken(
         TokenType.Less,
@@ -727,6 +727,48 @@ export default class Parser {
         TokenType.GreaterEqual
       )
     ) {
+      const operator = this.previous();
+      const right = this.binaryOr();
+      expr = new BinaryOpExpr(expr, operator.type, right, {
+        operator,
+      });
+    }
+    return expr;
+  }
+  /**
+   * Parses the '|' operator.
+   */
+  protected binaryOr(): Expression {
+    let expr = this.binaryAnd();
+    while (this.matchToken(TokenType.Pipe)) {
+      const operator = this.previous();
+      const right = this.binaryAnd();
+      expr = new BinaryOpExpr(expr, operator.type, right, {
+        operator,
+      });
+    }
+    return expr;
+  }
+  /**
+   * Parses the '&' operator.
+   */
+  protected binaryAnd(): Expression {
+    let expr = this.shift();
+    while (this.matchToken(TokenType.Ampersand)) {
+      const operator = this.previous();
+      const right = this.shift();
+      expr = new BinaryOpExpr(expr, operator.type, right, {
+        operator,
+      });
+    }
+    return expr;
+  }
+  /**
+   * Parses the '<<' and '>>' operators.
+   */
+  protected shift(): Expression {
+    let expr = this.addition();
+    while (this.matchToken(TokenType.ShiftLeft, TokenType.ShiftRight)) {
       const operator = this.previous();
       const right = this.addition();
       expr = new BinaryOpExpr(expr, operator.type, right, {
@@ -779,7 +821,14 @@ export default class Parser {
    * Parses +expr, -expr and !expr.
    */
   protected unary(): Expression {
-    if (this.matchToken(TokenType.Plus, TokenType.Minus, TokenType.Bang)) {
+    if (
+      this.matchToken(
+        TokenType.Plus,
+        TokenType.Minus,
+        TokenType.Bang,
+        TokenType.Tilde
+      )
+    ) {
       const operator = this.previous();
       const right = this.unary();
       return new UnaryOpExpr(operator.type, right, {

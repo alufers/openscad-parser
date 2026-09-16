@@ -117,7 +117,7 @@ enum TokenType {
   Slash,
   Percent,
   Caret,
-  
+
   /**
    * Left parenthesis: (
    */
@@ -179,6 +179,27 @@ enum TokenType {
    * The include keyword.
    */
   Include,
+
+  /**
+   * &
+   */
+  Ampersand,
+  /**
+   * |
+   */
+  Pipe,
+  /**
+   * ~
+   */
+  Tilde,
+  /**
+   * <<
+   */
+  ShiftLeft,
+  /**
+   * >>
+   */
+  ShiftRight,
 }
 
 export default TokenType;
