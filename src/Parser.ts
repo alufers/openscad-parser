@@ -791,25 +791,10 @@ export default class Parser {
     return expr;
   }
   protected multiplication(): Expression {
-    let expr = this.exponentiation();
+    let expr = this.unary();
     while (
       this.matchToken(TokenType.Star, TokenType.Slash, TokenType.Percent)
     ) {
-      const operator = this.previous();
-      const right = this.exponentiation();
-      expr = new BinaryOpExpr(expr, operator.type, right, {
-        operator,
-      });
-    }
-    return expr;
-  }
-
-  /**
-   * Parses b ^ e.
-   */
-  protected exponentiation(): Expression {
-    let expr = this.unary();
-    while (this.matchToken(TokenType.Caret)) {
       const operator = this.previous();
       const right = this.unary();
       expr = new BinaryOpExpr(expr, operator.type, right, {
@@ -820,7 +805,27 @@ export default class Parser {
   }
 
   /**
-   * Parses +expr, -expr and !expr.
+   * Parses b ^ e. Right-associative (2^2^3 === 2^(2^3)) and binds tighter
+   * than unary operators, so its base is parsed via memberLookupOrArrayLookup
+   * rather than unary - a leading unary operator instead wraps the whole
+   * expression from the `unary()` method below, matching real OpenSCAD's
+   * `-2^2 === -4` rather than `4`. The exponent itself is parsed via
+   * `unary()` so it may carry its own sign, e.g. `2^-2`.
+   */
+  protected exponentiation(): Expression {
+    const expr = this.memberLookupOrArrayLookup();
+    if (this.matchToken(TokenType.Caret)) {
+      const operator = this.previous();
+      const right = this.unary();
+      return new BinaryOpExpr(expr, operator.type, right, {
+        operator,
+      });
+    }
+    return expr;
+  }
+
+  /**
+   * Parses +expr, -expr and !expr. Binds looser than '^' (see exponentiation()).
    */
   protected unary(): Expression {
     if (
@@ -837,7 +842,7 @@ export default class Parser {
         operator,
       });
     }
-    return this.memberLookupOrArrayLookup();
+    return this.exponentiation();
   }
   protected memberLookupOrArrayLookup() {
     let expr = this.primary();

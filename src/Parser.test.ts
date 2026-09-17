@@ -512,6 +512,80 @@ describe("Parser", () => {
     const a = file.statements[0] as AssignmentNode;
     expect(simplifyAst(a.value!)).toMatchSnapshot();
   });
+  it("parses '^' as right-associative", () => {
+    // real OpenSCAD: 2^2^3 === 2^(2^3) === 256, not (2^2)^3 === 64
+    const file = doParse(`
+      x = 2^2^3;
+    `);
+    const a = file.statements[0] as AssignmentNode;
+    expect(a.value).toBeInstanceOf(BinaryOpExpr);
+    expect(a.value).toHaveProperty("operation", TokenType.Caret);
+    expect(a.value).toHaveProperty("left.value", 2);
+    expect(a.value).toHaveProperty("right.operation", TokenType.Caret);
+    expect(a.value).toHaveProperty("right.left.value", 2);
+    expect(a.value).toHaveProperty("right.right.value", 3);
+  });
+  it("gives unary minus lower precedence than '^', matching real OpenSCAD (-2^2 === -4, not 4)", () => {
+    const file = doParse(`
+      x = -2^2;
+    `);
+    const a = file.statements[0] as AssignmentNode;
+    expect(a.value).toBeInstanceOf(UnaryOpExpr);
+    expect(a.value).toHaveProperty("operation", TokenType.Minus);
+    expect(a.value).toHaveProperty("right.operation", TokenType.Caret);
+    expect(a.value).toHaveProperty("right.left.value", 2);
+    expect(a.value).toHaveProperty("right.right.value", 2);
+  });
+  it("allows a unary minus on the exponent (2^-2 === 0.25)", () => {
+    const file = doParse(`
+      x = 2^-2;
+    `);
+    const a = file.statements[0] as AssignmentNode;
+    expect(a.value).toBeInstanceOf(BinaryOpExpr);
+    expect(a.value).toHaveProperty("operation", TokenType.Caret);
+    expect(a.value).toHaveProperty("left.value", 2);
+    expect(a.value).toHaveProperty("right.operation", TokenType.Minus);
+    expect(a.value).toHaveProperty("right.right.value", 2);
+  });
+  it("wraps a whole right-associative '^' chain in a leading unary minus (-2^2^2 === -16)", () => {
+    const file = doParse(`
+      x = -2^2^2;
+    `);
+    const a = file.statements[0] as AssignmentNode;
+    expect(a.value).toBeInstanceOf(UnaryOpExpr);
+    expect(a.value).toHaveProperty("operation", TokenType.Minus);
+    expect(a.value).toHaveProperty("right.operation", TokenType.Caret);
+    expect(a.value).toHaveProperty("right.left.value", 2);
+    expect(a.value).toHaveProperty("right.right.operation", TokenType.Caret);
+    expect(a.value).toHaveProperty("right.right.left.value", 2);
+    expect(a.value).toHaveProperty("right.right.right.value", 2);
+  });
+  it("keeps '-2^2' as a single unit when used as a multiplication operand (2*-2^2 === -8)", () => {
+    const file = doParse(`
+      x = 2*-2^2;
+    `);
+    const a = file.statements[0] as AssignmentNode;
+    expect(a.value).toBeInstanceOf(BinaryOpExpr);
+    expect(a.value).toHaveProperty("operation", TokenType.Star);
+    expect(a.value).toHaveProperty("left.value", 2);
+    expect(a.value).toHaveProperty("right.operation", TokenType.Minus);
+    expect(a.value).toHaveProperty("right.right.operation", TokenType.Caret);
+    expect(a.value).toHaveProperty("right.right.left.value", 2);
+    expect(a.value).toHaveProperty("right.right.right.value", 2);
+  });
+  it("does not let a leading unary minus reach past a parenthesized base (-(-2)^2 === -4)", () => {
+    const file = doParse(`
+      x = -(-2)^2;
+    `);
+    const a = file.statements[0] as AssignmentNode;
+    expect(a.value).toBeInstanceOf(UnaryOpExpr);
+    expect(a.value).toHaveProperty("operation", TokenType.Minus);
+    const powExpr = (a.value as UnaryOpExpr).right as BinaryOpExpr;
+    expect(powExpr).toBeInstanceOf(BinaryOpExpr);
+    expect(powExpr.operation).toEqual(TokenType.Caret);
+    expect(powExpr.left).toBeInstanceOf(GroupingExpr);
+    expect(powExpr).toHaveProperty("right.value", 2);
+  });
   it("parses the '-' unary operator", () => {
     const file = doParse(`
       x = -10;
